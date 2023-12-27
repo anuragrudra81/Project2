@@ -1,0 +1,252 @@
+2023-12-27T12:37:03+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 28: Operation timed out after 10004 milliseconds with 0 out of 0 bytes received
+
+2023-12-27T12:37:03+00:00 WARNING Could not create token.
+2023-12-27T12:37:13+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 28: Operation timed out after 10002 milliseconds with 0 out of 0 bytes received
+
+2023-12-27T12:37:13+00:00 WARNING Could not create token.
+2023-12-27T12:37:13+00:00 ERROR Client ID retrieval failed: Could not create token.
+2023-12-27T12:54:29+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:54:29+00:00 WARNING Could not create token.
+2023-12-27T12:54:29+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:54:29+00:00 WARNING Could not create token.
+2023-12-27T12:54:49+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:54:49+00:00 WARNING Could not create token.
+2023-12-27T12:54:49+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:54:49+00:00 WARNING Could not create token.
+2023-12-27T12:55:59+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:55:59+00:00 WARNING Could not create token.
+2023-12-27T12:55:59+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:55:59+00:00 WARNING Could not create token.
+2023-12-27T12:56:18+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:56:18+00:00 WARNING Could not create token.
+2023-12-27T12:56:18+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:56:18+00:00 WARNING Could not create token.
+2023-12-27T12:56:31+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:56:31+00:00 WARNING Could not create token.
+2023-12-27T12:56:31+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:56:31+00:00 WARNING Could not create token.
+2023-12-27T12:56:35+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:56:35+00:00 WARNING Could not create token.
+2023-12-27T12:56:35+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:56:35+00:00 WARNING Could not create token.
+2023-12-27T12:56:35+00:00 ERROR Client ID retrieval failed: Could not create token.
+2023-12-27T12:56:58+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:56:58+00:00 WARNING Could not create token.
+2023-12-27T12:56:58+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:56:58+00:00 WARNING Could not create token.
+2023-12-27T12:57:30+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:57:30+00:00 WARNING Could not create token.
+2023-12-27T12:57:30+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:57:30+00:00 WARNING Could not create token.
+2023-12-27T12:57:32+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:57:32+00:00 WARNING Could not create token.
+2023-12-27T12:57:32+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Request failed. WP error message: cURL error 6: Could not resolve host: api.paypal.com
+
+2023-12-27T12:57:32+00:00 WARNING Could not create token.
+2023-12-27T12:58:01+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Response Debug ID: 8ffa9d1399cad
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
+2023-12-27T13:38:04+00:00 DEBUG POST https://api.paypal.com/v1/identity/generate-token
+Request Body: {"customer_id":"bccdfc-6f18c9b82c856"}
+Response Debug ID: 321b497249261
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
+2023-12-27T13:38:30+00:00 DEBUG POST https://api.paypal.com/v1/identity/generate-token
+Request Body: {"customer_id":"bccdfc-7a5255d82c856"}
+Response Debug ID: 397ffc8bdbcf0
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
+2023-12-27T13:39:18+00:00 DEBUG POST https://api.paypal.com/v1/identity/generate-token
+Request Body: {"customer_id":"bccdfc-2c7825092c856"}
+Response Debug ID: 6b1addce1ffe4
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
+2023-12-27T13:40:07+00:00 DEBUG POST https://api.paypal.com/v1/identity/generate-token
+Request Body: {"customer_id":"bccdfc-006866392c856"}
+Response Debug ID: 213b3c225960a
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
+2023-12-27T13:40:24+00:00 DEBUG POST https://api.paypal.com/v1/identity/generate-token
+Request Body: {"customer_id":"bccdfc-31a2c6492c856"}
+Response Debug ID: 57cc34a43066b
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
+2023-12-27T13:40:37+00:00 DEBUG POST https://api.paypal.com/v1/identity/generate-token
+Request Body: {"customer_id":"bccdfc-af6184592c856"}
+Response Debug ID: 863f12fdefd3b
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
+2023-12-27T13:40:48+00:00 DEBUG POST https://api.paypal.com/v1/identity/generate-token
+Request Body: {"customer_id":"bccdfc-c6db4f592c856"}
+Response Debug ID: b33f1c23864e5
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
+2023-12-27T13:43:00+00:00 DEBUG POST https://api.paypal.com/v1/identity/generate-token
+Request Body: {"customer_id":"bccdfc-1"}
+Response Debug ID: 3e154a85f93b6
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
+2023-12-27T13:43:23+00:00 DEBUG POST https://api.paypal.com/v1/identity/generate-token
+Request Body: {"customer_id":"bccdfc-1"}
+Response Debug ID: 52beef94f1d2a
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
+2023-12-27T13:46:25+00:00 DEBUG GET https://api-m.paypal.com/v1/customer/partners/K8SKZ36LQBWXJ/merchant-integrations/7W45J9FQ98LMJ
+Response Debug ID: f50119c16f16a
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
+2023-12-27T13:46:26+00:00 DEBUG GET https://api-m.paypal.com/v1/customer/partners/K8SKZ36LQBWXJ/merchant-integrations/7W45J9FQ98LMJ
+Response Debug ID: 6e518be890c5c
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
+2023-12-27T13:46:26+00:00 INFO No customers for payment tokens migration.
+2023-12-27T13:46:28+00:00 DEBUG GET https://api-m.paypal.com/v1/notifications/webhooks
+Response Debug ID: c8d0945fe9ab7
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
+2023-12-27T13:46:28+00:00 INFO Webhooks deleted.
+2023-12-27T13:46:29+00:00 DEBUG POST https://api-m.paypal.com/v1/notifications/webhooks
+Request Body: {"url":"https:\/\/localhost\/project3\/index.php?rest_route=\/paypal\/v1\/incoming","event_types":[{"name":"CHECKOUT.ORDER.APPROVED"},{"name":"CHECKOUT.ORDER.COMPLETED"},{"name":"CHECKOUT.PAYMENT-APPROVAL.REVERSED"},{"name":"PAYMENT.CAPTURE.REFUNDED"},{"name":"PAYMENT.AUTHORIZATION.VOIDED"},{"name":"PAYMENT.CAPTURE.REVERSED"},{"name":"PAYMENT.ORDER.CANCELLED"},{"name":"PAYMENT.CAPTURE.DENIED"},{"name":"PAYMENT.CAPTURE.COMPLETED"},{"name":"VAULT.PAYMENT-TOKEN.CREATED"},{"name":"VAULT.PAYMENT-TOKEN.DELETED"},{"name":"PAYMENT.CAPTURE.PENDING"},{"name":"PAYMENT.SALE.COMPLETED"},{"name":"PAYMENT.SALE.REFUNDED"},{"name":"BILLING.SUBSCRIPTION.CANCELLED"},{"name":"BILLING.PLAN.PRICING-CHANGE.ACTIVATED"},{"name":"CATALOG.PRODUCT.UPDATED"},{"name":"BILLING.PLAN.UPDATED"}]}
+Response Debug ID: 1db091b40f0ef
+Response: Array
+(
+    [code] => 400
+    [message] => Bad Request
+)
+
+Response Body: {"name":"VALIDATION_ERROR","message":"Invalid data provided","debug_id":"1db091b40f0ef","information_link":"https://developer.paypal.com/docs/api/webhooks/#errors","details":[{"field":"url","location":"body","issue":"Not a valid webhook URL"}],"links":[]}
+
+2023-12-27T13:46:29+00:00 ERROR Failed to subscribe webhooks: [VALIDATION_ERROR] Invalid data provided
+2023-12-27T13:58:40+00:00 DEBUG POST https://api-m.paypal.com/v1/identity/generate-token
+Request Body: {"customer_id":"bccdfc-1"}
+Response Debug ID: b5fd17bb3f717
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
+2023-12-27T13:59:01+00:00 DEBUG POST https://api-m.paypal.com/v1/identity/generate-token
+Request Body: {"customer_id":"bccdfc-1"}
+Response Debug ID: 89d0a56a364a3
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
+2023-12-27T14:04:15+00:00 DEBUG POST https://api-m.paypal.com/v1/identity/generate-token
+Request Body: {"customer_id":"bccdfc-1"}
+Response Debug ID: 958adb5f04e45
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
