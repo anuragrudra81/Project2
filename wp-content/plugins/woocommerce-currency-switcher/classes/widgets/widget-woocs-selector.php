@@ -4,9 +4,9 @@
 class WOOCS_SELECTOR extends WP_Widget {
 
     public function __construct() {
-        parent::__construct(__CLASS__, esc_html__('FOX Currency Switcher', 'woocommerce-currency-switcher'), array(
+        parent::__construct(__CLASS__, esc_html__('WooCommerce Currency Switcher', 'woocommerce-currency-switcher'), array(
             'classname' => __CLASS__,
-            'description' => esc_html__('Currency Switcher for WooCommerce by realmag777', 'woocommerce-currency-switcher')
+            'description' => esc_html__('WooCommerce Currency Switcher by realmag777', 'woocommerce-currency-switcher')
                 )
         );
     }
@@ -33,7 +33,7 @@ class WOOCS_SELECTOR extends WP_Widget {
 
     public function form($instance) {
         $defaults = array(
-            'title' => esc_html__('FOX Currency Switcher', 'woocommerce-currency-switcher'),
+            'title' => esc_html__('WooCommerce Currency Switcher', 'woocommerce-currency-switcher'),
             'show_flags' => 'true',
             'width' => '100%',
             'flag_position' => 'right',

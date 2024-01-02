@@ -18,7 +18,7 @@ use WP_REST_Response;
  */
 class PaymentCapturePending implements RequestHandler {
 
-	use RequestHandlerTrait;
+	use PrefixTrait;
 
 	/**
 	 * The logger.
@@ -66,21 +66,36 @@ class PaymentCapturePending implements RequestHandler {
 	 * @return WP_REST_Response
 	 */
 	public function handle_request( WP_REST_Request $request ): WP_REST_Response {
+		$response = array( 'success' => false );
 		$order_id = $request['resource'] !== null && isset( $request['resource']['custom_id'] )
-			? $request['resource']['custom_id']
+			? $this->sanitize_custom_id( $request['resource']['custom_id'] )
 			: 0;
 		if ( ! $order_id ) {
 			$message = sprintf(
-				'No order for webhook event %s was found.',
+			// translators: %s is the PayPal webhook Id.
+				__(
+					'No order for webhook event %s was found.',
+					'woocommerce-paypal-payments'
+				),
 				$request['id'] !== null && isset( $request['id'] ) ? $request['id'] : ''
 			);
-			return $this->failure_response( $message );
+			$this->logger->log(
+				'warning',
+				$message,
+				array(
+					'request' => $request,
+				)
+			);
+			$response['message'] = $message;
+			return new WP_REST_Response( $response );
 		}
 
 		$resource = $request['resource'];
 		if ( ! is_array( $resource ) ) {
 			$message = 'Resource data not found in webhook request.';
-			return $this->failure_response( $message );
+			$this->logger->warning( $message, array( 'request' => $request ) );
+			$response['message'] = $message;
+			return new WP_REST_Response( $response );
 		}
 
 		$wc_order = wc_get_order( $order_id );
@@ -90,7 +105,10 @@ class PaymentCapturePending implements RequestHandler {
 				$request['resource'] !== null && isset( $request['resource']['id'] ) ? $request['resource']['id'] : ''
 			);
 
-			return $this->failure_response( $message );
+			$this->logger->warning( $message );
+
+			$response['message'] = $message;
+			return new WP_REST_Response( $response );
 		}
 
 		if ( $wc_order->get_status() === 'pending' ) {
@@ -98,6 +116,7 @@ class PaymentCapturePending implements RequestHandler {
 
 		}
 
-		return $this->success_response();
+		$response['success'] = true;
+		return new WP_REST_Response( $response );
 	}
 }

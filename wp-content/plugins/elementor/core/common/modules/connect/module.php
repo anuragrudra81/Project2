@@ -19,13 +19,6 @@ class Module extends BaseModule {
 	const ACCESS_LEVEL_PRO = 1;
 	const ACCESS_LEVEL_EXPERT = 20;
 
-	const ACCESS_TIER_FREE = 'free';
-	const ACCESS_TIER_ESSENTIAL = 'essential';
-	const ACCESS_TIER_ESSENTIAL_OCT_2023 = 'essential-oct2023';
-	const ACCESS_TIER_ADVANCED = 'advanced';
-	const ACCESS_TIER_EXPERT = 'expert';
-	const ACCESS_TIER_AGENCY = 'agency';
-
 	/**
 	 * @since 2.3.0
 	 * @access public
@@ -198,39 +191,21 @@ class Module extends BaseModule {
 	 * @return array
 	 */
 	public function get_subscription_plans( $context = '' ) {
-		$base_url = Utils::has_pro() ? 'https://my.elementor.com/upgrade-subscription' : 'https://elementor.com/pro';
-		$promotion_url = $base_url . '/?utm_source=' . $context . '&utm_medium=wp-dash&utm_campaign=gopro';
-
 		return [
-			static::ACCESS_TIER_FREE => [
+			static::ACCESS_LEVEL_CORE => [
 				'label' => null,
 				'promotion_url' => null,
 				'color' => null,
 			],
-			static::ACCESS_TIER_ESSENTIAL => [
+			static::ACCESS_LEVEL_PRO => [
 				'label' => 'Pro',
-				'promotion_url' => $promotion_url,
+				'promotion_url' => 'https://elementor.com/pro/?utm_source=' . $context . '&utm_medium=wp-dash&utm_campaign=gopro',
 				'color' => '#92003B',
 			],
-			static::ACCESS_TIER_ESSENTIAL_OCT_2023 => [
-				'label' => 'Advanced', // Should be the same label as "Advanced".
-				'promotion_url' => $promotion_url,
-				'color' => '#92003B',
-			],
-			static::ACCESS_TIER_ADVANCED => [
-				'label' => 'Advanced',
-				'promotion_url' => $promotion_url,
-				'color' => '#92003B',
-			],
-			static::ACCESS_TIER_EXPERT => [
+			static::ACCESS_LEVEL_EXPERT => [
 				'label' => 'Expert',
-				'promotion_url' => $promotion_url,
-				'color' => '#92003B',
-			],
-			static::ACCESS_TIER_AGENCY => [
-				'label' => 'Agency',
-				'promotion_url' => $promotion_url,
-				'color' => '#92003B',
+				'promotion_url' => 'https://elementor.com/pro/?utm_source=' . $context . '&utm_medium=wp-dash&utm_campaign=goexpert',
+				'color' => '#010051',
 			],
 		];
 	}

@@ -311,19 +311,14 @@ class Woolentor_Template_Manager{
 			delete_option('woolentor_do_activation_library_cache');
         }
 
-		$elementor_template = Woolentor_Template_Library_Manager::get_templates_info();
-		$gutenberg_template	= Woolentor_Template_Library_Manager::get_gutenberg_templates_info();
-		$get_data = (!empty( $elementor_template['templates'] ) && !empty( $gutenberg_template['templates'] )) ?  array_merge($elementor_template['templates'],$gutenberg_template['templates']) : [];
+		$get_data = Woolentor_Template_Library_Manager::get_templates_info();
 		$data = [];
 
-		if( !empty( $get_data ) ){
-			foreach( $get_data as $template ){
+		if( !empty( $get_data['templates'] ) ){
+			foreach( $get_data['templates'] as $template ){
 
 				if( $template['post_type'] === 'woolentor-template' ){
 					$data[$template['type']][] = $template;
-					if( $template['shareId'] == 'Shop' ){
-						$data['archive'][] = $template;
-					}
 				}else{
 					if( $template['shareId'] == 'Shop'){
 						$data['shop'][] = $template;
@@ -437,7 +432,6 @@ class Woolentor_Template_Manager{
 
 			$localize_data = [
                 'ajaxurl' 	=> admin_url( 'admin-ajax.php' ),
-				'prostatus'	=> is_admin() ? is_plugin_active('woolentor-addons-pro/woolentor_addons_pro.php') : false,
 				'nonce' 	=> wp_create_nonce('woolentor_tmp_nonce'),
 				'templatetype' => self::get_template_type(),
 				'haselementor' => woolentor_is_elementor_editor() ? 'yes' : 'no',
@@ -477,7 +471,6 @@ class Woolentor_Template_Manager{
 					'sampledata' => [
 						'visibility' => __('Sample Design','woolentor'),
 						'elementor'  => __('Elementor','woolentor'),
-						'gutenberg'  => __('Gutenberg','woolentor'),
 						'pro' 		 => __('Pro','woolentor'),
 					],
 					'importer' =>[
@@ -562,7 +555,7 @@ class Woolentor_Template_Manager{
 
 		$args = [
 			'post_type'    => self::CPTTYPE,
-			'post_status'  => $data['tmptype'] == 'popup' ? 'draft' : 'publish',
+			'post_status'  => 'publish',
 			'post_title'   => $data['title'],
 		];
 		$new_post_id = wp_insert_post( $args );
@@ -586,9 +579,13 @@ class Woolentor_Template_Manager{
 			}
 
 			// Sample data import
-			$this->sampleTemplateImport($data, $new_post_id);
+			if( !empty( $data['sampletmpid'] ) && $data['sampletmpbuilder'] == 'elementor' ){
+				$templateurl    = sprintf( Woolentor_Template_Library_Manager::get_api_templateapi(), $data['sampletmpid'] );
+				$response_data  = Woolentor_Template_Library_Manager::get_content_remote_request( $templateurl );
+				$json_value 	= wp_slash( wp_json_encode( $response_data['content']['content'] ) );
+				update_post_meta( $new_post_id, '_elementor_data', $json_value );
+			}
 
-			// Update Default template if user is set default
 			if( $data['setdefaullt'] == 'yes' ) {
 				$data['id'] = $new_post_id;
 				$this->update_option( 'woolentor_woo_template_tabs', self::get_template_type()[$data['tmptype']]['optionkey'], $new_post_id, $data );
@@ -623,9 +620,13 @@ class Woolentor_Template_Manager{
 		update_post_meta( $data['id'], self::CPT_META . '_type', $data['tmptype'] );
 
 		// Sample data import
-		$this->sampleTemplateImport( $data, $data['id'] );
+		if( !empty( $data['sampletmpid'] ) && $data['sampletmpbuilder'] == 'elementor' ){
+			$templateurl    = sprintf( Woolentor_Template_Library_Manager::get_api_templateapi(), $data['sampletmpid'] );
+			$response_data  = Woolentor_Template_Library_Manager::get_content_remote_request( $templateurl );
+			$json_value 	= wp_slash( wp_json_encode( $response_data['content']['content'] ) );
+			update_post_meta( $data['id'], '_elementor_data', $json_value );
+		}
 
-		// Update Default template if user is set default
 		if( $data['setdefaullt'] == 'yes' ) {
 			$this->update_option( 'woolentor_woo_template_tabs', self::get_template_type()[$data['tmptype']]['optionkey'], $data['id'], $data );
 		}else{
@@ -638,43 +639,6 @@ class Woolentor_Template_Manager{
 		);
 		wp_send_json_success( $return );
 
-	}
-
-	/**
-	 * Sample Desing Importer
-	 *
-	 * @return JSON
-	 */
-	public function sampleTemplateImport($data, $post_id){
-
-		if( !empty( $data['sampletmpid'] ) ){
-
-			$templateurl = ($data['sampletmpbuilder'] == 'elementor') ? sprintf( Woolentor_Template_Library_Manager::get_api_templateapi(), $data['sampletmpid'] ) : sprintf( Woolentor_Template_Library_Manager::get_gutenberg_api_endpoint().'/%s', $data['sampletmpid'] );
-			$response_data  = Woolentor_Template_Library_Manager::get_content_remote_request( $templateurl );
-			
-			$this->popBuilderSettings( $response_data, $post_id );
-
-			if( $data['sampletmpbuilder'] == 'elementor' ){
-				$json_value 	= wp_slash( wp_json_encode( $response_data['content']['content'] ) );
-				update_post_meta( $post_id, '_elementor_data', $json_value );
-			}else{
-				wp_update_post( ['ID' => $post_id, 'post_content'=> $response_data['content']] );
-			}
-		}
-		
-	}
-
-	/**
-	 * Add PopupBuilder Additional Settings
-	 *
-	 * @param [type] $data
-	 * @param [type] $post_id
-	 * @return void
-	 */
-	public function popBuilderSettings( $data, $post_id ){
-		if( !empty( $data['type'] ) && $data['type'] == 'popup' ){
-			update_post_meta( $post_id, '_wlpb_popup_seetings', $data['popup_settings']);
-		}
 	}
 
     /**
@@ -789,7 +753,7 @@ class Woolentor_Template_Manager{
 	/**
 	 * get_template_id function
 	 *
-	 * @return [int]
+	 * @return void
 	 */
 	public function get_template_id( $template_key, $callback = false ){
 		$option_value = ( $callback && is_callable( $callback ) ) ? $callback( $template_key, 'woolentor_woo_template_tabs', '0' ) : woolentor_get_option( $template_key, 'woolentor_woo_template_tabs', '0' );

@@ -49,7 +49,7 @@ function woolentor_is_elementor_editor_mode(){
 
 /**
 * Template Preview mode
-* @return boolean
+* @return [boolean]
 */
 function woolentor_is_preview_mode(){
     if( woolentor_is_elementor_editor_mode() || get_post_type() === 'woolentor-template' ){
@@ -58,23 +58,15 @@ function woolentor_is_preview_mode(){
         return false;
     }
 }
-/**
- * Has Elementor action
- *
- * @return [void]
- */
-function woolentor_is_elementor_active() {
-    return did_action('elementor/loaded');
-}
 
 /**
  * Build Page Conntent
  *
  * @param [ind] $page_id
- * @return [HTML]
+ * @return HTML
  */
 function woolentor_build_page_content( $page_id ){
-    return class_exists('\Elementor\Plugin') ? \Elementor\Plugin::instance()->frontend->get_builder_content_for_display( $page_id ) : '';
+    return class_exists('\Elementor\Plugin') ? Elementor\Plugin::instance()->frontend->get_builder_content_for_display( $page_id ) : '';
 }
 
 /**
@@ -105,7 +97,7 @@ function woolentor_render_icon( $settings = [], $new_icon = 'selected_icon', $ol
             if ( ! isset( $settings[$new_icon]['value']['id'] ) ) {
                 return '';
             }
-            $output = Elementor\Core\Files\File_Types\Svg::get_inline_svg( $settings[$new_icon]['value']['id'] );
+            $output = woolentor_is_elementor_version( '>=', '3.5.0' ) ? Elementor\Core\Files\File_Types\Svg::get_inline_svg( $settings[$new_icon]['value']['id'] ) : Elementor\Core\Files\Assets\Svg\Svg_Handler::get_inline_svg( $settings[$new_icon]['value']['id'] );
 
         } else {
             $icon_types = \Elementor\Icons_Manager::get_icon_manager_tabs();
@@ -166,7 +158,7 @@ function woolentor_set_views_count( $postid, $posttype ) {
     $count      = get_post_meta( $postid, $count_key, true );
 
     $cookie_name    = woolentor_get_cookie_name( 'already_views_count_'.$posttype );
-    $products_list  = isset( $_COOKIE[$cookie_name] ) ? unserialize( $_COOKIE[ $cookie_name ], ['allowed_classes' => false] ) : [];
+    $products_list  = isset( $_COOKIE[$cookie_name] ) ? unserialize( $_COOKIE[ $cookie_name ] ) : [];
     $timestamp      = time();
 
     if( $count == '' ){
@@ -216,7 +208,7 @@ function woolentor_get_track_user_data(){
     $user_id     = get_current_user_id();
     $cookie_name = woolentor_get_cookie_name( 'viewed_products_list' );
     if (! $user_id) {
-        $products_list = isset( $_COOKIE[$cookie_name] ) ? unserialize( $_COOKIE[ $cookie_name ], ['allowed_classes' => false] ) : [];
+        $products_list = isset( $_COOKIE[$cookie_name] ) ? unserialize( $_COOKIE[ $cookie_name ] ) : [];
     } else {
         $get_meta_data = get_user_meta( $user_id, $cookie_name, true );
         $products_list = ! empty( $get_meta_data ) ? $get_meta_data : [];
@@ -270,22 +262,11 @@ function woolentor_product_query( $query_args = [] ){
         );
     }
 
-    // Hide Hidden Item
-    if( isset( $query_args['hidden'] ) && $query_args['hidden'] === true ){
-        $tax_query[] = array(
-            'taxonomy' => 'product_visibility',
-            'field'    => 'name',
-            'terms'    => array('exclude-from-search', 'exclude-from-catalog'),
-            'operator' => 'NOT IN',
-            'include_children' => false,
-        );
-    }
-
     // Meta Query
     /**
      * [$hide_out_of_stock] Check ( WooCommerce > Settings > Products > Inventory )
      */
-    $hide_out_of_stock = ( isset( $query_args['hide_out_of_stock'] ) && $query_args['hide_out_of_stock'] === true ) ? 'yes' : get_option( 'woocommerce_hide_out_of_stock_items', 'no' );
+    $hide_out_of_stock = get_option( 'woocommerce_hide_out_of_stock_items', 'no' );
     if( 'yes' === $hide_out_of_stock ){
         $meta_query[] = array(
             'key'     => '_stock_status',
@@ -415,10 +396,10 @@ function woolentor_get_post_types( $args = [] ) {
  * Get Post List
  * return array
  */
-function woolentor_post_name( $post_type = 'post', $args = [] ){
+function woolentor_post_name( $post_type = 'post' ){
     $options = array();
     $options['0'] = __('Select','woolentor');
-    $perpage = !empty( $args['limit'] ) ? $args['limit'] : woolentor_get_option( 'loadproductlimit', 'woolentor_others_tabs', '20' );
+    $perpage = woolentor_get_option( 'loadproductlimit', 'woolentor_others_tabs', '20' );
     $all_post = array( 'posts_per_page' => $perpage, 'post_type'=> $post_type );
     $post_terms = get_posts( $all_post );
     if ( ! empty( $post_terms ) && ! is_wp_error( $post_terms ) ){
@@ -658,212 +639,6 @@ function woolentor_validate_html_tag( $tag ) {
     return in_array( strtolower( $tag ), $allowed_html_tags ) ? $tag : 'div';
 }
 
-/*
- * All list of allowed html tags.
- *
- * @param string $tag_type Allowed levels are title and desc
- * @return array
- */
-function woolentor_get_html_allowed_tags($tag_type = 'title') {
-	$accept_html_tags = [
-        'span'   => [
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],
-		'strong' => [
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],
-		'br'     => [
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],        
-		'b'      => [
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],
-        'sub'    => [
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],
-		'sup'    => [
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],
-		'i'      => [
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],
-		'u'      => [
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],
-		's'      => [
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],
-		'em'     => [
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],
-		'del'    => [
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],
-		'ins'    => [
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],
-
-		'code'   => [
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],
-		'mark'   => [
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],
-		'small'  => [
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],
-		'strike' => [
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],
-		'abbr'   => [
-			'title' => [],
-			'class' => [],
-			'id'    => [],
-			'style' => [],
-		],
-	];
-
-	if ('desc' === $tag_type) {
-		$desc_tags = [
-            'h1' => [
-                'class' => [],
-                'id'    => [],
-                'style' => [],
-            ],
-            'h2' => [
-                'class' => [],
-                'id'    => [],
-                'style' => [],
-            ],
-            'h3' => [
-                'class' => [],
-                'id'    => [],
-                'style' => [],
-            ],
-            'h4' => [
-                'class' => [],
-                'id'    => [],
-                'style' => [],
-            ],
-            'h5' => [
-                'class' => [],
-                'id'    => [],
-                'style' => [],
-            ],
-            'h6' => [
-                'class' => [],
-                'id'    => [],
-                'style' => [],
-            ],
-            'p' => [
-                'class' => [],
-                'id'    => [],
-                'style' => [],
-            ],
-			'a'       => [
-				'href'  => [],
-				'title' => [],
-				'class' => [],
-				'id'    => [],
-				'style' => [],
-			],
-			'q'       => [
-				'cite'  => [],
-				'class' => [],
-				'id'    => [],
-				'style' => [],
-			],
-			'img'     => [
-				'src'    => [],
-				'alt'    => [],
-				'height' => [],
-				'width'  => [],
-				'class'  => [],
-				'id'     => [],
-				'title'  => [],
-				'style'  => [],
-			],
-			'dfn'     => [
-				'title' => [],
-				'class' => [],
-				'id'    => [],
-				'style' => [],
-			],
-			'time'    => [
-				'datetime' => [],
-				'class'    => [],
-				'id'       => [],
-				'style'    => [],
-			],
-			'cite'    => [
-				'title' => [],
-				'class' => [],
-				'id'    => [],
-				'style' => [],
-			],
-			'acronym' => [
-				'title' => [],
-				'class' => [],
-				'id'    => [],
-				'style' => [],
-			],
-			'hr'      => [
-				'class' => [],
-				'id'    => [],
-				'style' => [],
-			],
-            'div' => [
-                'class' => [],
-                'id'    => [],
-                'style' => []
-            ],
-           
-            'button' => [
-                'class' => [],
-                'id'    => [],
-                'style' => [],
-            ],
-
-		];
-
-		$accept_html_tags = array_merge($accept_html_tags, $desc_tags);
-	}
-
-	return $accept_html_tags;
-}
-
 /* 
 * Category list
 * return first one
@@ -992,7 +767,7 @@ if( class_exists('WooCommerce') ){
     }
 
     /* Sale badge */
-    function woolentor_sale_flash( $offertype = 'default', $echo = true, $outofstocktxt = '' ){
+    function woolentor_sale_flash( $offertype = 'default', $echo = true ){
         global $product;
         if( $echo == false ){ ob_start(); }
         if( $product->is_on_sale() && $product->is_in_stock() ){
@@ -1028,7 +803,7 @@ if( class_exists('WooCommerce') ){
             }
         }else{
             $out_of_stock = get_post_meta( get_the_ID(), '_stock_status', true );
-            $out_of_stock_text = !empty( $outofstocktxt ) ? esc_html( $outofstocktxt ) : apply_filters( 'woolentor_shop_out_of_stock_text', __( 'Out of stock', 'woolentor' ) );
+            $out_of_stock_text = apply_filters( 'woolentor_shop_out_of_stock_text', __( 'Out of stock', 'woolentor' ) );
             if ( 'outofstock' === $out_of_stock ) {
                 echo '<span class="ht-stockout ht-product-label ht-product-label-right">'.esc_html( $out_of_stock_text ).'</span>';
             }
@@ -1298,11 +1073,6 @@ function woolentor_exist_compare_plugin(){
 function woolentor_compare_button( $button_arg = array() ){
 
     global $product;
-
-    if( $product === null ){
-        $product = function_exists('wc_get_product') ? wc_get_product( woolentor_get_last_product_id() ) : null;
-    }
-
     $product_id = $product->get_id();
 
     $button_style       = !empty( $button_arg['style'] ) ? $button_arg['style'] : 1;
@@ -1312,13 +1082,6 @@ function woolentor_compare_button( $button_arg = array() ){
     $button_added_text  = !empty( $button_arg['btn_added_txt'] ) ? $button_arg['btn_added_txt'] : esc_html__( 'Product Added','woolentor' );
 
     if( class_exists('Ever_Compare') || class_exists('Woolentor_Ever_Compare') ){
-
-        if( !empty( $button_arg['btn_text_type'] ) && $button_arg['btn_text_type'] === 'text'){
-            $button_text        = woolentor_get_option( 'button_text','ever_compare_settings_tabs', 'Compare' );
-            $button_added_text  = woolentor_get_option( 'added_button_text','ever_compare_settings_tabs', 'Added' );
-            $button_title       = $button_text;
-        }
-
         $comp_link = \EverCompare\Frontend\Manage_Compare::instance()->get_compare_page_url();
         echo '<a title="'.esc_attr( $button_title ).'" href="'.esc_url( $comp_link ).'" class="htcompare-btn woolentor-compare" data-added-text="'.esc_attr( $button_added_text ).'" data-product_id="'.esc_attr( $product_id ).'" aria-label="'.esc_attr__('Compare','woolentor-pro').'" rel="nofollow">'.$button_text.'</a>';
 
@@ -1353,7 +1116,7 @@ function woolentor_has_wishlist_plugin(){
     }elseif( class_exists('TInvWL_Public_AddToWishlist') ){
         return true;
     }else{
-        return apply_filters('woolentor_has_wishlist_plugin', false);
+        return false;
     }
 }
 
@@ -1367,9 +1130,7 @@ function woolentor_has_wishlist_plugin(){
 function woolentor_add_to_wishlist_button( $normalicon = '<i class="fa fa-heart-o"></i>', $addedicon = '<i class="fa fa-heart"></i>', $tooltip = 'no' ) {
     global $product;
 
-    if( $product === null ){
-        $product = function_exists('wc_get_product') ? wc_get_product( woolentor_get_last_product_id() ) : null;
-    }
+    $product_id = $product->get_id();
 
     $output = '';
 
@@ -1424,7 +1185,7 @@ function woolentor_add_to_wishlist_button( $normalicon = '<i class="fa fa-heart-
         }
 
     }else{
-        return apply_filters('woolentor_add_to_wishlist_output', 0 ,$normalicon , $addedicon , $tooltip);
+        return 0;
     }
 
 
@@ -1473,15 +1234,6 @@ function woolentor_get_image_size() {
     return $filter;
 }
 
-/**
- * Get Themes
- *
- * @return boolean
- */
-function woolentor_get_theme_byname( $name ){
-    $current_theme = wp_get_theme( $name );
-    return $current_theme->exists();
-}
 /**
  * Get the directory name of the current theme regardless of the child theme.
  * 

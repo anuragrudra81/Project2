@@ -2,5 +2,3 @@
 
 2023-12-27T12:30:56+00:00 CRITICAL Maximum execution time of 120 seconds exceeded in C:\xampp\htdocs\project3\wp-content\plugins\woolentor-addons\includes\addons\wl_category.php on line 4
 
-2023-12-27T13:50:12+00:00 CRITICAL Maximum execution time of 120 seconds exceeded in E:\Software download\WordPress File\Xmapp Folder\Xampp File\htdocs\project3\wp-includes\Requests\src\Transport\Curl.php on line 534
-

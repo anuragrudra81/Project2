@@ -128,7 +128,7 @@ if (!isset($shortcode_params['sd'])) {
                     <option class="woocs_option_img_<?php echo esc_attr($key) ?>" value="<?php echo esc_attr($key) ?>" <?php selected($this->current_currency, $key) ?> data-imagesrc="<?php if ($show_flags) echo(!empty($currency['flag']) ? $currency['flag'] : $empty_flag); ?>" data-icon="<?php if ($show_flags) echo(!empty($currency['flag']) ? $currency['flag'] : $empty_flag); ?>" data-description="<?php echo esc_attr($currency['description']) ?>"><?php echo esc_html($option_txt) ?></option>
                 <?php endforeach; ?>
             </select>
-            <div class="woocs_display_none" style="display: none;" >FOX v.<?php echo WOOCS_VERSION ?></div>
+            <div class="woocs_display_none" style="display: none;" >WOOCS v.<?php echo WOOCS_VERSION ?></div>
         </form>
         <?php
     }
@@ -141,7 +141,7 @@ if (!isset($shortcode_params['sd'])) {
             echo "[woocs sd={$sd_id}]"; //fix for elementor to avoid showing loader
         } else {
             ?>
-            <div data-woocs-sd='<?php echo wc_esc_json(json_encode($sd_settings)) ?>' data-woocs-ver='<?php echo WOOCS_VERSION ?>' style="width: <?php echo (isset($sd_settings['width']) ? esc_attr($sd_settings['width']) . 'px' : 'auto') ?>; max-width: 100%;" data-woocs-sd-currencies='<?php echo wc_esc_json(json_encode($currencies)) ?>'><div class="woocs-lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>
+            <div data-woocs-sd='<?php echo json_encode($sd_settings) ?>' data-woocs-ver='<?php echo WOOCS_VERSION ?>' style="width: <?php echo (isset($sd_settings['width']) ? esc_attr($sd_settings['width']) . 'px' : 'auto') ?>; max-width: 100%;" data-woocs-sd-currencies='<?php echo json_encode($currencies) ?>'><div class="woocs-lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>
             <?php
         }
     }

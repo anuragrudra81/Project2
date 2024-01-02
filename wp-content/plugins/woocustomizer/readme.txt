@@ -1,11 +1,11 @@
 === StoreCustomizer - A plugin to Customize all WooCommerce Pages ===
-Contributors: Kaira, freemius
+Contributors: Kaira
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PFZGBM92T8XSE&source=url
-Tags: customize woocommerce, ecommerce, woocommerce, online store, woocommerce addons
+Tags: customize woocommerce, ecommerce, woocommerce, woocommerce hooks, woocommerce customizer
 Requires at least: 5.0
-Tested up to: 6.3
+Tested up to: 6.1
 Requires PHP: 5.6
-Stable tag: 2.5.4
+Stable tag: 2.4.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,15 +18,15 @@ Customize your WooCommerce pages without code... StoreCustomizer, a free WooComm
 
 https://youtu.be/Byr4Lr6qUaY
 
-Are you tired of creating child themes or adding multiple plugins to customize your WooCommerce ecommerce store?
+Are you tired of creating child themes or adding multiple plugins to customize your WooCommerce store?
 
 WooCommerce offers a lot of action and filter hooks to further customize WooCommerce... the only problem is, you need to add your own custom php code snippets to edit all the different WooCommerce elements.
 
 Introducing [StoreCustomizer](https://storecustomizer.com/go/site/), a free WooCommerce customizer plugin, and your answer to customizing all WooCommerce store and product pages, cart page, checkout page and also your user account pages.
 
-> StoreCustomizer **Requires** the WooCommerce Plugin to be active on your ecommerce store
+> StoreCustomizer **Requires** the WooCommerce Plugin to be active
 
-**StoreCustomizer DOES NOT override WooCommerce templates**, the plugin simply adds extra design options, WooCommerce addons and advanced shop functionality to your existing ecommerce pages which are designed by the theme you are using.
+**StoreCustomizer DOES NOT override the WooCommerce templates**, the plugin simply adds extra design options and advanced shop functionality to your existing WooCommerce pages which are designed by the theme you are using.
 
 If something does not work, [Get in contact](https://storecustomizer.com/go/contact-us/) and we'll help as best we can.
 
@@ -67,12 +67,12 @@ If something does not work, [Get in contact](https://storecustomizer.com/go/cont
 
 StoreCustomizer is built to be a fast & lightweight, easy to work with WooCommerce extension for customizing WooCommerce.
 
-With all the settings built into the WordPress Customizer, you can easily customize WooCommerce visually in the live environment of the WP Customizer... See your changes happen as you edit WooCommerce settings.
+With all the settings built into the WordPress Customizer, you can enjoy editing your WooCommerce store visually in the live environment of the Customizer... See your changes happen as you edit.
 
-StoreCustomizer only includes the code that is activated to ensure that StoreCustomizer is lightweight and fast for when you customize WooCommerce pages.
+StoreCustomizer only includes the code that is activated to ensure that StoreCustomizer is lightweight and fast.
 
 
-[STORECUSTOMIZER PRO](https://storecustomizer.com/go/pro-features/)
+[WOOCUSTOMIZER PRO](https://storecustomizer.com/go/site/)
 
 
 **StoreCustomizer does not exclude or offer half premium functionality to try get you to upgrade, all Pro features are standalone to the free version, to enhance WooCommerce even more!**
@@ -261,52 +261,11 @@ We've found out we're not really allowed to use the "Woo" prefix, so we've chang
 
 == Changelog ==
 
-= 2.5.4 =
-* Styling tweaks/fixes
-* Updated Freemius SDK
-* Fix display stock on shop bug for variable products
-
-= 2.5.3 =
-* Styling tweaks/fixes
-* Added compatibility & declaration for WC HPOS feature
-* Version compatibility for WP 6.3 & WC 8.0
-* Updated the language .pot file
-* PREMIUM: Added Handheld Footer Bar option to replace search with shortcode search
-
-= 2.5.2 =
-* Styling tweaks/fixes
-* Updated plugin tags
-* Minor security & bug fixes
-* Update Freemius SDK 2.5.10
-
-= 2.5.1 =
-* Styling tweaks/fixes
-* Version compatibility for WC 7.7
-* Update Freemius SDK 2.5.8
-* Updated the language .pot file
-
-= 2.5.0 =
-* Version compatibility for WC 7.5 & WP 6.2
-* Updated the language .pot file
-
-= 2.4.8 =
-* Styling tweaks/fixes
-* Updated broken .org help links
-* Updated the language .pot file
-* Update Freemius SDK 2.5.4
-* PREMIUM: Fix quantity suffix order bug with Product Plus/Minus feature
-
-= 2.4.7 =
-* Styling tweaks/fixes
-* Added missing image for dashboard settings
-* Added new setting to add a quantity suffix on WC product page
-* Updated the language .pot file
-
 = 2.4.6 =
 * Fixed bug editing product loop text with certain themes
 * Update Sale Banner override - Remove text to use default theme banner
 * Added minimum required PHP to readme.txt
-* Updated Freemius SDK 2.5.3
+* Updated Freemius SDK
 * Updated the language .pot file
 
 = 2.4.5 =

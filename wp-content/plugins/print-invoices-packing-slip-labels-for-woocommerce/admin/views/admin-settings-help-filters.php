@@ -29,7 +29,7 @@ include WF_PKLIST_PLUGIN_PATH.'/admin/data/data.filters-help.php';
 <p>
 	<?php _e("Some useful `filters` to extend plugin's functionality",'print-invoices-packing-slip-labels-for-woocommerce');?>
 </p>
-<input type="text" placeholder="<?php echo __('search filter','print-invoices-packing-slip-labels-for-woocommerce'); ?>" id="filter_search_input_updated" style="float: left;margin: 0 0 15px 0;width: 48%;border: 1px solid #ccc;">
+<input type="text" placeholder="<?php echo __('Search filter','print-invoices-packing-slip-labels-for-woocommerce'); ?>" id="filter_search_input_updated" style="float: left;margin: 0 0 15px 0;width: 48%;border: 1px solid #ccc;">
 <table class="fold-table wp-list-table fixed" id="wf_filters_doc_table_updated" width="100%"  style="border: 1px solid #c3c4c7;">
   	<tbody>
   		<?php

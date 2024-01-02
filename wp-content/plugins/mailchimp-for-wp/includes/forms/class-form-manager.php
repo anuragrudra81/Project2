@@ -33,6 +33,11 @@ class MC4WP_Form_Manager {
 	protected $previewer;
 
 	/**
+	 * @var MC4WP_Google_Recaptcha
+	 */
+	protected $recaptcha;
+
+	/**
 	 * @var MC4WP_Form_Asset_Manager
 	 */
 	protected $assets;
@@ -50,6 +55,7 @@ class MC4WP_Form_Manager {
 		$this->tags              = new MC4WP_Form_Tags();
 		$this->listener          = new MC4WP_Form_Listener();
 		$this->previewer         = new MC4WP_Form_Previewer();
+		$this->recaptcha         = new MC4WP_Google_Recaptcha();
 		$this->assets            = new MC4WP_Form_Asset_Manager();
 		$this->amp_compatibility = new MC4WP_Form_AMP();
 	}
@@ -67,6 +73,7 @@ class MC4WP_Form_Manager {
 		$this->assets->add_hooks();
 		$this->tags->add_hooks();
 		$this->previewer->add_hooks();
+		$this->recaptcha->add_hooks();
 		$this->amp_compatibility->add_hooks();
 	}
 

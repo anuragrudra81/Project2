@@ -9,10 +9,7 @@ declare(strict_types=1);
 
 namespace WooCommerce\PayPalCommerce\WcGateway\Assets;
 
-use WooCommerce\PayPalCommerce\Onboarding\Environment;
 use WooCommerce\PayPalCommerce\Subscription\Helper\SubscriptionHelper;
-use WooCommerce\PayPalCommerce\WcGateway\Gateway\CardButtonGateway;
-use WooCommerce\PayPalCommerce\WcGateway\Gateway\PayPalGateway;
 
 /**
  * Class SettingsPageAssets
@@ -62,13 +59,6 @@ class SettingsPageAssets {
 	private $country;
 
 	/**
-	 * The environment object.
-	 *
-	 * @var Environment
-	 */
-	private $environment;
-
-	/**
 	 * Whether Pay Later button is enabled either for checkout, cart or product page.
 	 *
 	 * @var bool
@@ -90,20 +80,6 @@ class SettingsPageAssets {
 	protected $all_funding_sources;
 
 	/**
-	 * Whether it's a settings page of this plugin.
-	 *
-	 * @var bool
-	 */
-	private $is_settings_page;
-
-	/**
-	 * Whether the ACDC gateway is enabled.
-	 *
-	 * @var bool
-	 */
-	private $is_acdc_enabled;
-
-	/**
 	 * Assets constructor.
 	 *
 	 * @param string             $module_url The url of this module.
@@ -112,12 +88,9 @@ class SettingsPageAssets {
 	 * @param string             $client_id The PayPal SDK client ID.
 	 * @param string             $currency 3-letter currency code of the shop.
 	 * @param string             $country 2-letter country code of the shop.
-	 * @param Environment        $environment The environment object.
 	 * @param bool               $is_pay_later_button_enabled Whether Pay Later button is enabled either for checkout, cart or product page.
 	 * @param array              $disabled_sources The list of disabled funding sources.
 	 * @param array              $all_funding_sources The list of all existing funding sources.
-	 * @param bool               $is_settings_page Whether it's a settings page of this plugin.
-	 * @param bool               $is_acdc_enabled Whether the ACDC gateway is enabled.
 	 */
 	public function __construct(
 		string $module_url,
@@ -126,12 +99,9 @@ class SettingsPageAssets {
 		string $client_id,
 		string $currency,
 		string $country,
-		Environment $environment,
 		bool $is_pay_later_button_enabled,
 		array $disabled_sources,
-		array $all_funding_sources,
-		bool $is_settings_page,
-		bool $is_acdc_enabled
+		array $all_funding_sources
 	) {
 		$this->module_url                  = $module_url;
 		$this->version                     = $version;
@@ -139,20 +109,15 @@ class SettingsPageAssets {
 		$this->client_id                   = $client_id;
 		$this->currency                    = $currency;
 		$this->country                     = $country;
-		$this->environment                 = $environment;
 		$this->is_pay_later_button_enabled = $is_pay_later_button_enabled;
 		$this->disabled_sources            = $disabled_sources;
 		$this->all_funding_sources         = $all_funding_sources;
-		$this->is_settings_page            = $is_settings_page;
-		$this->is_acdc_enabled             = $is_acdc_enabled;
 	}
 
 	/**
 	 * Register assets provided by this module.
-	 *
-	 * @return void
 	 */
-	public function register_assets(): void {
+	public function register_assets() {
 		add_action(
 			'admin_enqueue_scripts',
 			function() {
@@ -160,13 +125,11 @@ class SettingsPageAssets {
 					return;
 				}
 
-				if ( $this->is_settings_page ) {
-					$this->register_admin_assets();
+				if ( ! $this->is_paypal_payment_method_page() ) {
+					return;
 				}
 
-				if ( $this->is_paypal_payment_method_page() ) {
-					$this->register_paypal_admin_assets();
-				}
+				$this->register_admin_assets();
 			}
 		);
 
@@ -184,7 +147,7 @@ class SettingsPageAssets {
 		}
 
 		$screen = get_current_screen();
-		if ( ! $screen || $screen->id !== 'woocommerce_page_wc-settings' ) {
+		if ( $screen->id !== 'woocommerce_page_wc-settings' ) {
 			return false;
 		}
 
@@ -193,13 +156,13 @@ class SettingsPageAssets {
 		$section = wc_clean( wp_unslash( $_GET['section'] ?? '' ) );
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
-		return 'checkout' === $tab && in_array( $section, array( PayPalGateway::ID, CardButtonGateway::ID ), true );
+		return 'checkout' === $tab && 'ppcp-gateway' === $section;
 	}
 
 	/**
-	 * Register assets for PayPal admin pages.
+	 * Register assets for admin pages.
 	 */
-	private function register_paypal_admin_assets(): void {
+	private function register_admin_assets(): void {
 		wp_enqueue_style(
 			'ppcp-gateway-settings',
 			trailingslashit( $this->module_url ) . 'assets/css/gateway-settings.css',
@@ -223,43 +186,16 @@ class SettingsPageAssets {
 		wp_localize_script(
 			'ppcp-gateway-settings',
 			'PayPalCommerceGatewaySettings',
-			apply_filters(
-				'woocommerce_paypal_payments_admin_gateway_settings',
-				array(
-					'is_subscriptions_plugin_active' => $this->subscription_helper->plugin_is_active(),
-					'client_id'                      => $this->client_id,
-					'currency'                       => $this->currency,
-					'country'                        => $this->country,
-					'environment'                    => $this->environment->current_environment(),
-					'integration_date'               => PAYPAL_INTEGRATION_DATE,
-					'is_pay_later_button_enabled'    => $this->is_pay_later_button_enabled,
-					'is_acdc_enabled'                => $this->is_acdc_enabled,
-					'disabled_sources'               => $this->disabled_sources,
-					'all_funding_sources'            => $this->all_funding_sources,
-					'components'                     => array( 'buttons', 'funding-eligibility', 'messages' ),
-				)
+			array(
+				'is_subscriptions_plugin_active' => $this->subscription_helper->plugin_is_active(),
+				'client_id'                      => $this->client_id,
+				'currency'                       => $this->currency,
+				'country'                        => $this->country,
+				'integration_date'               => PAYPAL_INTEGRATION_DATE,
+				'is_pay_later_button_enabled'    => $this->is_pay_later_button_enabled,
+				'disabled_sources'               => $this->disabled_sources,
+				'all_funding_sources'            => $this->all_funding_sources,
 			)
 		);
 	}
-
-	/**
-	 * Register assets for PayPal admin pages.
-	 */
-	private function register_admin_assets(): void {
-		wp_enqueue_style(
-			'ppcp-admin-common',
-			trailingslashit( $this->module_url ) . 'assets/css/common.css',
-			array(),
-			$this->version
-		);
-
-		wp_enqueue_script(
-			'ppcp-admin-common',
-			trailingslashit( $this->module_url ) . 'assets/js/common.js',
-			array(),
-			$this->version,
-			true
-		);
-	}
-
 }

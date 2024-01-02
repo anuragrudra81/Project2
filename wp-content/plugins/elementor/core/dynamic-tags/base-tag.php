@@ -140,7 +140,7 @@ abstract class Base_Tag extends Controls_Stack {
 				}
 			}
 
-			print( '(' + _.escape( key ) + ')' );
+			print( '(' + key + ')' );
 		}
 		#>
 		<?php

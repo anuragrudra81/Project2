@@ -9,7 +9,7 @@
  * @param $key
  * @return int
  */
-function pmxi_recursion_taxes($parent, $tx_name, $txes, $key, $do_not_create_terms = 0){
+function pmxi_recursion_taxes($parent, $tx_name, $txes, $key){
 
 	if ( is_array($parent) ){
 		
@@ -20,7 +20,7 @@ function pmxi_recursion_taxes($parent, $tx_name, $txes, $key, $do_not_create_ter
 			if ( empty($term) and !is_wp_error($term) ){
 
 				$term = is_exists_term(htmlspecialchars($parent['name']), $tx_name, 0);		
-				if ( empty($do_not_create_terms) && empty($term) && !is_wp_error($term) ){
+				if ( empty($term) and !is_wp_error($term) ){		
 					$term = wp_insert_term(
 						$parent['name'], // the term 
 					  	$tx_name // the taxonomy			  	
@@ -33,7 +33,7 @@ function pmxi_recursion_taxes($parent, $tx_name, $txes, $key, $do_not_create_ter
 		}
 		else{
 			
-			$parent_id = pmxi_recursion_taxes($parent['parent'], $tx_name, $txes, $key, $do_not_create_terms);
+			$parent_id = pmxi_recursion_taxes($parent['parent'], $tx_name, $txes, $key);
 
             if (empty($parent['name'])) return $parent_id;
 			
@@ -42,7 +42,7 @@ function pmxi_recursion_taxes($parent, $tx_name, $txes, $key, $do_not_create_ter
 			if ( empty($term) and  !is_wp_error($term) ){
 
 				$term = is_exists_term(htmlspecialchars($parent['name']), $tx_name, (int)$parent_id);		
-				if ( empty($do_not_create_terms) && empty($term) && !is_wp_error($term) ){
+				if ( empty($term) and !is_wp_error($term) ){		
 					$term = wp_insert_term(
 						$parent['name'], // the term 
 					  	$tx_name, // the taxonomy			  	
@@ -58,13 +58,13 @@ function pmxi_recursion_taxes($parent, $tx_name, $txes, $key, $do_not_create_ter
 
 		if ( !empty($txes[$key - 1]) and !empty($txes[$key - 1]['parent']) and $parent != $txes[$key - 1]['parent']) {	
 
-			$parent_id = pmxi_recursion_taxes($txes[$key - 1]['parent'], $tx_name, $txes, $key - 1, $do_not_create_terms);
+			$parent_id = pmxi_recursion_taxes($txes[$key - 1]['parent'], $tx_name, $txes, $key - 1);
 			
 			$term = is_exists_term($parent, $tx_name, (int)$parent_id);
 			
 			if ( empty($term) and ! is_wp_error($term) ){				
 				$term = is_exists_term(htmlspecialchars($parent), $tx_name, (int)$parent_id);		
-				if ( empty($do_not_create_terms) && empty($term) && !is_wp_error($term) ){
+				if ( empty($term) and !is_wp_error($term) ){
 					$term = wp_insert_term(
 						$parent, // the term 
 					  	$tx_name, // the taxonomy			  	

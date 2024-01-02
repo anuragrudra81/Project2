@@ -9,7 +9,7 @@ $areaClasses = array( $uniqClass, 'woolentorfaq-block-area' );
 $classes = array( 'htwoolentor-faq' );
 
 !empty( $settings['align'] ) ? $areaClasses[] = 'align'.$settings['align'] : '';
-!empty( $settings['className'] ) ? $areaClasses[] = esc_attr( $settings['className'] ) : '';
+!empty( $settings['className'] ) ? $areaClasses[] = $settings['className'] : '';
 !empty( $settings['iconPosition'] ) ? $classes[] = 'woolentorfaq-icon-pos-'.$settings['iconPosition'] : '';
 
 $icon = '<span class="htwoolentor-faq-head-indicator"></span>';

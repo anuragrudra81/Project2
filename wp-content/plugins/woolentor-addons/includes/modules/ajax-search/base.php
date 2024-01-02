@@ -159,8 +159,8 @@ class WooLentor_Ajax_Search_Base{
 							<span class="woolentor_widget_psa_clear_icon"><i class="sli sli-close"></i></span>
 							<span class="woolentor_widget_psa_loading_icon"><i class="sli sli-refresh"></i></span>
 						</div>
-						<button type="submit" value="<?php echo esc_attr_x( 'Search', 'submit button', 'woolentor' ); ?>" aria-label="<?php echo esc_attr__( 'Search', 'woolentor' );?>">
-							<i class="sli sli-magnifier"></i>
+						<button type="submit" value="<?php echo esc_attr_x( 'Search', 'submit button', 'woolentor' ); ?>">
+								<i class="sli sli-magnifier"></i>
 						</button>
 					</div>
 	                <div id="woolentor_psa_results_wrapper"></div>

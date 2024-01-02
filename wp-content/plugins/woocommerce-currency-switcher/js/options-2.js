@@ -236,20 +236,12 @@ jQuery(function ($) {
     });
 
     jQuery('#woocs_add_currency, #woocs_add_currency2').on('click', function () {
-        if (jQuery('.woocs_settings_promotion').length > 0) {
-            if (confirm('Hi! In the free version of FOX you can operate with 2 ANY currencies! If you want to use more currencies you can make upgrade to the premium version of the plugin. Would you like to visit the plugin page on Codecanyon?')) {
-                //window.open('https://currency-switcher.com/a/buy', '_blank');
-                window.location.href = 'https://currency-switcher.com/a/buy';
-            }
+        let action = this.getAttribute('data-action');
+        if (action === 'append') {
+            jQuery('#woocs_list').append(jQuery('#woocs_item_tpl').html());
         } else {
-            let action = this.getAttribute('data-action');
-            if (action === 'append') {
-                jQuery('#woocs_list').append(jQuery('#woocs_item_tpl').html());
-            } else {
-                jQuery('#woocs_list').prepend(jQuery('#woocs_item_tpl').html());
-            }
+            jQuery('#woocs_list').prepend(jQuery('#woocs_item_tpl').html());
         }
-
 
         return false;
     });
@@ -262,7 +254,9 @@ jQuery(function ($) {
     });
 
     jQuery('#woocs_add_currencies').on('click', function () {
+        
         let popup = new Popup23({right: 20, left: 20, top: 20, bottom: 20, title: woocs_lang.curr_wizard}, document.getElementById('woocs_currencies_modal'), true);
+        //popup.set_content('Hello World 2022!!');
     });
 
     jQuery('#woocs_currencies_modal .woocs__button.woocs_add_currencies').on('click', function () {
@@ -550,10 +544,9 @@ function woocs_edit_geoip_profile() {
 function woocs_delete_geoip_profile() {
     var selected = jQuery('select.woocs_geoip_profile_countries option:selected');
     var key = selected.data('key');
-    var woocs_wpnonce =jQuery('input[name="woocs_wpnonce_geo"]').val(); 
+
     var data = {
         action: "woocs_delete_profiles_data",
-	woocs_wpnonce_geo: woocs_wpnonce,
         key: key
     };
     if (confirm("Sure?")) {

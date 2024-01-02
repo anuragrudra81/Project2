@@ -1,5 +1,5 @@
 /* Cart page */
-.woocommerce dt.variation-woolentor_cart_flash_sale_label,.woocommerce .variation-woolentor_cart_flash_sale_label.wl-variation-key{
+.woocommerce dt.variation-woolentor_cart_flash_sale_label{
     display: none !important;
 }
 .woolentor-flashsale-label{

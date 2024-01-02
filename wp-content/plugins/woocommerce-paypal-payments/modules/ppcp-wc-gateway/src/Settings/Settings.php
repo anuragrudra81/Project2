@@ -29,51 +29,19 @@ class Settings implements ContainerInterface {
 	private $settings = array();
 
 	/**
-	 * The list of selected default button locations.
+	 * The list of pay later selected default locations.
 	 *
 	 * @var string[]
 	 */
-	protected $default_button_locations;
-
-	/**
-	 * The list of selected default pay later button locations.
-	 *
-	 * @var string[]
-	 */
-	protected $default_pay_later_button_locations;
-
-	/**
-	 * The list of selected default pay later messaging locations.
-	 *
-	 * @var string[]
-	 */
-	protected $default_pay_later_messaging_locations;
-
-	/**
-	 * The default ACDC gateway title.
-	 *
-	 * @var string
-	 */
-	protected $default_dcc_gateway_title;
+	protected $pay_later_default_locations;
 
 	/**
 	 * Settings constructor.
 	 *
-	 * @param string[] $default_button_locations The list of selected default button locations.
-	 * @param string   $default_dcc_gateway_title The default ACDC gateway title.
-	 * @param string[] $default_pay_later_button_locations The list of selected default pay later button locations.
-	 * @param string[] $default_pay_later_messaging_locations The list of selected default pay later messaging locations.
+	 * @param string[] $pay_later_default_locations The list of pay later selected default locations.
 	 */
-	public function __construct(
-		array $default_button_locations,
-		string $default_dcc_gateway_title,
-		array $default_pay_later_button_locations,
-		array $default_pay_later_messaging_locations
-	) {
-		$this->default_button_locations              = $default_button_locations;
-		$this->default_dcc_gateway_title             = $default_dcc_gateway_title;
-		$this->default_pay_later_button_locations    = $default_pay_later_button_locations;
-		$this->default_pay_later_messaging_locations = $default_pay_later_messaging_locations;
+	public function __construct( array $pay_later_default_locations ) {
+		$this->pay_later_default_locations = $pay_later_default_locations;
 	}
 
 	/**
@@ -136,20 +104,22 @@ class Settings implements ContainerInterface {
 		$this->settings = get_option( self::KEY, array() );
 
 		$defaults = array(
-			'title'                                    => __( 'PayPal', 'woocommerce-paypal-payments' ),
-			'description'                              => __(
+			'title'                         => __( 'PayPal', 'woocommerce-paypal-payments' ),
+			'description'                   => __(
 				'Pay via PayPal.',
 				'woocommerce-paypal-payments'
 			),
-			'smart_button_locations'                   => $this->default_button_locations,
-			'smart_button_enable_styling_per_location' => true,
-			'pay_later_messaging_enabled'              => true,
-			'pay_later_button_enabled'                 => true,
-			'pay_later_button_locations'               => $this->default_pay_later_button_locations,
-			'pay_later_messaging_locations'            => $this->default_pay_later_messaging_locations,
-			'brand_name'                               => get_bloginfo( 'name' ),
-			'dcc_gateway_title'                        => $this->default_dcc_gateway_title,
-			'dcc_gateway_description'                  => __(
+			'button_product_enabled'        => true,
+			'button_mini-cart_enabled'      => false,
+			'button_cart_enabled'           => true,
+			'pay_later_messaging_enabled'   => true,
+			'button_enabled'                => true,
+			'pay_later_button_enabled'      => true,
+			'pay_later_button_locations'    => $this->pay_later_default_locations,
+			'pay_later_messaging_locations' => $this->pay_later_default_locations,
+			'brand_name'                    => get_bloginfo( 'name' ),
+			'dcc_gateway_title'             => __( 'Credit Cards', 'woocommerce-paypal-payments' ),
+			'dcc_gateway_description'       => __(
 				'Pay with your credit card.',
 				'woocommerce-paypal-payments'
 			),

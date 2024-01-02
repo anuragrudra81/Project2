@@ -1,10 +1,56 @@
 <?php
 defined( 'ABSPATH' ) or exit;
 
-/** @var array $opts */
 /** @var MC4WP_Debug_Log $log */
 /** @var MC4WP_Debug_Log_Reader $log_reader */
 
+/**
+ * @ignore
+ * @param array $opts
+ */
+function _mc4wp_usage_tracking_setting( $opts ) {
+	?>
+	<div class="mc4wp-margin-m" >
+		<h3><?php echo esc_html__( 'Miscellaneous settings', 'mailchimp-for-wp' ); ?></h3>
+		<table class="form-table">
+			<tr>
+				<th><?php echo esc_html__( 'Usage Tracking', 'mailchimp-for-wp' ); ?></th>
+				<td>
+					<label>
+						<input type="radio" name="mc4wp[allow_usage_tracking]" value="1" <?php checked( $opts['allow_usage_tracking'], 1 ); ?> />
+						<?php echo esc_html__( 'Yes', 'mailchimp-for-wp' ); ?>
+					</label> &nbsp;
+					<label>
+						<input type="radio" name="mc4wp[allow_usage_tracking]" value="0" <?php checked( $opts['allow_usage_tracking'], 0 ); ?>  />
+						<?php echo esc_html__( 'No', 'mailchimp-for-wp' ); ?>
+					</label>
+
+					<p class="description">
+						<?php echo esc_html__( 'Allow us to anonymously track how this plugin is used to help us make it better fit your needs.', 'mailchimp-for-wp' ); ?>
+						<a href="https://www.mc4wp.com/kb/what-is-usage-tracking/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page" target="_blank">
+							<?php echo esc_html__( 'This is what we track.', 'mailchimp-for-wp' ); ?>
+						</a>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<th><?php echo esc_html__( 'Logging', 'mailchimp-for-wp' ); ?></th>
+				<td>
+					<select name="mc4wp[debug_log_level]">
+						<option value="warning" <?php selected( 'warning', $opts['debug_log_level'] ); ?>><?php echo esc_html__( 'Errors & warnings only', 'mailchimp-for-wp' ); ?></option>
+						<option value="debug" <?php selected( 'debug', $opts['debug_log_level'] ); ?>><?php echo esc_html__( 'Everything', 'mailchimp-for-wp' ); ?></option>
+					</select>
+					<p class="description">
+						<?php echo sprintf( wp_kses( __( 'Determines what events should be written to <a href="%s">the debug log</a> (see below).', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array() ) ) ), 'https://www.mc4wp.com/kb/how-to-enable-log-debugging/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page' ); ?>
+					</p>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<?php
+}
+
+add_action( 'mc4wp_admin_other_settings', '_mc4wp_usage_tracking_setting', 70 );
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
@@ -18,7 +64,7 @@ defined( 'ABSPATH' ) or exit;
 	<div class="mc4wp-row">
 
 		<!-- Main Content -->
-		<div class="main-content mc4wp-col">
+		<div class="main-content mc4wp-col mc4wp-col-4">
 
 			<h1 class="mc4wp-page-title">
 				<?php echo esc_html__( 'Other Settings', 'mailchimp-for-wp' ); ?>
@@ -37,24 +83,6 @@ defined( 'ABSPATH' ) or exit;
 			<!-- Settings -->
 			<form action="<?php echo admin_url( 'options.php' ); ?>" method="post">
 				<?php settings_fields( 'mc4wp_settings' ); ?>
-
-				<div class="mc4wp-margin-m" >
-					<h3><?php echo esc_html__( 'Miscellaneous settings', 'mailchimp-for-wp' ); ?></h3>
-					<table class="form-table">
-						<tr>
-							<th><label for="mc4wp-debug-log-level"><?php echo esc_html__( 'Logging', 'mailchimp-for-wp' ); ?></label></th>
-							<td>
-								<select id="mc4wp-debug-log-level" name="mc4wp[debug_log_level]">
-									<option value="warning" <?php selected( 'warning', $opts['debug_log_level'] ); ?>><?php echo esc_html__( 'Errors & warnings only', 'mailchimp-for-wp' ); ?></option>
-									<option value="debug" <?php selected( 'debug', $opts['debug_log_level'] ); ?>><?php echo esc_html__( 'Everything', 'mailchimp-for-wp' ); ?></option>
-								</select>
-								<p class="description">
-									<?php echo sprintf( wp_kses( __( 'Determines what events should be written to <a href="%s">the debug log</a> (see below).', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array() ) ) ), 'https://www.mc4wp.com/kb/how-to-enable-log-debugging/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page' ); ?>
-								</p>
-							</td>
-						</tr>
-					</table>
-				</div>
 
 				<?php
 				/**
@@ -159,12 +187,12 @@ defined( 'ABSPATH' ) or exit;
 				</script>
 			</div>
 			<!-- / Debug Log -->
-			<?php require __DIR__ . '/parts/admin-footer.php'; ?>
+			<?php include __DIR__ . '/parts/admin-footer.php'; ?>
 		</div>
 
 		<!-- Sidebar -->
-		<div class="mc4wp-sidebar mc4wp-col">
-			<?php require __DIR__ . '/parts/admin-sidebar.php'; ?>
+		<div class="mc4wp-sidebar mc4wp-col mc4wp-col-2">
+			<?php include __DIR__ . '/parts/admin-sidebar.php'; ?>
 		</div>
 
 

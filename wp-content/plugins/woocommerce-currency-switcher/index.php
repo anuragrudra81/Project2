@@ -1,43 +1,41 @@
 <?php
 
 /*
-  Plugin Name: FOX - Currency Switcher Professional for WooCommerce
+  Plugin Name: WOOCS - WooCommerce Currency Switcher
   Plugin URI: https://currency-switcher.com/
   Description: Currency Switcher for WooCommerce that allows to the visitors and customers on your woocommerce store site switch currencies and optionally apply selected currency on checkout
   Author: realmag777
-  Version: 1.4.1.7
+  Version: 1.3.9.4
   Requires at least: WP 4.9.0
-  Tested up to: WP 6.4
+  Tested up to: WP 6.1
   Requires PHP: 7.2
   Text Domain: woocommerce-currency-switcher
   Domain Path: /languages
   Forum URI: https://pluginus.net/support/forum/woocs-woocommerce-currency-switcher-multi-currency-and-multi-pay-for-woocommerce/
   Author URI: https://pluginus.net/
-  WC requires at least: 6.0
-  WC tested up to: 8.4
+  WC requires at least: 3.6
+  WC tested up to: 7.2
  */
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-
 if (isset($_GET['woocommerce_gpf'])) {
     return false;
 }
 
-//disable FOX influence for REST api requests
+//disable WOOCS influence for REST api requests
 if (isset($_SERVER['SCRIPT_URI'])) {
     $uri = parse_url(trim($_SERVER['SCRIPT_URI']));
     $uri = explode('/', trim($uri['path'], ' /'));
     if ($uri[0] === 'wp-json') {
-        $show_legacy = array('widget-types', 'sidebars', 'widgets', 'batch', 'collection-data', 'cart', 'store');
+        $show_legacy = array('widget-types', 'sidebars', 'widgets', 'batch', 'collection-data');
         $match = array_intersect($show_legacy, $uri);
-
         if (count($match) == 0) {
             $allow = ['woocs'];
-            if (isset($uri[1]) AND !in_array($uri[1], $allow)) {
-                return; //!!it is important for different reports to exclude FOX influence
+            if (isset($uri[1]) AND!in_array($uri[1], $allow)) {
+                return; //!!it is important for different reports to exclude WOOCS influence
             }
         }
     }
@@ -49,7 +47,7 @@ if (defined('DOING_AJAX')) {
     if (isset($_REQUEST['action'])) {
         //do not recalculate refund amounts when we are in order backend
         if ($_REQUEST['action'] == 'woocommerce_refund_line_items') {
-            if (!class_exists('WooCommerce_PDF_IPS_Pro')/* && !class_exists('WC_Smart_Coupons') */) {
+            if (!class_exists('WooCommerce_PDF_IPS_Pro') && !class_exists('WC_Smart_Coupons')) {
                 return;
             }
         }
@@ -60,15 +58,14 @@ if (defined('DOING_AJAX')) {
     }
 }
 
-define('WOOCS_VERSION', '1.4.1.7');
+define('WOOCS_VERSION', '1.3.9.4');
 //define('WOOCS_VERSION', uniqid('woocs-'));
-define('WOOCS_MIN_WOOCOMMERCE', '6.0');
+define('WOOCS_MIN_WOOCOMMERCE', '3.6');
 define('WOOCS_PATH', plugin_dir_path(__FILE__));
 define('WOOCS_LINK', plugin_dir_url(__FILE__));
 define('WOOCS_PLUGIN_NAME', plugin_basename(__FILE__));
 
 //classes
-include_once WOOCS_PATH . 'classes/woocs_session.php';
 include_once WOOCS_PATH . 'classes/storage.php';
 include_once WOOCS_PATH . 'classes/cron.php';
 include_once WOOCS_PATH . 'classes/alert.php';
@@ -80,14 +77,13 @@ include_once WOOCS_PATH . 'classes/reports.php';
 include_once WOOCS_PATH . 'classes/dashboard_stat.php';
 include_once WOOCS_PATH . 'classes/profiles.php';
 include_once WOOCS_PATH . 'classes/compatibility/compatibility.php';
-include_once WOOCS_PATH . 'classes/woocs_hpos.php';
 
 include_once WOOCS_PATH . 'classes/world_currencies.php';
 
-//19-12-2023
+//17-12-2022
 class WOOCS_STARTER {
 
-    private $default_woo_version = 6.0;
+    private $default_woo_version = 3.6;
     private $actualized = 0.0;
     private $version_key = "woocs_woo_version";
     private $_woocs = null;
@@ -113,7 +109,7 @@ class WOOCS_STARTER {
 
     public function get_actual_obj() {
 
-        if (count($this->disable_plugin) AND !is_admin() AND (isset($_SERVER['SCRIPT_URI']) || isset($_SERVER['REQUEST_URI']))) {
+        if (count($this->disable_plugin) AND!is_admin() AND isset($_SERVER['SCRIPT_URI'])) {
             $exclude = false;
             $url = $_SERVER['SCRIPT_URI'];
 
@@ -189,7 +185,7 @@ $WOOCS_STARTER = new WOOCS_STARTER();
 $WOOCS = $WOOCS_STARTER->get_actual_obj();
 if ($WOOCS) {
     $GLOBALS['WOOCS'] = $WOOCS;
-    add_action('init', array($WOOCS, 'init'), 11);
+    add_action('init', array($WOOCS, 'init'), 1);
 }
 
 //****
@@ -250,7 +246,7 @@ function woocs_is_bot(&$botname = '') {
 }
 
 add_action('wp_head', function () {
-    if (woocs_is_bot() && !get_option('woocs_disable_reset_currency_bots', 0)) {
+    if (woocs_is_bot()) {
         if (class_exists('WOOCS')) {
             global $WOOCS;
             $WOOCS->reset_currency();
@@ -281,7 +277,6 @@ add_filter('option_woocommerce_price_decimal_sep', function ($value) {
 
     return $value;
 });
-
 add_filter("woocommerce_product_export_product_query_args", function ($args) {
     global $WOOCS;
 
@@ -289,11 +284,5 @@ add_filter("woocommerce_product_export_product_query_args", function ($args) {
         $WOOCS->reset_currency();
     }
     return $args;
-});
-
-add_action('before_woocommerce_init', function () {
-    if (class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
-        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
-    }
 });
 

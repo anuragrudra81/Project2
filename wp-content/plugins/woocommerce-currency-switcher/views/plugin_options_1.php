@@ -78,7 +78,6 @@ $options = array(
         'options' => array(
             'no' => esc_html__('no auto update', 'woocommerce-currency-switcher'),
             'hourly' => esc_html__('hourly', 'woocommerce-currency-switcher'),
-            'hourly2' => esc_html__('every 2 hours', 'woocommerce-currency-switcher'),
             'twicedaily' => esc_html__('twicedaily', 'woocommerce-currency-switcher'),
             'daily' => esc_html__('daily', 'woocommerce-currency-switcher'),
             'week' => esc_html__('weekly', 'woocommerce-currency-switcher'),
@@ -138,7 +137,7 @@ $options = array(
 
         <div class="woocs__section-title">
             <?php echo draw_switcher23('woocs_admin_theme_id', get_option('woocs_admin_theme_id', 0), 'woocs_admin_theme_id', esc_html__('Modern WOOCS admin theme', 'woocommerce-currency-switcher')); ?>
-            <h3 class="woocs_settings_version">WOOCS - <?php printf(esc_html__('FOX - Currency Switcher Professional for WooCommerce v.%s', 'woocommerce-currency-switcher'), WOOCS_VERSION) ?></h3>
+            <h3 class="woocs_settings_version">WOOCS - <?php printf(esc_html__('WooCommerce Currency Switcher v.%s', 'woocommerce-currency-switcher'), WOOCS_VERSION) ?></h3>
             <i><?php printf(esc_html__('Actualized for WooCommerce v.%s.x', 'woocommerce-currency-switcher'), $this->actualized_for) ?></i><br />
         </div>
         <br />
@@ -591,7 +590,7 @@ $options = array(
                                     <label for="woocs_force_pay_bygeoip_rules"><?php esc_html_e('Checkout by GeoIP rules', 'woocommerce-currency-switcher') ?></label>
                                     <span class="woocommerce-help-tip woocs_settings_geo_tip" data-tip="<?php esc_html_e("Force the customers to pay on checkout page by rules defined in 'GeoIP rules' tab. ATTENTION: this feature has logical sense if you enabled 'Enable fixed pricing' and also installed fixed prices rules in the products for different currencies!", 'woocommerce-currency-switcher') ?>"></span>
                                     <?php
-                                    if (!empty($pd) AND !empty($countries) AND isset($countries[$pd['country']])) {
+                                    if (!empty($pd) AND!empty($countries) AND isset($countries[$pd['country']])) {
                                         echo '<i class="woocs_settings_i1" >' . sprintf(esc_html__('Your country is: %s', 'woocommerce-currency-switcher'), $countries[$pd['country']]) . '</i>';
                                     } else {
                                         echo '<i class="woocs_settings_i2" >' . esc_html__('Your country is not defined! Troubles with internet connection or GeoIp service.', 'woocommerce-currency-switcher') . '</i>';
@@ -1012,7 +1011,7 @@ $options = array(
                                 <div class="woocs-notice"><?php printf(__("Here you can create set of countries profiles to apply it then in the products by your business logic. %s!", 'woocommerce-currency-switcher'), "<a href='" . WOOCS_LINK . "img/woocs-options-1.png' target='_blank'>" . esc_html__('This make work on rules settings for each product more fast', 'woocommerce-currency-switcher') . "</a>"); ?></div>
 
                                 <input type="hidden" name="woocs_geo_rules_profile_key" value="" >
-                                <input type="hidden" name="woocs_wpnonce_geo" value="<?php echo wp_create_nonce('woocs_wpnonce_geo'); ?>" >
+								<input type="hidden" name="woocs_wpnonce_geo" value="<?php echo wp_create_nonce('woocs_wpnonce_geo');?>" >
                                 <input type="text" name="woocs_geo_rules_profile_title" value="" class="woocs-options-fix4" placeholder="<?php esc_html_e("Set title", 'woocommerce-currency-switcher'); ?>" /><br />
                                 <select name="woocs_geo_rules_profile_countries[]" multiple="" size="1" id="woocs_geo_rules_profile_countries" class="chosen_select">
                                     <?php foreach ($countries as $key => $value): ?>
@@ -1154,14 +1153,14 @@ $options = array(
 
 
                 <section id="tab-smart-designer">
-					
+
                     <div id="woocs-sd-manage-area">
 
                         <h3><?php esc_html_e("Smart Designer", 'woocommerce-currency-switcher') ?></h3>
-						<input type="hidden" name="woocs_wpnonce_sd" value="<?php echo wp_create_nonce('woocs_wpnonce_sd'); ?>" >
+
                         <div class="woocs-notice"><?php esc_html_e("In this section you can create your own view of currency drop-down switcher", 'woocommerce-currency-switcher'); ?></div>
 
-						
+
                         <a href="#" id="woocs-sd-create" class="woocs-panel-button dashicons-before dashicons-plus"><?php esc_html_e("Create", 'woocommerce-currency-switcher') ?></a><br />
                         <br />
                         <?php
@@ -1245,8 +1244,7 @@ $options = array(
                             <div><a href="javascript: woocs_sd_save_exit();void(0);" class="woocs-panel-button dashicons-before dashicons-cloud-saved dashicons-exit"><?php esc_html_e("Save and exit", 'woocommerce-currency-switcher') ?></a>&nbsp;</div>
                             <div><a href="javascript: woocs_sd_exit_no_save();void(0);" class="woocs-panel-button dashicons-before dashicons-exit"><?php esc_html_e("Exit without save", 'woocommerce-currency-switcher') ?></a>&nbsp;</div>
                             <div><a href="javascript: woocs_sd_reset();void(0);" class="woocs-panel-button dashicons-before dashicons-dismiss"><?php esc_html_e("Reset to default", 'woocommerce-currency-switcher') ?></a>&nbsp;</div>
-							
-						</div>
+                        </div>
                     </template>
 
 
@@ -1255,7 +1253,7 @@ $options = array(
 
                 <section id="tabs-5">
 
-                    <a href="https://pluginus.net/support/forum/woocs-woocommerce-currency-switcher-multi-currency-and-multi-pay-for-woocommerce/" target="_blank" class="woocs-panel-button dashicons-before dashicons-hammer"><?php echo esc_html__('FOX - Currency Switcher Professional SUPPORT', 'woocommerce-currency-switcher') ?></a>
+                    <a href="https://pluginus.net/support/forum/woocs-woocommerce-currency-switcher-multi-currency-and-multi-pay-for-woocommerce/" target="_blank" class="woocs-panel-button dashicons-before dashicons-hammer"><?php echo esc_html__('WooCommerce Currency Switcher SUPPORT', 'woocommerce-currency-switcher') ?></a>
                     &nbsp;<a href="https://currency-switcher.com/translations/" target="_blank" class="woocs-panel-button dashicons-before dashicons-admin-site-alt3"><span class="dashicons-before dashicons-universal-access user-on-the-planet"></span></a>
 
                     <br /><br />
@@ -1313,7 +1311,7 @@ $options = array(
                     <?php if (!$WOOCS->notes_for_free): ?>
                         <hr />
                         <div id="plugin_warning" style="display: none;">
-                            <div class="plugin_warning_head"><strong class="woocs_settings_red" >IF YOU BOUGHT FOX ON CODECANYON - DO NOT READ AND IGNORE NEXT MESSAGE!<BR />ATTENTION MESSAGE FROM THE PLUGIN AUTHOR TO ALL USERS WHO USES PIRATE VERSION OF THE PLUGIN!</strong>!<br></div>
+                            <div class="plugin_warning_head"><strong class="woocs_settings_red" >IF YOU BOUGHT WOOCS ON CODECANYON - DO NOT READ AND IGNORE NEXT MESSAGE!<BR />ATTENTION MESSAGE FROM THE PLUGIN AUTHOR TO ALL USERS WHO USES PIRATE VERSION OF THE PLUGIN!</strong>!<br></div>
                             <br />
                             GET YOUR COPY OF THE PLUGIN <em> <span class="woocs_settings_underline"><span class="woocs_settings_ff"><strong>ONLY</strong></span></span></em> FROM <a href="https://pluginus.net/affiliate/woocommerce-currency-switcher" target="_blank"><span class="woocs_settings_green"><strong>CODECANYON.NET</strong></span></a> OR <span class="woocs_settings_green"><strong><a href="https://wordpress.org/plugins/woocommerce-currency-switcher/" target="_blank">WORDPRESS.ORG</a></strong></span> IF YOU DO NOT WANT TO BE AN AFFILIATE OF ANY VIRUS SITE.<br>
                             <br>
@@ -1459,7 +1457,7 @@ function woocs_print_currency($_this, $currency) {
                 <?php endforeach; ?>
             </select>
         </td>
-
+        
         <td data-title="<?php esc_html_e("Separators", 'woocommerce-currency-switcher') ?>">
 
             <select name="woocs_separators[]" class="woocs-drop-down" title="<?php echo esc_html__('Separators', 'woocommerce-currency-switcher') ?>">
@@ -1544,7 +1542,7 @@ function woocs_print_currency($_this, $currency) {
 
             <?php
             $flag = WOOCS_LINK . 'img/no_flag.png';
-            if (isset($currency['flag']) AND !empty($currency['flag'])) {
+            if (isset($currency['flag']) AND!empty($currency['flag'])) {
                 $flag = $currency['flag'];
             }
             ?>

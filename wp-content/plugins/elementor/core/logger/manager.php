@@ -3,7 +3,6 @@ namespace Elementor\Core\Logger;
 
 use Elementor\Core\Base\Module as BaseModule;
 use Elementor\Core\Common\Modules\Ajax\Module;
-use Elementor\Core\Editor\Editor;
 use Elementor\Core\Logger\Loggers\Logger_Interface;
 use Elementor\Core\Logger\Items\PHP;
 use Elementor\Core\Logger\Items\JS;
@@ -129,19 +128,13 @@ class Manager extends BaseModule {
 			wp_send_json_error();
 		}
 
-		if ( ! current_user_can( Editor::EDITING_CAPABILITY ) ) {
-			wp_send_json_error( 'Permission denied' );
-		}
-
 		// PHPCS - See comment above.
-		$data = Utils::get_super_global_value( $_POST, 'data' ) ?? []; // phpcs:ignore WordPress.Security.NonceVerification.Missing
-
-		array_walk_recursive( $data, function( &$value ) {
+		array_walk_recursive( $_POST['data'], function( &$value ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$value = sanitize_text_field( $value );
 		} );
 
 		// PHPCS - See comment above.
-		foreach ( $data as $error ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		foreach ( $_POST['data'] as $error ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$error['type'] = Logger_Interface::LEVEL_ERROR;
 
 			if ( ! empty( $error['customFields'] ) ) {

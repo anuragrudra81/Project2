@@ -2,15 +2,15 @@
 
 /**
  * Plugin Name: StoreCustomizer
- * Version: 2.5.4
+ * Version: 2.4.6
  * Plugin URI: https://kairaweb.com/wordpress-plugins/woocustomizer/
  * Description: A store customizer plugin for editing your WooCommerce store and product pages, cart and checkout pages and also your user account page, all within the WordPress Customizer.
  * Author: Kaira
  * Author URI: https://kairaweb.com/
  * Requires at least: 5.0
- * Tested up to: 6.3
+ * Tested up to: 6.1
  * WC requires at least: 3.2
- * WC tested up to: 8.0
+ * WC tested up to: 7.1
  * Text Domain: woocustomizer
  * Domain Path: /lang/
  * 
@@ -19,7 +19,7 @@
  * @author Kaira
  * @since 1.0.0
  */
-define( 'WCD_PLUGIN_VERSION', '2.5.4' );
+define( 'WCD_PLUGIN_VERSION', '2.4.6' );
 define( 'WCD_PLUGIN_URL', plugins_url( '', __FILE__ ) );
 if ( !defined( 'ABSPATH' ) ) {
     exit;
@@ -84,17 +84,9 @@ if ( function_exists( 'wcz_fs' ) ) {
     require_once 'includes/customizer/customizer-options.php';
     require_once 'includes/customizer/customizer-library/customizer-library.php';
     require_once 'includes/customizer/styles.php';
-    
     if ( WooCustomizer::wcz_is_plugin_active( 'woocommerce.php' ) ) {
         require_once 'includes/inc/woocommerce.php';
-        // Declare Compatibility for HPOS
-        add_action( 'before_woocommerce_init', function () {
-            if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-                \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
-            }
-        } );
     }
-    
     // Excluded from Pro Version
     
     if ( !WooCustomizer::wcz_is_plugin_active( 'woocommerce.php' ) ) {

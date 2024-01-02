@@ -51,20 +51,12 @@ class Woolentor_Admin_Init{
 
         add_action( 'admin_menu', [ $this, 'add_menu' ], 25 );
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-        add_action( 'admin_enqueue_scripts', [ $this, 'dequeue_assets' ], 999 );
         Woolentor_Admin_Fields_Manager::instance()->init();
 
         // Dashboard Widget.
 		add_action( 'wp_dashboard_setup', [ $this, 'dashboard_widget' ], 9999 );
 
         add_action( 'admin_footer', [ $this, 'print_module_setting_popup' ], 99 );
-
-        // Upgrade Pro Menu
-        if( !is_plugin_active('woolentor-addons-pro/woolentor_addons_pro.php') ){
-            add_action( 'admin_menu', [$this, 'add_other_menu'], 228 );
-            add_action('admin_head', [ $this, 'admin_menu_item_adjust'] );
-            add_action('admin_head', [ $this, 'enqueue_admin_head_scripts'], 11 );
-        }
 
         add_action( 'wp_ajax_woolentor_save_opt_data', [ $this, 'save_data' ] );
         add_action( 'wp_ajax_woolentor_module_data', [ $this, 'module_data' ] );
@@ -92,6 +84,8 @@ class Woolentor_Admin_Init{
      */
     public function add_menu(){
 
+        global $submenu;
+
         self::$parent_menu_hook = add_menu_page(
             esc_html__( 'ShopLentor', 'woolentor' ),
             esc_html__( 'ShopLentor', 'woolentor' ), 
@@ -115,58 +109,6 @@ class Woolentor_Admin_Init{
         remove_submenu_page( 'woolentor_page','woolentor_page' );
         
 
-    }
-
-    /**
-     * [add_other_menu] Admin Menu
-     */
-    public function add_other_menu(){
-        add_submenu_page(
-            'woolentor_page', 
-            esc_html__('Upgrade to Pro', 'woolentor'),
-            esc_html__('Upgrade to Pro', 'woolentor'), 
-            'manage_options', 
-            'https://woolentor.com/pricing/?utm_source=admin&utm_medium=mainmenu&utm_campaign=free'
-        );
-    }
-
-    // Add Class For pro Menu Item
-    public function admin_menu_item_adjust(){
-        global $submenu;
-
-		// Check WooLentor Menu page exist or not
-		if ( ! isset( $submenu['woolentor_page'] ) ) {
-			return;
-		}
-
-        $position = key(
-			array_filter( $submenu['woolentor_page'],  
-				static function( $item ) {
-					return strpos( $item[2], 'https://woolentor.com/pricing/?utm_source=admin&utm_medium=mainmenu&utm_campaign=free' ) !== false;
-				}
-			)
-		);
-
-        if ( isset( $submenu['woolentor_page'][ $position ][4] ) ) {
-			$submenu['woolentor_page'][ $position ][4] .= ' woolentor-upgrade-pro';
-		} else {
-			$submenu['woolentor_page'][ $position ][] = 'woolentor-upgrade-pro';
-		}
-    }
-
-    // Add Custom scripts for pro menu item
-    public function enqueue_admin_head_scripts(){
-        $styles = '';
-        $scripts = '';
-
-        $styles .= '#adminmenu #toplevel_page_woolentor_page a.woolentor-upgrade-pro { font-weight: 600; background-color: #f56640; color: #ffffff; display: block; text-align: center;}';
-        $scripts .= 'jQuery(document).ready( function($) {
-			$("#adminmenu #toplevel_page_woolentor_page a.woolentor-upgrade-pro").attr("target","_blank");  
-		});';
-		
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		printf( '<style>%s</style>', $styles );
-		printf( '<script>%s</script>', $scripts );
     }
 
     /**
@@ -229,20 +171,6 @@ class Woolentor_Admin_Init{
     }
 
     /**
-     * [dequeue_assets] dequeue Scripts / Style Base Menu Slug
-     * @param  [string] $hook
-     * @return [void]
-     */
-    public function dequeue_assets( $hook ){
-        if( $hook === 'shoplentor_page_woolentor' || $hook === 'shoplentor_page_woolentor_templates' || $hook === 'shoplentor_page_woolentor_extension'){
-            if ( wp_script_is( 'wc-enhanced-select', 'enqueued' ) ) {
-                wp_dequeue_script('wc-enhanced-select');
-                wp_deregister_script('wc-enhanced-select');
-            }
-        }
-    }
-
-    /**
      * [dashboard_widget] Register Dashboard Widget
      * @return [void]
      */
@@ -295,9 +223,6 @@ class Woolentor_Admin_Init{
      * @return [void]
      */
     public function plugin_page(){
-        if( !is_plugin_active('woolentor-addons-pro/woolentor_addons_pro.php') ){
-            $this->offer_notice();
-        }
         ?>
         <div class="wrap woolentor-admin-wrapper">
             <div class="woolentor-admin-main-content">
@@ -310,7 +235,6 @@ class Woolentor_Admin_Init{
                     <?php self::load_template('style'); ?>
                     <?php self::load_template('module'); ?>
                     <?php self::load_template('extension'); ?>
-                    <?php self::load_template('freevspro'); ?>
                 </div>
                 <?php self::load_template('popup'); ?>
             </div>
@@ -457,39 +381,6 @@ class Woolentor_Admin_Init{
             'content' => $response_content,
             'fields'  => wp_json_encode( $fileds )
         ]);
-
-    }
-
-    /**
-     * Manage Promo Notice for Setting page
-     *
-     * @return void
-     */
-    public function offer_notice(){
-        if( !isset( \WooLentor\Base::$template_info['notices'] ) && !is_array( \WooLentor\Base::$template_info['notices'] ) ){
-            return;
-        }
-
-        $notice_info = \WooLentor\Base::$template_info['notices'][0];
-        if( isset( $notice_info['status'] ) ){
-            if( $notice_info['status'] == 0 ){
-                return;
-            }
-        }else{
-            return;
-        }
-
-        $message = $notice_info['description'] ? $notice_info['description'] : '';
-
-        \Woolentor_Admin_Notice::add_notice(
-			[
-				'id'          => 'setting-page-promo-banner',
-                'type'        => 'custom',
-                'dismissible' => true,
-				'message'     => $message,
-                'close_by'    => 'transient'
-			]
-		);
 
     }
 

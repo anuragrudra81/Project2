@@ -68,7 +68,7 @@ class Woolentor_Wb_Customer_Review_Widget extends Widget_Base {
                     'options' => [
                         'custom'      => __( 'Custom', 'woolentor' ),
                     ],
-                    'description' => sprintf( __( 'Product Wise Rating/Review Display is available in ShopLentor Pro. <a href="%s" target="_blank">Purchase ShopLentor Pro</a>', 'woolentor' ), esc_url( 'https://hasthemes.com/plugins/woolentor-pro-woocommerce-page-builder/?reviewwidget' ) ),
+                    'description' => sprintf( __( 'Product Wise Rating/Review Display is available in WooLentor Pro. <a href="%s" target="_blank">Purchase WooLentor Pro</a>', 'woolentor' ), esc_url( 'https://hasthemes.com/plugins/woolentor-pro-woocommerce-page-builder/?reviewwidget' ) ),
                 ]
             );
 

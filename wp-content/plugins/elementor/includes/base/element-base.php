@@ -321,21 +321,6 @@ abstract class Element_Base extends Controls_Stack {
 	}
 
 	/**
-	 * Get panel presets.
-	 *
-	 * Used for displaying the widget in the panel multiple times, but with different defaults values,
-	 * icon, title etc.
-	 *
-	 * @since 3.16.0
-	 * @access public
-	 *
-	 * @return array
-	 */
-	public function get_panel_presets() {
-		return [];
-	}
-
-	/**
 	 * Add new child element.
 	 *
 	 * Register new child element to allow hierarchy.
@@ -551,19 +536,13 @@ abstract class Element_Base extends Controls_Stack {
 			$elements[] = $child->get_raw_data( $with_html_content );
 		}
 
-		$raw_data = [
+		return [
 			'id' => $this->get_id(),
 			'elType' => $data['elType'],
 			'settings' => $data['settings'],
 			'elements' => $elements,
 			'isInner' => $data['isInner'],
 		];
-
-		if ( ! empty( $data['isLocked'] ) ) {
-			$raw_data['isLocked'] = $data['isLocked'];
-		}
-
-		return $raw_data;
 	}
 
 	public function get_data_for_save() {
@@ -662,10 +641,10 @@ abstract class Element_Base extends Controls_Stack {
 	 *
 	 * @since 1.3.0
 	 * @access protected
-	 * @deprecated 3.1.0 Use `add_render_attribute()` method instead.
+	 * @deprecated 3.1.0
 	 */
 	protected function _add_render_attributes() {
-		Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( __METHOD__, '3.1.0', 'add_render_attributes()' );
+		Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( __METHOD__, '3.1.0', __CLASS__ . '::add_render_attributes()' );
 
 		return $this->add_render_attributes();
 	}
@@ -698,13 +677,7 @@ abstract class Element_Base extends Controls_Stack {
 
 		foreach ( $settings as $setting_key => $setting ) {
 			if ( isset( $controls[ $setting_key ]['prefix_class'] ) ) {
-				if ( isset( $controls[ $setting_key ]['classes_dictionary'][ $setting ] ) ) {
-					$value = $controls[ $setting_key ]['classes_dictionary'][ $setting ];
-				} else {
-					$value = $setting;
-				}
-
-				$class_settings[ $setting_key ] = $value;
+				$class_settings[ $setting_key ] = $setting;
 			}
 		}
 
@@ -944,7 +917,7 @@ abstract class Element_Base extends Controls_Stack {
 				[
 					'label' => esc_html__( 'Offset X', 'elementor' ),
 					'type' => Controls_Manager::SLIDER,
-					'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
+					'size_units' => [ '%', 'px' ],
 					'range' => [
 						'%' => [
 							'min' => -100,
@@ -970,7 +943,7 @@ abstract class Element_Base extends Controls_Stack {
 				[
 					'label' => esc_html__( 'Offset Y', 'elementor' ),
 					'type' => Controls_Manager::SLIDER,
-					'size_units' => [ 'px', '%', 'em', 'rem', 'vh', 'custom' ],
+					'size_units' => [ '%', 'px' ],
 					'range' => [
 						'%' => [
 							'min' => -100,
@@ -1187,7 +1160,7 @@ abstract class Element_Base extends Controls_Stack {
 				$this->add_control(
 					'_transform_transition_hover',
 					[
-						'label' => esc_html__( 'Transition Duration', 'elementor' ) . ' (ms)',
+						'label' => esc_html__( 'Transition Duration (ms)', 'elementor' ),
 						'type' => Controls_Manager::SLIDER,
 						'device_args' => $default_unit_values_ms,
 						'range' => [
@@ -1354,10 +1327,10 @@ abstract class Element_Base extends Controls_Stack {
 	 *
 	 * @since 1.0.0
 	 * @access protected
-	 * @deprecated 3.1.0 Use `print_content()` method instead.
+	 * @deprecated 3.1.0
 	 */
 	protected function _print_content() {
-		Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( __METHOD__, '3.1.0', 'print_content()' );
+		Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( __METHOD__, '3.1.0', __CLASS__ . '::print_content()' );
 
 		$this->print_content();
 	}

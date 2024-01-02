@@ -82,7 +82,6 @@ class PMXI_Config implements IteratorAggregate {
 		return ! is_null($section) ? $this->config[$section]->toArray() : $this->config;
 	}
 	
-	#[\ReturnTypeWillChange]
 	public function getIterator() {
 		return new ArrayIterator($this->config);
 	}

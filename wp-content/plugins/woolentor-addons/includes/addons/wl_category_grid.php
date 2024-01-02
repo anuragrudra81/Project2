@@ -74,21 +74,8 @@ class Woolentor_Wl_Category_Grid_Widget extends Widget_Base {
                         'multiple_cat'=> esc_html__('Multiple Categories','woolentor'),
                         'all_cat'=> esc_html__('All Categories','woolentor'),
                         'all_cat_parent'=> esc_html__('All Categories (Parent Only)','woolentor'),
-                        'category_and_subcategory'=> esc_html__('Category > Subcategories (Shop Page Only)','woolentor'),
                     ],
                     'label_block' => true,
-                ]
-            );
-
-            $this->add_control(
-                'important_note',
-                [
-                    'type' => Controls_Manager::RAW_HTML,
-                    'raw' => '<div style="line-height:18px;">Choosing this option will display both parent and child categories on the Shop page. Initially, only the parent categories will be visible. Clicking a parent category will display its child categories on the same page.</div>',
-                    'content_classes' => 'wlnotice-imp elementor-panel-alert elementor-panel-alert-info',
-                    'condition' => [
-                        'category_display_type' => 'category_and_subcategory',
-                    ]
                 ]
             );
 
@@ -163,7 +150,7 @@ class Woolentor_Wl_Category_Grid_Widget extends Widget_Base {
                     'step' => 1,
                     'default' => 5,
                     'condition' => [
-                        'category_display_type' => ['all_cat','all_cat_parent','category_and_subcategory']
+                        'category_display_type' => ['all_cat','all_cat_parent']
                     ]
                 ]
             );
@@ -178,7 +165,7 @@ class Woolentor_Wl_Category_Grid_Widget extends Widget_Base {
                     'return_value' => 'yes',
                     'default' => 'yes',
                     'condition'=>[
-                        'category_display_type' => ['all_cat','all_cat_parent','category_and_subcategory']
+                        'category_display_type' => ['all_cat','all_cat_parent']
                     ]
                 ]
             );
@@ -204,18 +191,6 @@ class Woolentor_Wl_Category_Grid_Widget extends Widget_Base {
                     'condition'=>[
                         'layout'=>['1','4']
                     ]
-                ]
-            );
-
-            $this->add_control(
-                'show_description',
-                [
-                    'label' => __( 'Show Description', 'woolentor' ),
-                    'type' => Controls_Manager::SWITCHER,
-                    'label_on' => __( 'Yes', 'woolentor' ),
-                    'label_off' => __( 'No', 'woolentor' ),
-                    'return_value' => 'yes',
-                    'default' => 'no',
                 ]
             );
 
@@ -629,21 +604,6 @@ class Woolentor_Wl_Category_Grid_Widget extends Widget_Base {
             );
 
             $this->add_control(
-                'title_bg_color',
-                [
-                    'label' => __( 'Background Color', 'woolentor' ),
-                    'type' => Controls_Manager::COLOR,
-                    'selectors' => [
-                        '{{WRAPPER}} .ht-category-wrap .ht-category-content' => 'background-color: {{VALUE}} !important',
-                        '{{WRAPPER}} [class*="ht-category-wrap"] [class*="ht-category-content-"]' => 'background-color: {{VALUE}} !important',
-                    ],
-                    'condition'=>[
-                        'layout'=>['3']
-                    ]
-                ]
-            );
-
-            $this->add_control(
                 'title_after_color',
                 [
                     'label' => __( 'After Border Color', 'woolentor' ),
@@ -652,7 +612,7 @@ class Woolentor_Wl_Category_Grid_Widget extends Widget_Base {
                         '{{WRAPPER}} .ht-category-wrap-2 .ht-category-content-2 h3::before' => 'background-color: {{VALUE}}',
                     ],
                     'condition'=>[
-                        'layout'=>['2']
+                        'layout'=>['2'],
                     ]
                 ]
             );
@@ -675,77 +635,6 @@ class Woolentor_Wl_Category_Grid_Widget extends Widget_Base {
                     'selectors' => [
                         '{{WRAPPER}} .ht-category-wrap .ht-category-content h3' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                         '{{WRAPPER}} [class*="ht-category-wrap"] [class*="ht-category-content-"] h3' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                    ],
-                ]
-            );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-            'description_style',
-            [
-                'label' => esc_html__('Description','woolentor'),
-                'tab' => Controls_Manager::TAB_STYLE,
-                'condition' => [
-                    'show_description' => 'yes'
-                ]
-            ]
-        );
-            
-            $this->add_control(
-                'description_color',
-                [
-                    'label' => __( 'Color', 'woolentor' ),
-                    'type' => Controls_Manager::COLOR,
-                    'selectors' => [
-                        '{{WRAPPER}} [class*="ht-category-wrap"] .ht-category-description' => 'color: {{VALUE}}',
-                    ],
-                ]
-            );
-
-            $this->add_group_control(
-                Group_Control_Typography::get_type(),
-                [
-                    'name' => 'description_typography',
-                    'label' => __( 'Typography', 'woolentor' ),
-                    'selector' => '{{WRAPPER}} [class*="ht-category-wrap"] .ht-category-description',
-                ]
-            );
-
-            $this->add_responsive_control(
-                'description_margin',
-                [
-                    'label' => __( 'Margin', 'woolentor' ),
-                    'type' => Controls_Manager::DIMENSIONS,
-                    'size_units' => [ 'px', '%', 'em' ],
-                    'selectors' => [
-                        '{{WRAPPER}} [class*="ht-category-wrap"] .ht-category-description' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                    ],
-                ]
-            );
-
-            $this->add_responsive_control(
-                'description_align',
-                [
-                    'label'        => __( 'Alignment', 'woolentor' ),
-                    'type'         => Controls_Manager::CHOOSE,
-                    'options'      => [
-                        'left'   => [
-                            'title' => __( 'Left', 'woolentor' ),
-                            'icon'  => 'eicon-text-align-left',
-                        ],
-                        'center' => [
-                            'title' => __( 'Center', 'woolentor' ),
-                            'icon'  => 'eicon-text-align-center',
-                        ],
-                        'right'  => [
-                            'title' => __( 'Right', 'woolentor' ),
-                            'icon'  => 'eicon-text-align-right',
-                        ],
-                    ],
-                    'default'      => 'left',
-                    'selectors' => [
-                        '{{WRAPPER}} [class*="ht-category-wrap"] .ht-category-description' => 'text-align: {{VALUE}};',
                     ],
                 ]
             );
@@ -1097,9 +986,6 @@ class Woolentor_Wl_Category_Grid_Widget extends Widget_Base {
         if ( 'all_cat_parent' === $display_type ) {
             $catargs['parent'] = 0;
         }
-        elseif('category_and_subcategory' === $display_type){
-            $catargs['parent'] = ( function_exists('is_product_category') && is_product_category() ) ? get_queried_object_id() : 0;
-        }
         elseif( $display_type == 'single_cat' ){
             $product_categories = $settings['product_categories'];
             $product_cats = str_replace( ' ', '', $product_categories );
@@ -1114,7 +1000,7 @@ class Woolentor_Wl_Category_Grid_Widget extends Widget_Base {
         }
         $prod_categories = get_terms( 'product_cat', $catargs );
 
-        if( $display_type == 'all_cat' || $display_type == 'all_cat_parent' || $display_type == 'category_and_subcategory'){
+        if( $display_type == 'all_cat' || $display_type == 'all_cat_parent' ){
             $limitcount = $settings['limitcount'];
         }else{
             $limitcount = -1;
@@ -1204,11 +1090,6 @@ class Woolentor_Wl_Category_Grid_Widget extends Widget_Base {
                                     }
                                 ?>
                             </div>
-                            <?php
-                                if( $settings['show_description'] === 'yes' && !empty( $prod_cat->description ) ){
-                                    echo '<div class="ht-category-description">'.wp_kses( $prod_cat->description, woolentor_get_html_allowed_tags('desc') ).'</div>';
-                                }
-                            ?>
                         </div>
 
                     <?php elseif( '2' === $layout ):?>
@@ -1223,11 +1104,6 @@ class Woolentor_Wl_Category_Grid_Widget extends Widget_Base {
                                 </a>
                             </div>
                             <?php endif; ?>
-                            <?php
-                                if( $settings['show_description'] === 'yes' && !empty( $prod_cat->description ) ){
-                                    echo '<div class="ht-category-description">'.wp_kses( $prod_cat->description, woolentor_get_html_allowed_tags('desc') ).'</div>';
-                                }
-                            ?>
                         </div>
 
                     <?php elseif( '3' === $layout ):?>
@@ -1248,11 +1124,6 @@ class Woolentor_Wl_Category_Grid_Widget extends Widget_Base {
                             <div class="ht-category-content-3 ht-category-content-3-bg<?php echo $bgc; ?>">
                                 <h3><a href="<?php echo esc_url( $term_link ); ?>"><?php echo esc_html__( $prod_cat->name, 'woolentor' ); ?></a></h3>
                             </div>
-                            <?php
-                                if( $settings['show_description'] === 'yes' && !empty( $prod_cat->description ) ){
-                                    echo '<div class="ht-category-description">'.wp_kses( $prod_cat->description, woolentor_get_html_allowed_tags('desc') ).'</div>';
-                                }
-                            ?>
                         </div>
 
                     <?php elseif( '4' === $layout ):?>
@@ -1274,11 +1145,6 @@ class Woolentor_Wl_Category_Grid_Widget extends Widget_Base {
                                     ?>
                                 </h3>
                             </div>
-                            <?php
-                                if( $settings['show_description'] === 'yes' && !empty( $prod_cat->description ) ){
-                                    echo '<div class="ht-category-description">'.wp_kses( $prod_cat->description, woolentor_get_html_allowed_tags('desc') ).'</div>';
-                                }
-                            ?>
                         </div>
                     <?php else:?>
                         <div class="ht-category-wrap">
@@ -1292,11 +1158,6 @@ class Woolentor_Wl_Category_Grid_Widget extends Widget_Base {
                             <div class="ht-category-content-5">
                                 <h3><a href="<?php echo esc_url( $term_link ); ?>"><?php echo esc_html__( $prod_cat->name, 'woolentor' ); ?></a></h3>
                             </div>
-                            <?php
-                                if( $settings['show_description'] === 'yes' && !empty( $prod_cat->description ) ){
-                                    echo '<div class="ht-category-description">'.wp_kses( $prod_cat->description, woolentor_get_html_allowed_tags('desc') ).'</div>';
-                                }
-                            ?>
                         </div>
 
                     <?php endif; ?>

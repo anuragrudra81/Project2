@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace WooCommerce\PayPalCommerce\WcGateway\Gateway\OXXO;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
 use WC_Order;
 use WooCommerce\PayPalCommerce\WcGateway\Helper\CheckoutHelper;
 
@@ -64,15 +63,7 @@ class OXXO {
 
 		add_filter(
 			'woocommerce_available_payment_gateways',
-			/**
-			 * Param types removed to avoid third-party issues.
-			 *
-			 * @psalm-suppress MissingClosureParamType
-			 */
-			function ( $methods ) {
-				if ( ! is_array( $methods ) ) {
-					return $methods;
-				}
+			function ( array $methods ): array {
 
 				if ( ! $this->checkout_allowed_for_oxxo() ) {
 					unset( $methods[ OXXOGateway::ID ] );
@@ -155,19 +146,9 @@ class OXXO {
 		add_action(
 			'add_meta_boxes',
 			function( string $post_type ) {
-				/**
-				 * Class and function exist in WooCommerce.
-				 *
-				 * @psalm-suppress UndefinedClass
-				 * @psalm-suppress UndefinedFunction
-				 */
-				$screen = class_exists( CustomOrdersTableController::class ) && wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled()
-					? wc_get_page_screen_id( 'shop-order' )
-					: 'shop_order';
-
-				if ( $post_type === $screen ) {
+				if ( $post_type === 'shop_order' ) {
 					// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-					$post_id = wc_clean( wp_unslash( $_GET['id'] ?? $_GET['post'] ?? '' ) );
+					$post_id = wc_clean( wp_unslash( $_GET['post'] ?? '' ) );
 					$order   = wc_get_order( $post_id );
 					if ( is_a( $order, WC_Order::class ) && $order->get_payment_method() === OXXOGateway::ID ) {
 						$payer_action = $order->get_meta( 'ppcp_oxxo_payer_action' );
@@ -178,7 +159,7 @@ class OXXO {
 								function() use ( $payer_action ) {
 									echo '<p><a class="button" href="' . esc_url( $payer_action ) . '" target="_blank">' . esc_html__( 'See OXXO voucher', 'woocommerce-paypal-payments' ) . '</a></p>';
 								},
-								$screen,
+								$post_type,
 								'side',
 								'high'
 							);
@@ -239,5 +220,24 @@ class OXXO {
 				true
 			);
 		}
+
+		wp_localize_script(
+			'ppcp-oxxo',
+			'OXXOConfig',
+			array(
+				'oxxo_endpoint' => \WC_AJAX::get_endpoint( 'ppc-oxxo' ),
+				'oxxo_nonce'    => wp_create_nonce( 'ppc-oxxo' ),
+				'error'         => array(
+					'generic'       => __(
+						'Something went wrong. Please try again or choose another payment source.',
+						'woocommerce-paypal-payments'
+					),
+					'js_validation' => __(
+						'Required form fields are not filled or invalid.',
+						'woocommerce-paypal-payments'
+					),
+				),
+			)
+		);
 	}
 }

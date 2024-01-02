@@ -50,7 +50,6 @@ if (class_exists('WC_Geolocation')) {
 
 $storage_options = array(
     'session' => esc_html__('PHP Session', 'woocommerce-currency-switcher'),
-    'woocs_session' => esc_html__('FOX Session', 'woocommerce-currency-switcher'),
     'transient' => esc_html__('Transient', 'woocommerce-currency-switcher')
 );
 

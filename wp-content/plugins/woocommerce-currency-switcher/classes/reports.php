@@ -2,41 +2,27 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-//add_action('admin_head', function(){
-//	echo "<pre>";
-//	var_dump(get_post_meta(2066,'_cart_discount'));
-//	echo "</pre>";
-//});
 
 class WOOCS_reports {
 
     public function __construct() {
-
         add_filter('woocommerce_reports_get_order_report_data', array($this, 'adapt_data'), 10, 2);
         add_filter('woocommerce_reports_get_order_report_query', array($this, 'adapt_query'));
         add_action('admin_footer', array($this, 'show_switcher'));
     }
 
     public function adapt_data($result, $args) {
-		
-
-
         if (isset($_GET['currency']) AND $_GET['currency']) {
             global $WOOCS;
             $WOOCS->set_currency($_GET['currency']);
         }
-
-
-			
-        if (is_array($result) AND (isset($result[0]->total_sales) || isset($result[0]->discount_amount))) {
-
+        if (is_array($result) AND isset($result[0]->total_sales)) {
             global $wpdb;
             global $WOOCS;
             $range = '7day';
             if (isset($_GET['range'])) {
                 $range = $_GET['range'];
             }
-			$if_coupon = isset($result[0]->discount_amount);
             $start_date = '';
             $end_date = date('Y-m-d 23:59:59');
             switch ($range) {
@@ -87,48 +73,30 @@ class WOOCS_reports {
                         }
                     }
 
-					//coupons
-					if ($if_coupon) {
-					
-						$coupon_amount = 0;
-						foreach( $order->get_coupon_codes() as $coupon_code ) {
-							// Get the WC_Coupon object
-							$coupon = new WC_Coupon($coupon_code);
-							$coupon_amount += $coupon->get_amount(); // Get coupon amount						
-						}
-
-						$tmp["discount_amount"] = $coupon_amount;				
-						
-					} else {
-						if ($_order_currency != $WOOCS->default_currency) {
-							$tmp['total_sales'] = $WOOCS->back_convert(get_post_meta($order_id, '_order_total', true), $order_rate, 4);
-							$tmp['total_shipping'] = $WOOCS->back_convert(get_post_meta($order_id, '_order_shipping', true), $order_rate, 4);
-							$tmp['total_tax'] = $WOOCS->back_convert(get_post_meta($order_id, '_order_tax', true), $order_rate, 4);
-							$tmp['total_shipping_tax'] = $WOOCS->back_convert(get_post_meta($order_id, '_order_shipping_tax', true), $order_rate, 4);
-
-						} else {
-							$tmp['total_sales'] = get_post_meta($order_id, '_order_total', true);
-							$tmp['total_shipping'] = get_post_meta($order_id, '_order_shipping', true);
-							$tmp['total_tax'] = get_post_meta($order_id, '_order_tax', true);
-							$tmp['total_shipping_tax'] = get_post_meta($order_id, '_order_shipping_tax', true);
-						}
-						if (isset($_GET['currency']) AND $_GET['currency']) {
-							if ($_GET['currency'] != $WOOCS->default_currency) {
-								$currencies = $WOOCS->get_currencies();
-								if (isset($currencies[$_GET['currency']])) {
-									$rate = $currencies[$_GET['currency']]['rate'];
-									$tmp['total_sales'] = $tmp['total_sales'] * $rate;
-									$tmp['total_shipping'] = $tmp['total_shipping'] * $rate;
-									$tmp['total_tax'] = $tmp['total_tax'] * $rate;
-									$tmp['total_shipping_tax'] = $tmp['total_shipping_tax'] * $rate;
-									$WOOCS->set_currency($_GET['currency']);
-								}
-							}
-						}						
-						
-					}
-
-
+                    if ($_order_currency != $WOOCS->default_currency) {
+                        $tmp['total_sales'] = $WOOCS->back_convert(get_post_meta($order_id, '_order_total', true), $order_rate, 4);
+                        $tmp['total_shipping'] = $WOOCS->back_convert(get_post_meta($order_id, '_order_shipping', true), $order_rate, 4);
+                        $tmp['total_tax'] = $WOOCS->back_convert(get_post_meta($order_id, '_order_tax', true), $order_rate, 4);
+                        $tmp['total_shipping_tax'] = $WOOCS->back_convert(get_post_meta($order_id, '_order_shipping_tax', true), $order_rate, 4);
+                    } else {
+                        $tmp['total_sales'] = get_post_meta($order_id, '_order_total', true);
+                        $tmp['total_shipping'] = get_post_meta($order_id, '_order_shipping', true);
+                        $tmp['total_tax'] = get_post_meta($order_id, '_order_tax', true);
+                        $tmp['total_shipping_tax'] = get_post_meta($order_id, '_order_shipping_tax', true);
+                    }
+                    if (isset($_GET['currency']) AND $_GET['currency']) {
+                        if ($_GET['currency'] != $WOOCS->default_currency) {
+                            $currencies = $WOOCS->get_currencies();
+                            if (isset($currencies[$_GET['currency']])) {
+                                $rate = $currencies[$_GET['currency']]['rate'];
+                                $tmp['total_sales'] = $tmp['total_sales'] * $rate;
+                                $tmp['total_shipping'] = $tmp['total_shipping'] * $rate;
+                                $tmp['total_tax'] = $tmp['total_tax'] * $rate;
+                                $tmp['total_shipping_tax'] = $tmp['total_shipping_tax'] * $rate;
+                                $WOOCS->set_currency($_GET['currency']);
+                            }
+                        }
+                    }
 
                     //$tmp['post_date'] = $order->order_date;
                     $tmp['post_date'] = $order->get_date_created();

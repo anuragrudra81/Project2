@@ -355,6 +355,15 @@ $wf_filters_help_doc_lists=array(
 		),
 	),
 	'others'=>array(
+		'wf_pklist_alter_meta_value'=> array(
+			'title' => __('Alter meta data','print-invoices-packing-slip-labels-for-woocommerce'),
+			'description'=> __('Alter meta data.','print-invoices-packing-slip-labels-for-woocommerce'),
+			'params'=>'$meta_value, $meta_data, $meta_key',
+			'function_name'=>'wt_pklist_alter_meta',
+			'function_code'=>'
+				$meta_value=\'Enter the meta value\';<br />
+				return $meta_value;<br />',
+		),
 		'wf_pklist_order_additional_item_meta'=> array(
 			'title'=> __('Alter additional item meta','print-invoices-packing-slip-labels-for-woocommerce'),
 			'description'=> __('Alter additional item meta','print-invoices-packing-slip-labels-for-woocommerce'),

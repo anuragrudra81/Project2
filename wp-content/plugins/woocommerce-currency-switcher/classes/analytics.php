@@ -25,17 +25,11 @@ class WOOCS_analytics {
         global $WOOCS;
         $decimal = 2;
         $currencies = $WOOCS->get_currencies();
-		//hpos
-        //$_order_currency = get_post_meta($order_id, '_order_currency', true);
-		$order = wc_get_order( $order_id ); 		
-		$_order_currency  = $order->get_currency();
-		
+        $_order_currency = get_post_meta($order_id, '_order_currency', true);
         if (!$_order_currency || $_order_currency == $WOOCS->default_currency) {
             return;
         }
-		//hpos
-        //$order_rate = get_post_meta($order_id, '_woocs_order_rate', true);
-		$order_rate = $order->get_meta( '_woocs_order_rate', true);
+        $order_rate = get_post_meta($order_id, '_woocs_order_rate', true);
         $decimal = $currencies[$WOOCS->default_currency]['decimals'];
         if (!$order_rate && isset($currencies[$_order_currency])) {
             $order_rate = $currencies[$_order_currency]['rate'];
@@ -82,21 +76,11 @@ class WOOCS_analytics {
 
         $decimal = 2;
         $currencies = $WOOCS->get_currencies();
-        
-		//hpos
-        //$_order_currency = get_post_meta($order_id, '_order_currency', true);
-		$order = wc_get_order( $order_id ); 		
-		$_order_currency  = $order->get_currency();
-		
-		
+        $_order_currency = get_post_meta($order_id, '_order_currency', true);
         if (!$_order_currency || $_order_currency == $WOOCS->default_currency) {
             return;
         }
-		
-		//hpos
-        //$order_rate = get_post_meta($order_id, '_woocs_order_rate', true);
-		$order_rate = $order->get_meta( '_woocs_order_rate', true);
-        
+        $order_rate = get_post_meta($order_id, '_woocs_order_rate', true);
         $decimal = $currencies[$WOOCS->default_currency]['decimals'];
         if (!$order_rate && isset($currencies[$_order_currency])) {
             $order_rate = $currencies[$_order_currency]['rate'];
@@ -142,21 +126,11 @@ class WOOCS_analytics {
 
         $decimal = 2;
         $currencies = $WOOCS->get_currencies();
-		
-		//hpos
-        //$_order_currency = get_post_meta($order_id, '_order_currency', true);
-		$order = wc_get_order( $order_id );
-		$_order_currency  = $order->get_currency();
-		
+        $_order_currency = get_post_meta($order_id, '_order_currency', true);
         if (!$_order_currency || $_order_currency == $WOOCS->default_currency) {
             return;
         }
-        
-		//hpos
-        //$order_rate = get_post_meta($order_id, '_woocs_order_rate', true);
-		$order_rate = $order->get_meta( '_woocs_order_rate', true);		
-		
-		
+        $order_rate = get_post_meta($order_id, '_woocs_order_rate', true);
         $decimal = $currencies[$WOOCS->default_currency]['decimals'];
         if (!$order_rate && isset($currencies[$_order_currency])) {
             $order_rate = $currencies[$_order_currency]['rate'];

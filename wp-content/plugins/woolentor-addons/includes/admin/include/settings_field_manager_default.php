@@ -299,13 +299,13 @@ class WooLentor_Settings_Field_Manager_Default {
 
         $value = $this->get_option( $args['id'], $args['section'], $args['std'] );
 
-        $field_options = is_array( $value ) ? array_merge( $value, $args['options'] ) : $args['options'];
+        $field_options = array_merge( $value, $args['options'] );
 
         $html  = '<fieldset><input type="checkbox" class="htoption-shortable-checkall">'.esc_html__( 'Check All', 'woolentor' ).'<ul class="htoption_shortable">';
         $html .= sprintf( '<input type="hidden" name="%1$s[%2$s]" value="" />', $args['section'], $args['id'] );
 
         foreach ( $field_options as $key => $label ) {
-            $checked = ( is_array( $value ) && array_key_exists( $key, $value ) ) ? $key : '0';
+            $checked = array_key_exists( $key, $value ) ? $key : '0';
             $html    .= sprintf( '<li><label for="htoptions_sp_%1$s[%2$s][%3$s]">', $args['section'], $args['id'], $key );
             $html    .= sprintf( '<input type="checkbox" class="checkbox" id="htoptions_sp_%1$s[%2$s][%3$s]" name="%1$s[%2$s][%3$s]" value="%3$s" %4$s />', $args['section'], $args['id'], $key, checked( $checked, $key, false ) );
             $html    .= sprintf( '%1$s</label></li>',  $label );

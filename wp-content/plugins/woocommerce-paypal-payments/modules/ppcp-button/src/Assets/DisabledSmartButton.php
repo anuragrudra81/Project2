@@ -24,16 +24,12 @@ class DisabledSmartButton implements SmartButtonInterface {
 	}
 
 	/**
-	 * Whether the scripts should be loaded.
-	 */
-	public function should_load_ppcp_script(): bool {
-		return false;
-	}
-
-	/**
 	 * Enqueues necessary scripts.
+	 *
+	 * @return bool
 	 */
-	public function enqueue(): void {
+	public function enqueue(): bool {
+		return true;
 	}
 
 	/**
@@ -44,14 +40,5 @@ class DisabledSmartButton implements SmartButtonInterface {
 	public function can_save_vault_token(): bool {
 
 		return false;
-	}
-
-	/**
-	 * The configuration for the smart buttons.
-	 *
-	 * @return array
-	 */
-	public function script_data(): array {
-		return array();
 	}
 }

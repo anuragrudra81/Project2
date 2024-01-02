@@ -1,0 +1,19 @@
+2024-01-02T22:54:12+00:00 DEBUG POST https://api.paypal.com/v1/oauth2/token?grant_type=client_credentials
+Response Debug ID: edc4115667141
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+
+2024-01-02T22:54:13+00:00 DEBUG POST https://api.paypal.com/v1/identity/generate-token
+Request Body: {"customer_id":"bccdfc-d149b41494956"}
+Response Debug ID: 7de9f4a958117
+Response: Array
+(
+    [code] => 200
+    [message] => OK
+)
+
+

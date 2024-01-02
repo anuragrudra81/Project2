@@ -30,26 +30,6 @@ if ( ! class_exists( 'Woolentor_Diagnostic_Data' ) ) {
         private $project_version;
 
         /**
-         * Pro version Slug.
-         */
-        private $project_pro_slug;
-
-        /**
-         * Pro active.
-         */
-        private $project_pro_active;
-
-        /**
-         * Pro installed.
-         */
-        private $project_pro_installed;
-
-        /**
-         * Pro version.
-         */
-        private $project_pro_version;
-
-        /**
          * Data center.
          */
         private $data_center;
@@ -85,11 +65,6 @@ if ( ! class_exists( 'Woolentor_Diagnostic_Data' ) ) {
             $this->data_center = 'https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjAwNTY1MDYzZTA0MzM1MjY1NTUzNyI_3D_pc';
             $this->privacy_policy = 'https://woolentor.com/privacy-policy/';
 
-            $this->project_pro_slug = 'woolentor-addons-pro/woolentor_addons_pro.php';
-            $this->project_pro_active = $this->is_pro_plugin_active();
-            $this->project_pro_installed = $this->is_pro_plugin_installed();
-            $this->project_pro_version = $this->get_pro_version();
-
             add_action( 'admin_notices', function () {
                 $this->show_notices();
             }, 0 );
@@ -123,53 +98,9 @@ if ( ! class_exists( 'Woolentor_Diagnostic_Data' ) ) {
         }
 
         /**
-         * Is pro active.
-         */
-        private function is_pro_plugin_active() {
-
-            $result = is_plugin_active( $this->project_pro_slug );
-            $result = ( ( true === $result ) ? 'yes' : 'no' );
-
-            return $result;
-        }
-
-        /**
-         * Is pro installed.
-         */
-        private function is_pro_plugin_installed() {
-
-            $plugins = get_plugins();
-            $result = ( isset( $plugins[ $this->project_pro_slug ] ) ? 'yes' : 'no' );
-
-            return $result;
-        }
-
-        /**
-         * Get pro version.
-         */
-        private function get_pro_version() {
-
-            $plugins = get_plugins();
-            $data = ( ( isset( $plugins[ $this->project_pro_slug ] ) && is_array( $plugins[ $this->project_pro_slug ] ) ) ? $plugins[ $this->project_pro_slug ] : array() );
-            $version = ( isset( $data['Version'] ) ? sanitize_text_field( $data['Version'] ) : '' );
-
-            return $version;
-        }
-
-        /**
          * Process data.
          */
         private function process_data() {
-
-            $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
-
-            if ( ! wp_verify_nonce( $nonce, 'woolentor_diagnostic_data_nonce' ) ) {
-                $errormessage = array(
-                    'message'  => __('Nonce Varification fail','woolentor')
-                );
-                wp_send_json_error( $errormessage );
-            }
-
             $agreed = ( isset( $_POST['agreed'] ) ? sanitize_key( $_POST['agreed'] ) : 'no' );
             $agreed = ( ( 'yes' === $agreed ) ? 'yes' : 'no' );
 
@@ -210,12 +141,9 @@ if ( ! class_exists( 'Woolentor_Diagnostic_Data' ) ) {
             $hash = md5( current_time( 'U', true ) );
 
             $project = array(
-                'name'          => $this->project_name,
-                'type'          => $this->project_type,
-                'version'       => $this->project_version,
-                'pro_active'    => $this->project_pro_active,
-                'pro_installed' => $this->project_pro_installed,
-                'pro_version'   => $this->project_pro_version,
+                'name'    => $this->project_name,
+                'type'    => $this->project_type,
+                'version' => $this->project_version,
             );
 
             $site_title = get_bloginfo( 'name' );
@@ -243,8 +171,6 @@ if ( ! class_exists( 'Woolentor_Diagnostic_Data' ) ) {
                 $admin_display_name = ( isset( $admin_user->display_name ) ? $admin_user->display_name : '' );
             }
 
-            $ip_address = $this->get_ip_address();
-
             $data = array(
                 'hash'               => $hash,
                 'project'            => $project,
@@ -260,8 +186,7 @@ if ( ! class_exists( 'Woolentor_Diagnostic_Data' ) ) {
                 'wordpress_info'     => $this->get_wordpress_info(),
                 'users_count'        => $this->get_users_count(),
                 'plugins_count'      => $this->get_plugins_count(),
-                'ip_address'         => $ip_address,
-                'country_name'       => $this->get_country_from_ip( $ip_address ),
+                'ip_address'         => $this->get_ip_address(),
             );
 
             return $data;
@@ -415,29 +340,6 @@ if ( ! class_exists( 'Woolentor_Diagnostic_Data' ) ) {
         }
 
         /**
-         * Get Country Form ID Address
-         */
-        private function get_country_from_ip( $ip_address ) {
-            $api_url = 'http://ip-api.com/json/' . $ip_address;
-        
-            // Fetch data from the API
-            $response = wp_remote_get( $api_url );
-        
-            if ( is_wp_error( $response ) ) {
-                return 'Error';
-            }
-        
-            // Decode the JSON response
-            $data = json_decode( wp_remote_retrieve_body($response) );
-        
-            if ($data && $data->status === 'success') {
-                return $data->country;
-            } else {
-                return 'Unknown';
-            }
-        }
-
-        /**
          * Send request.
          */
         private function send_request( $data = array() ) {
@@ -470,10 +372,7 @@ if ( ! class_exists( 'Woolentor_Diagnostic_Data' ) ) {
          * Show notices.
          */
         private function show_notices() {
-
-            $action = isset( $_GET['action'] ) ? sanitize_text_field( $_GET['action'] ) : '';
-
-            if ( 'no' === $this->is_capable_user() || 'upload-plugin' == $action ) {
+            if ( 'no' === $this->is_capable_user() ) {
                 return;
             }
 
@@ -486,20 +385,17 @@ if ( ! class_exists( 'Woolentor_Diagnostic_Data' ) ) {
          * Show core notice.
          */
         private function show_core_notice() {
-
-            $message_l1 = sprintf( esc_html__( 'At %2$s%1$s%3$s, we prioritize continuous improvement and compatibility. To achieve this, we gather non-sensitive diagnostic information and details about plugin usage. This includes your site\'s URL, the versions of WordPress and PHP you\'re using, and a list of your installed plugins and themes. We also require your email address to provide you with exclusive discount coupons and updates. This data collection is crucial for ensuring that %2$s%1$s%3$s remains up-to-date and compatible with the most widely-used plugins and themes. Rest assured, your privacy is our priority – no spam, guaranteed. %4$sPrivacy Policy%5$s', 'woolentor' ), esc_html( $this->project_name ), '<strong>', '</strong>', '<a target="_blank" href="' . esc_url( $this->privacy_policy ) . '">', '</a>', '<h4 class="woolentor-diagnostic-data-title">', '</h4>' );
-
+            $message_l1 = sprintf( esc_html__( 'If you want to help us improve the %4$s%1$s%5$s plugin even more, please allow us to collect non-sensitive diagnostic data and usage information. Over %2$shere%3$s, you can see what kind of data we collect.', 'woolentor' ), esc_html( $this->project_name ), '<a href="#" class="woolentor-diagnostic-data-list-toogle">', '</a>', '<strong>', '</strong>' );
             $message_l2 = sprintf( esc_html__( 'Server information (Web server, PHP version, MySQL version), WordPress information, site name, site URL, number of plugins, number of users, your name, and email address. You can rest assured that no sensitive data will be collected or tracked. %1$sLearn more%2$s.', 'woolentor' ), '<a target="_blank" href="' . esc_url( $this->privacy_policy ) . '">', '</a>' );
 
-            $button_text_1 = esc_html__( 'Count Me In', 'woolentor' );
+            $button_text_1 = esc_html__( 'Yes, I Agree', 'woolentor' );
             $button_link_1 = add_query_arg( array( 'woolentor-diagnostic-data-agreed' => 1 ) );
 
-            $button_text_2 = esc_html__( 'No, Thanks', 'woolentor' );
+            $button_text_2 = esc_html__( 'No Thanks', 'woolentor' );
             $button_link_2 = add_query_arg( array( 'woolentor-diagnostic-data-agreed' => 0 ) );
             ?>
-            <div class="woolentor-diagnostic-data-style"><style>.woolentor-diagnostic-data-notice,.woocommerce-embed-page .woolentor-diagnostic-data-notice{padding-top:.75em;padding-bottom:.75em;}.woolentor-diagnostic-data-notice .woolentor-diagnostic-data-buttons,.woolentor-diagnostic-data-notice .woolentor-diagnostic-data-list,.woolentor-diagnostic-data-notice .woolentor-diagnostic-data-message{padding:.25em 2px;margin:0;}.woolentor-diagnostic-data-notice .woolentor-diagnostic-data-list{display:none;color:#646970;}.woolentor-diagnostic-data-notice .woolentor-diagnostic-data-buttons{padding-top:.75em;}.woolentor-diagnostic-data-notice .woolentor-diagnostic-data-buttons .button{margin-right:5px;box-shadow:none;}.woolentor-diagnostic-data-loading{position:relative;}.woolentor-diagnostic-data-loading::before{position:absolute;content:"";width:100%;height:100%;top:0;left:0;background-color:rgba(255,255,255,.5);z-index:999;}.woolentor-diagnostic-data-disagree{border-width:0px !important;background-color: transparent!important; padding: 0!important;}h4.woolentor-diagnostic-data-title {margin: 0 0 10px 0;font-size: 1.04em;font-weight: 600;}</style></div>
+            <div class="woolentor-diagnostic-data-style"><style>.woolentor-diagnostic-data-notice,.woocommerce-embed-page .woolentor-diagnostic-data-notice{padding-top:.75em;padding-bottom:.75em;}.woolentor-diagnostic-data-notice .woolentor-diagnostic-data-buttons,.woolentor-diagnostic-data-notice .woolentor-diagnostic-data-list,.woolentor-diagnostic-data-notice .woolentor-diagnostic-data-message{padding:.25em 2px;margin:0;}.woolentor-diagnostic-data-notice .woolentor-diagnostic-data-list{display:none;color:#646970;}.woolentor-diagnostic-data-notice .woolentor-diagnostic-data-buttons{padding-top:.75em;}.woolentor-diagnostic-data-notice .woolentor-diagnostic-data-buttons .button{margin-right:5px;}.woolentor-diagnostic-data-loading{position:relative;}.woolentor-diagnostic-data-loading::before{position:absolute;content:"";width:100%;height:100%;top:0;left:0;background-color:rgba(255,255,255,.5);z-index:999;}</style></div>
             <div class="woolentor-diagnostic-data-notice notice notice-success">
-                <h4 class="woolentor-diagnostic-data-title"><?php echo sprintf( esc_html__('🌟 Enhance Your %1$s Experience as a Valued Contributor!','woolentor'), esc_html( $this->project_name )); ?></h4>
                 <p class="woolentor-diagnostic-data-message"><?php echo wp_kses_post( $message_l1 ); ?></p>
                 <p class="woolentor-diagnostic-data-list"><?php echo wp_kses_post( $message_l2 ); ?></p>
                 <p class="woolentor-diagnostic-data-buttons">
@@ -507,7 +403,7 @@ if ( ! class_exists( 'Woolentor_Diagnostic_Data' ) ) {
                     <a href="<?php echo esc_url( $button_link_2 ); ?>" class="woolentor-diagnostic-data-button woolentor-diagnostic-data-disagree button button-secondary"><?php echo esc_html( $button_text_2 ); ?></a>
                 </p>
             </div>
-            <div class="woolentor-diagnostic-data-script"><script type="text/javascript">;(function($){"use strict";function woolentorDissmissThanksNotice(noticeWrap){$('.woolentor-diagnostic-data-thanks .notice-dismiss').on('click',function(e){e.preventDefault();let thisButton=$(this),noticeWrap=thisButton.closest('.woolentor-diagnostic-data-thanks');noticeWrap.fadeTo(100,0,function(){noticeWrap.slideUp(100,function(){noticeWrap.remove()})})})};$(".woolentor-diagnostic-data-list-toogle").on("click",function(e){e.preventDefault();$(this).parents(".woolentor-diagnostic-data-notice").find(".woolentor-diagnostic-data-list").slideToggle("fast")});$(".woolentor-diagnostic-data-button").on("click",function(e){e.preventDefault();let thisButton=$(this),noticeWrap=thisButton.closest(".woolentor-diagnostic-data-notice"),agreed=thisButton.hasClass("woolentor-diagnostic-data-agree")?"yes":"no",styleWrap=$(".woolentor-diagnostic-data-style"),scriptWrap=$(".woolentor-diagnostic-data-script");$.ajax({type:"POST",url:ajaxurl,data:{action:"woolentor_diagnostic_data",agreed:agreed,nonce:'<?php echo wp_create_nonce( 'woolentor_diagnostic_data_nonce' );?>'},beforeSend:function(){noticeWrap.addClass("woolentor-diagnostic-data-loading")},success:function(response){response="object"===typeof response?response:{};let success=response.hasOwnProperty("success")?response.success:"no",notice=response.hasOwnProperty("notice")?response.notice:"no",thanks_notice=response.hasOwnProperty("thanks_notice")?response.thanks_notice:"";if("yes"===success){noticeWrap.replaceWith(thanks_notice);styleWrap.remove();scriptWrap.remove()}else if("no"===notice){noticeWrap.remove();styleWrap.remove();scriptWrap.remove()};noticeWrap.removeClass("woolentor-diagnostic-data-loading");woolentorDissmissThanksNotice()},error:function(){noticeWrap.removeClass("woolentor-diagnostic-data-loading")},})})})(jQuery);</script></div>
+            <div class="woolentor-diagnostic-data-script"><script type="text/javascript">;(function($){"use strict";function woolentorDissmissThanksNotice(noticeWrap){$('.woolentor-diagnostic-data-thanks .notice-dismiss').on('click',function(e){e.preventDefault();let thisButton=$(this),noticeWrap=thisButton.closest('.woolentor-diagnostic-data-thanks');noticeWrap.fadeTo(100,0,function(){noticeWrap.slideUp(100,function(){noticeWrap.remove()})})})};$(".woolentor-diagnostic-data-list-toogle").on("click",function(e){e.preventDefault();$(this).parents(".woolentor-diagnostic-data-notice").find(".woolentor-diagnostic-data-list").slideToggle("fast")});$(".woolentor-diagnostic-data-button").on("click",function(e){e.preventDefault();let thisButton=$(this),noticeWrap=thisButton.closest(".woolentor-diagnostic-data-notice"),agreed=thisButton.hasClass("woolentor-diagnostic-data-agree")?"yes":"no",styleWrap=$(".woolentor-diagnostic-data-style"),scriptWrap=$(".woolentor-diagnostic-data-script");$.ajax({type:"POST",url:ajaxurl,data:{action:"woolentor_diagnostic_data",agreed:agreed},beforeSend:function(){noticeWrap.addClass("woolentor-diagnostic-data-loading")},success:function(response){response="object"===typeof response?response:{};let success=response.hasOwnProperty("success")?response.success:"no",notice=response.hasOwnProperty("notice")?response.notice:"no",thanks_notice=response.hasOwnProperty("thanks_notice")?response.thanks_notice:"";if("yes"===success){noticeWrap.replaceWith(thanks_notice);styleWrap.remove();scriptWrap.remove()}else if("no"===notice){noticeWrap.remove();styleWrap.remove();scriptWrap.remove()};noticeWrap.removeClass("woolentor-diagnostic-data-loading");woolentorDissmissThanksNotice()},error:function(){noticeWrap.removeClass("woolentor-diagnostic-data-loading")},})})})(jQuery);</script></div>
             <?php
         }
 

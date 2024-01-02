@@ -255,7 +255,7 @@ class Manage_Wishlist {
      * @param  integer $offset
      * @return [array]
      */
-    public function get_wishlist_products( $per_page = -1, $offset = 0 ){
+    public function get_wishlist_products( $per_page = 20, $offset = 0 ){
 
         if( is_user_logged_in() ){
             $args = [
@@ -300,7 +300,7 @@ class Manage_Wishlist {
      * [get_products_data] generate wishlist products data
      * @return [array] product list
      */
-    public function get_products_data( $limit = -1, $page = 1 ) {
+    public function get_products_data() {
 
         $ids = $this->get_wishlist_products();
 
@@ -318,8 +318,6 @@ class Manage_Wishlist {
 
         $args = array(
             'include' => $ids,
-            'limit'   => $limit,
-            'page' => $page
         );
 
         $products = wc_get_products( $args );
@@ -606,32 +604,6 @@ class Manage_Wishlist {
         $social_share_attr = apply_filters( 'wishsuite_social_share_arg', $atts );
         wishsuite_get_template( 'wishsuite-social-share.php', $social_share_attr, true );
         
-    }
-
-    /**
-     * [pagination]
-     * @return void
-     */
-    public function pagination(){
-        $current_page = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
-        $total_items = count( \WishSuite\Frontend\Manage_Wishlist::instance()->get_products_data() );
-        $product_per_page = woolentor_get_option( 'wishlist_product_per_page', 'wishsuite_table_settings_tabs', 20 );
-        $total_pages = ceil($total_items / $product_per_page);
-        $args = array(
-            'base' => str_replace( $total_pages, '%#%', esc_url( get_pagenum_link( $total_pages ) ) ),
-            'format' => '?paged=%#%',
-            'prev_text' => __('&laquo;'),
-            'next_text' => __('&raquo;'),
-            'total' => $total_pages,
-            'current' => $current_page,
-            'show_all' => false,
-            'end_size' => 1,
-            'mid_size' => 2,
-            'type' => 'list',
-            'add_args' => true,
-            'add_fragment' => ''
-        );
-        echo '<nav class="wishsuite-pagination">' . paginate_links($args) . '</nav>';
     }
 
 

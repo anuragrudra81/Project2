@@ -8,7 +8,7 @@ $uniqClass     = 'woolentorblock-'.$settings['blockUniqId'];
 $areaClasses   = array( $uniqClass, 'woocommerce', 'woolentor-product-curvy' );
 
 !empty( $settings['align'] ) ? $areaClasses[] = 'align'.$settings['align'] : '';
-!empty( $settings['className'] ) ? $areaClasses[] = esc_attr( $settings['className'] ) : '';
+!empty( $settings['className'] ) ? $areaClasses[] = $settings['className'] : '';
 
 !empty( $settings['columns']['desktop'] ) ? $areaClasses[] = 'woolentor-grid-columns-'.$settings['columns']['desktop'] : 'woolentor-grid-columns-4';
 !empty( $settings['columns']['laptop'] ) ? $areaClasses[] = 'woolentor-grid-columns-laptop-'.$settings['columns']['laptop'] : 'woolentor-grid-columns-laptop-3';

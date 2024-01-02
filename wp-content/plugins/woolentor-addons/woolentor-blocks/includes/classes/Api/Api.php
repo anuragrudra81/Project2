@@ -14,8 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Api {
 
-    public $namespace = '';
-
 	/**
 	 * The Constructor.
 	 */
@@ -94,9 +92,6 @@ class Api {
                 'permission_callback' => '__return_true'
             ]
         );
-
-        // Template Library
-        \WooLentorBlocks\Template_Library::instance()->register_routes( $this->namespace );
 
         // CSS
         \WooLentorBlocks\Manage_Styles::instance()->register_routes( $this->namespace );
@@ -227,7 +222,7 @@ class Api {
                 }
 
                 // Tags
-                $tags = get_the_terms( $product_id, ( isset( $request['tag'] ) ? esc_attr( $request['tag'] ) : 'product_tag' ) );
+                $tags = get_the_terms( $product_id, ( isset( $prams['tag'] ) ? esc_attr( $prams['tag'] ) : 'product_tag' ) );
                 if( !empty( $tag ) ){
                     $tag_list = array();
                     foreach ( $tags as $tag ) {
@@ -241,7 +236,7 @@ class Api {
                 }
 
                 // Categories
-                $categories = get_the_terms( $product_id, ( isset( $request['cat'] ) ? esc_attr( $request['cat'] ) : 'product_cat') );
+                $categories = get_the_terms( $product_id, ( isset( $prams['cat'] ) ? esc_attr( $prams['cat'] ) : 'product_cat') );
                 if( !empty( $categories ) ){
                     $category_list = array();
                     foreach ( $categories as $category ) {

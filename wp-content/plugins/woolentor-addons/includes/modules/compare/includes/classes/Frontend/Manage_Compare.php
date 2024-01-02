@@ -118,9 +118,9 @@ class Manage_Compare {
         /**
          * Popup HTML Render
          */
-        // if( woolentor_get_option( 'open_popup', 'ever_compare_settings_tabs', 'on' ) === 'on' ){
+        if( woolentor_get_option( 'open_popup', 'ever_compare_settings_tabs', 'on' ) === 'on' ){
             add_action( 'wp_footer', [ $this, 'pop_up_html' ] );
-        // }
+        }
 
         /**
          * Manage maximum product added message
@@ -342,7 +342,6 @@ class Manage_Compare {
 
         $args = array(
             'include' => $ids,
-            'limit'   => -1
         );
 
         $products = wc_get_products( $args );

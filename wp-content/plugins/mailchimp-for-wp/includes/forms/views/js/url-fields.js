@@ -1,11 +1,12 @@
-function maybePrefixUrlField () {
-  const value = this.value.trim()
-  if (value !== '' && value.indexOf('http') !== 0) {
-    this.value = 'http://' + value
-  }
+function maybePrefixUrlField() {
+	if (this.value.trim() !== '' && this.value.indexOf('http') !== 0) {
+		this.value = "http://" + this.value;
+	}
 }
 
-const urlFields = document.querySelectorAll('.mc4wp-form input[type="url"]')
-for (let j = 0; j < urlFields.length; j++) {
-  urlFields[j].addEventListener('blur', maybePrefixUrlField)
+var urlFields = document.querySelectorAll('.mc4wp-form input[type="url"]');
+if (urlFields) {
+	for (var j=0; j < urlFields.length; j++) {
+		urlFields[j].addEventListener('blur', maybePrefixUrlField);
+	}
 }

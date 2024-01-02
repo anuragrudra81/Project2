@@ -30,21 +30,17 @@ function woolentorBlocks_get_last_product_id(){
 * Woocommerce Product last order id return
 */
 function woolentorBlocks_get_last_order_id(){
-    if( function_exists('wc_get_orders') ){
-        $orders = wc_get_orders( array(
-            'limit' => 1,  // Limit the query to one order
-            'orderby' => 'date',  // Order by date
-            'order' => 'DESC',    // Sort in descending order (latest first)
-        ));
+    global $wpdb;
+    $statuses = array_keys(wc_get_order_statuses());
+    $statuses = implode( "','", $statuses );
 
-        // Check if there are any orders
-        if ( !empty( $orders ) ) {
-            $latest_order = reset( $orders ); // Get the first (latest) order in the array
-            return $latest_order->get_id(); // Get the order ID
-        }
-    }
-
-    return 0;
+    // Getting last Order ID (max value)
+    $results = $wpdb->get_col( "
+        SELECT MAX(ID) FROM {$wpdb->prefix}posts
+        WHERE post_type LIKE 'shop_order'
+        AND post_status IN ('$statuses')" 
+    );
+    return reset($results);
 }
 
 /**
@@ -71,6 +67,7 @@ function woolentorBlocks_edit_mode(){
  * @param [string] $css_attr
  * @param string $unit
  * @param string $important
+ * @return void
  */
 function woolentorBlocks_generate_css( $settings, $attribute, $css_attr, $unit = '', $important = '' ){
 
@@ -92,6 +89,7 @@ function woolentorBlocks_generate_css( $settings, $attribute, $css_attr, $unit =
  * @param [string] $attribute
  * @param [string] $css_attr
  * @param string $important
+ * @return void
  */
 function woolentorBlocks_Dimention_Control( $settings, $attribute, $css_attr, $important = '' ){
     $dimensions = !empty( $settings[$attribute] ) ? $settings[$attribute] : array();
@@ -117,6 +115,7 @@ function woolentorBlocks_Dimention_Control( $settings, $attribute, $css_attr, $i
  * @param [array] $dimensions
  * @param [string] $css_attr
  * @param [string] $important
+ * @return void
  */
 function woolentorBlocks_Dimention_Value( $dimensions, $css_attr, $important ){
     if( isset( $dimensions['top'] ) || isset( $dimensions['right'] ) || isset( $dimensions['bottom'] ) || isset( $dimensions['left'] ) ){
@@ -138,6 +137,7 @@ function woolentorBlocks_Dimention_Value( $dimensions, $css_attr, $important ){
  *
  * @param [array] $settings
  * @param [string] $attribute
+ * @return void
  */
 function woolentorBlocks_Background_Control( $settings, $attribute ){
     $background_property = !empty( $settings[$attribute] ) ? $settings[$attribute] : array();
@@ -232,20 +232,9 @@ function woolentorBlocks_get_blocks( $id = '' ){
 }
 
 /**
- * Get Block Setting by block name.
- */
-function woolentorBlocks_get_settings_by_blockName( $id, $block_name ){
-    $blocks_data = woolentorBlocks_get_blocks( $id );
-
-    $blocks_data = array_filter( $blocks_data, function( $block ) use ( $block_name ){
-        return $block_name === $block['blockName'];
-    } );
-
-    return !empty( $blocks_data[0]['attrs'] ) ? $blocks_data[0]['attrs'] : false;
-}
-
-/**
  * Get Post ID
+ *
+ * @return Int
  */
 function woolentorBlocks_get_ID(){
     if( class_exists('\Woolentor_Manage_WC_Template') ){
@@ -318,10 +307,12 @@ function woolentorBlocks_get_image_size() {
  * @param integer $number
  * @param string $order
  * @param string $type
+ * @return void
  */
 function woolentorBlocks_taxnomy_data( $taxnomySlug = '', $number = 20, $order = 'asc', $type = '' ){
     
     $data = array();
+    $taxnomyKey = 'product_cat';
 
     $queryArg = array(
         'orderby'    => 'name',
@@ -375,6 +366,7 @@ function woolentorBlocks_taxnomy_data( $taxnomySlug = '', $number = 20, $order =
  * Product Type
  *
  * @param string $type
+ * @return void
  */
 function woolentorBlocks_Product_type( $type ) {
     switch ( $type ) {
@@ -410,6 +402,7 @@ function woolentorBlocks_Product_type( $type ) {
  * Product Query
  *
  * @param array $params
+ * @return void
  */
 function woolentorBlocks_Product_Query( $params ){
     
@@ -515,6 +508,7 @@ function woolentorBlocks_Product_Query( $params ){
  * Compare Button
  *
  * @param array $button_arg
+ * @return void
  */
 function woolentorBlocks_compare_button( $button_arg = array() ){
 
@@ -557,6 +551,7 @@ function woolentorBlocks_compare_button( $button_arg = array() ){
  * Ratting Generate
  *
  * @param array $ratting_num
+ * @return void
  */
 function woolentorBlocks_ratting( $ratting_num ){
     if( !empty( $ratting_num ) ){

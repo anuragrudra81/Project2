@@ -92,18 +92,13 @@ class Manage_Data {
         $key          = md5( serialize( array_diff_assoc( $args, $defaults ) ) );
         $cache_key    = "all:$key:$last_changed";
 
-        $sql = $args['number'] === -1 ? $wpdb->prepare(
-            "SELECT * FROM {$wpdb->prefix}wishsuite_list
-            WHERE user_id = {$args['user_id']}
-            ORDER BY {$args['orderby']} {$args['order']}
-            LIMIT %d, %d",
-            0,10000
-        ) : $wpdb->prepare(
-            "SELECT * FROM {$wpdb->prefix}wishsuite_list
-            WHERE user_id = {$args['user_id']}
-            ORDER BY {$args['orderby']} {$args['order']}
-            LIMIT %d, %d",
-            $args['offset'], $args['number']);
+        $sql = $wpdb->prepare(
+                "SELECT * FROM {$wpdb->prefix}wishsuite_list
+                WHERE user_id = {$args['user_id']}
+                ORDER BY {$args['orderby']} {$args['order']}
+                LIMIT %d, %d",
+                $args['offset'], $args['number']
+        );
 
         $items = wp_cache_get( $cache_key, 'wishsuite' );
 

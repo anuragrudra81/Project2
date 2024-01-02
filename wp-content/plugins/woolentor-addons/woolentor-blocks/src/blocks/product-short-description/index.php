@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $uniqClass 	 = 'woolentorblock-'.$settings['blockUniqId'];
 $areaClasses = array( $uniqClass, 'woolentor-product-short-description' );
-!empty( $settings['className'] ) ? $areaClasses[] = esc_attr( $settings['className'] ) : '';
+!empty( $settings['className'] ) ? $areaClasses[] = $settings['className'] : '';
 
 $product = wc_get_product();
 if ( empty( $product ) ) { return; }

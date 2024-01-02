@@ -114,9 +114,6 @@ class Widget_Icon_Box extends Widget_Base {
 				],
 				'default' => 'default',
 				'prefix_class' => 'elementor-view-',
-				'condition' => [
-					'selected_icon[value]!' => '',
-				],
 			]
 		);
 
@@ -141,7 +138,7 @@ class Widget_Icon_Box extends Widget_Base {
 		$this->add_control(
 			'title_text',
 			[
-				'label' => esc_html__( 'Title', 'elementor' ),
+				'label' => esc_html__( 'Title & Description', 'elementor' ),
 				'type' => Controls_Manager::TEXT,
 				'dynamic' => [
 					'active' => true,
@@ -155,7 +152,7 @@ class Widget_Icon_Box extends Widget_Base {
 		$this->add_control(
 			'description_text',
 			[
-				'label' => esc_html__( 'Description', 'elementor' ),
+				'label' => '',
 				'type' => Controls_Manager::TEXTAREA,
 				'dynamic' => [
 					'active' => true,
@@ -163,6 +160,8 @@ class Widget_Icon_Box extends Widget_Base {
 				'default' => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'elementor' ),
 				'placeholder' => esc_html__( 'Enter your description', 'elementor' ),
 				'rows' => 10,
+				'separator' => 'none',
+				'show_label' => false,
 			]
 		);
 
@@ -174,7 +173,42 @@ class Widget_Icon_Box extends Widget_Base {
 				'dynamic' => [
 					'active' => true,
 				],
+				'placeholder' => esc_html__( 'https://your-link.com', 'elementor' ),
 				'separator' => 'before',
+			]
+		);
+
+		$this->add_responsive_control(
+			'position',
+			[
+				'label' => esc_html__( 'Icon Position', 'elementor' ),
+				'type' => Controls_Manager::CHOOSE,
+				'mobile_default' => 'top',
+				'options' => [
+					'left' => [
+						'title' => esc_html__( 'Left', 'elementor' ),
+						'icon' => 'eicon-h-align-left',
+					],
+					'top' => [
+						'title' => esc_html__( 'Top', 'elementor' ),
+						'icon' => 'eicon-v-align-top',
+					],
+					'right' => [
+						'title' => esc_html__( 'Right', 'elementor' ),
+						'icon' => 'eicon-h-align-right',
+					],
+				],
+				'prefix_class' => 'elementor%s-position-',
+				'conditions' => [
+					'relation' => 'or',
+					'terms' => [
+						[
+							'name' => 'selected_icon[value]',
+							'operator' => '!=',
+							'value' => '',
+						],
+					],
+				],
 			]
 		);
 
@@ -201,107 +235,19 @@ class Widget_Icon_Box extends Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
-			'section_style_box',
-			[
-				'label' => esc_html__( 'Box', 'elementor' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
-			]
-		);
-
-		$this->add_responsive_control(
-			'position',
-			[
-				'label' => esc_html__( 'Icon Position', 'elementor' ),
-				'type' => Controls_Manager::CHOOSE,
-				'default' => 'top',
-				'mobile_default' => 'top',
-				'options' => [
-					'left' => [
-						'title' => esc_html__( 'Left', 'elementor' ),
-						'icon' => 'eicon-h-align-left',
-					],
-					'top' => [
-						'title' => esc_html__( 'Top', 'elementor' ),
-						'icon' => 'eicon-v-align-top',
-					],
-					'right' => [
-						'title' => esc_html__( 'Right', 'elementor' ),
-						'icon' => 'eicon-h-align-right',
-					],
-				],
-				'prefix_class' => 'elementor%s-position-',
-				'condition' => [
-					'selected_icon[value]!' => '',
-				],
-			]
-		);
-
-		$this->add_control(
-			'content_vertical_alignment',
-			[
-				'label' => esc_html__( 'Vertical Alignment', 'elementor' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [
-					'top' => [
-						'title' => esc_html__( 'Top', 'elementor' ),
-						'icon' => 'eicon-v-align-top',
-					],
-					'middle' => [
-						'title' => esc_html__( 'Middle', 'elementor' ),
-						'icon' => 'eicon-v-align-middle',
-					],
-					'bottom' => [
-						'title' => esc_html__( 'Bottom', 'elementor' ),
-						'icon' => 'eicon-v-align-bottom',
-					],
-				],
-				'default' => 'top',
-				'toggle' => false,
-				'prefix_class' => 'elementor-vertical-align-',
-				'condition' => [
-					'position!' => 'top',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'text_align',
-			[
-				'label' => esc_html__( 'Alignment', 'elementor' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [
-					'left' => [
-						'title' => esc_html__( 'Left', 'elementor' ),
-						'icon' => 'eicon-text-align-left',
-					],
-					'center' => [
-						'title' => esc_html__( 'Center', 'elementor' ),
-						'icon' => 'eicon-text-align-center',
-					],
-					'right' => [
-						'title' => esc_html__( 'Right', 'elementor' ),
-						'icon' => 'eicon-text-align-right',
-					],
-					'justify' => [
-						'title' => esc_html__( 'Justified', 'elementor' ),
-						'icon' => 'eicon-text-align-justify',
-					],
-				],
-				'selectors' => [
-					'{{WRAPPER}} .elementor-icon-box-wrapper' => 'text-align: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->end_controls_section();
-
-		$this->start_controls_section(
 			'section_style_icon',
 			[
 				'label' => esc_html__( 'Icon', 'elementor' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-				'condition' => [
-					'selected_icon[value]!' => '',
+				'conditions' => [
+					'relation' => 'or',
+					'terms' => [
+						[
+							'name' => 'selected_icon[value]',
+							'operator' => '!=',
+							'value' => '',
+						],
+					],
 				],
 			]
 		);
@@ -402,7 +348,7 @@ class Widget_Icon_Box extends Widget_Base {
 			[
 				'label' => esc_html__( 'Spacing', 'elementor' ),
 				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
+				'size_units' => [ 'px', '%', 'em', 'rem' ],
 				'default' => [
 					'size' => 15,
 				],
@@ -423,7 +369,7 @@ class Widget_Icon_Box extends Widget_Base {
 			[
 				'label' => esc_html__( 'Size', 'elementor' ),
 				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
+				'size_units' => [ 'px', '%', 'em', 'rem' ],
 				'range' => [
 					'px' => [
 						'min' => 6,
@@ -475,7 +421,7 @@ class Widget_Icon_Box extends Widget_Base {
 			[
 				'label' => esc_html__( 'Rotate', 'elementor' ),
 				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ 'deg', 'grad', 'rad', 'turn', 'custom' ],
+				'size_units' => [ 'deg', 'grad', 'rad', 'turn' ],
 				'default' => [
 					'unit' => 'deg',
 				],
@@ -497,7 +443,7 @@ class Widget_Icon_Box extends Widget_Base {
 			[
 				'label' => esc_html__( 'Border Width', 'elementor' ),
 				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
+				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-icon' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -512,7 +458,7 @@ class Widget_Icon_Box extends Widget_Base {
 			[
 				'label' => esc_html__( 'Border Radius', 'elementor' ),
 				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-icon' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -529,6 +475,50 @@ class Widget_Icon_Box extends Widget_Base {
 			[
 				'label' => esc_html__( 'Content', 'elementor' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_responsive_control(
+			'text_align',
+			[
+				'label' => esc_html__( 'Alignment', 'elementor' ),
+				'type' => Controls_Manager::CHOOSE,
+				'options' => [
+					'left' => [
+						'title' => esc_html__( 'Left', 'elementor' ),
+						'icon' => 'eicon-text-align-left',
+					],
+					'center' => [
+						'title' => esc_html__( 'Center', 'elementor' ),
+						'icon' => 'eicon-text-align-center',
+					],
+					'right' => [
+						'title' => esc_html__( 'Right', 'elementor' ),
+						'icon' => 'eicon-text-align-right',
+					],
+					'justify' => [
+						'title' => esc_html__( 'Justified', 'elementor' ),
+						'icon' => 'eicon-text-align-justify',
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .elementor-icon-box-wrapper' => 'text-align: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'content_vertical_alignment',
+			[
+				'label' => esc_html__( 'Vertical Alignment', 'elementor' ),
+				'type' => Controls_Manager::SELECT,
+				'options' => [
+					'top' => esc_html__( 'Top', 'elementor' ),
+					'middle' => esc_html__( 'Middle', 'elementor' ),
+					'bottom' => esc_html__( 'Bottom', 'elementor' ),
+				],
+				'default' => 'top',
+				'prefix_class' => 'elementor-vertical-align-',
 			]
 		);
 
@@ -656,10 +646,10 @@ class Widget_Icon_Box extends Widget_Base {
 	 */
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$has_link = ! empty( $settings['link']['url'] );
-		$html_tag = $has_link ? 'a' : 'span';
 
 		$this->add_render_attribute( 'icon', 'class', [ 'elementor-icon', 'elementor-animation-' . $settings['hover_animation'] ] );
+
+		$icon_tag = 'span';
 
 		if ( ! isset( $settings['icon'] ) && ! Icons_Manager::is_migration_allowed() ) {
 			// add old default
@@ -668,9 +658,10 @@ class Widget_Icon_Box extends Widget_Base {
 
 		$has_icon = ! empty( $settings['icon'] );
 
-		if ( $has_link ) {
+		if ( ! empty( $settings['link']['url'] ) ) {
+			$icon_tag = 'a';
+
 			$this->add_link_attributes( 'link', $settings['link'] );
-			$this->add_render_attribute( 'icon', 'tabindex', '-1' );
 		}
 
 		if ( $has_icon ) {
@@ -692,7 +683,7 @@ class Widget_Icon_Box extends Widget_Base {
 		<div class="elementor-icon-box-wrapper">
 			<?php if ( $has_icon ) : ?>
 			<div class="elementor-icon-box-icon">
-				<<?php Utils::print_validated_html_tag( $html_tag ); ?> <?php $this->print_render_attribute_string( 'link' ); ?> <?php $this->print_render_attribute_string( 'icon' ); ?>>
+				<<?php Utils::print_validated_html_tag( $icon_tag ); ?> <?php $this->print_render_attribute_string( 'icon' ); ?> <?php $this->print_render_attribute_string( 'link' ); ?>>
 				<?php
 				if ( $is_new || $migrated ) {
 					Icons_Manager::render_icon( $settings['selected_icon'], [ 'aria-hidden' => 'true' ] );
@@ -700,14 +691,14 @@ class Widget_Icon_Box extends Widget_Base {
 					?><i <?php $this->print_render_attribute_string( 'i' ); ?>></i><?php
 				}
 				?>
-				</<?php Utils::print_validated_html_tag( $html_tag ); ?>>
+				</<?php Utils::print_validated_html_tag( $icon_tag ); ?>>
 			</div>
 			<?php endif; ?>
 			<div class="elementor-icon-box-content">
 				<<?php Utils::print_validated_html_tag( $settings['title_size'] ); ?> class="elementor-icon-box-title">
-					<<?php Utils::print_validated_html_tag( $html_tag ); ?> <?php $this->print_render_attribute_string( 'link' ); ?> <?php $this->print_render_attribute_string( 'title_text' ); ?>>
+					<<?php Utils::print_validated_html_tag( $icon_tag ); ?> <?php $this->print_render_attribute_string( 'link' ); ?> <?php $this->print_render_attribute_string( 'title_text' ); ?>>
 						<?php $this->print_unescaped_setting( 'title_text' ); ?>
-					</<?php Utils::print_validated_html_tag( $html_tag ); ?>>
+					</<?php Utils::print_validated_html_tag( $icon_tag ); ?>>
 				</<?php Utils::print_validated_html_tag( $settings['title_size'] ); ?>>
 				<?php if ( ! Utils::is_empty( $settings['description_text'] ) ) : ?>
 					<p <?php $this->print_render_attribute_string( 'description_text' ); ?>>
@@ -730,17 +721,10 @@ class Widget_Icon_Box extends Widget_Base {
 	protected function content_template() {
 		?>
 		<#
-		var hasLink = settings.link.url,
-			htmlTag = hasLink ? 'a' : 'span',
+		var link = settings.link.url ? 'href="' + settings.link.url + '"' : '',
+			iconTag = link ? 'a' : 'span',
 			iconHTML = elementor.helpers.renderIcon( view, settings.selected_icon, { 'aria-hidden': true }, 'i' , 'object' ),
 			migrated = elementor.helpers.isIconMigrated( settings, 'selected_icon' );
-
-		view.addRenderAttribute( 'icon', 'class', 'elementor-icon elementor-animation-' + settings.hover_animation );
-
-		if ( hasLink ) {
-			view.addRenderAttribute( 'link', 'href', settings.link.url );
-			view.addRenderAttribute( 'icon', 'tabindex', '-1' );
-		}
 
 		view.addRenderAttribute( 'description_text', 'class', 'elementor-icon-box-description' );
 
@@ -751,21 +735,19 @@ class Widget_Icon_Box extends Widget_Base {
 			<?php // settings.icon is needed for older version ?>
 			<# if ( settings.icon || settings.selected_icon.value ) { #>
 			<div class="elementor-icon-box-icon">
-				<{{{ htmlTag }}} {{{ view.getRenderAttributeString( 'link' ) }}} {{{ view.getRenderAttributeString( 'icon' ) }}}>
+				<{{{ iconTag + ' ' + link }}} class="elementor-icon elementor-animation-{{ settings.hover_animation }}">
 					<# if ( iconHTML && iconHTML.rendered && ( ! settings.icon || migrated ) ) { #>
 						{{{ iconHTML.value }}}
-					<# } else { #>
-						<i class="{{ settings.icon }}" aria-hidden="true"></i>
-					<# } #>
-				</{{{ htmlTag }}}>
+						<# } else { #>
+							<i class="{{ settings.icon }}" aria-hidden="true"></i>
+						<# } #>
+				</{{{ iconTag }}}>
 			</div>
 			<# } #>
 			<div class="elementor-icon-box-content">
 				<# var titleSizeTag = elementor.helpers.validateHTMLTag( settings.title_size ); #>
 				<{{{ titleSizeTag }}} class="elementor-icon-box-title">
-					<{{{ htmlTag }}} {{{ view.getRenderAttributeString( 'link' ) }}} {{{ view.getRenderAttributeString( 'title_text' ) }}}>
-						{{{ settings.title_text }}}
-					</{{{ htmlTag }}}>
+					<{{{ iconTag + ' ' + link }}} {{{ view.getRenderAttributeString( 'title_text' ) }}}>{{{ settings.title_text }}}</{{{ iconTag }}}>
 				</{{{ titleSizeTag }}}>
 				<# if ( settings.description_text ) { #>
 				<p {{{ view.getRenderAttributeString( 'description_text' ) }}}>{{{ settings.description_text }}}</p>

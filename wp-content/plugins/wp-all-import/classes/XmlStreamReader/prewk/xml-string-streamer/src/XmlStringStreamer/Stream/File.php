@@ -17,6 +17,7 @@ class File implements StreamInterface
                 throw new \Exception("File '$mixed' doesn't exist");
             }
             $this->handle = fopen($mixed, "rb");
+            $this->handle;
         } else if (get_resource_type($mixed) == "stream") {
             // Treat as file handle
             $this->handle = $mixed;

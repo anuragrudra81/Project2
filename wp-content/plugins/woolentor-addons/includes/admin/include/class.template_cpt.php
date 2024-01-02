@@ -13,32 +13,12 @@ class Woolentor_Template_CPT{
         return self::$_instance;
     }
 
-	/**
-	 * Class Constructor
-	 */
     function __construct(){
-        add_action( 'init', [ $this, 'init' ] );
+        add_action( 'init', [ $this, 'register_custom_post_type' ] );
+		add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
+		add_action('save_post', [ $this, 'metabox_save_data' ] );
     }
 
-	/**
-	 * Initial Function
-	 *
-	 * @return void
-	 */
-	public function init(){
-		//Register Custom Post Type
-		$this->register_custom_post_type();
-		// Register Custom Meta Field
-		$this->register_post_meta_field();
-		// Flash rewrite rules
-		$this->flush_rewrite_rules();
-	}
-
-	/**
-	 * Register Builder Custom post
-	 *
-	 * @return void
-	 */
     public function register_custom_post_type() {
 
 		$labels = array(
@@ -75,13 +55,13 @@ class Woolentor_Template_CPT{
 			'label'               => esc_html__('Template Builder', 'woolentor'),
 			'description'         => esc_html__('WooLentor Template', 'woolentor'),
 			'labels'              => $labels,
-			'supports'            => array('title', 'editor', 'elementor', 'author', 'permalink', 'custom-fields'),
+			'supports'            => array('title', 'editor', 'elementor', 'author', 'permalink'),
 			'hierarchical'        => false,
 			'public'              => true,
 			'show_ui'             => true,
 			'show_in_menu'        => false,
 			'show_in_admin_bar'   => false,
-			'show_in_nav_menus'   => true,
+			'show_in_nav_menus'   => false,
 			'can_export'          => true,
 			'has_archive'         => false,
 			'rewrite'             => array(
@@ -100,6 +80,9 @@ class Woolentor_Template_CPT{
 
 		register_post_type( self::CPTTYPE, $args );
 
+		// Flash rewrite rules
+		$this->flush_rewrite_rules();
+
 	}
 
 	/**
@@ -114,28 +97,62 @@ class Woolentor_Template_CPT{
     }
 
 	/**
-	 * Register Metaboxes
+	 * Add Metaboxes
 	 *
 	 * @return void
 	 */
-	public function register_post_meta_field() {
-
-		// Get Default Value from Global Option
-		$default_width = function_exists( 'woolentor_get_option' ) ? (int)woolentor_get_option( 'container_width', 'woolentor_gutenberg_tabs', 1140 ) : 1140;
-
-		// Meta Field for Container Width
-		register_post_meta( self::CPTTYPE, '_woolentor_container_width',
-			[
-				'show_in_rest' 	=> true,
-				'single' 		=> true,
-				'type' 			=> 'number',
-				'default' 		=> $default_width,
-				'auth_callback' => function() {
-					return current_user_can( 'edit_posts' );
-				}
-			] 
+	public function add_meta_boxes() {
+        add_meta_box(
+			'container_width', 
+			esc_html__('Container Width', 'woolentor'), 
+			[ $this, 'container_width_field' ], 
+			self::CPTTYPE, 
+			'side'
 		);
+    }
 
+	/**
+	 * Container field HTML
+	 *
+	 * @param [object] $post
+	 * @return void
+	 */
+	public function container_width_field( $post ) {
+        wp_nonce_field( 'woolentor_container_width', 'woolentor_container_width_nonce' );
+
+        $get_width = get_post_meta( $post->ID, '_woolentor_container_width', true );
+		$width 	   = $get_width ? $get_width : (int)woolentorBlocks_get_option( 'container_width', 'woolentor_gutenberg_tabs', 1140 );
+
+		?>
+			<p>
+				<input style="width:100%" type="number" name="container_width" value="<?php echo esc_attr( $width ); ?>" />
+			</p>
+    	<?php
 	}
+
+	/**
+	 * Save Meta box data
+	 *
+	 * @param [int] $post_id
+	 * @return void
+	 */
+	public function metabox_save_data( $post_id ) {
+
+        if ( ! isset( $_POST['woolentor_container_width_nonce'] ) ) {
+            return;
+        }
+        
+        if ( ! wp_verify_nonce( $_POST['woolentor_container_width_nonce'], 'woolentor_container_width' ) ) {
+            return;
+        }
+        
+        if ( ! isset( $_POST['container_width'] ) ) {
+            return;
+        }
+        
+        $width = sanitize_text_field( $_POST['container_width'] );
+        update_post_meta( $post_id, '_woolentor_container_width', $width );
+
+    }
 
 }

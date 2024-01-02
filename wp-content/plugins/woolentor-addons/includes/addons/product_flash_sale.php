@@ -1081,12 +1081,12 @@ class Woolentor_Product_Flash_Sale_Widget extends Widget_Base {
                             'field'    => 'term_id',
                             'terms'    =>  $include_categories,
                         ),
-                        // grouped product is not supported right now
+                        // grouped and variable product is not supported right now
                         'relation' => 'AND',
                         array(
                             'taxonomy' => 'product_type',
                             'field'    => 'slug',
-                            'terms'    => array('simple', 'external','variable'),
+                            'terms'    => array('simple', 'external'),
                         ),
                     ),
 
@@ -1179,7 +1179,7 @@ class Woolentor_Product_Flash_Sale_Widget extends Widget_Base {
                                 ?>
 
                                 <li>
-                                    <a href="#" class="woolentor-flash-product-action-btn woolentorquickview" data-quick-id="<?php echo esc_attr($product_id);?>" <?php echo wc_implode_html_attributes( ['aria-label'=>$product->get_title()] ); ?>>
+                                    <a href="#" class="woolentor-flash-product-action-btn woolentorquickview" data-quick-id="<?php echo esc_attr($product_id);?>" >
                                         <i class="fa fa-eye"></i>
                                     </a>
                                 </li>

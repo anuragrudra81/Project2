@@ -81,14 +81,6 @@ class Woolentor_Template_Library{
         }else{
             if ( isset( $_REQUEST ) ) {
 
-                $nonce = $_REQUEST['nonce'];
-                if ( ! wp_verify_nonce( $nonce, 'woolentor_template_nonce' ) ) {
-                    $errormessage = array(
-                        'message'  => __('Are you cheating?','woolentor')
-                    );
-                    wp_send_json_error( $errormessage );
-                }
-
                 $template_id        = sanitize_text_field( $_REQUEST['httemplateid'] );
                 $template_parentid  = sanitize_text_field( $_REQUEST['htparentid'] );
                 $template_title     = sanitize_text_field( $_REQUEST['httitle'] );
@@ -102,7 +94,7 @@ class Woolentor_Template_Library{
 
                 $args = [
                     'post_type'    => !empty( $page_title ) ? 'page' : 'elementor_library',
-                    'post_status'  => ( !empty( $page_title ) || $template_type == 'popup' ) ? 'draft' : 'publish',
+                    'post_status'  => !empty( $page_title ) ? 'draft' : 'publish',
                     'post_title'   => !empty( $page_title ) ? $page_title : $defaulttitle,
                     'post_content' => '',
                 ];
@@ -148,15 +140,6 @@ class Woolentor_Template_Library{
     */
     public function ajax_plugin_data(){
         if ( isset( $_POST ) ) {
-            $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
-            if ( ! wp_verify_nonce( $nonce, 'woolentor_template_nonce' ) ) {
-                wp_send_json_error(
-                    array(
-                        'success' => false,
-                        'message' => esc_html__( 'Nonce Varification Faild !', 'woolentor' ),
-                    )
-                );
-            }
             $freeplugins = explode( ',', sanitize_text_field( $_POST['freeplugins'] ) );
             $proplugins = explode( ',', sanitize_text_field( $_POST['proplugins'] ) );
             $themeinfo = explode( ',', sanitize_text_field( $_POST['requiredtheme'] ) );
@@ -279,16 +262,6 @@ class Woolentor_Template_Library{
      */
     public function ajax_plugin_activation() {
 
-        $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
-        if ( ! wp_verify_nonce( $nonce, 'woolentor_template_nonce' ) ) {
-            wp_send_json_error(
-                array(
-                    'success' => false,
-                    'message' => esc_html__( 'Nonce Varification Faild !', 'woolentor' ),
-                )
-            );
-        }
-
         if ( ! current_user_can( 'install_plugins' ) || ! isset( $_POST['location'] ) || ! $_POST['location'] ) {
             wp_send_json_error(
                 array(
@@ -323,16 +296,6 @@ class Woolentor_Template_Library{
     * Required Theme Activation Request
     */
     public function ajax_theme_activation() {
-
-        $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
-        if ( ! wp_verify_nonce( $nonce, 'woolentor_template_nonce' ) ) {
-            wp_send_json_error(
-                array(
-                    'success' => false,
-                    'message' => esc_html__( 'Nonce Varification Faild !', 'woolentor' ),
-                )
-            );
-        }
 
         if ( ! current_user_can( 'install_themes' ) || ! isset( $_POST['themeslug'] ) || ! $_POST['themeslug'] ) {
             wp_send_json_error(

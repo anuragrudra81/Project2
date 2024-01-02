@@ -14,18 +14,15 @@ class Wf_Woocommerce_Packing_List_Customizer
 {
 	public $module_base='customizer';
 	public static $module_id_static='';
-	public $module_id = '';
 	private $to_customize='';
 	private $to_customize_id='';
 	private $default_template=1;
 	public $package_documents=array('packinglist', 'shippinglabel', 'deliverynote'); //modules that have package option
 	public $template_for_pdf=false;
 	public $custom_css='';
-	public $print_css='';
 	public $enable_code_view=false;
 	public $open_first_panel=false;
 	public $rtl_css_added=false;
-	private static $instance = null;
 	public function __construct()
 	{
 		$this->module_id=Wf_Woocommerce_Packing_List::get_module_id($this->module_base);
@@ -40,14 +37,6 @@ class Wf_Woocommerce_Packing_List_Customizer
 
 	}
 
-	public static function get_instance()
-	{
-		if(self::$instance==null)
-		{
-			self::$instance=new Wf_Woocommerce_Packing_List_Customizer();
-		}
-		return self::$instance;
-	}
 
 	/**
 	* 	Ajax main hook for all actions
@@ -85,21 +74,14 @@ class Wf_Woocommerce_Packing_List_Customizer
 		}else{
 			$order_id = 0;
 		}
+		
+		$template_type=isset($_POST['template_type']) ? sanitize_text_field($_POST['template_type']) : '';
 		$out=array(
 			'status'=>0,
 			'msg'=>__("Unable to generate PDF.",'print-invoices-packing-slip-labels-for-woocommerce'),
 			'pdf_url'=>''
 		);
-
-		if("no_order_id" === $order_id){
-			$out['msg'] = __("There is no order with this given id","print-invoices-packing-slip-labels-for-woocommerce");
-			echo json_encode($out);
-			exit();
-		}
-
-		$template_type=isset($_POST['template_type']) ? sanitize_text_field($_POST['template_type']) : '';
-		
-		if("" !== $html && "" !== $template_type && $order_id>0)
+		if($html!="" && $template_type!="" && $order_id>0)
 		{
 			/* save HTML for preview */
 			$this->set_preview_pdf_html($html, $template_type);
@@ -125,14 +107,9 @@ class Wf_Woocommerce_Packing_List_Customizer
 		if (is_object($meta)) {
 			return $meta->post_id;
 		}else {
-			$order_exists   = wc_get_order($value);
-			if(!empty($order_exists)){
-				$order=( WC()->version < '2.7.0' ) ? new WC_Order($value) : new wf_order($value);
-				if(!empty($order)){
-					return intval($value);
-				}
-			}else{
-				return "no_order_id";
+			$order=( WC()->version < '2.7.0' ) ? new WC_Order($value) : new wf_order($value);
+			if(!empty($order)){
+				return intval($value);
 			}
 			return 0;
 		}
@@ -219,12 +196,9 @@ class Wf_Woocommerce_Packing_List_Customizer
 	 * You can include a form, its outside module settings form
 	 * @since 2.5.0
 	 * @since 2.5.5 Dummy placeholder image added to image url placeholder's in template
-	 * @since 4.0.0 Added filter to switch over to pro use the pro customizer templatewise
 	 **/
 	public function out_settings_form($args)
-	{	
-		$is_pro_customizer = apply_filters('wt_pklist_pro_customizer_'.$this->to_customize,false,$this->to_customize);
-		$this->enable_code_view = apply_filters('wt_pklist_enable_code_editor',false,$this->to_customize);
+	{
 		$active_theme_arr=$this->get_current_active_theme($this->to_customize);
 		$active_template_id=0;
 		$template_is_active=0;
@@ -248,7 +222,7 @@ class Wf_Woocommerce_Packing_List_Customizer
 		$img_url_placeholders=apply_filters('wf_pklist_alter_img_url_placeholder_list',$img_url_placeholders,$this->to_customize);
 
 		$to_customize_module_id=Wf_Woocommerce_Packing_List::get_module_id($this->to_customize);
-		
+		wp_enqueue_script($this->module_id,plugin_dir_url( __FILE__ ).'assets/js/customize.js',array('jquery'),WF_PKLIST_VERSION);
 		$params=array(
 			'nonces' => array(
 	            'main'=>wp_create_nonce($this->module_id),
@@ -274,23 +248,15 @@ class Wf_Woocommerce_Packing_List_Customizer
 	        	'saving'=>__("Saving",'print-invoices-packing-slip-labels-for-woocommerce'),
 	        	'enter_order_id'=>__('Please enter order number','print-invoices-packing-slip-labels-for-woocommerce'),
 	        	'generating'=>__('Generating','print-invoices-packing-slip-labels-for-woocommerce'),
-				'pro_template_wrn' => __('This is premium template which is not compatible with the basic plugin','print-invoices-packing-slip-labels-for-woocommerce'),
-				'basic_template_wrn' => __('This is basic template. In order to use premium feature, you need to switch and activate the premium template','print-invoices-packing-slip-labels-for-woocommerce'),
 	        ),
 	        'urls'=>array(
 	        	'images_path'=>$images_path,
-	        	'general_settings'=>admin_url('admin.php?page='.WF_PKLIST_POST_TYPE.'#general'),
+	        	'general_settings'=>admin_url('admin.php?page='.WF_PKLIST_POST_TYPE.'#wf-general'),
 	        	'module_general_settings'=>admin_url('admin.php?page='.$to_customize_module_id.'#general'),
 	        ),
 		);
+		wp_localize_script($this->module_id,$this->module_id,$params);
 
-		if(!$is_pro_customizer){
-			wp_enqueue_script($this->module_id,plugin_dir_url( __FILE__ ).'assets/js/customize.js',array('jquery'),WF_PKLIST_VERSION);	
-			wp_localize_script($this->module_id,$this->module_id,$params);
-		}else{
-			do_action('wf_pklist_load_customizer_js_pro',$this->module_id,$params,$this->to_customize);
-		}
-		
 		$view_file=plugin_dir_path( __FILE__ ).'views/customize.php';
 
 		//default template list
@@ -321,7 +287,7 @@ class Wf_Woocommerce_Packing_List_Customizer
 	}
 	protected function gen_page_title($name,$sep,$active)
 	{
-		return $name.(1 === $active || "1" === $active ? ' ('.__('Active','print-invoices-packing-slip-labels-for-woocommerce').')' : '');
+		return $name.($active==1 ? ' ('.__('Active','print-invoices-packing-slip-labels-for-woocommerce').')' : '');
 	}
 	public function get_non_disable_fields($base)
 	{
@@ -356,9 +322,9 @@ class Wf_Woocommerce_Packing_List_Customizer
         $qry=$wpdb->prepare("SELECT * FROM $table_name WHERE id_wfpklist_template_data=%d AND template_type=%s",array($id,$base));
 		return $wpdb->get_row($qry);
 	}
-	public function get_default_template_path($base,$type='path')
+	protected function get_default_template_path($base,$type='path')
 	{		
-		$path = ('path' === $type) ? plugin_dir_path(WF_PKLIST_PLUGIN_FILENAME) : plugin_dir_url(WF_PKLIST_PLUGIN_FILENAME);
+		$path=$type=='path' ? plugin_dir_path(WF_PKLIST_PLUGIN_FILENAME) : plugin_dir_url(WF_PKLIST_PLUGIN_FILENAME);
 		if(Wf_Woocommerce_Packing_List_Public::module_exists($base))
 		{
 			$path.='public/';
@@ -367,10 +333,9 @@ class Wf_Woocommerce_Packing_List_Customizer
 			$path.='admin/';
 		}
 		$path.="modules/$base/data/";
-		if('path' === $type)
+		if($type=='path')
 		{
 			$path.="data.templates.php";
-			$path = apply_filters('wt_pklist_default_template_path_pro',$path,$base,$type);
 			if(file_exists($path))
 			{
 				return $path;
@@ -395,9 +360,9 @@ class Wf_Woocommerce_Packing_List_Customizer
 		$template_path=plugin_dir_path($path);
 		$file='';
 		$html='';
-		if("header" === $template)
+		if($template=='header')
 		{
-			if(isset($template_header) && "" !== $template_header)
+			if(isset($template_header) && $template_header!="")
 			{
 				$file=$template_path.$template_header;
 			}else
@@ -405,29 +370,13 @@ class Wf_Woocommerce_Packing_List_Customizer
 				$file=$this->get_default_template_header();
 			}
 
-			$custom_css='.wfte_row{ width:100%; display:block; }
-					.wfte_col-1{ width:100%; display:block;}
-					.wfte_col-2{ width:50%; display:block;}
-					.wfte_col-3{ width:33%; display:block;}
-					.wfte_col-4{ width:25%; display:block;}
-					.wfte_col-6{ width:30%; display:block;}
-					.wfte_col-7{ width:69%; display:block;}';
-			$custom_css=apply_filters('wf_pklist_add_custom_css',$custom_css,$template_type,$this->template_for_pdf);
+			$custom_css='';
+			$custom_css=apply_filters('wf_pklist_add_custom_css',$custom_css,$template_type);
 			$this->custom_css.=$custom_css;
 
-			$print_margin=apply_filters('wf_pklist_alter_print_margin_css', 'margin:0;', $template_type, $this->template_for_pdf);
-			/* add print css to alter print page properties */
-			$print_css='@media print {
-			  body{ -webkit-print-color-adjust:exact; color-adjust:exact;}
-			  @page { size:auto; '.$print_margin.' }
-			  body,html{ margin:0; background-color:#FFFFFF; }
-			  table.wfte_product_table tr, table.wfte_product_table tr td, table.wfte_payment_summary_table tr, table.wfte_payment_summary_table tr td{ page-break-inside: avoid; }
-			}';			
-			$this->print_css=apply_filters('wf_pklist_alter_print_css', $print_css, $template_type, $this->template_for_pdf);
-
-		}elseif("footer" === $template)
+		}elseif($template=='footer')
 		{
-			if(isset($template_footer) && "" !== $template_footer)
+			if(isset($template_footer) && $template_footer!="")
 			{
 				$file=$template_path.$template_footer;
 			}else
@@ -435,29 +384,23 @@ class Wf_Woocommerce_Packing_List_Customizer
 				$file=$this->get_default_template_footer();
 			}
 		}
-		if("" !== $file && file_exists($file))
+		if($file!="" && file_exists($file))
 		{
 			ob_start();	
 			$template_for_pdf=$this->template_for_pdf;//need to add font family `DeJaVu` on PDF generation
 			$custom_css=$this->custom_css;
-			$print_css=$this->print_css;
 			include $file;
 			$html=ob_get_clean();
 		}
 		return $html;
 	}
-	public function load_default_templates($path, $template_type, $template_id='', $no_html=false, $convert_to_design_view=true, $for_customizer=false)
+	protected function load_default_templates($path,$template_type)
 	{
 		include $path; //to get $template_arr
-		$template_arr = apply_filters("wt_pklist_add_pro_templates",$template_arr,$template_type);
+		$template_path=plugin_dir_path($path);
 		foreach($template_arr as $k=>$template)
 		{
-			$template_path=plugin_dir_path($path);
 			$id=$template['id'];
-			if(isset($template_arr[$k]['pro_template_path'])){
-				$template_path = $template_arr[$k]['pro_template_path'];
-			}
-
 			$file=$template_path.'data.'.$id.'.php';
 			$template_arr[$k]['html']='';
 			$template_arr[$k]['codeview_html']='';
@@ -469,28 +412,18 @@ class Wf_Woocommerce_Packing_List_Customizer
 				$html=html_entity_decode(stripslashes($html));
 				$show_qrcode_placeholder = apply_filters('wt_pklist_show_qrcode_placeholder_in_template',false,$template_type);
 				if(!$show_qrcode_placeholder){
-					if (false !== strpos($html, 'wfte_img_qrcode')){
+					if (strpos($html, 'wfte_img_qrcode') !== false){
 						$html = str_replace('wfte_img_barcode wfte_hidden','wfte_img_barcode',$html);
-						if(false === strpos($html,'wfte_img_qrcode wfte_hidden') && true === strpos($html,'wfte_img_qrcode')){
-							$html = str_replace('wfte_img_qrcode','wfte_img_qrcode wfte_hidden',$html);
-						}
-						$html = preg_replace('/\b(wfte_img_qrcode\s*(?:(?:\s*wfte_hidden)+\s*)+)\b/', 'wfte_img_qrcode', $html);
+						$html = str_replace('wfte_img_qrcode','wfte_img_qrcode wfte_hidden',$html);
 					}
 				}
-				$html=self::prepare_template_source_html($html, $template_type, $for_customizer);
 				$template_arr[$k]['codeview_html']=$html;
-				if($convert_to_design_view)
-				{
-					$template_arr[$k]['html']=$this->convert_to_design_view_html($html, $template_type);
-				}else
-				{
-					$template_arr[$k]['html']=$html;
-				}
+				$template_arr[$k]['html']=$this->convert_to_design_view_html($html,$template_type);
 			}			
 		}
 		return $template_arr;
 	}
-	public function convert_to_design_view_html($html,$template_type,$custom_find_replace=array())
+	public function convert_to_design_view_html($html,$template_type)
 	{
 		//convert translation html
 		$html=preg_replace_callback('/__\[(.*?)\]__/s',array($this,'convert_translation_string_for_design_view'),$html);
@@ -500,118 +433,21 @@ class Wf_Woocommerce_Packing_List_Customizer
 		$find_replace=array();
 		$find_replace=Wf_Woocommerce_Packing_List_CustomizerLib::set_logo($find_replace,$template_type);
 		$find_replace=Wf_Woocommerce_Packing_List_CustomizerLib::set_shipping_from_address($find_replace,$template_type);
-			
-		$flush_all_find_replace = apply_filters('wt_pklist_flush_all_find_replace',false,$template_type);
-		if(!$flush_all_find_replace){
-			$find_replace=apply_filters('wf_module_convert_to_design_view_html_for_'.$template_type,$find_replace,$html,$template_type);
-			$find_replace=apply_filters('wf_module_convert_to_design_view_html',$find_replace,$html,$template_type);
-		}else{
-			$find_replace=apply_filters('wf_module_convert_to_design_view_html_al',$find_replace,$html,$template_type);
-		}			
+		
+		$find_replace=apply_filters('wf_module_convert_to_design_view_html',$find_replace,$html,$template_type);			
 
 		//below line must be below of every find and replace
 		$find_replace=Wf_Woocommerce_Packing_List_CustomizerLib::dummy_data_for_customize($find_replace,$template_type,$html);
 
-		/* merge with custom placeholders, If available */
-		$find_replace=array_merge($find_replace, $custom_find_replace);
-
-		return $this->replace_placeholders($find_replace,$html,$template_type);
+		return $this->replace_placeholders($find_replace,$html,$template_type);;
 	}
 	private function convert_translation_string_for_design_view($match)
 	{
-		$ipc_td = 'wt_woocommerce_invoice_addon';
-		$sdd_td = 'wt_woocommerce_shippinglabel_addon';
-		$pi_td 	= 'wt_woocommerce_proforma_addon';
-		$pl_td	= 'wt_woocommerce_picklist_addon';
-		$al_td 	= 'wt_woocommerce_addresslabel_addon';
-		$adc_td = 'wt-advanced-customizer-addon';
-		$bs_td  = 'print-invoices-packing-slip-labels-for-woocommerce';
-
-		if(is_array($match) && isset($match[1]) && trim($match[1])!="")
-		{
-			if(__($match[1],$bs_td) !== $match[1])
-			{
-				return __($match[1],$bs_td);
-			}
-			elseif(__($match[1],$ipc_td) !== $match[1])
-			{
-				return __($match[1],$ipc_td);
-			}
-			elseif(__($match[1],$sdd_td) !== $match[1])
-			{
-				return __($match[1],$sdd_td);
-			}
-			elseif(__($match[1],$pi_td) !== $match[1])
-			{
-				return __($match[1],$pi_td);
-			}
-			elseif(__($match[1],$pl_td) !== $match[1])
-			{
-				return __($match[1],$pl_td);
-			}
-			elseif(__($match[1],$al_td) !== $match[1])
-			{
-				return __($match[1],$al_td);
-			}
-			elseif(__($match[1],$adc_td) !== $match[1])
-			{
-				return __($match[1],$adc_td);
-			}
-			else
-			{
-				return __($match[1],'print-invoices-packing-slip-labels-for-woocommerce');
-			}
-		}else{
-			return "";
-		}
+		return is_array($match) && isset($match[1]) && trim($match[1])!="" ? __($match[1],'print-invoices-packing-slip-labels-for-woocommerce') : '';
 	}
 	private function convert_translation_strings($match)
 	{
-		$ipc_td = 'wt_woocommerce_invoice_addon';
-		$sdd_td = 'wt_woocommerce_shippinglabel_addon';
-		$pi_td 	= 'wt_woocommerce_proforma_addon';
-		$pl_td	= 'wt_woocommerce_picklist_addon';
-		$al_td 	= 'wt_woocommerce_addresslabel_addon';
-		$adc_td = 'wt-advanced-customizer-addon';
-		$bs_td  = 'print-invoices-packing-slip-labels-for-woocommerce';
-
-		if(is_array($match) && isset($match[1]) && trim($match[1])!="")
-		{
-			if(__($match[1],$bs_td) !== $match[1])
-			{
-				return __($match[1],$bs_td);
-			}
-			elseif(__($match[1],$ipc_td) !== $match[1])
-			{
-				return __($match[1],$ipc_td);
-			}
-			elseif(__($match[1],$sdd_td) !== $match[1])
-			{
-				return __($match[1],$sdd_td);
-			}
-			elseif(__($match[1],$pi_td) !== $match[1])
-			{
-				return __($match[1],$pi_td);
-			}
-			elseif(__($match[1],$pl_td) !== $match[1])
-			{
-				return __($match[1],$pl_td);
-			}
-			elseif(__($match[1],$al_td) !== $match[1])
-			{
-				return __($match[1],$al_td);
-			}
-			elseif(__($match[1],$adc_td) !== $match[1])
-			{
-				return __($match[1],$adc_td);
-			}
-			else
-			{
-				return __($match[1],'print-invoices-packing-slip-labels-for-woocommerce');
-			}
-		}else{
-			return "";
-		}
+		return is_array($match) && isset($match[1]) && trim($match[1])!="" ? __($match[1],'print-invoices-packing-slip-labels-for-woocommerce') : '';
 	}
 	private function get_themes($template_type)
 	{
@@ -674,7 +510,7 @@ class Wf_Woocommerce_Packing_List_Customizer
 			$theme_data=$this->get_theme($template_id,$template_type);
 			if(!is_null($theme_data) && isset($theme_data->id_wfpklist_template_data)) //theme exists under current document type
 			{
-				if(0 === $theme_data->is_active || "0" === $theme_data->is_active) //active themes are not allowed to delete
+				if($theme_data->is_active==0) //active themes are not allowed to delete
 				{
 					$table_name=$wpdb->prefix.Wf_Woocommerce_Packing_List::$template_data_tb;
 					$wpdb->delete($table_name,array('id_wfpklist_template_data'=>$template_id),array('%d'));
@@ -699,18 +535,18 @@ class Wf_Woocommerce_Packing_List_Customizer
 		);
 		$table_name=$wpdb->prefix.Wf_Woocommerce_Packing_List::$template_data_tb;
 		$template_type=isset($_POST['template_type']) ? sanitize_text_field($_POST['template_type']) : '';
-		if("" !== $template_type)
+		if($template_type!="")
 		{
 			$template_action=isset($_POST['template_action']) ? sanitize_text_field($_POST['template_action']) : '';
-			if("" !== $template_action)
+			if($template_action!="")
 			{
 				$template_id=isset($_POST['template_id']) ? intval($_POST['template_id']) : 0;
 				if($template_id>0) //template id is necessary for actions
 				{
-					if("activate" === $template_action)
+					if($template_action=='activate')
 					{
 						$this->activate_theme($template_id,$template_type);
-					}elseif("delete" === $template_action)
+					}elseif($template_action=='delete')
 					{
 						$this->delete_theme($template_id,$template_type);
 					}
@@ -725,25 +561,25 @@ class Wf_Woocommerce_Packing_List_Customizer
 								<span class="dashicons dashicons-yes" title="'.__("Active",'print-invoices-packing-slip-labels-for-woocommerce').'" style="line-height:28px;"></span>'.__("Active",'print-invoices-packing-slip-labels-for-woocommerce').'</span>&nbsp;';
 				foreach($list as $listv)
 				{
-					$activate_btn='<button class="button-secondary wf_activate_theme" data-id="'.esc_attr($listv->id_wfpklist_template_data).'" title="'.__("Activate",'print-invoices-packing-slip-labels-for-woocommerce').'">
+					$activate_btn='<button class="button-secondary wf_activate_theme" data-id="'.$listv->id_wfpklist_template_data.'" title="'.__("Activate",'print-invoices-packing-slip-labels-for-woocommerce').'">
 								<span class="dashicons dashicons-yes" style="line-height:28px;"></span>
 							</button>';
-					$delete_btn=(0 === $listv->is_active || "0" === $listv->is_active ? '<button class="button-secondary wf_delete_theme" data-id="'.esc_attr($listv->id_wfpklist_template_data).'">
+					$delete_btn=($listv->is_active==0 ? '<button class="button-secondary wf_delete_theme" data-id="'.$listv->id_wfpklist_template_data.'">
 								<span class="dashicons dashicons-trash" title="Delete" style="line-height:28px;"></span>
 							</button>' : ''); //no delete button for active templates
 					
-					$active_btn=(1 === $listv->is_active || "1" === $listv->is_active ? $active_state : $activate_btn);
+					$active_btn=($listv->is_active==1 ? $active_state : $activate_btn);
 
 					$html.='<div class="wf_my_template_item">				
 						<div class="wf_my_template_item_name">
-						'.wp_kses_post($listv->template_name).'
+						'.$listv->template_name.'
 						</div>
 						<div class="wf_my_template_item_btn">
-							'.wp_kses_post($active_btn).'					
-							<button class="button-secondary wf_customize_theme" data-id="'.esc_attr($listv->id_wfpklist_template_data).'">
+							'.$active_btn.'					
+							<button class="button-secondary wf_customize_theme" data-id="'.$listv->id_wfpklist_template_data.'">
 								<span class="dashicons dashicons-edit" title="Customize" style="line-height:28px;"></span>
 							</button>
-							'.wp_kses_post($delete_btn).'
+							'.$delete_btn.'
 						</div>	
 					</div>';
 				}
@@ -777,15 +613,14 @@ class Wf_Woocommerce_Packing_List_Customizer
 		$template_id=isset($_POST['template_id']) ? intval($_POST['template_id']) : 0;
 		$template_html=isset($_POST['codeview_html']) ? Wf_Woocommerce_Packing_List_Admin::strip_unwanted_tags($_POST['codeview_html']) : '';
 		$template_type=isset($_POST['template_type']) ? sanitize_text_field($_POST['template_type']) : '';
-		$is_dc_compatible=isset($_POST['dc_compatible']) ? absint($_POST['dc_compatible']) : 0;
-		$activate=isset($_POST['activate']) ? absint($_POST['activate']) : 0;
 		$tme=time();
-		if(0 === $template_id || "0" === $template_id) //template id=0 then new theme
+		if($template_id==0) //template id=0 then new theme
 		{
 			$def_template=isset($_POST['def_template']) ? intval($_POST['def_template']) : 0;
 			$name=isset($_POST['name']) ? sanitize_text_field($_POST['name']) : date('d-m-Y h:i:s A');
-			if("" !== $template_type && $def_template>=0) // template type,default template is necessary while creating new theme
+			if($template_type!='' && $def_template>=0) // template type,default template is necessary while creating new theme
 			{
+				
 				if($this->is_template_name_already_exists($template_type, $name, 0)) //template with same name already exists
 				{
 					$out['msg']=__('Template with same name already exists.', 'print-invoices-packing-slip-labels-for-woocommerce');
@@ -797,47 +632,29 @@ class Wf_Woocommerce_Packing_List_Customizer
 					'template_html'=>$template_html,
 					'template_from'=>$def_template,
 					'template_type'=>$template_type,
-					'is_dc_compatible'=>$is_dc_compatible,
 					'created_at'=>$tme,
 					'updated_at'=>$tme
 				);
 				$insert_data_type=array(
-					'%s','%s','%d','%s','%d','%d','%d'
+					'%s','%s','%d','%s','%d','%d'
 				);
 				//check any active theme exists, if not then set the current theme as active
 				$tt_qry=$wpdb->prepare("SELECT COUNT(id_wfpklist_template_data) AS ttnum FROM $table_name WHERE is_active=%d AND template_type=%s",array(1,$template_type));
 				$total_arr=$wpdb->get_row($tt_qry);
 				$is_active=0;
-				if(isset($total_arr->ttnum) && (0 === $total_arr->ttnum || "0" === $total_arr->ttnum)) //no active theme, then set this theme active
+				if(isset($total_arr->ttnum) && $total_arr->ttnum==0) //no active theme, then set this theme active
 				{
-					/* a compatibility fix between DC and Normal customizer */
-					if(isset($_POST['activate'])) /* request from DC */
-					{
-						$insert_data['is_active']=$activate;
-						$insert_data_type[]='%d';
-						$is_active=$activate;
-					}else
-					{
-						$insert_data['is_active']=1;
-						$insert_data_type[]='%d';
-						$is_active=1;
-					}
+					$insert_data['is_active']=1;
+					$insert_data_type[]='%d';
+					$is_active=1;
 				}
+
 				if($wpdb->insert($table_name,$insert_data,$insert_data_type)) //success
 				{
-					$template_id=$wpdb->insert_id;
-					$success_msg=__("Template created.",'print-invoices-packing-slip-labels-for-woocommerce');
-					if(1 === $activate){
-						if($is_active==0){ /* if already active so no need to call it again */
-							$this->activate_theme($template_id, $template_type);
-							$is_active=1;
-						}
-						$success_msg=__("Template created and activated.",'print-invoices-packing-slip-labels-for-woocommerce');
-					}
 					$out=array(
 						'status'=>1,
-						'msg'=>$success_msg,
-						'template_id'=>$template_id,
+						'msg'=>__("Template created.",'print-invoices-packing-slip-labels-for-woocommerce'),
+						'template_id'=>$wpdb->insert_id,
 						'name'=>$this->gen_page_title($name,': ',$is_active),
 						'is_active'=>$is_active,
 					);
@@ -869,14 +686,9 @@ class Wf_Woocommerce_Packing_List_Customizer
 					$name=$name_arr->template_name;
 					$is_active=$name_arr->is_active;
 				}
-				$success_msg=__("Template updated.",'print-invoices-packing-slip-labels-for-woocommerce');
-				if(1 === $activate){
-					$this->activate_theme($template_id, $template_type);
-					$success_msg=__("Template updated and activated.",'print-invoices-packing-slip-labels-for-woocommerce');
-				}
 				$out=array(
 					'status'=>1,
-					'msg'=>$success_msg,
+					'msg'=>__("Template updated.",'print-invoices-packing-slip-labels-for-woocommerce'),
 					'template_id'=>$template_id,
 					'name'=>$this->gen_page_title($name,': ',$is_active),
 					'is_active'=>$is_active,
@@ -924,8 +736,6 @@ class Wf_Woocommerce_Packing_List_Customizer
 		);
 		if($template_type!='')
 		{
-			$html=self::prepare_template_source_html($html, $template_type, true);
-			$out['codeview_html']=$html;
 			$out['msg']='';
 			$out['html']=$this->convert_to_design_view_html($html,$template_type);
 			$out['status']=1;
@@ -937,26 +747,26 @@ class Wf_Woocommerce_Packing_List_Customizer
 	*
 	* Taking HTML of active template
 	*/
-	public function get_template_html($template_type, $convert_to_design_view=false)
+	public function get_template_html($template_type)
 	{
 		$html='';
-		if("" !== $template_type)
+		if($template_type!="")
 		{
 			$active_theme_arr=$this->get_current_active_theme($template_type);
 			if(!is_null($active_theme_arr) && isset($active_theme_arr->id_wfpklist_template_data))
 			{
-				$html=html_entity_decode(stripslashes($active_theme_arr->template_html));	
-				$html=self::prepare_template_source_html($html, $template_type);			
+				$html=html_entity_decode(stripslashes($active_theme_arr->template_html));				
 			}else
 			{
 				$def_template=0;
 				$def_template_path=$this->get_default_template_path($template_type);
 				if($def_template_path) //module exists/ template exists
 				{
-					$template_arr=$this->load_default_templates($def_template_path, $template_type, 'default', false, $convert_to_design_view);
+					$template_arr=$this->load_default_templates($def_template_path,$template_type);
 					if($template_arr && is_array($template_arr))
 					{
 						//$html=$template_arr[0]['codeview_html'];
+						
 						foreach($template_arr as $template)
 						{
 							$html=html_entity_decode(stripslashes($template['codeview_html']));
@@ -976,19 +786,17 @@ class Wf_Woocommerce_Packing_List_Customizer
 	* @param string $html template html
 	* @return array $style_arr style blocks
 	*/
-	public function get_style_blocks($html,$inner_content = false)
+	public function get_style_blocks($html)
 	{		
-		$re = '/<style.*?>(.*?)<\/style>/sm';
-
-        if(preg_match_all($re, $html, $style_arr)) //style exists
-        {
-            $style_arr = ($inner_content ? $style_arr[1] : $style_arr[0]);
-        }else
-        {
-            $style_arr = array();
-        }
-
-        return $style_arr;
+		$re = '/<style type="text\/css">(.*?)<\/style>/sm';
+		if(preg_match_all($re,$html,$style_arr)) //style exists
+		{
+			$style_arr=$style_arr[0];
+		}else
+		{
+			$style_arr=array();
+		}
+		return $style_arr;
 	}
 
 	/**
@@ -1000,11 +808,7 @@ class Wf_Woocommerce_Packing_List_Customizer
 	*/
 	public function remove_style_blocks($html,$style_arr)
 	{ 
-		$html = str_replace($style_arr,'',$html);
-		if(false !== strpos($html,'wfte_custom_shipping_size')){
-			return '<div class="wfte_adc_main_body" style="display:flex;">'.$html.'</div>';
-		}
-		return '<div class="wfte_adc_main_body">'.$html.'</div>';
+		return str_replace($style_arr,'',$html);
 	}
 
 	/**
@@ -1029,106 +833,8 @@ class Wf_Woocommerce_Packing_List_Customizer
 		$template_path=$this->get_default_template_path($template_type);
 		$header_html=$this->load_template_header_footer($template_path,$template_type,'header',$page_title);
 		$footer_html=$this->load_template_header_footer($template_path,$template_type,'footer');
-		$final_html = $header_html.$html.$footer_html;
-		if("shippinglabel" !== $template_type){
-			$final_html = $this->render_page_style($final_html,$template_type);
-		}
-		return $final_html;
+		return $header_html.$html.$footer_html;
 	}
-
-	/**
-	 * To render the html apply the parent div style to the entire page
-	 *
-	 * @since 4.1.2 - [Fix] - Warning no name in Entity
-	 */
-	public function render_page_style($html,$template_type){
-		// 1. Create a new DOMDocument
-		$dom = new DOMDocument();
-
-		// 2. Handle errors internally
-		libxml_use_internal_errors(true);
-
-		// 3. Load the HTML content
-		$dom->loadHTML(($html));
-
-		// Create a new DOMXPath object
-		$xpath = new DOMXPath($dom);
-
-		$oldbasicSourceClassName = "wfte_invoice-main";
-		$oldbasic_sourceDiv = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $oldbasicSourceClassName ')]")->item(0);
-		$oldbasic_sourceDiv_all = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $oldbasicSourceClassName ')]");
-
-		$class_name_basic 		= "wfte_invoice_basic_main";
-		$source_div_basic 		= $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $class_name_basic ')]")->item(0);
-		$source_div_all_basic 	= $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $class_name_basic ')]");
-
-		// Get the source div with the desired class
-		$sourceClassName = "wfte_adc_main";
-		$sourceDiv = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $sourceClassName ')]")->item(0);
-		$sourceDiv_all = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $sourceClassName ')]");
-		
-		// Get the target div with the different class
-		$targetClassName = "wfte_adc_main_body";
-		$targetDiv = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $targetClassName ')]");
-		
-		// Check if both source and target divs are found
-		// Check new basic templates
-		if($source_div_basic && $targetDiv && $source_div_all_basic)
-		{
-			$style = $source_div_basic->getAttribute('style');
-			foreach($targetDiv as $ele){
-				// Apply the style to the target div
-				$ele->setAttribute('style', $style);
-			}
-
-			// remove the style attribute from the source div
-			foreach($source_div_all_basic as $s_elem){
-				$s_elem->removeAttribute('style');
-			}
-		}
-		elseif($sourceDiv && $targetDiv && $sourceDiv_all)
-		{
-			// check new pro templates	
-			// Get the style attribute from the source div
-			$style = $sourceDiv->getAttribute('style');
-			foreach($targetDiv as $ele){
-				// Apply the style to the target div
-				$ele->setAttribute('style', $style);
-			}
-
-			// remove the style attribute from the source div
-			foreach($sourceDiv_all as $s_elem){
-				$s_elem->removeAttribute('style');
-			}
-			
-		}
-
-		// Get the updated HTML
-		$updatedHtml = ($dom->saveHTML());
-		$mpdf = Wf_Woocommerce_Packing_List_Admin::check_if_mpdf_used();
-		if(!$mpdf && $oldbasic_sourceDiv && $oldbasic_sourceDiv_all && !$source_div_basic && !$sourceDiv){
-			$updatedHtml = str_replace('.wfte_padding_left_right', '.avoid_space', $updatedHtml);
-			$updatedHtml = str_replace('wfte_padding_left_right', '', $updatedHtml);
-			if($oldbasic_sourceDiv && $oldbasic_sourceDiv_all && !$source_div_basic && !$sourceDiv){
-				$updatedHtml = str_replace('</style>', 'html,body{padding: 10px 30px !important; margin: 0px !important;}</style>', $updatedHtml);
-			}
-		}
-		
-		// 4. Clear errors
-		libxml_clear_errors();
-		
-		if(isset($sourceDiv)){
-			unset($sourceDiv);
-		}
-		if(isset($sourceDiv_all)){
-			unset($sourceDiv_all);
-		}
-		if(isset($targetDiv)){
-			unset($targetDiv);
-		}
-		return $updatedHtml;
-	}
-
 	public function generate_pdf_name($template_type,$order_ids)
 	{	
 		$module_id=Wf_Woocommerce_Packing_List::get_module_id($template_type);
@@ -1138,7 +844,7 @@ class Wf_Woocommerce_Packing_List_Customizer
 			$name=$template_type.'_bulk_'.implode('-',$order_ids);
 		}else
 		{
-			if("invoice" === $template_type){
+			if($template_type == "invoice"){
 				$name = Wf_Woocommerce_Packing_List_Admin::get_invoice_pdf_name($template_type,$order_ids,$module_id);
 			}else{
 				$name=$template_type.'_'.$order_ids[0];
@@ -1165,29 +871,44 @@ class Wf_Woocommerce_Packing_List_Customizer
 			$this->rtl_css_added=true;
 		}
 
-		$temp_basic_css = $this->custom_css;
-		$this->custom_css = apply_filters('wt_pklist_bundled_product_css_'.$template_type,$this->custom_css,$template_type,$order);
-		if("" === trim($this->custom_css)){
-			$this->custom_css = $temp_basic_css;
-		}
-		
 		$find_replace=array();
 		$find_replace=Wf_Woocommerce_Packing_List_CustomizerLib::set_logo($find_replace,$template_type,$order);
-		$find_replace=Wf_Woocommerce_Packing_List_CustomizerLib::set_shipping_from_address($find_replace,$template_type,$order);
-		$find_replace=apply_filters('wf_module_generate_template_html_for_'.$template_type,$find_replace,$html,$template_type,$order,$box_packing,$order_package);				
+		$find_replace=Wf_Woocommerce_Packing_List_CustomizerLib::set_shipping_from_address($find_replace,$template_type,$order);				
 		$find_replace=apply_filters('wf_module_generate_template_html',$find_replace,$html,$template_type,$order,$box_packing,$order_package);
 
 		$html=apply_filters('wt_pklist_alter_order_template_html',$html,$template_type,$order,$box_packing,$order_package, $this->template_for_pdf);
 		
-		$html = Wf_Woocommerce_Packing_List_Admin::hide_empty_shipping_address($html,$template_type,$order);
+		$html = self::hide_empty_shipping_address($html,$template_type,$order);
 		//*******the main hook to alter everything in the template *******//
 		$find_replace=apply_filters('wf_pklist_alter_find_replace',$find_replace,$template_type,$order,$box_packing,$order_package,$html);
+
 		$html=Wf_Woocommerce_Packing_List_CustomizerLib::hide_empty_elements($find_replace,$html,$template_type);
+
 		$html=$this->replace_placeholders($find_replace, $html, $template_type);
 		$html = Wf_Woocommerce_Packing_List_Admin::qrcode_barcode_visibility($html,$template_type);
 		return apply_filters('wt_pklist_alter_final_order_template_html', $html, $template_type, $order, $box_packing, $order_package, $this->template_for_pdf);
 	}
 
+	/**
+	 * @since 3.0.7
+	 * 
+	 * Added filter to use billing address if empty shipping address
+	 */
+	public static function hide_empty_shipping_address($html,$template_type,$order){
+		$use_billing_address = apply_filters('wt_pklist_use_billing_address_for_shipping_address',true,$template_type,$order);
+		if(!empty($order) && !$use_billing_address){
+			$shipping_address = $order->get_formatted_shipping_address();
+			if(empty($shipping_address))
+			{
+				$html .='<style>
+				.wfte_shipping_address{
+					display:none !important;
+				}
+				</style>';
+			}
+		}
+		return $html;
+	}
 	/**
 	*
 	* 	Enable/Disable RTL
@@ -1198,7 +919,7 @@ class Wf_Woocommerce_Packing_List_Customizer
 	public function toggle_rtl($html)
 	{
 		$rtl_support=Wf_Woocommerce_Packing_List::get_option('woocommerce_wf_add_rtl_support');
-		if("Yes" === $rtl_support)
+		if($rtl_support=='Yes')
 		{	
 			if(!Wf_Woocommerce_Packing_List_Admin::is_enable_rtl_support()) /* checks the current language need RTL support */
 			{
@@ -1206,7 +927,7 @@ class Wf_Woocommerce_Packing_List_Customizer
 			}
 
 		 	$html=str_replace('wfte_rtl_main', 'wfte_rtl_main wfte_rtl_template_main', $html);
-		 	if(true === $this->template_for_pdf)
+		 	if($this->template_for_pdf==true)
 		 	{
 		 		/* some PDF libraries does not needed to reverse the HTML column. */
 		 		$is_reverse_column=true;
@@ -1322,19 +1043,8 @@ class Wf_Woocommerce_Packing_List_Customizer
 			'name'=>'',
 			'is_active'=>0,
 			'qrocode_compatible'=>2,
-			'wt_template_version' => 0,
-			'is_pro_customizer' => apply_filters('wt_pklist_pro_customizer_'.$template_type,false,$template_type),
 		);
-
-		$template_check_arr = array(
-			'invoice' => 'wfte_product_table_head_tax_items',
-			'packinglist' => 'wfte_package_no',
-			'deliverynote' => 'wfte_package_no',
-			'dispatchlabel' => 'wfte_product_table_head_tax_items',
-			'shippinglabel' => 'wfte_package_no',
-		);
-		$search_text = isset($template_check_arr[$template_type]) ? $template_check_arr[$template_type] : "";
-		if("" !== $template_type)
+		if($template_type!='')
 		{
 			$template_id=isset($_GET['template_id']) ? intval($_GET['template_id']) : 0;
 			if($template_id==0) //no template specified then use defult template id, is available
@@ -1343,24 +1053,7 @@ class Wf_Woocommerce_Packing_List_Customizer
 				$def_template_path=$this->get_default_template_path($template_type);
 				if($def_template_path) //module exists/ template exists
 				{
-					$addon_key = Wf_Woocommerce_Packing_List_Pro_Addons::wt_get_addon_key_by_template_type($template_type);
-					$addon_key = (false === $addon_key) ? "" : $addon_key;
-					if(true === Wf_Woocommerce_Packing_List_Admin::wt_plugin_active('wt_pklist_adc') && true === Wf_Woocommerce_Packing_List_Admin::wt_plugin_active($addon_key)){
-						$template_arr=$this->load_default_templates($def_template_path, $template_type, $def_template, false, true, true);
-					}else{
-						$template_arr=$this->load_default_templates($def_template_path,$template_type);
-					}
-
-					/* if(true === Wf_Woocommerce_Packing_List_Admin::wt_plugin_active($addon_key) && !isset($_GET['from_popup'])){
-
-						foreach($template_arr as $temp_key => $temp_val){
-							if(isset($template_arr[$temp_key]['pro_template_path'])){
-								$def_template = $temp_key;
-								break;
-							}
-						}
-					} */
-
+					$template_arr=$this->load_default_templates($def_template_path,$template_type);
 					if(isset($template_arr[$def_template])) //default template exists
 					{	
 						$out['msg']='';
@@ -1371,24 +1064,15 @@ class Wf_Woocommerce_Packing_List_Customizer
 						$out['name']='&lt;'.__('Untitled template','print-invoices-packing-slip-labels-for-woocommerce').'&gt;';
 						$show_qrcode_placeholder = apply_filters('wt_pklist_show_qrcode_placeholder_in_template',false,$template_type);
 						if($show_qrcode_placeholder){
-							if (false !== strpos($template_arr[$def_template]['html'], 'wfte_img_qrcode')) {
+							if (strpos($template_arr[$def_template]['html'], 'wfte_img_qrcode') !== false) {
 							    $out['qrocode_compatible'] = 1;
 							}else{
 								$out['qrocode_compatible'] = 0;
 							}
 						}else{
-							if (false !== strpos($template_arr[$def_template]['html'], 'wfte_img_qrcode')) {
+							if (strpos($template_arr[$def_template]['html'], 'wfte_img_qrcode') !== false) {
 								$out['qrocode_compatible'] = 3;
 							}
-						}
-
-						$is_pro_customizer = apply_filters('wt_pklist_pro_customizer_'.$template_type,false,$template_type);
-						if(!$is_pro_customizer && "" !== trim($search_text) && false !== strpos($template_arr[$def_template]['html'], $search_text)){
-							$out['wt_template_version'] = 2; // template is pro version when basic plugin is active.
-						}
-
-						if($is_pro_customizer && "" !== trim($search_text) && false === strpos($template_arr[$def_template]['html'], $search_text)){
-							$out['wt_template_version'] = 1; // template is basic version when pro plugin is active
 						}
 					}
 				}
@@ -1398,35 +1082,20 @@ class Wf_Woocommerce_Packing_List_Customizer
 				if(!is_null($theme_data) && isset($theme_data->id_wfpklist_template_data)) //theme exists
 				{  
 					$html=isset($theme_data->template_html) ? html_entity_decode(stripslashes($theme_data->template_html)) : '';
-					$html=self::prepare_template_source_html($html, $template_type, true);
 					$show_qrcode_placeholder = apply_filters('wt_pklist_show_qrcode_placeholder_in_template',false,$template_type);
 					if($show_qrcode_placeholder){
-						if (false !== strpos($html, 'wfte_img_qrcode')) {
+						if (strpos($html, 'wfte_img_qrcode') !== false) {
 						    $out['qrocode_compatible'] = 1;
 						}else{
 							$out['qrocode_compatible'] = 0;
 						}
 					}else{
-						if (false !== strpos($html, 'wfte_img_qrcode')) {
+						if (strpos($html, 'wfte_img_qrcode') !== false) {
 							$out['qrocode_compatible'] = 3;
 							$html = str_replace('wfte_img_barcode wfte_hidden','wfte_img_barcode',$html);
-							if(false === strpos($html,'wfte_img_qrcode wfte_hidden') && true === strpos($html,'wfte_img_qrcode')){
-								$html = str_replace('wfte_img_qrcode','wfte_img_qrcode wfte_hidden',$html);
-							}
-							$html = preg_replace('/\b(wfte_img_qrcode\s*(?:(?:\s*wfte_hidden)+\s*)+)\b/', 'wfte_img_qrcode', $html);
+							$html = str_replace('wfte_img_qrcode','wfte_img_qrcode wfte_hidden',$html);
 						}
 					}
-
-					$is_pro_customizer = apply_filters('wt_pklist_pro_customizer_'.$template_type,false,$template_type);
-					
-					if(!$is_pro_customizer && "" !== trim($search_text) && false !== strpos($html, $search_text)){
-						$out['wt_template_version'] = 2; // template is pro version when basic plugin is active.
-					}
-
-					if($is_pro_customizer && "" !== trim($search_text) && false === strpos($html, $search_text)){
-						$out['wt_template_version'] = 1; // template is basic version when pro plugin is active
-					}
-
 					$out['msg']='';
 					$out['html']=$this->convert_to_design_view_html($html,$template_type);
 					$out['codeview_html']=$html;
@@ -1438,20 +1107,6 @@ class Wf_Woocommerce_Packing_List_Customizer
 		}
 		return $out;
 	}
-
-	/**
-	*	Prepare HTML source code before print/download/preview/customize
-	*	@since 4.1.1
-	* 	@param string 		$html           	Template HTML
-	* 	@param string 		$template_type      Document type
-	*	@param boolean 		$for_customizer (optional) The current request is to prepare HTML for customizer
-	*/
-	private static function prepare_template_source_html($html, $template_type, $for_customizer=false)
-	{
-		return apply_filters('wt_pklist_intl_alter_html_source', $html, $template_type, $for_customizer);
-	}
-
-	
 	public static function envelope_customize_ftblock($expndble=true)
 	{
 		if($expndble)
@@ -1467,7 +1122,7 @@ class Wf_Woocommerce_Packing_List_Customizer
 	public static function envelope_customize_hdblock($key,$hd,$expndble=true,$toggle=true,$non_customize=false)
 	{
 		?>
-		<div class="wf_side_panel" data-type="<?php echo esc_attr($key); ?>" data-non-customize="<?php echo ($non_customize ? 1 : 0); ?>">
+		<div class="wf_side_panel" data-type="<?php echo $key; ?>" data-non-customize="<?php echo ($non_customize ? 1 : 0); ?>">
 		<div class="wf_side_panel_hd">
 			<div class="wf_side_panel_toggle" style="float:left; text-align:left; width:30px; height:20px;">	
 			<?php
@@ -1485,7 +1140,7 @@ class Wf_Woocommerce_Packing_List_Customizer
 			{
 			?>
 			<div class="wf_side_panel_toggle">
-				<input type="checkbox" name="" data-type="<?php echo esc_attr($key); ?>" class="wf_slide_switch">
+				<input type="checkbox" name="" data-type="<?php echo $key; ?>" class="wf_slide_switch">
 			</div>
 			<?php
 			}
@@ -1509,7 +1164,7 @@ class Wf_Woocommerce_Packing_List_Customizer
 		$out=array();
 
 		/* font weight */
-		if("" === $key || "font-weight" === $key)
+		if($key=="" || $key=='font-weight')
 		{
 			$font_weight_labels=array(
 				100=>__('Lighter','print-invoices-packing-slip-labels-for-woocommerce'),
@@ -1526,7 +1181,7 @@ class Wf_Woocommerce_Packing_List_Customizer
 		}
 		
 		/* date_format */
-		if("" === $key || "date_format" === $key)
+		if($key=="" || $key=='date_format')
 		{
 			$out['date_format']=array(
 			""=>'--'.__('Select One', 'print-invoices-packing-slip-labels-for-woocommerce').'--',
@@ -1544,7 +1199,7 @@ class Wf_Woocommerce_Packing_List_Customizer
 		}
 
 		/* text-align */
-		if("" === $key || "text-align" === $key)
+		if($key=="" || $key=='text-align')
 		{
 			$out['text-align']=array(
 				'left'=>__('Left', 'print-invoices-packing-slip-labels-for-woocommerce'),
@@ -1556,7 +1211,7 @@ class Wf_Woocommerce_Packing_List_Customizer
 		}
 
 		/* border-width */
-		if("" === $key || "border-width" === $key)
+		if($key=="" || $key=='border-width')
 		{
 			$out['border-width']=array(
 				'0px'=>__('None', 'print-invoices-packing-slip-labels-for-woocommerce'),
@@ -1569,7 +1224,7 @@ class Wf_Woocommerce_Packing_List_Customizer
 		}
 
 		/* border-style */
-		if("" === $key || "border-style" === $key)
+		if($key=="" || $key=='border-style')
 		{
 			$out['border-style']=array(
 				'solid'=>__('Solid', 'print-invoices-packing-slip-labels-for-woocommerce'),
@@ -1611,52 +1266,34 @@ class Wf_Woocommerce_Packing_List_Customizer
         	*/
 			$show_hidden_meta=false;
         	$show_hidden_meta = apply_filters('wt_pklist_show_hidden_order_item_meta', $show_hidden_meta, $order_item, $order, $template_type);
-            $order_line_metas = $order_item->get_formatted_meta_data();
+            
             foreach($order_item->get_meta_data() as $meta)
             {
             	/* show/hide hidden meta */
-            	if(!$show_hidden_meta && "_" === substr($meta->key, 0, 1))
+            	if(!$show_hidden_meta && substr($meta->key, 0, 1)=='_')
             	{
 					continue;
             	}
 
-            	$display_key=wc_attribute_label($meta->key, $_product);
-            	/**
-            	 *	@since 4.0.5 - Showing the variation data label slug instead of showing variation data label value when it comes as an order line item meta
-            	 */
-            	if(is_array($order_line_metas) && !empty($order_line_metas) && isset($order_line_metas[$meta->id])){
-            		$olm = json_decode(json_encode($order_line_metas[$meta->id]), true);
-            		if(isset($olm['key']) && $meta->key === $olm['key'] && isset($olm['display_key']) && is_string($olm['display_key']) && "" !== trim($olm['display_key'])){
-            			$display_key = $olm['display_key'];
-            		}
-            	}
-
-            	$meta_value = $meta->value;
-            	if(is_string($meta->value) && "" !== trim($meta->value))
-            	{	
-            		/**
-            		 * 	@since 4.0.5 - [Fix] - Showing the variation value slug instead of variation value label
-            		 */
-            		$meta_value_arr = get_term_by('slug', $meta->value, $meta->key, ARRAY_A);
-            		if(!empty($meta_value_arr)){
-            			if(isset($meta_value_arr['name']) && "" !== $meta_value_arr['name']){
-            				$meta_value = $meta_value_arr['name'];
-            			}
-            		}
-            		if("" === $display_key)
+            	$display_key=wc_attribute_label($meta->key, $_product);           	
+            	
+            	if(is_string($meta->value))
+            	{
+            		if($display_key=="")
 					{
-						$meta_data[]=$meta_value;
+						$meta_data[]=$meta->value;
 						$meta_key_arr[]=$meta->key;
 					}else
 					{
-						$meta_data[$display_key]=$meta_value;
+						$meta_data[$display_key]=$meta->value;
 						$meta_key_arr[$display_key]=$meta->key;
 					}
             	}			
             }
         }
 
-        $meta_data = apply_filters('wf_pklist_modify_meta_data', $meta_data, $order_item, $order, $template_type);
+        $meta_data = apply_filters('wf_pklist_modify_meta_data', $meta_data, $order_item);
+        
         $variation='';
         $meta_data_formated_arr=array();
         foreach ($meta_data as $id => $value) 
@@ -1688,96 +1325,4 @@ class Wf_Woocommerce_Packing_List_Customizer
 
         return $variation;
     }
-
-	/**
-	 * To save the default templates through the action scheduler
-	 *
-	 * @param [string] $template_type
-	 * @return void
-	 */
-	public function save_default_template($template_type,$path=''){
-		$logger = wc_get_logger();
-		$active_theme_arr = $this->get_current_active_theme($template_type);
-		$html = '';
-		$default_template_status = 0;
-		$template_id = 0;
-		if(empty($active_theme_arr)){
-			if("" !== $path){
-				$def_template_path=$path;
-			}else{
-				$def_template_path=$this->get_default_template_path($template_type);
-			}
-			
-			if($def_template_path) //module exists/ template exists
-			{
-				$template_arr=$this->load_default_templates($def_template_path, $template_type, 'default', false, false);
-				if($template_arr && is_array($template_arr))
-				{
-					//$html=$template_arr[0]['codeview_html'];
-					foreach($template_arr as $template)
-					{
-						$html=html_entity_decode(stripslashes($template['codeview_html']));
-						$default_template_status = 1;
-						$template_message = 'html_is_ready';
-						break; //use first default template
-					}
-				}else{
-					$default_template_status = 0;
-					$template_message = 'cant_load_default_templates';
-				}
-			}else{
-				$default_template_status = 0;
-				$template_message = 'def_template_path_is_empty';
-			}
-		}else{
-			$default_template_status = 2; // already active template is there
-			$template_message = 'already_active_template_is_there';
-		}
-
-		if(!empty($html) && 1 === absint($default_template_status)){
-			global $wpdb;
-			$table_name=$wpdb->prefix.Wf_Woocommerce_Packing_List::$template_data_tb;
-			$tme=time();
-			$name = 'default_'.$template_type.'_template_'.$tme;
-			$def_template = 0;
-			$is_dc_compatible = 0;
-			
-			$insert_data=array(
-				'template_name'=>$name,
-				'template_html'=>$html,
-				'template_from'=>$def_template,
-				'template_type'=>$template_type,
-				'is_dc_compatible'=>$is_dc_compatible,
-				'created_at'=>$tme,
-				'updated_at'=>$tme
-			);
-			$insert_data_type=array(
-				'%s','%s','%d','%s','%d','%d','%d'
-			);
-
-			$tt_qry=$wpdb->prepare("SELECT COUNT(id_wfpklist_template_data) AS ttnum FROM $table_name WHERE is_active=%d AND template_type=%s",array(1,$template_type));
-			$total_arr=$wpdb->get_row($tt_qry);
-			if(isset($total_arr->ttnum) && (0 === $total_arr->ttnum || "0" === $total_arr->ttnum)) //no active theme, then set this theme active
-			{
-				$insert_data['is_active']=1;
-				$insert_data_type[]='%d';
-				$is_active=1;
-				if($wpdb->insert($table_name,$insert_data,$insert_data_type)) //success
-				{
-					$template_id=$wpdb->insert_id;
-					$template_message='template_created';
-					$default_template_status = 1;
-				}
-			}else{
-				$default_template_status = 3; // already active template is there
-				$template_message = 'already_active_template_is_there';
-			}
-		}elseif(empty($html) && 1 === absint($default_template_status)){
-			$default_template_status = 0;
-			$template_message = 'empty_html';
-		}
-
-		$logger_res_array = array('template_type' => $template_type, 'default_template_status' => $default_template_status, 'template_id' => $template_id);
-		$logger->info( wc_print_r( $logger_res_array, true ), array( 'source' => 'wt_pklist_save_default_templates' ) );
-	}
 }

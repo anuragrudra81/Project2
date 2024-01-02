@@ -38,7 +38,7 @@ class Wf_Woocommerce_Packing_List_Pdf_generator
         {
             return;
         }
-        if(0 === count(self::$pdf_libs))
+        if(count(self::$pdf_libs)==0)
         {
             return;
         }
@@ -61,7 +61,7 @@ class Wf_Woocommerce_Packing_List_Pdf_generator
 
         $lib_file=(isset($active_lib['file']) ? $active_lib['file'] : '');
         $lib_class=(isset($active_lib['class']) ? $active_lib['class'] : '');
-        if("" === $lib_file || "" === $lib_class) /* no lib file or class name */
+        if($lib_file=="" || $lib_class=="") /* no lib file or class name */
         {
             return;
         }
@@ -102,19 +102,19 @@ class Wf_Woocommerce_Packing_List_Pdf_generator
             $file_path=$upload_dir . '/'.$name.'.pdf';
             $file_url=$upload_url . '/'.$name.'.pdf';
             $is_preview=false;
-            if("download" === $action || "preview" === $action)
+            if($action=='download' || $action=='preview')
             {  
-                $is_preview=(("preview" === $action || isset($_GET['debug'])) ? true : false );
+                $is_preview=(($action=='preview' || isset($_GET['debug'])) ? true : false );
             }
 
             $args=array();
             
             $pdf_obj->generate($upload_dir, $html, $action, $is_preview, $file_path, $args);
             
-            if("download" === $action || "preview" === $action)
+            if($action=='download' || $action=='preview')
             {               
                 exit();
-            }else if("preview_url" === $action)
+            }else if($action=='preview_url')
             {
                 return $file_url;
             }else

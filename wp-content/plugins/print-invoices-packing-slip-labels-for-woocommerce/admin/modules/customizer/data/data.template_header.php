@@ -43,7 +43,7 @@ $print_preview=isset($the_options['woocommerce_wf_packinglist_preview']) ? $the_
 	</style>
 		<style>
 		@media print {
-		  body{ -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+		  body{ -webkit-print-color-adjust:exact; color-adjust:exact;}
 		  #Header, #Footer { display:none !important; }
 		  @page { size:auto;  margin:0;  }
 		   body,html{ margin:0; background-color:#FFFFFF; }

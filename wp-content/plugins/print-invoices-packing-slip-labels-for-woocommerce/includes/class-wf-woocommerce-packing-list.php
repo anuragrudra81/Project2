@@ -56,7 +56,8 @@ class Wf_Woocommerce_Packing_List {
 	 * @var      string    $version    The current version of the plugin.
 	 */
 	protected $version;
-	public static $base_version;
+
+
 	private static $stored_options=array();
 
 	public static $no_image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
@@ -64,8 +65,8 @@ class Wf_Woocommerce_Packing_List {
 	public static $template_data_tb='wfpklist_template_data';
 
 	public static $default_additional_checkout_data_fields=array(
-        'ssn' => 'SSN',
-        'vat' => 'VAT'
+        'SSN',
+        'VAT'
     );
 
     public static $default_additional_data_fields=array(
@@ -93,11 +94,6 @@ class Wf_Woocommerce_Packing_List {
 
     public static $wf_packinglist_brand_color='080808';
     public static $loaded_modules=array();
-	public $plugin_admin = null;
-	public $plugin_public = null;
-	public $plugin_common = null;
-	public $basic_common_func = null;
-	public $plugin_update = null;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -113,11 +109,9 @@ class Wf_Woocommerce_Packing_List {
 		if( defined( 'WF_PKLIST_VERSION' ) ) 
 		{
 			$this->version = WF_PKLIST_VERSION;
-			self::$base_version = WF_PKLIST_VERSION;
 		}else 
 		{
-			$this->version = '4.3.0';
-			self::$base_version = '4.3.0';
+			$this->version = '3.0.7';
 		}
 		if(defined('WF_PKLIST_PLUGIN_NAME'))
 		{
@@ -128,7 +122,6 @@ class Wf_Woocommerce_Packing_List {
 		}
 		$this->load_dependencies();
 		$this->set_locale();
-		$this->pre_load_hooks();
 		$this->define_common_hooks();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
@@ -171,22 +164,11 @@ class Wf_Woocommerce_Packing_List {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wf-woocommerce-packing-list-admin.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/sequential-number.php';
-
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wf-woocommerce-packing-list-order-func.php';
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wf-woocommerce-packing-list-public.php';
-
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wf-woocommerce-packing-list-update-install.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in common for public and admin -facing
-		 * side of the site.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'common/class-wt-pklist-common.php';
 
 		/**
 		 * Includes review request class file
@@ -194,22 +176,14 @@ class Wf_Woocommerce_Packing_List {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wf-woocommerce-packing-list-review_request.php';
 
 		/**
-		 * Details of pro addons list
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wf-woocommerce-packing-list-pro-addons.php';
-
-		/**
 		 * Includes review request class file
 		 */ 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/admin/class-wf-woocommerce-packing-list-admin_notices.php';
 
-		include plugin_dir_path( dirname( __FILE__ ) )."admin/views/_form_field_generator_new.php";
-
 		$this->loader = new Wf_Woocommerce_Packing_List_Loader();
 		$this->plugin_admin = new Wf_Woocommerce_Packing_List_Admin( $this->get_plugin_name(), $this->get_version() );
 		$this->plugin_public = new Wf_Woocommerce_Packing_List_Public( $this->get_plugin_name(), $this->get_version() );
-		$this->plugin_common = new Wt_Pklist_Common($this->get_plugin_name(), $this->get_version());
-		$this->plugin_update = new Wf_Woocommerce_Packing_List_Update_Install();
+
 	}
 
 	/**
@@ -233,55 +207,13 @@ class Wf_Woocommerce_Packing_List {
 	*	@since 2.5.0 Some necessary functions
 	*	@since 2.6.6 Added language swicthing
 	*/
-	private function pre_load_hooks()
+	private function define_common_hooks()
 	{
 		$this->loader->add_action('init',$this,'run_necessary',1); //run some necessary function copied from old plugin
 		
 		$this->loader->add_filter('locale', $this, 'switch_locale', 1);
 	}
 
-	public function define_admin_basic_common_func_hooks(){
-
-		$invoice_page_js_arr = array(
-			'wf_woocommerce_packing_list_invoice',
-			'wf_woocommerce_packing_list_packinglist',
-			'wf_woocommerce_packing_list_creditnote'
-		);
-
-		$sdd_page_js_arr = array(
-			'wf_woocommerce_packing_list_shippinglabel',
-			'wf_woocommerce_packing_list_dispatchlabel',
-			'wf_woocommerce_packing_list_deliverynote'
-		);
-
-		$pkl_page_js_arr = array(
-			'wf_woocommerce_packing_list_picklist',
-		);
-
-		$pi_page_js_arr = array(
-			'wf_woocommerce_packing_list_proformainvoice',
-		);
-
-		if(isset($_GET['page']) && in_array($_GET['page'],$invoice_page_js_arr) && !class_exists('Wf_Woocommerce_Packing_List_Pro_Common_Func')){
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wf-woocommerce-packing-list-basic-func.php';
-			$this->basic_common_func = new Wf_Woocommerce_Packing_List_Basic_Common_Func( $this->get_plugin_name(), $this->get_version() );
-		}
-
-		if(isset($_GET['page']) && in_array($_GET['page'],$sdd_page_js_arr) && !class_exists('Wf_Woocommerce_Packing_List_Pro_Common_Func_SDD')){
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wf-woocommerce-packing-list-basic-func.php';
-			$this->basic_common_func = new Wf_Woocommerce_Packing_List_Basic_Common_Func( $this->get_plugin_name(), $this->get_version() );
-		}
-
-		if(isset($_GET['page']) && in_array($_GET['page'],$pkl_page_js_arr) && !class_exists('Wf_Woocommerce_Packing_List_Pro_Common_Func_PKL')){
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wf-woocommerce-packing-list-basic-func.php';
-			$this->basic_common_func = new Wf_Woocommerce_Packing_List_Basic_Common_Func( $this->get_plugin_name(), $this->get_version() );
-		}
-
-		if(isset($_GET['page']) && in_array($_GET['page'],$pi_page_js_arr) && !class_exists('Wf_Woocommerce_Packing_List_Pro_Common_Func_PI')){
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wf-woocommerce-packing-list-basic-func.php';
-			$this->basic_common_func = new Wf_Woocommerce_Packing_List_Basic_Common_Func( $this->get_plugin_name(), $this->get_version() );
-		}
-	}
 
 	/**
 	*	@since 2.6.6 Swicth language on printing screen
@@ -290,11 +222,15 @@ class Wf_Woocommerce_Packing_List {
 	{
 		if(isset($_GET['print_packinglist'])) 
         {
-        	$lang	= ( isset( $_GET['lang'] ) ? sanitize_text_field( $_GET['lang'] ) : '' );
-            $lang_list=Wf_Woocommerce_Packing_List_Admin::get_language_list();
-            if("" !== $lang && isset($lang_list[$lang])) /* valid language code */
+        	$lang=(isset($_GET['lang']) ? sanitize_text_field($_GET['lang']) : '');
+            $lang_list=$this->plugin_admin->get_language_list();
+            if($lang!="" && isset($lang_list[$lang])) /* valid language code */
             {
-            	$locale=$lang;	         	
+            	//$site_langs=get_available_languages();
+            	//if(in_array($lang, $site_langs)) /* available site languages */
+            	//{
+            		$locale=$lang;
+            	//}          	
             }
         }
         return $locale;
@@ -309,15 +245,9 @@ class Wf_Woocommerce_Packing_List {
 	 */
 	private function define_admin_hooks() 
 	{	
-		$this->loader->add_action('admin_enqueue_scripts',$this->plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action('admin_enqueue_scripts',$this->plugin_admin, 'enqueue_scripts' );
-
-		$this->loader->add_action('plugins_loaded', $this, 'define_admin_basic_common_func_hooks');
-		//ajax hook for saving the moudles by toggling the button
-		$this->loader->add_action('wp_ajax_wf_document_module_enable_disable',$this->plugin_admin,'document_module_enable_disable');
-
 		//ajax hook for saving settings, Includes plugin main settings and settings from module
 		$this->loader->add_action('wp_ajax_wf_save_settings', $this->plugin_admin, 'save_settings');
+		$this->loader->add_action('wp_ajax_wf_save_document_settings', $this->plugin_admin, 'save_document_settings');
 
 		/* load address from woo */
 		$this->loader->add_action('wp_ajax_wf_pklist_load_address_from_woo',$this->plugin_admin,'load_address_from_woo');
@@ -335,10 +265,10 @@ class Wf_Woocommerce_Packing_List {
 		$this->loader->add_filter('plugin_action_links_'.plugin_basename(WF_PKLIST_PLUGIN_FILENAME),$this->plugin_admin,'plugin_action_links');
 
 		//print action button and dropdown items
-		$this->loader->add_action('woocommerce_admin_order_actions_end',$this->plugin_admin, 'add_common_print_button_in_wc_order_listing_action_column',9,1);
-
+		$this->loader->add_filter('woocommerce_admin_order_actions',$this->plugin_admin,'add_print_action_button',10,2); //to add print option in the order list page action column
+		$this->loader->add_action('manage_shop_order_posts_custom_column',$this->plugin_admin,'add_print_actions',10); /* Add print action buttons to action column */
+		
 		$this->loader->add_filter('bulk_actions-edit-shop_order',$this->plugin_admin,'alter_bulk_action',10); /* Add print buttons to order bulk actions */
-		$this->loader->add_filter('bulk_actions-woocommerce_page_wc-orders',$this->plugin_admin,'alter_bulk_action',10); /* Add print buttons to order bulk actions */
 				
 		//frontend print action buttons
 		$this->loader->add_action('woocommerce_order_details_after_order_table',$this->plugin_admin,'add_fontend_print_actions',10); /* Add print action buttons in user dashboard orders page */		
@@ -346,7 +276,7 @@ class Wf_Woocommerce_Packing_List {
 		$this->loader->add_filter('woocommerce_my_account_my_orders_actions', $this->plugin_admin, 'add_order_list_page_print_actions', 10, 2); /* Add print action buttons in user dashboard orders page */	
 		//email print action buttons
 		$this->loader->add_action('woocommerce_email_after_order_table',$this->plugin_admin,'add_email_print_actions',10); /* Add print action buttons in order */		
-				
+		
 		//email attachment
 		$this->loader->add_filter('woocommerce_email_attachments',$this->plugin_admin,'add_email_attachments',10,3); /* Add pdf attachments to order email */		
 		
@@ -354,10 +284,20 @@ class Wf_Woocommerce_Packing_List {
 
 		$this->loader->add_action('init',$this->plugin_admin,'print_window',10); /* to print the invoice and packinglist */
 
+		/** 
+		* @since 2.9.2 Fields like `Order meta fields` have extra popup for saving item. 
+		*/
+		$this->loader->add_action('wp_ajax_wf_pklist_advanced_fields', $this->plugin_admin, 'advanced_settings', 10); /* to print the invoice and packinglist */
+
 		$this->plugin_admin->admin_modules();
 		$this->plugin_public->common_modules();
+		$this->plugin_admin->save_plugin_version_in_db();
 		
 		$this->loader->add_action('plugins_loaded', $this->plugin_admin, 'register_tooltips', 11);
+
+		$this->loader->add_action('admin_enqueue_scripts',$this->plugin_admin, 'enqueue_styles' );
+		$this->loader->add_action('admin_enqueue_scripts',$this->plugin_admin, 'enqueue_scripts' );
+
 
 		/*Compatible function and filter with multicurrency and currency switcher plugin*/
 		$this->loader->add_filter('wt_pklist_change_price_format',$this->plugin_admin,'wf_display_price',10,3);
@@ -371,43 +311,8 @@ class Wf_Woocommerce_Packing_List {
 		$this->loader->add_action('update_empty_invoice_number_count', $this->plugin_admin, 'wt_get_empty_invoice_number_count');
 		$this->loader->add_action('admin_init',$this->plugin_admin,'wt_pklist_action_scheduler_for_invoice_number');
 		$this->loader->add_action('wt_pklist_schedule_auto_generate_invoice_number', $this->plugin_admin, 'action_for_auto_generate_invoice_number');
-
-		$this->loader->add_action( 'wp_ajax_wf_pklist_advanced_fields_basic', $this->plugin_admin, 'advanced_settings');
-		$this->loader->add_action('admin_footer', $this->plugin_admin, 'wt_pklist_popup_on_order_edit_page');
-
-		$this->loader->add_action('wp_ajax_wt_pklist_cta_banner_dismiss',$this->plugin_admin,'wt_pklist_cta_banner_dismiss');
-		$this->loader->add_action('wp_ajax_wt_pklist_settings_json',$this->plugin_admin,'wt_pklist_settings_json');
-		$this->loader->add_action('admin_init', $this->plugin_admin, 'wt_pklist_import_settings');
-		$this->loader->add_action('admin_init', $this->plugin_admin, 'wt_pklist_reset_settings');
-
-		//ajax hook for downloading temp files
-		$this->loader->add_action('wp_ajax_wt_pklist_download_all_temp', $this->plugin_admin, 'download_all_temp');
-		$this->loader->add_action('admin_init', $this->plugin_admin, 'download_temp_zip_file', 11);
-
-		// ajax hook for deleting the pdf/html file stored
-		$this->loader->add_action('wp_ajax_wt_pklist_delete_all_temp', $this->plugin_admin, 'delete_all_temp');
-
-		// hooks to make the action scheduler to delete the file stored in particular time interval automatically
-		$this->loader->add_action('admin_init',$this->plugin_admin,'wt_pklist_action_scheduler_for_auto_cleanup');
-		$this->loader->add_action('wt_pklist_temp_file_clear', $this->plugin_admin, 'delete_temp_files_recursively',10,1);
-		
-		//ajax hook for saving settings from the form wizard
-		$this->loader->add_action('wp_ajax_wt_pklist_form_wizard_save', $this->plugin_admin, 'wt_pklist_form_wizard_save');
-		$this->loader->add_action('woocommerce_settings_save_tax',$this->plugin_admin,'update_plugin_settings_when_wc_update_settings');
-		$this->loader->add_action( 'woocommerce_checkout_update_order_meta', $this, 'save_order_language_code' );
-		$this->loader->add_action( 'woocommerce_store_api_checkout_order_processed', $this, 'save_order_language_code' ); // Checkout block
-		/**
-		 *  Set screens to show promotional banner 
-		 * 
-		 *  @since 4.2.1
-		 */
-		$this->loader->add_filter( "wt_promotion_banner_screens", $this->plugin_admin, "wt_promotion_banner_screens" );
 	}
 
-	private function define_common_hooks() {
-		$this->plugin_common= Wt_Pklist_Common::get_instance( $this->get_plugin_name(), $this->get_version() );
-		$this->plugin_common->load_common_modules();
-	}
 	/**
 	 * Register all of the hooks related to the public-facing functionality
 	 * of the plugin.
@@ -500,7 +405,7 @@ class Wf_Woocommerce_Packing_List {
 	 * @since     2.5.0
 	 */
 	public static function generate_settings_tabhead($title_arr,$type="plugin")
-	{
+	{	
 		$out_arr=apply_filters("wf_pklist_".$type."_settings_tabhead",$title_arr);
 		foreach($out_arr as $k=>$v)
 		{			
@@ -524,111 +429,66 @@ class Wf_Woocommerce_Packing_List {
         return base64_decode(str_pad(strtr($data,'-_','+/'),strlen($data)%4,'=',STR_PAD_RIGHT));
     }
 
-	/**
-	 * Get the print button in order email
-	 *
-	 * @param object $order
-	 * @param int|string $order_id
-	 * @param string $action
-	 * @param string $label
-	 * @param boolean $email_button
-	 * @return void
-	 */
     public static function generate_print_button_for_user($order,$order_id,$action,$label,$email_button=false)
     {
-		if( !empty( $order ) ) {
-			$document_link = add_query_arg( array(
-				'attaching_pdf'		=> 1,
-				'print_packinglist' => 'true',
-				'email'     		=> self::wf_encode( WC()->version < '2.7.0' ? $order->billing_email : $order->get_billing_email() ),
-				'post'				=> self::wf_encode($order_id),
-				'type'				=> $action,
-				'user_print'		=> 1,
-				'_wpnonce'			=> wp_create_nonce(WF_PKLIST_PLUGIN_NAME),
-				'lang'				=> get_locale(),
-				'access_key'    	=> $order->get_order_key(),
-			), home_url() );
-			$invoice_url	= esc_url_raw($document_link);
-			$style			= '';
-
-			if( $email_button ) {
-				$style	= 'background:#0085ba; border-color:#0073aa; box-shadow:0 1px 0 #006799; color:#fff; text-decoration:none; padding:10px; border-radius:10px; text-shadow:0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;';
-			}
-			$button	= '<a class="button button-primary" style="'.esc_attr($style).'" target="_blank" href="'.$invoice_url.'">'.wp_kses_post($label).'</a><br><br>';
-			echo $button;
-		}
+    	$wc_version=WC()->version;
+		$billing_email=($wc_version< '2.7.0' ? $order->billing_email : $order->get_billing_email());
+		$order_id_enc=self::wf_encode($order_id);
+		$billing_email_enc=self::wf_encode($billing_email);
+		$_nonce=wp_create_nonce(WF_PKLIST_PLUGIN_NAME);
+		$locale='&lang='.get_locale();
+		$invoice_url=esc_url(home_url('?attaching_pdf=1&print_packinglist=true&email='.$billing_email_enc.'&post='.$order_id_enc.'&type='.$action.'&user_print=1&_wpnonce='.$_nonce.$locale));
+        $style='';
+        if($email_button)
+        {
+        	$style='background:#0085ba; border-color:#0073aa; box-shadow:0 1px 0 #006799; color:#fff; text-decoration:none; padding:10px; border-radius:10px; text-shadow:0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;';
+        }
+        $button = '<a class="button button-primary" style="'.$style.'" target="_blank" href="'.$invoice_url.'">'.$label.'</a><br><br>';
+        echo $button;
     }
 
-	/**
-	 * Get the document print link for the action button in my account page - frontend
-	 *
-	 * @param object $order
-	 * @param int|string $order_id
-	 * @param string $template_type
-	 * @param string $action
-	 * @param boolean $email_button
-	 * @param boolean $sent_to_admin
-	 * @return string
-	 */
     public static function generate_print_url_for_user($order, $order_id, $template_type, $action, $email_button=false, $sent_to_admin=false)
     {
-		if( !empty( $order ) ) {
-			$document_link = add_query_arg( array(
-				'attaching_pdf'		=> 1,
-				'print_packinglist' => 'true',
-				'email'				=> self::wf_encode( WC()->version < '2.7.0' ? $order->billing_email : $order->get_billing_email() ),
-				'post'				=> self::wf_encode($order_id),
-				'type'				=> $action.'_'.$template_type,
-				'user_print'		=> 1,
-				'_wpnonce'			=> wp_create_nonce(WF_PKLIST_PLUGIN_NAME),
-				'lang'				=> get_locale(),
-				'access_key'    	=> $order->get_order_key(),
-			), home_url() );
-			return esc_url_raw($document_link);
-		}
-		return '';
+    	$action=$action.'_'.$template_type;
+    	$wc_version=WC()->version;
+		$billing_email=($wc_version< '2.7.0' ? $order->billing_email : $order->get_billing_email());
+		$order_id_enc=self::wf_encode($order_id);
+		$billing_email_enc=self::wf_encode($billing_email);
+		$_nonce=wp_create_nonce(WF_PKLIST_PLUGIN_NAME);
+		$locale='&lang='.get_locale();
+		return esc_url(home_url('?attaching_pdf=1&print_packinglist=true&email='.$billing_email_enc.'&post='.$order_id_enc.'&type='.$action.'&user_print=1&_wpnonce='.$_nonce.$locale));
     }
-
 	/**
 	 * Get default settings
 	 * @since     2.5.0
 	 */
-	public static function default_settings( $base_id='' ) {
-		$wc_tax = !empty(get_option('woocommerce_prices_include_tax')) ? get_option('woocommerce_prices_include_tax') : 'no';
-		if("yes" === $wc_tax){
-			$wt_tax = array('in_tax');
-		}else{
-			$wt_tax = array('ex_tax');
-		}
-		$settings	= array(
-			'woocommerce_wf_packinglist_companyname'			=> '',
-			'woocommerce_wf_packinglist_logo'					=> '',
-			'woocommerce_wf_packinglist_footer'					=> '',
-			'woocommerce_wf_packinglist_sender_name'			=> '',
-			'woocommerce_wf_packinglist_sender_address_line1'	=> '',
-			'woocommerce_wf_packinglist_sender_address_line2'	=> '',
-			'woocommerce_wf_packinglist_sender_city'			=> '',
-			'wf_country'										=> '',
-			'woocommerce_wf_packinglist_sender_postalcode'		=> '',
-			'woocommerce_wf_packinglist_sender_contact_number'	=> '',
-			'woocommerce_wf_packinglist_sender_vat'				=> '',
-			'woocommerce_wf_state_code_disable'					=> 'no',
-			'woocommerce_wf_packinglist_preview'				=> 'enabled',
-			'woocommerce_wf_packinglist_package_type'			=> 'single_packing', //just keeping to avoid errors
-			'woocommerce_wf_packinglist_boxes'					=> array(),
-			'woocommerce_wf_add_rtl_support'					=> 'No',
-			'active_pdf_library'								=> 'dompdf',
-			'woocommerce_wf_generate_for_taxstatus'				=> $wt_tax,
-			'wf_additional_data_fields'							=> array(),
-			'wt_pklist_auto_temp_clear'							=> 'No',
-			'wt_pklist_auto_temp_clear_interval'				=> '1440', //one day
-			'wt_pklist_print_button_access_for'					=> 'logged_in',
-			'wt_pklist_common_print_button_enable'				=> 'Yes',
-			'wt_pklist_separate_print_button_enable'			=> array('invoice','packinglist'),
+	public static function default_settings($base_id='')
+	{
+		$settings=array(
+			'woocommerce_wf_packinglist_companyname'=>'',
+			'woocommerce_wf_packinglist_logo'=>'',
+			'woocommerce_wf_packinglist_footer'=>'',
+			'woocommerce_wf_packinglist_sender_name'=>'',
+			'woocommerce_wf_packinglist_sender_address_line1'=>'',
+			'woocommerce_wf_packinglist_sender_address_line2'=>'',
+			'woocommerce_wf_packinglist_sender_city'=>'',
+			'wf_country'=>'',
+			'woocommerce_wf_packinglist_sender_postalcode'=>'',
+			'woocommerce_wf_packinglist_sender_contact_number'=>'',
+			'woocommerce_wf_packinglist_sender_vat'=>'',
+			'woocommerce_wf_state_code_disable'=>'no',
+			'woocommerce_wf_packinglist_preview'=>'enabled',
+			'woocommerce_wf_packinglist_package_type'=>'single_packing', //just keeping to avoid errors
+			'woocommerce_wf_packinglist_boxes'=>array(),
+			'woocommerce_wf_add_rtl_support'=>'No',
+			'active_pdf_library'=>'dompdf',
+			'woocommerce_wf_generate_for_taxstatus'=>array('ex_tax'),
+			'wf_additional_data_fields'=>array(),
 		);
-		
-		$base_id	= ( "" === $base_id ) ? "main" : $base_id; // for the pro addons use
-		$settings	= apply_filters( 'wf_module_default_settings', $settings, $base_id );
+		if($base_id!='')
+		{
+			$settings=apply_filters('wf_module_default_settings',$settings,$base_id);
+		}
 		return $settings;
 	}
 
@@ -665,7 +525,7 @@ class Wf_Woocommerce_Packing_List {
 	 * @since     2.5.0
 	 */
 	public static function get_settings($base_id='')
-	{
+	{ 
 		$settings=self::default_settings($base_id);
 		$option_name=($base_id=="" ? WF_PKLIST_SETTINGS_FIELD : $base_id);
 		$option_id=($base_id=="" ? 'main' : $base_id); //to store in the stored option variable
@@ -680,22 +540,20 @@ class Wf_Woocommerce_Packing_List {
 		return $settings;
 	}
 
-	public static function get_single_checkbox_fields($base_id='',$tab_name=''){
-		$settings=self::single_checkbox_fields($base_id,$tab_name);
+	public static function get_single_checkbox_fields($base_id=''){
+		$settings=self::single_checkbox_fields($base_id);
 		return $settings;
 	}
 
-	public static function single_checkbox_fields($base_id='',$tab_name=''){
-		$settings['wt_main_general'] = array(
+	public static function single_checkbox_fields($base_id=''){
+		$settings = array(
 			'woocommerce_wf_packinglist_preview' => 'disabled',
 			'woocommerce_wf_state_code_disable' => "no",
 			'woocommerce_wf_add_rtl_support' => "No",
-			'wt_pklist_common_print_button_enable' => 'No',
 		);
-
-		$base_id = ("" === $base_id) ? "main" : $base_id; // for the pro addons use
-		$settings=apply_filters('wf_module_single_checkbox_fields',$settings,$base_id,$tab_name);
-		$settings = (isset($settings[$tab_name]) && '' !== $tab_name) ? $settings[$tab_name] : array();
+		if('' !== $base_id){
+			$settings=apply_filters('wf_module_single_checkbox_fields',$settings,$base_id);
+		}
 		return $settings;
 	}
 	
@@ -704,14 +562,11 @@ class Wf_Woocommerce_Packing_List {
 	 * Function to load default values for multi checkboxes when they are unchecked.
 	 * PHP will send the checkbox values when they are unchecked.
 	 */
-	public static function get_multi_checkbox_fields($base_id='',$tab_name=''){
+	public static function get_multi_checkbox_fields($base_id=''){
 		$settings = array();
-		$base_id = ("" === $base_id) ? "main" : $base_id; // for the pro addons use
-		$settings['wt_main_general'] = array(
-			'wt_pklist_separate_print_button_enable' => array()
-		);
-		$settings = apply_filters('wf_module_multi_checkbox_fields',$settings,$base_id,$tab_name);
-		$settings = (isset($settings[$tab_name]) && '' !== $tab_name) ? $settings[$tab_name] : array();
+		if($base_id != ''){
+			$settings = apply_filters('wf_module_multi_checkbox_fields',$settings,$base_id);
+		}
 		return $settings;
 	}
 
@@ -721,8 +576,8 @@ class Wf_Woocommerce_Packing_List {
 	 */
 	public static function delete_settings($base_id='')
 	{
-		$option_name=("" === $base_id ? WF_PKLIST_SETTINGS_FIELD : $base_id);
-		$option_id=("" === $base_id ? 'main' : $base_id); //to store in the stored option variable
+		$option_name=($base_id=="" ? WF_PKLIST_SETTINGS_FIELD : $base_id);
+		$option_id=($base_id=="" ? 'main' : $base_id); //to store in the stored option variable
 		delete_option($option_name);
 		unset(self::$stored_options[$option_id]);
 	}
@@ -749,12 +604,12 @@ class Wf_Woocommerce_Packing_List {
 	 */
 	public static function update_settings($the_options,$base_id='')
 	{
-		if("" !== $base_id && "main" !== $base_id) //main is reserved so do not allow modules named main
+		if($base_id!="" && $base_id!='main') //main is reserved so do not allow modules named main
 		{
 			self::$stored_options[$base_id]=$the_options;
 			update_option($base_id,$the_options);
 		}
-		if("" === $base_id)
+		if($base_id=="")
 		{
 			self::$stored_options['main']=$the_options;
 			update_option(WF_PKLIST_SETTINGS_FIELD,$the_options);
@@ -794,16 +649,10 @@ class Wf_Woocommerce_Packing_List {
 		return WF_PKLIST_POST_TYPE.'_'.$module_base;
 	}
 
-	public static function get_module_base($module_id)
-	{
-		$module_base = str_replace(WF_PKLIST_POST_TYPE.'_','',$module_id);
-		return $module_base;
-	}
-	
 	/**
 	* 	@since 2.6.3
 	*	Get upload dir, Path
-	*	@return array|string
+	*	@return array / string
 	*/
 	public static function get_temp_dir($out='')
 	{
@@ -813,10 +662,10 @@ class Wf_Woocommerce_Packing_List {
         //plugin subfolder
         $upload_dir = $upload_dir.'/'.WF_PKLIST_PLUGIN_NAME;
         $upload_url = $upload_url.'/'.WF_PKLIST_PLUGIN_NAME;
-        if("path" === $out)
+        if($out=='path')
         {
         	return $upload_dir;
-        }elseif("url" === $out)
+        }elseif($out=='url')
         {
         	return $upload_url;	
         }else
@@ -830,9 +679,10 @@ class Wf_Woocommerce_Packing_List {
 
     public static function is_from_address_available()
     {
-        if(("" === self::get_option('woocommerce_wf_packinglist_sender_city') || 
-        	"" === self::get_option('wf_country') || 
-        	"" === self::get_option('woocommerce_wf_packinglist_sender_postalcode'))) 
+        if((self::get_option('woocommerce_wf_packinglist_sender_address_line1')=='' || 
+        	self::get_option('woocommerce_wf_packinglist_sender_city') == '' || 
+        	self::get_option('wf_country') == '' || 
+        	self::get_option('woocommerce_wf_packinglist_sender_postalcode') == '')) 
         {
             return false;
         } else
@@ -856,7 +706,7 @@ class Wf_Woocommerce_Packing_List {
         {
         	$meta_key_display="";
         }
-        elseif("aelia_vat" === $meta_key) /* customer note is not a meta item */
+        elseif($meta_key=='aelia_vat') /* customer note is not a meta item */
         {
         	$meta_key_display="vat_number";
         }
@@ -864,31 +714,6 @@ class Wf_Woocommerce_Packing_List {
         {
         	$meta_key_display=$meta_key;
         }
-        return ("" !== $meta_key_display ? "(".$meta_key_display.")" : "");
+        return ($meta_key_display!="" ? "(".$meta_key_display.")" : "");
     }
-
-	/**
-	 * Add the setting fields to the plugin settings form
-	 *
-	 * @since 4.2.0 - Remove the tax settings and sync with WC tax settings
-	 * @param array $settings
-	 * @param string $target_id
-	 * @param string $template_type
-	 * @param string $base_id
-	 * @return array
-	 */
-    public static function add_fields_to_settings( $settings, $target_id = "", $template_type ="", $base_id ="" ) {
-    	$settings = apply_filters('wt_pklist_add_fields_to_settings',$settings,$target_id,$template_type,$base_id);
-		if (isset( $settings['advanced_option']['woocommerce_wf_generate_for_taxstatus'] ) ) {
-			unset( $settings['advanced_option']['woocommerce_wf_generate_for_taxstatus'] );
-		}
-    	return $settings;
-    }
-
-	public function save_order_language_code($order_id){
-		if(!empty($order_id)){
-			$current_language = get_locale();
-			Wt_Pklist_Common::update_order_meta($order_id,'wt_pklist_order_language',$current_language);
-		}
-	}
 }

@@ -42,8 +42,6 @@ class Wf_Woocommerce_Packing_List_Migrator
 			'woocommerce_wf_enable_invoice'=>"woocommerce_wf_enable_invoice",
 			'woocommerce_wf_add_customer_note_in_invoice'=>"woocommerce_wf_add_customer_note_in_invoice",
 			'wf_woocommerce_invoice_show_print_button' => 'wf_woocommerce_invoice_show_print_button',
-			'woocommerce_wf_add_invoice_in_customer_mail' => 'woocommerce_wf_add_invoice_in_customer_mail', 
-			'woocommerce_wf_add_invoice_in_admin_mail' => 'woocommerce_wf_add_invoice_in_admin_mail',
 		),
 		'packinglist'=>array(
 			'woocommerce_wf_attach_image_packinglist'=>'woocommerce_wf_attach_image_packinglist',
@@ -98,8 +96,6 @@ class Wf_Woocommerce_Packing_List_Migrator
 			'woocommerce_wf_add_customer_note_in_invoice'=>"No", //Add customer note
 			'wf_invoice_contactno_email'=>array('contact_number','email'),
 			'wf_woocommerce_invoice_show_print_button' => array('order_listing','order_details','order_email'),
-			'woocommerce_wf_add_invoice_in_customer_mail' => array(),
-			'woocommerce_wf_add_invoice_in_admin_mail' => "No",
 		),
 		'packinglist'=>array(
 			'woocommerce_wf_attach_image_packinglist'=>'Yes',
@@ -534,15 +530,9 @@ class Wf_Woocommerce_Packing_List_Migrator
 			$module_key = "invoice";
 			$module_id = self::get_module_id($module_key);
 			$woocommerce_wf_packinglist_frontend_info = Wf_Woocommerce_Packing_List::get_option('woocommerce_wf_packinglist_frontend_info',$module_id);
-			if("No" === $woocommerce_wf_packinglist_frontend_info || "no" === $woocommerce_wf_packinglist_frontend_info){
+			if($woocommerce_wf_packinglist_frontend_info == "No" || $woocommerce_wf_packinglist_frontend_info == "no"){
 				Wf_Woocommerce_Packing_List::update_option('wf_woocommerce_invoice_show_print_button',array(),$module_id);
 				Wf_Woocommerce_Packing_List::update_option('woocommerce_wf_packinglist_frontend_info',"Yes",$module_id);
-			}
-
-			$attach_invoice_pdf = Wf_Woocommerce_Packing_List::get_option('woocommerce_wf_add_invoice_in_mail',$module_id);
-			if("Yes" === $attach_invoice_pdf){
-				$invoice_gen_ord_statuses = Wf_Woocommerce_Packing_List::get_option('woocommerce_wf_generate_for_orderstatus',$module_id);
-				Wf_Woocommerce_Packing_List::update_option('woocommerce_wf_add_invoice_in_customer_mail',$invoice_gen_ord_statuses,$module_id);
 			}
 		}
 	}

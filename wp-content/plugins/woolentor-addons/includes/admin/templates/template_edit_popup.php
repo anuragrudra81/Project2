@@ -71,79 +71,41 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
                         </label>
                     </div>
 
+                    <# if( data.haselementor === 'yes' ){ #>
                     <div class="woolentor-template-edit-set-default-field woolentor-template-edit-set-design">
                         <label>{{{data.heading.sampledata.visibility}}}</label>
                         <span class="woolentor-template-edit-eye-icon dashicons dashicons-visibility"></span>
                     </div>
+                    <# } #>
 
                 </div>
 
                 <div class="woolentor-template-edit-demo-design-show-wrap">
 
-                    <# _.each( data.templatelist, function( itemgroup, groupkey ) { 
-
-                        if( WLTMCPT?.prostatus == 1 ){
-                            itemgroup = itemgroup.map( template => ({ ...template, isPro: 0 }) );
-                        }
-                    #>
-                        <div class="woolentor-template-edit-demo-design-show woolentor-template-edit-demo-design-slider woolentor-gutenberg-temp demo-{{groupkey}}">
-                            <#
-                                _.each( itemgroup, function( item, itemkey ) {
-                                    var protmp = item.isPro === 1 ? 'tmp-pro' : '';
-
-                                    if( item.builder[0] === "gutenberg"){
-                                        #>
-                                        <label class="woolentor-template-edit-demo-plan woolentor-{{ protmp }}" for="woolentor-template-edit-demo-plan-{{groupkey}}-{{item.id}}">
-                                            <# if( item.isPro !== 1 ){ #>
-                                            <input type="radio" data-builder="gutenberg" name="woolentor-template-edit-demo-plan" id="woolentor-template-edit-demo-plan-{{groupkey}}-{{item.id}}" value="{{item.id}}" data-title="{{ item.title }}" />
-                                            <# } #>
-                                            <span class="woolentor-template-edit-demo-content">
-                                                <span class="woolentor-template-edit-demo-image">
-                                                    <img src="{{item.thumbnail}}" alt="{{ item.title }}">
-                                                </span>
-                                                <span class="woolentor-template-edit-demo-name">{{{data.heading.sampledata.gutenberg}}}</span>
-                                                <# if( item.isPro === 1 ){ #>
-                                                <span class="woolentor-template-edit-demo-name tmp-pro">{{{data.heading.sampledata.pro}}}</span>
-                                                <# } #>
-                                                <a class="woolentor-template-edit-demo-eye thickbox" href="{{ item.thumbnail }}"><span class="dashicons dashicons-visibility"></span></a>
-                                                <span class="woolentor-demo-template-name">{{ item.title }}</span>
-                                            </span>
-                                        </label>
-                                        <#
-                                    }
-                                });
-                                
-                            #>
-                        </div>
-                    <# } ); #>
-
-
                     <# _.each( data.templatelist, function( itemgroup, groupkey ) { #>
-                        <div class="woolentor-template-edit-demo-design-show woolentor-template-edit-demo-design-slider woolentor-elementor-temp demo-{{groupkey}}">
+                        <div class="woolentor-template-edit-demo-design-show woolentor-template-edit-demo-design-slider demo-{{groupkey}}">
                             <#
                                 _.each( itemgroup, function( item, itemkey ) {
                                     var protmp = item.isPro === 1 ? 'tmp-pro' : '';
-
-                                    if( item.builder[0] === "elementor"){
-                                        #>
-                                        <label class="woolentor-template-edit-demo-plan woolentor-{{ protmp }}" for="woolentor-template-edit-demo-plan-{{groupkey}}-{{item.id}}">
-                                            <# if( item.isPro !== 1 ){ #>
-                                            <input type="radio" data-builder="elementor" name="woolentor-template-edit-demo-plan" id="woolentor-template-edit-demo-plan-{{groupkey}}-{{item.id}}" value="{{item.id}}" data-title="{{ item.title }}" />
-                                            <# } #>
-                                            <span class="woolentor-template-edit-demo-content">
-                                                <span class="woolentor-template-edit-demo-image">
-                                                    <img src="{{item.thumbnail}}" alt="{{ item.title }}">
-                                                </span>
-                                                <span class="woolentor-template-edit-demo-name">{{{data.heading.sampledata.elementor}}}</span>
-                                                <# if( item.isPro === 1 ){ #>
-                                                <span class="woolentor-template-edit-demo-name tmp-pro">{{{data.heading.sampledata.pro}}}</span>
-                                                <# } #>
-                                                <a class="woolentor-template-edit-demo-eye thickbox" href="{{ item.thumbnail }}"><span class="dashicons dashicons-visibility"></span></a>
-                                                <span class="woolentor-demo-template-name">{{ item.title }}</span>
+                                    #>
+                                    <label class="woolentor-template-edit-demo-plan woolentor-{{ protmp }}" for="woolentor-template-edit-demo-plan-{{groupkey}}-{{item.id}}">
+                                        <# if( item.isPro !== 1 ){ #>
+                                        <input type="radio" data-builder="elementor" name="woolentor-template-edit-demo-plan" id="woolentor-template-edit-demo-plan-{{groupkey}}-{{item.id}}" value="{{item.id}}" data-title="{{ item.title }}" />
+                                        <# } #>
+                                        <span class="woolentor-template-edit-demo-content">
+                                            <span class="woolentor-template-edit-demo-image">
+                                                <img src="{{item.thumbnail}}" alt="{{ item.title }}">
                                             </span>
-                                        </label>
-                                        <#
-                                    }
+                                            <span class="woolentor-template-edit-demo-name">{{{data.heading.sampledata.elementor}}}</span>
+                                            <# if( item.isPro === 1 ){ #>
+                                            <span class="woolentor-template-edit-demo-name tmp-pro">{{{data.heading.sampledata.pro}}}</span>
+                                            <# } #>
+                                            <!-- <a class="woolentor-template-edit-demo-eye" href="{{ item.url }}" target="_blank"><span class="dashicons dashicons-admin-links"></span></a> -->
+                                            <a class="woolentor-template-edit-demo-eye thickbox" href="{{ item.thumbnail }}"><span class="dashicons dashicons-visibility"></span></a>
+                                            <span class="woolentor-demo-template-name">{{ item.title }}</span>
+                                        </span>
+                                    </label>
+                                    <#
                                 });
                                 
                             #>

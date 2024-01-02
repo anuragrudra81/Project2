@@ -63,8 +63,6 @@
 	$button_list = woolentor_get_option( 'social_share_buttons','wishsuite_table_settings_tabs', $default_buttons );
 	$button_text = woolentor_get_option( 'social_share_button_title','wishsuite_table_settings_tabs', 'Share:' );
 
-	if( is_array($button_list) ){
-
 ?>
 
 <div class="wishsuite-social-share">
@@ -85,4 +83,3 @@
 		?>
 	</ul>
 </div>
-<?php } ?>

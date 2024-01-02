@@ -44,7 +44,7 @@ if (!function_exists('woocs_restriction_options')) {
 
     <?php if ($is_fixed_enabled): ?>
         <div id="woocs_tab_fixed_restriction_<?php echo woocs_short_id($post_id) ?>" class="woocs_tab">
-            <h4><?php esc_html_e('FOX - fixed Minimum and Maximum spend', 'woocommerce-currency-switcher') ?><img class="help_tip" data-tip="<?php esc_html_e('Here you can set FIXED amount for the coupon for any the currency you want. In the case of empty amount field - will work recounting by rate!', 'woocommerce-currency-switcher') ?>" src="<?php echo WOOCS_LINK ?>/img/help.png" height="16" width="16" /></h4>
+            <h4><?php esc_html_e('WOOCS - fixed Minimum and Maximum spend', 'woocommerce-currency-switcher') ?><img class="help_tip" data-tip="<?php esc_html_e('Here you can set FIXED amount for the coupon for any the currency you want. In the case of empty amount field - will work recounting by rate!', 'woocommerce-currency-switcher') ?>" src="<?php echo WOOCS_LINK ?>/img/help.png" height="16" width="16" /></h4>
             <select class="select short woocs-width-200" id="woocs_multiple_simple_select_<?php echo $type ?>_<?php echo woocs_short_id($post_id) ?>">
                 <?php foreach ($currencies as $code => $curr): ?>
                     <?php

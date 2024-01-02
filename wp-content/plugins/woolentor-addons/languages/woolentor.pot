@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: ShopLentor – WooCommerce Builder for Elementor & "
 "Gutenberg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-17 10:18+0000\n"
+"POT-Creation-Date: 2022-12-05 04:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,12 +14,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.6.6; wp-6.4.2\n"
+"X-Loco-Version: 2.6.3; wp-6.1.1\n"
 "X-Domain: woolentor"
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:392
-msgid " Starts With"
-msgstr ""
 
 #. %s: Product title
 #: includes/modules/variation-swatch/includes/ajax-actions.php:88
@@ -28,7 +24,7 @@ msgid "\"%1$s\" has been added to your cart. %2$s"
 msgstr ""
 
 #. 1: Plugin name 2: PHP 3: Required PHP version
-#: includes/base.php:167
+#: includes/base.php:187
 #, php-format
 msgid "\"%1$s\" requires \"%2$s\" version %3$s or greater."
 msgstr ""
@@ -47,14 +43,14 @@ msgstr ""
 msgid "#"
 msgstr ""
 
-#: includes/base.php:142
+#: includes/base.php:165
 #, php-format
 msgid ""
 "%1$sShopLentor Addons for Elementor%2$s requires %1$s\"WooCommerce\"%2$s "
 "plugin to be active. Please activate WooCommerce to continue."
 msgstr ""
 
-#: includes/base.php:146
+#: includes/base.php:172
 #, php-format
 msgid ""
 "%1$sShopLentor Addons for Elementor%2$s requires %1$s\"WooCommerce\"%2$s "
@@ -68,15 +64,11 @@ msgid_plural "%s customer reviews"
 msgstr[0] ""
 msgstr[1] ""
 
+#: woolentor-blocks/build/blocks/product-reviews/index.php:26
+#: woolentor-blocks/build/blocks/product-reviews/index.php:47
 #: woolentor-blocks/src/blocks/product-reviews/index.php:26
 #: woolentor-blocks/src/blocks/product-reviews/index.php:47
-#: woolentor-blocks/production/src/blocks/product-reviews/index.php:26
-#: woolentor-blocks/production/src/blocks/product-reviews/index.php:47
 msgid "*"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:186
-msgid "+ Add Condition"
 msgstr ""
 
 #: includes/modules/variation-swatch/includes/Admin/Product_Metabox.php:188
@@ -92,8 +84,8 @@ msgstr ""
 #: includes/addons/product_flash_sale.php:105
 #: includes/addons/product_curvy.php:82 includes/addons/product_curvy.php:100
 #: includes/addons/product_tabs.php:96
+#: woolentor-blocks/build/blocks/product-reviews/index.php:29
 #: woolentor-blocks/src/blocks/product-reviews/index.php:29
-#: woolentor-blocks/production/src/blocks/product-reviews/index.php:29
 msgid "1"
 msgstr ""
 
@@ -117,33 +109,29 @@ msgstr ""
 #: includes/addons/product_flash_sale.php:106
 #: includes/addons/product_curvy.php:83 includes/addons/product_curvy.php:101
 #: includes/addons/product_tabs.php:97
+#: woolentor-blocks/build/blocks/product-reviews/index.php:30
 #: woolentor-blocks/src/blocks/product-reviews/index.php:30
-#: woolentor-blocks/production/src/blocks/product-reviews/index.php:30
 msgid "2"
 msgstr ""
 
 #: includes/addons/product_flash_sale.php:107
 #: includes/addons/product_curvy.php:84 includes/addons/product_tabs.php:98
+#: woolentor-blocks/build/blocks/product-reviews/index.php:31
 #: woolentor-blocks/src/blocks/product-reviews/index.php:31
-#: woolentor-blocks/production/src/blocks/product-reviews/index.php:31
 msgid "3"
 msgstr ""
 
 #: includes/addons/product_flash_sale.php:108
 #: includes/addons/product_curvy.php:85 includes/addons/product_tabs.php:99
+#: woolentor-blocks/build/blocks/product-reviews/index.php:32
 #: woolentor-blocks/src/blocks/product-reviews/index.php:32
-#: woolentor-blocks/production/src/blocks/product-reviews/index.php:32
 msgid "4"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/class-repeater-helper.php:179
-msgid "404 Page"
 msgstr ""
 
 #: includes/addons/product_flash_sale.php:109
 #: includes/addons/product_tabs.php:100
+#: woolentor-blocks/build/blocks/product-reviews/index.php:33
 #: woolentor-blocks/src/blocks/product-reviews/index.php:33
-#: woolentor-blocks/production/src/blocks/product-reviews/index.php:33
 msgid "5"
 msgstr ""
 
@@ -157,18 +145,14 @@ msgid "6"
 msgstr ""
 
 #: includes/addons/product_tabs.php:1478 includes/addons/product_tabs.php:1608
+#: woolentor-blocks/build/blocks/product-tab/loop-item.php:39
 #: woolentor-blocks/src/blocks/product-tab/loop-item.php:39
-#: woolentor-blocks/production/src/blocks/product-tab/loop-item.php:39
 msgid ":"
 msgstr ""
 
+#: woolentor-blocks/build/blocks/product-curvy/index.php:98
 #: woolentor-blocks/src/blocks/product-curvy/index.php:98
-#: woolentor-blocks/production/src/blocks/product-curvy/index.php:98
 msgid "<i class=\"fa fa-shopping-cart\"></i>"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:79
-msgid "Action"
 msgstr ""
 
 #: includes/addons/product_tabs.php:1116
@@ -182,35 +166,39 @@ msgstr ""
 msgid "Action Button Style"
 msgstr ""
 
-#: includes/admin/include/template-library.php:191
-#: includes/admin/include/template-library.php:244
+#: includes/admin/include/template-library.php:174
+#: includes/admin/include/template-library.php:227
 #: includes/admin/include/class.extension-manager.php:159
 #: includes/admin/include/class.extension-manager.php:226
 msgid "Activate"
 msgstr ""
 
 #: includes/base.php:141
+msgid "Activate Elementor"
+msgstr ""
+
+#: includes/base.php:166
 msgid "Activate WooCommerce"
 msgstr ""
 
-#: includes/admin/include/template-library.php:203
-#: includes/admin/include/template-library.php:255
+#: includes/admin/include/template-library.php:186
+#: includes/admin/include/template-library.php:238
 #: includes/admin/include/class.extension-manager.php:170
 #: includes/admin/include/class.extension-manager.php:237
 msgid "Activated"
 msgstr ""
 
-#: classes/class.assest_management.php:372
+#: classes/class.assest_management.php:368
 msgid "Activating.."
 msgstr ""
 
-#: classes/class.assest_management.php:373 includes/addons/wl_faq.php:464
+#: classes/class.assest_management.php:369 includes/addons/wl_faq.php:464
 #: includes/addons/wl_faq.php:760 includes/addons/wb_product_data_tab.php:187
 #: includes/addons/wb_archive_product.php:758
 msgid "Active"
 msgstr ""
 
-#: includes/addons/wl_product_filter.php:582
+#: includes/addons/wl_product_filter.php:519
 msgid "Active Slider Background"
 msgstr ""
 
@@ -224,23 +212,22 @@ msgstr ""
 msgid "Add Item"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:54
+#: includes/admin/include/class.template_cpt.php:34
 msgid "Add New"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:53
+#: includes/admin/include/class.template_cpt.php:33
 msgid "Add New Template"
 msgstr ""
 
 #: includes/addons/wl_recently_viewed_products.php:394
 #: includes/addons/wb_wishsuite_table.php:347
-#: woolentor-blocks/includes/classes/Api/Api.php:191
-#: woolentor-blocks/production/includes/classes/Api/Api.php:191
+#: woolentor-blocks/includes/classes/Api/Api.php:186
 msgid "Add To Cart"
 msgstr ""
 
 #: includes/addons/wb_product_add_to_cart.php:1020
-#: includes/modules/variation-swatch/includes/Frontend/Woo_Config.php:1025
+#: includes/modules/variation-swatch/includes/Frontend/Woo_Config.php:1007
 msgid "Add to Cart"
 msgstr ""
 
@@ -259,14 +246,11 @@ msgstr ""
 msgid "Add to Cart Button Text"
 msgstr ""
 
-#: includes/helper-function.php:1310 includes/helper-function.php:1311
-#: includes/helper-function.php:1334
-#: woolentor-blocks/includes/helper-functions.php:530
-#: woolentor-blocks/includes/helper-functions.php:531
-#: woolentor-blocks/includes/helper-functions.php:547
-#: woolentor-blocks/production/includes/helper-functions.php:530
-#: woolentor-blocks/production/includes/helper-functions.php:531
-#: woolentor-blocks/production/includes/helper-functions.php:547
+#: includes/helper-function.php:1080 includes/helper-function.php:1081
+#: includes/helper-function.php:1097
+#: woolentor-blocks/includes/helper-functions.php:524
+#: woolentor-blocks/includes/helper-functions.php:525
+#: woolentor-blocks/includes/helper-functions.php:541
 msgid "Add to Compare"
 msgstr ""
 
@@ -300,26 +284,18 @@ msgid "Additional information"
 msgstr ""
 
 #: includes/addons/wl_faq.php:183
-#: includes/addons/wl_product_horizontal_filter.php:242
+#: includes/addons/wl_product_horizontal_filter.php:190
 #: includes/addons/wl_product_filter.php:87
 msgid "Additional Options"
 msgstr ""
 
-#: classes/class.widgets_control.php:228
+#: classes/class.widgets_control.php:232
 msgid "Adds Banner"
 msgstr ""
 
 #: includes/addons/wb_product_suggest_price.php:87
 #: includes/addons/wb_product_suggest_price.php:88
 msgid "admin@domain.com"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:111
-msgid "Advanced"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:123
-msgid "After"
 msgstr ""
 
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:96
@@ -331,16 +307,12 @@ msgstr ""
 msgid "After Add to Cart"
 msgstr ""
 
-#: includes/addons/wl_category_grid.php:649
+#: includes/addons/wl_category_grid.php:609
 msgid "After Border Color"
 msgstr ""
 
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:144
 msgid "After Image"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:286
-msgid "After Inactivity"
 msgstr ""
 
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:145
@@ -351,19 +323,11 @@ msgstr ""
 msgid "After Title"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:71
-msgid "Ajax Add to Cart (In Product Detail Page)"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:109
-msgid "Ajax Search Widget"
-msgstr ""
-
 #: includes/addons/wl_faq.php:350 includes/addons/wl_faq.php:573
 #: includes/addons/wb_product_short_description.php:53
 #: includes/addons/wl_breadcrumbs.php:74
 #: includes/addons/wb_wishsuite_counter.php:65
-#: includes/addons/wl_product_horizontal_filter.php:790
+#: includes/addons/wl_product_horizontal_filter.php:738
 #: includes/addons/wl_onepage_slider.php:169
 #: includes/addons/special_day_offer.php:269
 #: includes/addons/wl_store_features.php:139
@@ -382,10 +346,7 @@ msgstr ""
 #: includes/addons/wb_customer_review.php:286
 #: includes/addons/wl_recently_viewed_products.php:234
 #: includes/addons/product_tabs.php:231 includes/addons/product_tabs.php:953
-#: includes/addons/product_tabs.php:1032
-#: includes/addons/wl_category_grid.php:730
-#: includes/addons/wb_product_tags.php:60
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:55
+#: includes/addons/product_tabs.php:1032 includes/addons/wb_product_tags.php:60
 msgid "Alignment"
 msgstr ""
 
@@ -394,16 +355,11 @@ msgid "ALL"
 msgstr ""
 
 #: includes/addons/wb_wc_multicurrency.php:58
-#: includes/admin/include/class.template-manager.php:377
-#: includes/modules/popup-builder/includes/class-repeater-helper.php:99
+#: includes/admin/include/class.template-manager.php:372
 msgid "All"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/class-repeater-helper.php:156
-msgid "All Archives"
-msgstr ""
-
-#: includes/admin/include/class.template-manager.php:486
+#: includes/admin/include/class.template-manager.php:479
 msgid "All Assigned Template has been imported"
 msgstr ""
 
@@ -420,48 +376,25 @@ msgstr ""
 msgid "All Categories (Parent Only)"
 msgstr ""
 
-#: includes/admin/include/class.template-manager.php:473
+#: includes/admin/include/class.template-manager.php:467
 msgid "All Data Saved"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:226
-#: includes/admin/templates/dashboard-freevspro.php:273
-msgid "All Features"
-msgstr ""
-
-#: classes/class.assest_management.php:361
+#: classes/class.assest_management.php:357
 msgid "All Items have been Loaded"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/class-repeater-helper.php:173
-msgid "All Singular"
 msgstr ""
 
 #: includes/addons/wb_archive_product.php:99
 msgid "Allow Order"
 msgstr ""
 
-#: includes/addons/wb_product_add_to_cart.php:1279
-#: woolentor-blocks/src/blocks/product-addtocart/manager.php:116
-#: woolentor-blocks/production/src/blocks/product-addtocart/manager.php:116
-msgid "Already Compared"
-msgstr ""
-
-#: includes/modules/shopify-like-checkout/templates/form-checkout.php:59
+#: includes/modules/shopify-like-checkout/templates/form-checkout.php:54
 msgid "Already have an account?"
 msgstr ""
 
 #. Description of the plugin
 msgid ""
 "An all-in-one WooCommerce solution to create a beautiful WooCommerce store."
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:269
-msgid "Animation"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:389
-msgid "Animation Duration (sec)"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:84 includes/addons/wl_testimonial.php:145
@@ -481,7 +414,7 @@ msgstr ""
 msgid "Archive"
 msgstr ""
 
-#: classes/class.widgets_control.php:408
+#: classes/class.widgets_control.php:412
 msgid "Archive Catalog Ordering"
 msgstr ""
 
@@ -489,9 +422,8 @@ msgstr ""
 msgid "Archive Description"
 msgstr ""
 
-#: classes/class.widgets_control.php:400
-#: woolentor-blocks/includes/classes/Blocks_List.php:230
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:230
+#: classes/class.widgets_control.php:404
+#: woolentor-blocks/includes/classes/Blocks_List.php:210
 msgid "Archive Layout Default"
 msgstr ""
 
@@ -499,42 +431,27 @@ msgstr ""
 msgid "Archive Product"
 msgstr ""
 
-#: classes/class.widgets_control.php:404
+#: classes/class.widgets_control.php:408
 msgid "Archive Result Count"
 msgstr ""
 
-#: classes/class.widgets_control.php:268
+#: classes/class.widgets_control.php:272
 #: includes/addons/wl_archive_title.php:43
 #: includes/addons/wl_archive_title.php:224
 #: woolentor-blocks/includes/classes/Blocks_List.php:89
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:89
 msgid "Archive Title"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:139
-msgid "Archives"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/class-repeater-helper.php:24
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:151
-msgid "Archives (Pro)"
-msgstr ""
-
-#: includes/admin/include/template-library.php:87
-#: includes/admin/include/class.notice.php:42
-msgid "Are you cheating?"
-msgstr ""
-
-#: classes/class.assest_management.php:337
-#: includes/admin/include/class.template-manager.php:489
+#: classes/class.assest_management.php:334
+#: includes/admin/include/class.template-manager.php:482
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:347
+#: includes/addons/wl_product_horizontal_filter.php:295
 #: includes/addons/wl_onepage_slider.php:160
 #: includes/addons/wl_store_features.php:131
 #: includes/addons/wb_customer_review.php:278
-#: includes/addons/wl_category_grid.php:500
+#: includes/addons/wl_category_grid.php:475
 msgid "Area"
 msgstr ""
 
@@ -550,11 +467,11 @@ msgstr ""
 msgid "Area Padding"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:92
+#: includes/addons/wl_product_horizontal_filter.php:955
 #: includes/addons/wb_product_upsell.php:84
 #: includes/addons/wb_archive_product.php:148
 #: includes/addons/wb_product_related.php:99
-#: includes/addons/wl_product_filter.php:118
+#: includes/addons/wl_product_filter.php:913
 msgid "ASC"
 msgstr ""
 
@@ -564,31 +481,12 @@ msgstr ""
 #: includes/addons/wl_category.php:137 includes/addons/product_curvy.php:223
 #: includes/addons/wl_recently_viewed_products.php:64
 #: includes/addons/product_tabs.php:182
-#: includes/addons/wl_category_grid.php:129
+#: includes/addons/wl_category_grid.php:116
 msgid "Ascending"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:89
-#: includes/addons/wl_product_filter.php:115
-msgid "Ascending order label"
-msgstr ""
-
-#: includes/admin/include/class.template-manager.php:485
+#: includes/admin/include/class.template-manager.php:478
 msgid "Assigned Template Importing.."
-msgstr ""
-
-#: includes/admin/include/diagnostic-data.php:490
-#, php-format
-msgid ""
-"At %2$s%1$s%3$s, we prioritize continuous improvement and compatibility. To "
-"achieve this, we gather non-sensitive diagnostic information and details "
-"about plugin usage. This includes your site's URL, the versions of WordPress "
-"and PHP you're using, and a list of your installed plugins and themes. We "
-"also require your email address to provide you with exclusive discount "
-"coupons and updates. This data collection is crucial for ensuring that "
-"%2$s%1$s%3$s remains up-to-date and compatible with the most widely-used "
-"plugins and themes. Rest assured, your privacy is our priority – no spam, "
-"guaranteed. %4$sPrivacy Policy%5$s"
 msgstr ""
 
 #: includes/modules/variation-swatch/includes/Admin/Product_Metabox.php:110
@@ -601,12 +499,12 @@ msgid "Auto convert Dropdowns to Label Swatch"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:367 includes/addons/product_tabs.php:506
-#: includes/addons/wl_category_grid.php:392
+#: includes/addons/wl_category_grid.php:367
 msgid "Autoplay animation speed"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:354 includes/addons/product_tabs.php:493
-#: includes/addons/wl_category_grid.php:380
+#: includes/addons/wl_category_grid.php:355
 msgid "Autoplay speed"
 msgstr ""
 
@@ -627,12 +525,12 @@ msgstr ""
 msgid "Available:"
 msgstr ""
 
+#: woolentor-blocks/build/blocks/product-reviews/index.php:40
 #: woolentor-blocks/src/blocks/product-reviews/index.php:40
-#: woolentor-blocks/production/src/blocks/product-reviews/index.php:40
 msgid "Average"
 msgstr ""
 
-#: includes/addons/wl_category_grid.php:1171
+#: includes/addons/wl_category_grid.php:1057
 msgid "Awaiting category image"
 msgstr ""
 
@@ -647,11 +545,11 @@ msgstr ""
 #: includes/addons/wl_faq.php:308 includes/addons/wl_faq.php:386
 #: includes/addons/wl_faq.php:471 includes/addons/wl_faq.php:649
 #: includes/addons/wl_faq.php:784 includes/addons/product_flash_sale.php:911
-#: includes/addons/wl_product_horizontal_filter.php:401
-#: includes/addons/wl_product_horizontal_filter.php:588
-#: includes/addons/wl_product_horizontal_filter.php:775
-#: includes/addons/wl_product_horizontal_filter.php:862
-#: includes/addons/wl_product_horizontal_filter.php:893
+#: includes/addons/wl_product_horizontal_filter.php:349
+#: includes/addons/wl_product_horizontal_filter.php:536
+#: includes/addons/wl_product_horizontal_filter.php:723
+#: includes/addons/wl_product_horizontal_filter.php:810
+#: includes/addons/wl_product_horizontal_filter.php:841
 #: includes/addons/wl_onepage_slider.php:196
 #: includes/addons/wl_onepage_slider.php:347
 #: includes/addons/wl_onepage_slider.php:553
@@ -676,14 +574,14 @@ msgstr ""
 #: includes/addons/wb_product_suggest_price.php:335
 #: includes/addons/wb_product_suggest_price.php:433
 #: includes/addons/wb_product_suggest_price.php:510
-#: includes/addons/wl_product_filter.php:279
-#: includes/addons/wl_product_filter.php:349
-#: includes/addons/wl_product_filter.php:399
-#: includes/addons/wl_product_filter.php:566
-#: includes/addons/wl_product_filter.php:577
-#: includes/addons/wl_product_filter.php:626
-#: includes/addons/wl_product_filter.php:719
-#: includes/addons/wl_product_filter.php:783
+#: includes/addons/wl_product_filter.php:242
+#: includes/addons/wl_product_filter.php:312
+#: includes/addons/wl_product_filter.php:362
+#: includes/addons/wl_product_filter.php:503
+#: includes/addons/wl_product_filter.php:514
+#: includes/addons/wl_product_filter.php:563
+#: includes/addons/wl_product_filter.php:656
+#: includes/addons/wl_product_filter.php:720
 #: includes/addons/wb_image_marker.php:51
 #: includes/addons/wb_image_marker.php:207
 #: includes/addons/wb_image_marker.php:260
@@ -691,9 +589,8 @@ msgstr ""
 #: includes/addons/wb_wishsuite_table.php:398
 #: includes/addons/wb_wishsuite_table.php:430
 #: includes/addons/product_tabs.php:776
-#: includes/addons/wl_category_grid.php:530
-#: includes/addons/wl_category_grid.php:998
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:174
+#: includes/addons/wl_category_grid.php:505
+#: includes/addons/wl_category_grid.php:887
 msgid "Background"
 msgstr ""
 
@@ -725,10 +622,9 @@ msgstr ""
 #: includes/addons/product_tabs.php:1206
 #: includes/addons/wb_product_add_to_cart.php:1117
 #: includes/addons/wb_product_add_to_cart.php:1151
-#: includes/addons/wl_category_grid.php:634
-#: includes/addons/wl_category_grid.php:864
-#: includes/addons/wl_category_grid.php:938
-#: includes/addons/wl_category_grid.php:1038
+#: includes/addons/wl_category_grid.php:753
+#: includes/addons/wl_category_grid.php:827
+#: includes/addons/wl_category_grid.php:927
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:455
 msgid "Background Color"
 msgstr ""
@@ -739,26 +635,22 @@ msgstr ""
 msgid "Background Type"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:125
-msgid "Backorder"
-msgstr ""
-
-#: includes/modules/backorder/class.backorder.php:509
+#: includes/modules/backorder/class.backorder.php:455
 msgid "Backorder Availability"
 msgstr ""
 
-#: includes/modules/backorder/class.backorder.php:496
+#: includes/modules/backorder/class.backorder.php:442
 msgid "Backorder Limit"
 msgstr ""
 
-#: includes/modules/backorder/class.backorder.php:500
+#: includes/modules/backorder/class.backorder.php:446
 msgid ""
 "Backorder limit. If this is a variable product this value will be used to "
 "control backorder limit for all variations, unless you define backorder "
 "limit at variation level."
 msgstr ""
 
-#: includes/modules/backorder/class.backorder.php:104
+#: includes/modules/backorder/class.backorder.php:99
 msgid "Backordered"
 msgstr ""
 
@@ -802,16 +694,12 @@ msgstr ""
 msgid "Befor Add to Cart"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:119
-msgid "Before"
-msgstr ""
-
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:95
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:142
 msgid "Before Add To Cart"
 msgstr ""
 
-#: includes/addons/wl_category_grid.php:778
+#: includes/addons/wl_category_grid.php:667
 msgid "Before Border Color"
 msgstr ""
 
@@ -848,11 +736,11 @@ msgstr ""
 #: includes/addons/wl_faq.php:288 includes/addons/wl_faq.php:409
 #: includes/addons/wl_faq.php:493 includes/addons/wl_faq.php:678
 #: includes/addons/wl_faq.php:813
-#: includes/addons/wl_product_horizontal_filter.php:356
-#: includes/addons/wl_product_horizontal_filter.php:454
-#: includes/addons/wl_product_horizontal_filter.php:521
-#: includes/addons/wl_product_horizontal_filter.php:607
-#: includes/addons/wl_product_horizontal_filter.php:730
+#: includes/addons/wl_product_horizontal_filter.php:304
+#: includes/addons/wl_product_horizontal_filter.php:402
+#: includes/addons/wl_product_horizontal_filter.php:469
+#: includes/addons/wl_product_horizontal_filter.php:555
+#: includes/addons/wl_product_horizontal_filter.php:678
 #: includes/addons/wl_onepage_slider.php:532
 #: includes/addons/special_day_offer.php:661
 #: includes/addons/special_day_offer.php:740
@@ -881,14 +769,14 @@ msgstr ""
 #: includes/addons/wb_product_suggest_price.php:520
 #: includes/addons/wb_product_suggest_price.php:610
 #: includes/addons/wb_product_suggest_price.php:753
-#: includes/addons/wl_product_filter.php:212
-#: includes/addons/wl_product_filter.php:298
-#: includes/addons/wl_product_filter.php:370
-#: includes/addons/wl_product_filter.php:409
-#: includes/addons/wl_product_filter.php:492
-#: includes/addons/wl_product_filter.php:637
-#: includes/addons/wl_product_filter.php:730
-#: includes/addons/wl_product_filter.php:794
+#: includes/addons/wl_product_filter.php:175
+#: includes/addons/wl_product_filter.php:261
+#: includes/addons/wl_product_filter.php:333
+#: includes/addons/wl_product_filter.php:372
+#: includes/addons/wl_product_filter.php:455
+#: includes/addons/wl_product_filter.php:574
+#: includes/addons/wl_product_filter.php:667
+#: includes/addons/wl_product_filter.php:731
 #: includes/addons/wb_image_marker.php:217
 #: includes/addons/wb_image_marker.php:270
 #: includes/addons/wb_image_marker.php:331
@@ -908,13 +796,11 @@ msgstr ""
 #: includes/addons/wb_product_add_to_cart.php:612
 #: includes/addons/wb_product_add_to_cart.php:706
 #: includes/addons/wb_product_add_to_cart.php:1097
-#: includes/addons/wl_category_grid.php:577
-#: includes/addons/wl_category_grid.php:876
-#: includes/addons/wl_category_grid.php:950
-#: includes/addons/wl_category_grid.php:1010
-#: includes/addons/wl_category_grid.php:1051
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:207
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:324
+#: includes/addons/wl_category_grid.php:552
+#: includes/addons/wl_category_grid.php:765
+#: includes/addons/wl_category_grid.php:839
+#: includes/addons/wl_category_grid.php:899
+#: includes/addons/wl_category_grid.php:940
 msgid "Border"
 msgstr ""
 
@@ -943,9 +829,9 @@ msgstr ""
 #: includes/addons/wl_faq.php:501 includes/addons/wl_faq.php:689
 #: includes/addons/wl_faq.php:824 includes/addons/product_flash_sale.php:707
 #: includes/addons/product_flash_sale.php:970
-#: includes/addons/wl_product_horizontal_filter.php:364
-#: includes/addons/wl_product_horizontal_filter.php:615
-#: includes/addons/wl_product_horizontal_filter.php:738
+#: includes/addons/wl_product_horizontal_filter.php:312
+#: includes/addons/wl_product_horizontal_filter.php:563
+#: includes/addons/wl_product_horizontal_filter.php:686
 #: includes/addons/wl_onepage_slider.php:540
 #: includes/addons/special_day_offer.php:669
 #: includes/addons/special_day_offer.php:748
@@ -977,8 +863,8 @@ msgstr ""
 #: includes/addons/wb_product_suggest_price.php:529
 #: includes/addons/wb_product_suggest_price.php:618
 #: includes/addons/wb_product_suggest_price.php:761
-#: includes/addons/wl_product_filter.php:645
-#: includes/addons/wl_product_filter.php:738
+#: includes/addons/wl_product_filter.php:582
+#: includes/addons/wl_product_filter.php:675
 #: includes/addons/wb_image_marker.php:225
 #: includes/addons/wb_image_marker.php:278
 #: includes/addons/wb_image_marker.php:339
@@ -997,13 +883,11 @@ msgstr ""
 #: includes/addons/wb_product_add_to_cart.php:620
 #: includes/addons/wb_product_add_to_cart.php:714
 #: includes/addons/wb_product_add_to_cart.php:1105
-#: includes/addons/wl_category_grid.php:585
-#: includes/addons/wl_category_grid.php:884
-#: includes/addons/wl_category_grid.php:958
-#: includes/addons/wl_category_grid.php:1018
-#: includes/addons/wl_category_grid.php:1059
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:216
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:333
+#: includes/addons/wl_category_grid.php:560
+#: includes/addons/wl_category_grid.php:773
+#: includes/addons/wl_category_grid.php:847
+#: includes/addons/wl_category_grid.php:907
+#: includes/addons/wl_category_grid.php:948
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:520
 msgid "Border Radius"
 msgstr ""
@@ -1019,7 +903,6 @@ msgstr ""
 #: includes/addons/special_day_offer.php:56
 #: includes/addons/wl_product_video_gallery.php:73
 #: includes/addons/add_banner.php:69
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:413
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:476
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:490
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:504
@@ -1033,67 +916,22 @@ msgstr ""
 msgid "Bottom Space"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:284
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:341
-msgid "bounce"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:294
-msgid "bounceIn"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:295
-msgid "bounceInDown"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:296
-msgid "bounceInLeft"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:297
-msgid "bounceInRight"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:298
-msgid "bounceInUp"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:351
-msgid "bounceOut"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:352
-msgid "bounceOutDown"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:353
-msgid "bounceOutLeft"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:354
-msgid "bounceOutRight"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:355
-msgid "bounceOutUp"
-msgstr ""
-
-#: includes/addons/wl_category_grid.php:550
+#: includes/addons/wl_category_grid.php:525
 msgid "Box Color"
 msgstr ""
 
 #: includes/addons/wl_faq.php:318 includes/addons/wl_faq.php:430
 #: includes/addons/wl_faq.php:527 includes/addons/wl_faq.php:705
 #: includes/addons/wl_faq.php:840
-#: includes/addons/wl_product_horizontal_filter.php:411
+#: includes/addons/wl_product_horizontal_filter.php:359
 #: includes/addons/wl_store_features.php:229
 #: includes/addons/wb_archive_product.php:225
 #: includes/addons/wl_recently_viewed_products.php:689
-#: includes/addons/wl_category_grid.php:521
+#: includes/addons/wl_category_grid.php:496
 msgid "Box Shadow"
 msgstr ""
 
-#: classes/class.widgets_control.php:284 includes/addons/wl_brand.php:241
+#: classes/class.widgets_control.php:288 includes/addons/wl_brand.php:241
 msgid "Brand"
 msgstr ""
 
@@ -1107,9 +945,8 @@ msgstr ""
 
 #: includes/addons/wl_brand.php:51
 #: woolentor-blocks/includes/classes/Blocks_List.php:24
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:24
-#: woolentor-blocks/src/blocks/brand-logo/index.php:19
-#: woolentor-blocks/production/src/blocks/brand-logo/index.php:19
+#: woolentor-blocks/build/blocks/brand-logo/index.php:18
+#: woolentor-blocks/src/blocks/brand-logo/index.php:18
 msgid "Brand Logo"
 msgstr ""
 
@@ -1121,28 +958,19 @@ msgstr ""
 msgid "Brand Title"
 msgstr ""
 
-#: classes/class.widgets_control.php:272 includes/addons/wl_breadcrumbs.php:43
+#: classes/class.widgets_control.php:276 includes/addons/wl_breadcrumbs.php:43
 #: woolentor-blocks/includes/classes/Blocks_List.php:96
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:96
 msgid "Breadcrumbs"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:614
-msgid "Browsers"
 msgstr ""
 
 #: includes/addons/wl_onepage_slider.php:294
 #: includes/addons/special_day_offer.php:620 includes/addons/wb_whols.php:48
 #: includes/addons/wb_product_call_for_price.php:74
-#: includes/addons/wl_product_filter.php:688
+#: includes/addons/wl_product_filter.php:625
 #: includes/addons/wb_product_add_to_cart.php:462
 #: includes/addons/wb_product_add_to_cart.php:870
 #: includes/addons/add_banner.php:230
 msgid "Button"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:164
-msgid "Button Area"
 msgstr ""
 
 #: includes/addons/product_flash_sale.php:660
@@ -1168,11 +996,6 @@ msgstr ""
 
 #: includes/addons/product_flash_sale.php:730
 msgid "Button Hover Icon Color"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:106
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:270
-msgid "Button Icon"
 msgstr ""
 
 #: includes/addons/product_flash_sale.php:678
@@ -1206,7 +1029,6 @@ msgstr ""
 #: includes/addons/wb_product_call_for_price.php:50
 #: includes/addons/wb_product_suggest_price.php:51
 #: includes/addons/add_banner.php:113
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:46
 msgid "Button Text"
 msgstr ""
 
@@ -1219,9 +1041,9 @@ msgstr ""
 msgid "Buy"
 msgstr ""
 
-#: classes/class.assest_management.php:369
-#: includes/admin/include/template-library.php:211
-#: includes/admin/include/template-library.php:263
+#: classes/class.assest_management.php:365
+#: includes/admin/include/template-library.php:194
+#: includes/admin/include/template-library.php:246
 #: includes/admin/include/class.extension-manager.php:190
 #: includes/admin/templates/dashboard-popup.php:14
 msgid "Buy Now"
@@ -1231,7 +1053,7 @@ msgstr ""
 msgid "BUY PRO"
 msgstr ""
 
-#: includes/modules/sales-notification/class.sale_notification.php:238
+#: includes/modules/sales-notification/class.sale_notification.php:230
 msgid "By"
 msgstr ""
 
@@ -1252,8 +1074,8 @@ msgstr ""
 msgid "Call For Price"
 msgstr ""
 
-#: classes/class.assest_management.php:336
-#: includes/admin/include/class.template-manager.php:492
+#: classes/class.assest_management.php:333
+#: includes/admin/include/class.template-manager.php:485
 msgid "Cancel"
 msgstr ""
 
@@ -1262,7 +1084,7 @@ msgstr ""
 msgid "Carolina Monntoya"
 msgstr ""
 
-#: includes/modules/shopify-like-checkout/templates/form-checkout.php:52
+#: includes/modules/shopify-like-checkout/templates/form-checkout.php:47
 msgid "Cart"
 msgstr ""
 
@@ -1285,12 +1107,8 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: classes/class.widgets_control.php:280
+#: classes/class.widgets_control.php:284
 msgid "Category"
-msgstr ""
-
-#: includes/addons/wl_category_grid.php:77
-msgid "Category > Subcategories (Shop Page Only)"
 msgstr ""
 
 #: includes/addons/product_image_accordion.php:321
@@ -1301,10 +1119,9 @@ msgstr ""
 msgid "Category Display Type"
 msgstr ""
 
-#: classes/class.widgets_control.php:248
+#: classes/class.widgets_control.php:252
 #: includes/addons/wl_category_grid.php:44
 #: woolentor-blocks/includes/classes/Blocks_List.php:31
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:31
 msgid "Category Grid"
 msgstr ""
 
@@ -1327,7 +1144,7 @@ msgstr[1] ""
 #: includes/addons/wb_product_short_description.php:61
 #: includes/addons/wl_breadcrumbs.php:82
 #: includes/addons/wb_wishsuite_counter.php:73
-#: includes/addons/wl_product_horizontal_filter.php:798
+#: includes/addons/wl_product_horizontal_filter.php:746
 #: includes/addons/wl_onepage_slider.php:177
 #: includes/addons/special_day_offer.php:55
 #: includes/addons/special_day_offer.php:277
@@ -1347,12 +1164,7 @@ msgstr[1] ""
 #: includes/addons/wb_customer_review.php:294
 #: includes/addons/wl_recently_viewed_products.php:242
 #: includes/addons/product_tabs.php:239 includes/addons/product_tabs.php:961
-#: includes/addons/product_tabs.php:1040
-#: includes/addons/wl_category_grid.php:738
-#: includes/addons/wb_product_tags.php:68
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:412
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:425
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:63
+#: includes/addons/product_tabs.php:1040 includes/addons/wb_product_tags.php:68
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:286
 msgid "Center"
 msgstr ""
@@ -1365,11 +1177,7 @@ msgstr ""
 msgid "Check All"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:189
-msgid "Checkout Fields Manager"
-msgstr ""
-
-#: includes/modules/shopify-like-checkout/templates/form-checkout.php:63
+#: includes/modules/shopify-like-checkout/templates/form-checkout.php:58
 msgid "Choose a Payment Gateway"
 msgstr ""
 
@@ -1393,17 +1201,9 @@ msgstr ""
 msgid "Choose an image"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:336
-msgid "Choose close/exit animation."
-msgstr ""
-
 #: includes/addons/wl_brand.php:84
 #: includes/admin/include/admin_field-manager.php:289
 msgid "Choose Image"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:279
-msgid "Choose open/entrance animation."
 msgstr ""
 
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:323
@@ -1412,37 +1212,13 @@ msgid ""
 "table."
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:618
-msgid "Chrome"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:453
-msgid "Chrome "
-msgstr ""
-
 #: includes/modules/variation-swatch/includes/Admin/Product_Metabox.php:191
 msgid "Circle"
 msgstr ""
 
-#: includes/modules/variation-swatch/includes/Frontend/Woo_Config.php:860
-#: includes/modules/variation-swatch/includes/Frontend/Woo_Config.php:948
+#: includes/modules/variation-swatch/includes/Frontend/Woo_Config.php:856
+#: includes/modules/variation-swatch/includes/Frontend/Woo_Config.php:971
 msgid "Clear"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:256
-msgid "Click Count"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:157
-msgid "Click Element"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:166
-msgid "Click Element Selector"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:148
-msgid "Clicks Count"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:100
@@ -1462,27 +1238,10 @@ msgstr ""
 
 #: includes/addons/wb_product_suggest_price.php:74
 #: includes/addons/wb_product_suggest_price.php:75
-#: woolentor-blocks/src/blocks/popup-close-trigger-button/index.php:18
-#: includes/modules/popup-builder/includes/class-shortcodes.php:33
-#: woolentor-blocks/production/src/blocks/popup-close-trigger-button/index.php:18
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:48
 msgid "Close"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:241
-msgid "Close After Page Scroll"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:84
-msgid "Close and Back To Previous Page"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:335
-msgid "Close Animation"
-msgstr ""
-
 #: includes/addons/wb_product_suggest_price.php:690
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:475
 msgid "Close Button"
 msgstr ""
 
@@ -1492,10 +1251,6 @@ msgstr ""
 
 #: includes/addons/wl_faq.php:136 includes/addons/wl_faq.php:228
 msgid "Close Icon"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:83
-msgid "Close Popup"
 msgstr ""
 
 #: includes/addons/product_accordion.php:437
@@ -1511,14 +1266,14 @@ msgstr ""
 #: includes/addons/wl_faq.php:661 includes/addons/wl_faq.php:767
 #: includes/addons/wl_faq.php:796 includes/addons/product_flash_sale.php:789
 #: includes/addons/product_flash_sale.php:898
-#: includes/addons/wl_product_horizontal_filter.php:433
-#: includes/addons/wl_product_horizontal_filter.php:500
-#: includes/addons/wl_product_horizontal_filter.php:576
-#: includes/addons/wl_product_horizontal_filter.php:658
-#: includes/addons/wl_product_horizontal_filter.php:689
-#: includes/addons/wl_product_horizontal_filter.php:751
-#: includes/addons/wl_product_horizontal_filter.php:839
-#: includes/addons/wl_product_horizontal_filter.php:881
+#: includes/addons/wl_product_horizontal_filter.php:381
+#: includes/addons/wl_product_horizontal_filter.php:448
+#: includes/addons/wl_product_horizontal_filter.php:524
+#: includes/addons/wl_product_horizontal_filter.php:606
+#: includes/addons/wl_product_horizontal_filter.php:637
+#: includes/addons/wl_product_horizontal_filter.php:699
+#: includes/addons/wl_product_horizontal_filter.php:787
+#: includes/addons/wl_product_horizontal_filter.php:829
 #: includes/addons/wl_onepage_slider.php:220
 #: includes/addons/wl_onepage_slider.php:262
 #: includes/addons/wl_onepage_slider.php:315
@@ -1558,15 +1313,14 @@ msgstr ""
 #: includes/addons/product_curvy.php:798
 #: includes/addons/wb_product_suggest_price.php:412
 #: includes/addons/wb_product_suggest_price.php:498
-#: includes/addons/wl_product_filter.php:191
-#: includes/addons/wl_product_filter.php:267
-#: includes/addons/wl_product_filter.php:337
-#: includes/addons/wl_product_filter.php:387
-#: includes/addons/wl_product_filter.php:443
-#: includes/addons/wl_product_filter.php:509
-#: includes/addons/wl_product_filter.php:539
-#: includes/addons/wl_product_filter.php:707
-#: includes/addons/wl_product_filter.php:771
+#: includes/addons/wl_product_filter.php:154
+#: includes/addons/wl_product_filter.php:230
+#: includes/addons/wl_product_filter.php:300
+#: includes/addons/wl_product_filter.php:350
+#: includes/addons/wl_product_filter.php:406
+#: includes/addons/wl_product_filter.php:472
+#: includes/addons/wl_product_filter.php:644
+#: includes/addons/wl_product_filter.php:708
 #: includes/addons/wb_image_marker.php:194
 #: includes/addons/wb_image_marker.php:311
 #: includes/addons/wb_image_marker.php:372
@@ -1594,11 +1348,10 @@ msgstr ""
 #: includes/addons/wb_product_additional_information.php:76
 #: includes/addons/wb_product_additional_information.php:124
 #: includes/addons/add_banner.php:155 includes/addons/add_banner.php:197
-#: includes/addons/add_banner.php:239 includes/addons/wl_category_grid.php:610
-#: includes/addons/wl_category_grid.php:698
-#: includes/addons/wl_category_grid.php:767
-#: includes/addons/wl_category_grid.php:853
-#: includes/addons/wl_category_grid.php:987
+#: includes/addons/add_banner.php:239 includes/addons/wl_category_grid.php:585
+#: includes/addons/wl_category_grid.php:656
+#: includes/addons/wl_category_grid.php:742
+#: includes/addons/wl_category_grid.php:876
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:439
 msgid "Color"
 msgstr ""
@@ -1624,24 +1377,20 @@ msgstr ""
 #: includes/addons/product_curvy.php:75 includes/addons/product_curvy.php:93
 #: includes/addons/wb_customer_review.php:180
 #: includes/addons/wl_recently_viewed_products.php:72
-#: includes/addons/product_tabs.php:92 includes/addons/wl_category_grid.php:238
-#: includes/addons/wl_category_grid.php:248
+#: includes/addons/product_tabs.php:92 includes/addons/wl_category_grid.php:213
+#: includes/addons/wl_category_grid.php:223
 msgid "Columns"
 msgstr ""
 
-#: includes/helper-function.php:1267 includes/addons/product_flash_sale.php:137
+#: includes/helper-function.php:1042 includes/addons/product_flash_sale.php:137
 #: includes/addons/product_image_accordion.php:150
 #: includes/addons/product_accordion.php:171
 #: includes/addons/product_curvy.php:206 includes/addons/product_tabs.php:165
 msgid "Comment count"
 msgstr ""
 
-#: includes/helper-function.php:1334
-#: woolentor-blocks/includes/helper-functions.php:547
-#: includes/addons/wb_product_add_to_cart.php:1278
-#: woolentor-blocks/production/includes/helper-functions.php:547
-#: woolentor-blocks/src/blocks/product-addtocart/manager.php:115
-#: woolentor-blocks/production/src/blocks/product-addtocart/manager.php:115
+#: includes/helper-function.php:1097
+#: woolentor-blocks/includes/helper-functions.php:541
 #: includes/modules/compare/includes/classes/Admin/Dashboard.php:59
 #: includes/modules/compare/includes/classes/Admin/Dashboard.php:60
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:196
@@ -1667,16 +1416,12 @@ msgstr ""
 msgid "Compare Settings"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:108
-msgid "Conditions"
-msgstr ""
-
-#: includes/modules/shopify-like-checkout/templates/form-checkout.php:58
+#: includes/modules/shopify-like-checkout/templates/form-checkout.php:53
 msgid "Contact information"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:391
-msgid "Contains"
+#: includes/admin/include/class.template_cpt.php:107
+msgid "Container Width"
 msgstr ""
 
 #: includes/addons/wl_faq.php:45 includes/addons/wl_faq.php:82
@@ -1754,11 +1499,11 @@ msgstr ""
 msgid "Content Top"
 msgstr ""
 
-#: includes/modules/shopify-like-checkout/templates/form-checkout.php:66
+#: includes/modules/shopify-like-checkout/templates/form-checkout.php:61
 msgid "Continue to payment"
 msgstr ""
 
-#: includes/modules/shopify-like-checkout/templates/form-checkout.php:57
+#: includes/modules/shopify-like-checkout/templates/form-checkout.php:52
 msgid "Continue to shipping"
 msgstr ""
 
@@ -1770,12 +1515,8 @@ msgstr ""
 msgid "Copy shareable link"
 msgstr ""
 
-#: includes/addons/wl_category_grid.php:759
+#: includes/addons/wl_category_grid.php:648
 msgid "Count"
-msgstr ""
-
-#: includes/admin/include/diagnostic-data.php:494
-msgid "Count Me In"
 msgstr ""
 
 #: includes/addons/product_flash_sale.php:168
@@ -1840,27 +1581,14 @@ msgstr ""
 msgid "Create an account?"
 msgstr ""
 
-#: includes/addons/wl_product_filter.php:528
-msgid "Cross Icon"
-msgstr ""
-
 #: includes/addons/wl_faq.php:58 includes/addons/wl_testimonial.php:71
 #: includes/addons/wb_customer_review.php:69
-#: woolentor-blocks/includes/classes/Scripts.php:127
-#: woolentor-blocks/production/includes/classes/Scripts.php:127
+#: woolentor-blocks/includes/classes/Scripts.php:119
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:218
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:243
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:413
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:425
 msgid "Custom"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:23
-msgid "Custom cart Page Builder"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:27
-msgid "Custom checkout Page Builder"
 msgstr ""
 
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:341
@@ -1873,14 +1601,6 @@ msgstr ""
 
 #: includes/addons/product_flash_sale.php:253
 msgid "Custom Label"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:39
-msgid "Custom My Account Login and Register page Builder"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:35
-msgid "Custom my account Page Builder"
 msgstr ""
 
 #: includes/addons/product_flash_sale.php:118
@@ -1903,41 +1623,31 @@ msgstr ""
 msgid "Custom Product Badge Text"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:31
-msgid "Custom thank You Page Builder"
-msgstr ""
-
 #: includes/addons/wl_testimonial.php:158
 msgid "Customer"
 msgstr ""
 
-#: classes/class.widgets_control.php:288
+#: classes/class.widgets_control.php:292
 msgid "Customer Review"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:112
-msgid "Customize"
-msgstr ""
-
 #: woolentor-blocks/includes/classes/Manage_Styles.php:205
-#: woolentor-blocks/production/includes/classes/Manage_Styles.php:205
 msgid "Data fetch"
 msgstr ""
 
-#: includes/admin/admin-init.php:450
+#: includes/admin/admin-init.php:374
 msgid "Data Fetch successfully!"
 msgstr ""
 
 #: woolentor-blocks/includes/classes/Manage_Styles.php:212
-#: woolentor-blocks/production/includes/classes/Manage_Styles.php:212
 msgid "Data not found."
 msgstr ""
 
-#: includes/admin/admin-init.php:388
+#: includes/admin/admin-init.php:312
 msgid "Data Saved successfully!"
 msgstr ""
 
-#: includes/helper-function.php:1264 includes/addons/product_flash_sale.php:134
+#: includes/helper-function.php:1039 includes/addons/product_flash_sale.php:134
 #: includes/addons/wb_product_upsell.php:66
 #: includes/addons/wb_archive_product.php:127
 #: includes/addons/product_image_accordion.php:147
@@ -1957,8 +1667,6 @@ msgstr ""
 #: includes/addons/wl_brand.php:62
 #: includes/addons/wb_product_add_to_cart.php:59
 #: includes/admin/include/class.template-manager.php:97
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:283
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:340
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:217
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:242
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:411
@@ -1966,7 +1674,7 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: includes/helper-function.php:1060
+#: includes/helper-function.php:835
 msgid "Default sorting"
 msgstr ""
 
@@ -1979,11 +1687,11 @@ msgstr ""
 msgid "Default: 10"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:104
+#: includes/addons/wl_product_horizontal_filter.php:956
 #: includes/addons/wb_product_upsell.php:85
 #: includes/addons/wb_archive_product.php:149
 #: includes/addons/wb_product_related.php:100
-#: includes/addons/wl_product_filter.php:130
+#: includes/addons/wl_product_filter.php:914
 msgid "DESC"
 msgstr ""
 
@@ -1993,20 +1701,14 @@ msgstr ""
 #: includes/addons/wl_category.php:138 includes/addons/product_curvy.php:222
 #: includes/addons/wl_recently_viewed_products.php:63
 #: includes/addons/product_tabs.php:181
-#: includes/addons/wl_category_grid.php:130
+#: includes/addons/wl_category_grid.php:117
 msgid "Descending"
-msgstr ""
-
-#: includes/addons/wl_product_horizontal_filter.php:101
-#: includes/addons/wl_product_filter.php:127
-msgid "Descending order label"
 msgstr ""
 
 #: includes/addons/special_day_offer.php:104
 #: includes/addons/special_day_offer.php:443
 #: includes/addons/wl_archive_title.php:175
 #: includes/addons/wb_image_marker.php:365
-#: includes/addons/wl_category_grid.php:687
 msgid "Description"
 msgstr ""
 
@@ -2028,29 +1730,13 @@ msgstr ""
 msgid "Designer"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:595
-msgid "Desktop"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:431
-msgid "Desktop "
-msgstr ""
-
 #: includes/addons/wl_testimonial.php:152
 #: includes/addons/wb_customer_review.php:158
 msgid "Developer"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:591
-msgid "Device Types"
-msgstr ""
-
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:335
 msgid "dimensions"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:221
-msgid "Direction"
 msgstr ""
 
 #: includes/modules/variation-swatch/includes/Admin/Attribute_Taxonomy_Metabox.php:55
@@ -2066,67 +1752,19 @@ msgstr ""
 msgid "Disable all"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:211
-msgid "Disable Close Button"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:204
-msgid "Disable Page Scroll"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:233
-msgid "Disable Popup Overlay"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:201
-msgid "Discover all the differences between the free and premium versions."
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:249
-msgid "Dismiss Automatically"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:257
-msgid "Dismiss Automatically Delay (sec)"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:218
-msgid "Dismiss on Esc Key"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:225
-msgid "Dismiss on Overlay Click"
-msgstr ""
-
-#: includes/admin/include/class.notice.php:145
-msgid "Dismiss this notice."
-msgstr ""
-
-#: includes/helper-function.php:629
+#: includes/helper-function.php:610
 msgid "div"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:516
-msgid "Do Not Show Again"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:346
-msgid "Do not show again"
 msgstr ""
 
 #: includes/addons/wl_faq.php:111
 msgid "Do you want to individual icon ?"
 msgstr ""
 
-#: includes/base.php:252 includes/admin/include/admin_field-manager.php:351
+#: includes/base.php:284 includes/admin/include/admin_field-manager.php:351
 #: includes/admin/include/admin_field-manager.php:470
 #: includes/admin/templates/dashboard-widget.php:94
 #: includes/admin/templates/dashboard-welcome.php:19
 msgid "Documentation"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:132
-msgid "Down"
 msgstr ""
 
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:122
@@ -2137,60 +1775,43 @@ msgstr ""
 msgid "e.g: woocommerce_after_single_product_summary"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:458
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:623
-msgid "Edge"
-msgstr ""
-
-#: includes/admin/include/template-library.php:137
+#: includes/admin/include/template-library.php:129
 msgid "Edit Page"
 msgstr ""
 
-#: includes/admin/include/template-library.php:137
-#: includes/admin/include/class.template_cpt.php:56
+#: includes/admin/include/template-library.php:129
+#: includes/admin/include/class.template_cpt.php:36
 msgid "Edit Template"
 msgstr ""
 
-#: includes/admin/include/class.template-manager.php:463
+#: includes/admin/include/class.template-manager.php:457
 msgid "Edit With Elementor"
 msgstr ""
 
 #: includes/admin/include/class.template-manager.php:211
-#: includes/admin/include/class.template-manager.php:467
+#: includes/admin/include/class.template-manager.php:461
 msgid "Edit With Gutenberg"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:203
 #: includes/addons/wb_customer_review.php:191
 #: includes/addons/wl_recently_viewed_products.php:83
-#: includes/addons/wl_category_grid.php:259
+#: includes/addons/wl_category_grid.php:234
 msgid "Eight"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:273
-msgid "Element Class/ID"
 msgstr ""
 
 #: includes/addons/wb_product_reviews.php:50
 msgid "Element Information"
 msgstr ""
 
-#: includes/admin/include/class.template-manager.php:445
-#: includes/admin/include/class.template-manager.php:479
+#: includes/admin/include/class.template-manager.php:439
+#: includes/admin/include/class.template-manager.php:473
 #: includes/admin/include/template-library/templates_list.php:19
 msgid "Elementor"
 msgstr ""
 
 #: includes/addons/wl_faq.php:59
 msgid "Elementor Template"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:153
-msgid "Email Automation"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:149
-msgid "Email Customizer"
 msgstr ""
 
 #: includes/addons/wb_product_suggest_price.php:130
@@ -2252,20 +1873,12 @@ msgstr ""
 msgid "Enable shareable link"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:393
-msgid "Ends With"
-msgstr ""
-
 #: includes/modules/shopify-like-checkout/templates/cart-shipping.php:57
 msgid "Enter a different address"
 msgstr ""
 
-#: includes/admin/include/class.template-manager.php:454
+#: includes/admin/include/class.template-manager.php:448
 msgid "Enter a template name"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:95
-msgid "Enter the URL where you want to redirect after closing the popup."
 msgstr ""
 
 #: includes/modules/shopify-like-checkout/templates/cart-shipping.php:50
@@ -2294,16 +1907,6 @@ msgstr ""
 msgid "Enter your return to shop button text."
 msgstr ""
 
-#: includes/modules/popup-builder/includes/class-repeater-helper.php:193
-msgid "Entire Shop"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/class-repeater-helper.php:22
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:138
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:149
-msgid "Entire Site"
-msgstr ""
-
 #: includes/addons/wb_product_suggest_price.php:177
 msgid "Error Message"
 msgstr ""
@@ -2313,32 +1916,9 @@ msgstr ""
 msgid "Even Heading Background"
 msgstr ""
 
-#: classes/class.widgets_control.php:435
+#: classes/class.widgets_control.php:439
 #: includes/addons/wb_ever_compare_table.php:49
 msgid "EverCompare"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:436
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:444
-msgid "Example: 500px"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:452
-msgid "Example: 9999"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:460
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:468
-msgid "Example: <code>10px</code> or <code>10px 20px 10px 20px</code>"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:131
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:529
-msgid "Exclude"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:300
-msgid "Explore the all features of ShopLentor Pro"
 msgstr ""
 
 #: includes/admin/include/class.extension-manager.php:26
@@ -2350,88 +1930,15 @@ msgstr ""
 msgid "Extra Option"
 msgstr ""
 
-#: includes/base.php:253
+#: includes/base.php:285
 msgid "Facebook Group"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:299
-msgid "fadeIn"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:300
-msgid "fadeInDown"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:301
-msgid "fadeInDownBig"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:302
-msgid "fadeInLeft"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:303
-msgid "fadeInLeftBig"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:304
-msgid "fadeInRight"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:305
-msgid "fadeInRightBig"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:306
-msgid "fadeInUp"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:307
-msgid "fadeInUpBig"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:356
-msgid "fadeOut"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:357
-msgid "fadeOutDown"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:358
-msgid "fadeOutDownBig"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:359
-msgid "fadeOutLeft"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:360
-msgid "fadeOutLeftBig"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:361
-msgid "fadeOutRight"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:362
-msgid "fadeOutRightBig"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:363
-msgid "fadeOutUp"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:364
-msgid "fadeOutUpBig"
-msgstr ""
-
 #: woolentor-blocks/includes/classes/Blocks_List.php:74
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:74
 msgid "FAQ"
 msgstr ""
 
-#: classes/class.widgets_control.php:244
+#: classes/class.widgets_control.php:248
 msgid "Faq"
 msgstr ""
 
@@ -2439,11 +1946,11 @@ msgstr ""
 msgid "FAQ Title"
 msgstr ""
 
-#: includes/helper-function.php:1269
+#: includes/helper-function.php:1044
 msgid "Featured"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:63
+#: includes/admin/include/class.template_cpt.php:43
 msgid "Featured Image"
 msgstr ""
 
@@ -2453,27 +1960,23 @@ msgstr ""
 msgid "Featured Products"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:213
-msgid "Features"
-msgstr ""
-
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:349
 msgid "Fields heading text"
 msgstr ""
 
 #: includes/addons/wl_product_horizontal_filter.php:52
-#: includes/addons/wl_product_horizontal_filter.php:251
+#: includes/addons/wl_product_horizontal_filter.php:199
 #: includes/addons/wl_product_filter.php:52
-#: includes/addons/wl_product_filter.php:917
-#: includes/addons/wl_product_filter.php:917
+#: includes/addons/wl_product_filter.php:854
+#: includes/addons/wl_product_filter.php:854
 msgid "Filter"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:819
+#: includes/addons/wl_product_horizontal_filter.php:767
 msgid "Filter Button"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:328
+#: includes/addons/wl_product_horizontal_filter.php:276
 msgid "Filter Button Icon"
 msgstr ""
 
@@ -2483,20 +1986,20 @@ msgstr ""
 msgid "Filter By"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:71
+#: includes/admin/include/class.template_cpt.php:51
 msgid "Filter from list"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:164
+#: includes/addons/wl_product_horizontal_filter.php:112
 msgid "Filter List"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:707
+#: includes/addons/wl_product_horizontal_filter.php:655
 msgid "Filter Menu"
 msgstr ""
 
 #: includes/addons/wl_product_horizontal_filter.php:70
-#: includes/addons/wl_product_horizontal_filter.php:211
+#: includes/addons/wl_product_horizontal_filter.php:159
 msgid "Filter Placeholder"
 msgstr ""
 
@@ -2509,15 +2012,10 @@ msgstr ""
 msgid "Filter Type"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:454
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:619
-msgid "Firefox"
-msgstr ""
-
 #: includes/addons/wl_testimonial.php:200
 #: includes/addons/wb_customer_review.php:188
 #: includes/addons/wl_recently_viewed_products.php:80
-#: includes/addons/wl_category_grid.php:256
+#: includes/addons/wl_category_grid.php:231
 msgid "Five"
 msgstr ""
 
@@ -2525,42 +2023,12 @@ msgstr ""
 msgid "Flag only"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:285
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:342
-msgid "flash"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:105
-msgid "Flash Sale Countdown"
-msgstr ""
-
 #: includes/modules/flash-sale/class.flash-sale.php:196
 msgid "Flash Sale!"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:308
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:365
-msgid "flip"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:309
-msgid "flipInX"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:310
-msgid "flipInY"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:366
-msgid "flipOutX"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:367
-msgid "flipOutY"
-msgstr ""
-
-#: includes/addons/wl_product_horizontal_filter.php:669
-#: includes/addons/wl_product_horizontal_filter.php:850
+#: includes/addons/wl_product_horizontal_filter.php:617
+#: includes/addons/wl_product_horizontal_filter.php:798
 #: includes/addons/wl_onepage_slider.php:418
 #: includes/addons/wl_testimonial.php:764 includes/addons/product_tabs.php:1158
 #: includes/addons/wb_product_add_to_cart.php:438
@@ -2569,24 +2037,17 @@ msgstr ""
 msgid "Font Size"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:351
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:524
-msgid "For (days)"
-msgstr ""
-
-#: includes/addons/wl_product_filter.php:247
+#: includes/addons/wl_product_filter.php:210
 msgid "Form Style"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:199
 #: includes/addons/wb_customer_review.php:187
 #: includes/addons/wl_recently_viewed_products.php:79
-#: includes/addons/wl_category_grid.php:255
+#: includes/addons/wl_category_grid.php:230
 msgid "Four"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:214
-#: includes/admin/templates/dashboard-freevspro.php:261
 #: includes/admin/include/template-library/templates_list.php:30
 msgid "Free"
 msgstr ""
@@ -2603,18 +2064,8 @@ msgstr ""
 msgid "Free!"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/class-repeater-helper.php:174
-msgid "Front Page"
-msgstr ""
-
-#: woolentor-blocks/includes/helper-functions.php:307
-#: woolentor-blocks/production/includes/helper-functions.php:307
+#: woolentor-blocks/includes/helper-functions.php:296
 msgid "Full"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:110
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:40
-msgid "General"
 msgstr ""
 
 #: includes/addons/product_flash_sale.php:63
@@ -2641,13 +2092,13 @@ msgstr ""
 msgid "Get Support"
 msgstr ""
 
-#: includes/base.php:240 includes/addons/wl_category.php:225
+#: includes/base.php:272 includes/addons/wl_category.php:225
 #: includes/addons/wl_brand.php:229 includes/addons/wl_brand.php:372
 msgid "Go Pro"
 msgstr ""
 
+#: woolentor-blocks/build/blocks/product-reviews/index.php:39
 #: woolentor-blocks/src/blocks/product-reviews/index.php:39
-#: woolentor-blocks/production/src/blocks/product-reviews/index.php:39
 msgid "Good"
 msgstr ""
 
@@ -2655,36 +2106,31 @@ msgstr ""
 msgid "Gradient Color"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:181
-msgid "GTM Conversion Tracking"
-msgstr ""
-
-#: includes/admin/include/class.template-manager.php:446
-#: includes/admin/include/class.template-manager.php:480
+#: includes/admin/include/class.template-manager.php:440
 msgid "Gutenberg"
 msgstr ""
 
-#: includes/helper-function.php:622
+#: includes/helper-function.php:603
 msgid "H1"
 msgstr ""
 
-#: includes/helper-function.php:623
+#: includes/helper-function.php:604
 msgid "H2"
 msgstr ""
 
-#: includes/helper-function.php:624
+#: includes/helper-function.php:605
 msgid "H3"
 msgstr ""
 
-#: includes/helper-function.php:625
+#: includes/helper-function.php:606
 msgid "H4"
 msgstr ""
 
-#: includes/helper-function.php:626
+#: includes/helper-function.php:607
 msgid "H5"
 msgstr ""
 
-#: includes/helper-function.php:627
+#: includes/helper-function.php:608
 msgid "H6"
 msgstr ""
 
@@ -2692,7 +2138,7 @@ msgstr ""
 msgid "HasThemes"
 msgstr ""
 
-#: includes/admin/admin-init.php:252
+#: includes/admin/admin-init.php:180
 msgid "HasThemes Stories"
 msgstr ""
 
@@ -2746,18 +2192,12 @@ msgstr ""
 msgid "Heading Typography"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:293
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:350
-msgid "heartBeat"
-msgstr ""
-
 #: includes/addons/product_flash_sale.php:942
 #: includes/addons/wl_onepage_slider.php:448
 #: includes/addons/wl_onepage_slider.php:519
 #: includes/addons/wl_product_video_gallery.php:97
-#: includes/addons/wl_product_filter.php:592
+#: includes/addons/wl_product_filter.php:529
 #: includes/addons/wb_product_add_to_cart.php:837
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:442
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:385
 msgid "Height"
 msgstr ""
@@ -2775,7 +2215,7 @@ msgstr ""
 msgid "Here"
 msgstr ""
 
-#: includes/helper-function.php:1191 includes/helper-function.php:1209
+#: includes/helper-function.php:966 includes/helper-function.php:984
 msgid "here"
 msgstr ""
 
@@ -2805,7 +2245,7 @@ msgstr ""
 msgid "Hide Content"
 msgstr ""
 
-#: includes/addons/wl_category.php:181 includes/addons/wl_category_grid.php:174
+#: includes/addons/wl_category.php:181 includes/addons/wl_category_grid.php:161
 msgid "Hide Empty Category"
 msgstr ""
 
@@ -2837,13 +2277,8 @@ msgstr ""
 msgid "Hide Wishlist"
 msgstr ""
 
-#: includes/addons/wl_product_filter.php:140
+#: includes/addons/wl_product_filter.php:103
 msgid "Hierarchical"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:326
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:383
-msgid "hinge"
 msgstr ""
 
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:121
@@ -2861,11 +2296,10 @@ msgid "Horizontal"
 msgstr ""
 
 #: includes/addons/special_day_offer.php:198
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:498
 msgid "Horizontal Position"
 msgstr ""
 
-#: classes/class.widgets_control.php:305
+#: classes/class.widgets_control.php:309
 msgid "Horizontal Product Filter"
 msgstr ""
 
@@ -2877,8 +2311,8 @@ msgid "Hours"
 msgstr ""
 
 #: includes/addons/product_flash_sale.php:723
-#: includes/addons/wl_product_horizontal_filter.php:683
-#: includes/addons/wl_product_horizontal_filter.php:875
+#: includes/addons/wl_product_horizontal_filter.php:631
+#: includes/addons/wl_product_horizontal_filter.php:823
 #: includes/addons/special_day_offer.php:720
 #: includes/addons/wl_testimonial.php:963
 #: includes/addons/wl_store_features.php:378
@@ -2890,9 +2324,9 @@ msgstr ""
 #: includes/addons/wb_product_suggest_price.php:491
 #: includes/addons/wb_product_suggest_price.php:643
 #: includes/addons/wb_product_suggest_price.php:786
-#: includes/addons/wl_product_filter.php:381
-#: includes/addons/wl_product_filter.php:502
-#: includes/addons/wl_product_filter.php:765
+#: includes/addons/wl_product_filter.php:344
+#: includes/addons/wl_product_filter.php:465
+#: includes/addons/wl_product_filter.php:702
 #: includes/addons/wl_recently_viewed_products.php:480
 #: includes/addons/wb_wishsuite_table.php:411
 #: includes/addons/product_tabs.php:353 includes/addons/product_tabs.php:748
@@ -2901,11 +2335,11 @@ msgstr ""
 #: includes/addons/wb_product_add_to_cart.php:638
 #: includes/addons/wb_product_add_to_cart.php:932
 #: includes/addons/wb_product_add_to_cart.php:1132
-#: includes/addons/wl_category_grid.php:972
+#: includes/addons/wl_category_grid.php:861
 msgid "Hover"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:779
+#: includes/addons/wl_product_horizontal_filter.php:727
 #: includes/addons/wl_onepage_slider.php:363
 msgid "Hover Background"
 msgstr ""
@@ -2927,14 +2361,14 @@ msgstr ""
 msgid "Hover Border Type"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:763
+#: includes/addons/wl_product_horizontal_filter.php:711
 #: includes/addons/wl_onepage_slider.php:326
 #: includes/addons/wl_onepage_slider.php:404
 #: includes/addons/wl_category.php:360
 #: includes/addons/wl_recently_viewed_products.php:325
 #: includes/addons/wb_wishsuite_table.php:164
 #: includes/addons/wb_wishsuite_table.php:272
-#: includes/addons/add_banner.php:251 includes/addons/wl_category_grid.php:622
+#: includes/addons/add_banner.php:251 includes/addons/wl_category_grid.php:597
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:447
 msgid "Hover Color"
 msgstr ""
@@ -2970,19 +2404,14 @@ msgstr ""
 
 #: includes/addons/wl_faq.php:613 includes/addons/wl_store_features.php:68
 #: includes/addons/wl_store_features.php:84
-#: includes/addons/wl_product_filter.php:151
+#: includes/addons/wl_product_filter.php:114
 msgid "Icon"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:311
-msgid "Icon Background"
 msgstr ""
 
 #: includes/addons/product_flash_sale.php:538
 #: includes/addons/wl_breadcrumbs.php:154
 #: includes/addons/wl_store_features.php:264
 #: includes/addons/wb_wishsuite_table.php:311
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:282
 msgid "Icon Color"
 msgstr ""
 
@@ -2995,31 +2424,20 @@ msgstr ""
 msgid "Icon Line Height"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:346
-msgid "Icon Margin"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:365
-msgid "Icon Padding"
-msgstr ""
-
 #: includes/addons/wl_faq.php:241
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:115
 msgid "Icon Position"
 msgstr ""
 
 #: includes/addons/product_flash_sale.php:551
 #: includes/addons/wl_breadcrumbs.php:166
 #: includes/addons/wl_store_features.php:294
-#: includes/addons/wl_product_filter.php:358
-#: includes/addons/wl_product_filter.php:464
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:294
+#: includes/addons/wl_product_filter.php:321
+#: includes/addons/wl_product_filter.php:427
 msgid "Icon Size"
 msgstr ""
 
 #: includes/addons/product_accordion.php:235
-#: includes/addons/wl_product_filter.php:162
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:138
+#: includes/addons/wl_product_filter.php:125
 msgid "Icon Spacing"
 msgstr ""
 
@@ -3031,23 +2449,13 @@ msgstr ""
 msgid "Icon Width"
 msgstr ""
 
-#: includes/helper-function.php:1263 includes/addons/product_flash_sale.php:133
+#: includes/helper-function.php:1038 includes/addons/product_flash_sale.php:133
 #: includes/addons/product_image_accordion.php:146
 #: includes/addons/product_accordion.php:167
 #: includes/addons/wl_category.php:152 includes/addons/product_curvy.php:202
 #: includes/addons/product_tabs.php:161
-#: includes/addons/wl_category_grid.php:145
+#: includes/addons/wl_category_grid.php:132
 msgid "ID"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:457
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:622
-msgid "IE"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:360
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:535
-msgid "If closed (times)"
 msgstr ""
 
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:276
@@ -3056,10 +2464,34 @@ msgid ""
 "products."
 msgstr ""
 
-#: includes/modules/shopify-like-checkout/templates/form-checkout.php:61
+#: includes/modules/shopify-like-checkout/templates/form-checkout.php:56
 msgid ""
 "If you have shopped with us before, please enter your details below. If you "
 "are a new customer, please proceed to the Billing section."
+msgstr ""
+
+#: includes/admin/include/diagnostic-data.php:388
+#, php-format
+msgid ""
+"If you want to help us improve the %4$s%1$s%5$s plugin even more, please "
+"allow us to collect non-sensitive diagnostic data and usage information. "
+"Over %2$shere%3$s, you can see what kind of data we collect."
+msgstr ""
+
+#: includes/base.php:140
+#, php-format
+msgid ""
+"If you want to use the %1$sTemplate Builder%2$s feature, make sure the "
+"%1$s\"Elementor\"%2$s plugin is activated. Please activate Elementor to "
+"continue."
+msgstr ""
+
+#: includes/base.php:147
+#, php-format
+msgid ""
+"If you want to use the %1$sTemplate Builder%2$s feature, make sure the "
+"%1$s\"Elementor\"%2$s plugin is installed and activated. Please install "
+"Elementor to continue."
 msgstr ""
 
 #: includes/admin/templates/dashboard-sidebar.php:25
@@ -3079,7 +2511,7 @@ msgstr ""
 #: includes/addons/wb_image_marker.php:43
 #: includes/addons/wb_customer_review.php:109
 #: includes/addons/wb_customer_review.php:361
-#: includes/addons/wl_category_grid.php:542
+#: includes/addons/wl_category_grid.php:517
 #: includes/modules/variation-swatch/includes/Admin/Attribute_Taxonomy_Metabox.php:54
 #: includes/modules/variation-swatch/includes/Admin/Product_Metabox.php:219
 #: includes/modules/variation-swatch/includes/Admin/Product_Metabox.php:329
@@ -3094,9 +2526,8 @@ msgstr ""
 msgid "Image Hard Crop"
 msgstr ""
 
-#: classes/class.widgets_control.php:236
+#: classes/class.widgets_control.php:240
 #: woolentor-blocks/includes/classes/Blocks_List.php:39
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:39
 msgid "Image Marker"
 msgstr ""
 
@@ -3108,11 +2539,11 @@ msgstr ""
 msgid "Image/Icon"
 msgstr ""
 
-#: classes/class.assest_management.php:368
+#: classes/class.assest_management.php:364
 msgid "Import"
 msgstr ""
 
-#: includes/admin/include/class.template-manager.php:388
+#: includes/admin/include/class.template-manager.php:383
 msgid "Import Previously Assigned Templates"
 msgstr ""
 
@@ -3120,36 +2551,23 @@ msgstr ""
 msgid "Import template to your Template Library."
 msgstr ""
 
-#: classes/class.assest_management.php:367
+#: classes/class.assest_management.php:363
 msgid "Import to Builder"
 msgstr ""
 
-#: classes/class.assest_management.php:365
+#: classes/class.assest_management.php:361
 msgid "Import to Library"
 msgstr ""
 
-#: classes/class.assest_management.php:366
+#: classes/class.assest_management.php:362
 msgid "Import to Page"
 msgstr ""
 
-#: classes/class.assest_management.php:360
+#: classes/class.assest_management.php:356
 msgid "in this package"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:184
-msgid "Inactivity Time (ms)"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:130
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:528
-msgid "Include"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:19
-msgid "Individual Archive Page Builder"
-msgstr ""
-
-#: includes/modules/shopify-like-checkout/templates/form-checkout.php:53
+#: includes/modules/shopify-like-checkout/templates/form-checkout.php:48
 msgid "Information"
 msgstr ""
 
@@ -3167,8 +2585,8 @@ msgstr ""
 msgid "Input"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:567
-#: includes/addons/wl_product_filter.php:258
+#: includes/addons/wl_product_horizontal_filter.php:515
+#: includes/addons/wl_product_filter.php:221
 msgid "Input Box"
 msgstr ""
 
@@ -3176,38 +2594,30 @@ msgstr ""
 msgid "Input Field Placeholder"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:67
+#: includes/admin/include/class.template_cpt.php:47
 msgid "Insert into Template"
 msgstr ""
 
-#: includes/admin/include/template-library.php:197
-#: includes/admin/include/template-library.php:250
+#: includes/base.php:148
+msgid "Install Elementor"
+msgstr ""
+
+#: includes/admin/include/template-library.php:180
+#: includes/admin/include/template-library.php:233
 #: includes/admin/include/class.extension-manager.php:165
 #: includes/admin/include/class.extension-manager.php:232
 msgid "Install Now"
 msgstr ""
 
-#: includes/base.php:145
+#: includes/base.php:173
 msgid "Install WooCommerce"
 msgstr ""
 
-#: classes/class.assest_management.php:371
+#: classes/class.assest_management.php:367
 msgid "Installing.."
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:401
-msgid "Is"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/class-repeater-helper.php:320
-msgid "Is empty"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:390
-msgid "Is Exactly Matched"
-msgstr ""
-
-#: includes/admin/include/class.template-manager.php:490
+#: includes/admin/include/class.template-manager.php:483
 msgid ""
 "It will import those templates that were created from the \"Templates\" menu "
 "of Elementor and assigned to corresponding WooCommerce pages."
@@ -3230,15 +2640,6 @@ msgstr ""
 msgid "Item Spacing"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:327
-msgid "jackInTheBox"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:292
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:349
-msgid "jello"
-msgstr ""
-
 #: includes/addons/wb_product_short_description.php:69
 #: includes/addons/special_day_offer.php:285
 #: includes/addons/wl_store_features.php:155
@@ -3250,7 +2651,7 @@ msgstr ""
 msgid "Justified"
 msgstr ""
 
-#: classes/class.widgets_control.php:442 includes/addons/wb_just_table.php:48
+#: classes/class.widgets_control.php:446 includes/addons/wb_just_table.php:48
 msgid "JustTable"
 msgstr ""
 
@@ -3276,22 +2677,18 @@ msgstr ""
 msgid "Kevin Walker"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:573
-msgid "Keyword Value"
-msgstr ""
-
-#: includes/addons/wl_product_horizontal_filter.php:489
+#: includes/addons/wl_product_horizontal_filter.php:437
 msgid "Label"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:972
-#: includes/addons/wl_product_filter.php:852
+#: includes/addons/wl_product_horizontal_filter.php:920
+#: includes/addons/wl_product_filter.php:789
 msgctxt "label"
 msgid "Search for:"
 msgstr ""
 
 #: includes/addons/product_flash_sale.php:864
-#: includes/addons/wl_product_filter.php:666
+#: includes/addons/wl_product_filter.php:603
 msgid "Label Color"
 msgstr ""
 
@@ -3338,7 +2735,7 @@ msgstr ""
 #: includes/addons/wb_product_short_description.php:57
 #: includes/addons/wl_breadcrumbs.php:78
 #: includes/addons/wb_wishsuite_counter.php:69
-#: includes/addons/wl_product_horizontal_filter.php:794
+#: includes/addons/wl_product_horizontal_filter.php:742
 #: includes/addons/wl_onepage_slider.php:173
 #: includes/addons/special_day_offer.php:57
 #: includes/addons/special_day_offer.php:273
@@ -3363,10 +2760,7 @@ msgstr ""
 #: includes/addons/wl_recently_viewed_products.php:550
 #: includes/addons/product_tabs.php:235 includes/addons/product_tabs.php:957
 #: includes/addons/product_tabs.php:1036 includes/addons/add_banner.php:67
-#: includes/addons/wl_category_grid.php:734
 #: includes/addons/wb_product_tags.php:64
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:424
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:59
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:285
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:477
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:491
@@ -3376,25 +2770,8 @@ msgstr ""
 msgid "Left"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:530
-msgid "Lifetime"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:311
-msgid "lightSpeedIn"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:368
-msgid "lightSpeedOut"
-msgstr ""
-
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:310
 msgid "Limit"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:225
-#: includes/admin/templates/dashboard-freevspro.php:272
-msgid "Limited Features"
 msgstr ""
 
 #: includes/addons/wl_breadcrumbs.php:112
@@ -3412,11 +2789,11 @@ msgstr ""
 msgid "Link Typography"
 msgstr ""
 
-#: includes/addons/wl_product_filter.php:424
+#: includes/addons/wl_product_filter.php:387
 msgid "List Item"
 msgstr ""
 
-#: includes/modules/shopify-like-checkout/templates/form-checkout.php:60
+#: includes/modules/shopify-like-checkout/templates/form-checkout.php:55
 msgid "Log in"
 msgstr ""
 
@@ -3462,9 +2839,9 @@ msgstr ""
 #: includes/addons/product_flash_sale.php:475
 #: includes/addons/product_flash_sale.php:801
 #: includes/addons/wb_product_price.php:71
-#: includes/addons/wl_product_horizontal_filter.php:388
-#: includes/addons/wl_product_horizontal_filter.php:474
-#: includes/addons/wl_product_horizontal_filter.php:541
+#: includes/addons/wl_product_horizontal_filter.php:336
+#: includes/addons/wl_product_horizontal_filter.php:422
+#: includes/addons/wl_product_horizontal_filter.php:489
 #: includes/addons/wl_onepage_slider.php:240
 #: includes/addons/wl_onepage_slider.php:282
 #: includes/addons/wb_product_upsell.php:143
@@ -3521,7 +2898,7 @@ msgstr ""
 #: includes/addons/wb_product_suggest_price.php:740
 #: includes/addons/wb_product_rating.php:84
 #: includes/addons/wb_product_title.php:90
-#: includes/addons/wl_product_filter.php:232
+#: includes/addons/wl_product_filter.php:195
 #: includes/addons/wb_product_sku.php:139
 #: includes/addons/wb_image_marker.php:350
 #: includes/addons/wb_image_marker.php:392
@@ -3536,12 +2913,9 @@ msgstr ""
 #: includes/addons/wb_product_add_to_cart.php:1084
 #: includes/addons/wb_product_additional_information.php:102
 #: includes/addons/add_banner.php:167 includes/addons/add_banner.php:218
-#: includes/addons/wl_category_grid.php:563
-#: includes/addons/wl_category_grid.php:672
-#: includes/addons/wl_category_grid.php:718
+#: includes/addons/wl_category_grid.php:538
+#: includes/addons/wl_category_grid.php:632
 #: includes/addons/wb_product_tags.php:151
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:458
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:229
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:485
 msgid "Margin"
 msgstr ""
@@ -3564,22 +2938,22 @@ msgstr ""
 msgid "Marker Title"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:202
+#: includes/addons/wl_product_horizontal_filter.php:150
 msgid "Max Price"
 msgstr ""
 
-#: includes/addons/wl_product_filter.php:915
+#: includes/addons/wl_product_filter.php:852
 msgid "Max price"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:141
+#: includes/addons/wl_product_horizontal_filter.php:89
 msgid "Max Width"
 msgstr ""
 
 #: includes/addons/wb_product_upsell.php:72
 #: includes/addons/wb_archive_product.php:133
 #: includes/addons/wb_product_related.php:87
-#: includes/addons/wl_category.php:156 includes/addons/wl_category_grid.php:149
+#: includes/addons/wl_category.php:156 includes/addons/wl_category_grid.php:136
 msgid "Menu Order"
 msgstr ""
 
@@ -3600,16 +2974,12 @@ msgstr ""
 msgid "Min"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:193
+#: includes/addons/wl_product_horizontal_filter.php:141
 msgid "Min Price"
 msgstr ""
 
-#: includes/addons/wl_product_filter.php:914
+#: includes/addons/wl_product_filter.php:851
 msgid "Min price"
-msgstr ""
-
-#: includes/addons/wl_product_horizontal_filter.php:114
-msgid "Min Width"
 msgstr ""
 
 #: includes/addons/wb_product_add_to_cart.php:120
@@ -3634,26 +3004,17 @@ msgstr ""
 msgid "Mixed order Products"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:433
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:597
-msgid "Mobile"
-msgstr ""
-
 #: includes/addons/wl_testimonial.php:431 includes/addons/product_tabs.php:573
-#: includes/addons/wl_category_grid.php:456
+#: includes/addons/wl_category_grid.php:431
 msgid "Mobile Phone"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:462 includes/addons/product_tabs.php:606
-#: includes/addons/wl_category_grid.php:487
+#: includes/addons/wl_category_grid.php:462
 msgid "Mobile Resolution"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:255
-msgid "Module"
-msgstr ""
-
-#: includes/modules/variation-swatch/includes/Frontend/Woo_Config.php:754
+#: includes/modules/variation-swatch/includes/Frontend/Woo_Config.php:749
 msgid "More"
 msgstr ""
 
@@ -3668,10 +3029,6 @@ msgstr ""
 
 #: includes/admin/include/class.extension-manager.php:105
 msgid "Multi Currency Pro for WooCommerce"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:177
-msgid "Multi Step Checkout"
 msgstr ""
 
 #: includes/admin/include/class.extension-manager.php:108
@@ -3694,7 +3051,7 @@ msgstr ""
 msgid "N/A"
 msgstr ""
 
-#: includes/helper-function.php:1265 includes/addons/product_flash_sale.php:135
+#: includes/helper-function.php:1040 includes/addons/product_flash_sale.php:135
 #: includes/addons/wl_testimonial.php:82 includes/addons/wl_testimonial.php:576
 #: includes/addons/product_image_accordion.php:148
 #: includes/addons/product_accordion.php:169
@@ -3702,10 +3059,8 @@ msgstr ""
 #: includes/addons/wb_customer_review.php:80
 #: includes/addons/wb_customer_review.php:392
 #: includes/addons/product_tabs.php:163
-#: includes/addons/wl_category_grid.php:146
-#: includes/admin/include/class.template-manager.php:453
-#: includes/admin/templates/dashboard-freevspro.php:260
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:564
+#: includes/addons/wl_category_grid.php:133
+#: includes/admin/include/class.template-manager.php:447
 msgid "Name"
 msgstr ""
 
@@ -3714,20 +3069,20 @@ msgid "Name Field Placeholder"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:970 includes/addons/product_tabs.php:756
-#: includes/addons/wl_category_grid.php:979
+#: includes/addons/wl_category_grid.php:868
 msgid "Navigation"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:813 includes/addons/product_tabs.php:641
-#: includes/addons/wl_category_grid.php:822
+#: includes/addons/wl_category_grid.php:711
 msgid "Navigation Arrow"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:898
 #: includes/addons/wl_testimonial.php:1021 includes/addons/product_tabs.php:705
 #: includes/addons/product_tabs.php:809
-#: includes/addons/wl_category_grid.php:907
-#: includes/addons/wl_category_grid.php:1030
+#: includes/addons/wl_category_grid.php:796
+#: includes/addons/wl_category_grid.php:919
 msgid "Navigation Dots"
 msgstr ""
 
@@ -3735,14 +3090,14 @@ msgstr ""
 msgid "New"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:55
+#: includes/admin/include/class.template_cpt.php:35
 msgid "New Template"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:204
 #: includes/addons/wb_customer_review.php:192
 #: includes/addons/wl_recently_viewed_products.php:84
-#: includes/addons/wl_category_grid.php:260
+#: includes/addons/wl_category_grid.php:235
 msgid "Nine"
 msgstr ""
 
@@ -3755,17 +3110,16 @@ msgstr ""
 #: includes/addons/wl_testimonial.php:332 includes/addons/wl_category.php:184
 #: includes/addons/wb_customer_review.php:206
 #: includes/addons/product_tabs.php:468
-#: includes/addons/wl_category_grid.php:177
-#: includes/addons/wl_category_grid.php:201
-#: includes/addons/wl_category_grid.php:216
-#: includes/addons/wl_category_grid.php:274
-#: includes/addons/wl_category_grid.php:358
+#: includes/addons/wl_category_grid.php:164
+#: includes/addons/wl_category_grid.php:188
+#: includes/addons/wl_category_grid.php:249
+#: includes/addons/wl_category_grid.php:333
 msgid "No"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:215
 #: includes/addons/wb_customer_review.php:203
-#: includes/addons/wl_category_grid.php:271
+#: includes/addons/wl_category_grid.php:246
 msgid "No Gutters"
 msgstr ""
 
@@ -3777,11 +3131,7 @@ msgstr ""
 msgid "No naughty business please!"
 msgstr ""
 
-#: includes/addons/wl_product_filter.php:103
-msgid "No Order label"
-msgstr ""
-
-#: includes/helper-function.php:1510
+#: includes/helper-function.php:1262
 msgid "No products were found matching your selection."
 msgstr ""
 
@@ -3797,7 +3147,7 @@ msgstr ""
 msgid "No Results Found"
 msgstr ""
 
-#: includes/helper-function.php:443
+#: includes/helper-function.php:424
 msgid "No saved templates found."
 msgstr ""
 
@@ -3807,34 +3157,26 @@ msgstr ""
 msgid "No shipping options were found for %s."
 msgstr ""
 
+#: includes/admin/include/diagnostic-data.php:394
+msgid "No Thanks"
+msgstr ""
+
 #: classes/class.default_data.php:514
 msgid "No upsell products are available."
 msgstr ""
 
-#: includes/admin/include/diagnostic-data.php:497
-msgid "No, Thanks"
-msgstr ""
-
-#: includes/admin/include/diagnostic-data.php:168
-msgid "Nonce Varification fail"
-msgstr ""
-
-#: includes/admin/include/template-library.php:156
-#: includes/admin/include/template-library.php:287
-#: includes/admin/include/template-library.php:332
-#: includes/admin/include/class.template-manager.php:514
-#: includes/admin/include/class.template-manager.php:691
-#: includes/admin/include/class.template-manager.php:729
-#: includes/admin/include/class.template-manager.php:838
-#: includes/modules/sales-notification/class.sale_notification.php:36
+#: includes/admin/include/class.template-manager.php:507
+#: includes/admin/include/class.template-manager.php:655
+#: includes/admin/include/class.template-manager.php:693
+#: includes/admin/include/class.template-manager.php:801
 msgid "Nonce Varification Faild !"
 msgstr ""
 
-#: includes/helper-function.php:1262 includes/addons/product_flash_sale.php:132
+#: includes/helper-function.php:1037 includes/addons/product_flash_sale.php:132
 #: includes/addons/product_image_accordion.php:145
 #: includes/addons/product_accordion.php:166
 #: includes/addons/product_curvy.php:201
-#: includes/addons/wl_product_filter.php:106
+#: includes/addons/wl_product_filter.php:912
 #: includes/addons/product_tabs.php:160
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:216
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:241
@@ -3843,8 +3185,8 @@ msgstr ""
 
 #: includes/addons/wl_faq.php:378 includes/addons/wl_faq.php:625
 #: includes/addons/product_flash_sale.php:653
-#: includes/addons/wl_product_horizontal_filter.php:651
-#: includes/addons/wl_product_horizontal_filter.php:832
+#: includes/addons/wl_product_horizontal_filter.php:599
+#: includes/addons/wl_product_horizontal_filter.php:780
 #: includes/addons/special_day_offer.php:633
 #: includes/addons/wl_testimonial.php:806
 #: includes/addons/wl_store_features.php:313
@@ -3860,9 +3202,9 @@ msgstr ""
 #: includes/addons/wb_product_suggest_price.php:405
 #: includes/addons/wb_product_suggest_price.php:558
 #: includes/addons/wb_product_suggest_price.php:701
-#: includes/addons/wl_product_filter.php:330
-#: includes/addons/wl_product_filter.php:437
-#: includes/addons/wl_product_filter.php:700
+#: includes/addons/wl_product_filter.php:293
+#: includes/addons/wl_product_filter.php:400
+#: includes/addons/wl_product_filter.php:637
 #: includes/addons/wl_recently_viewed_products.php:428
 #: includes/addons/wb_wishsuite_table.php:379
 #: includes/addons/product_tabs.php:267 includes/addons/product_tabs.php:634
@@ -3871,24 +3213,24 @@ msgstr ""
 #: includes/addons/wb_product_add_to_cart.php:544
 #: includes/addons/wb_product_add_to_cart.php:910
 #: includes/addons/wb_product_add_to_cart.php:1043
-#: includes/addons/wl_category_grid.php:815
+#: includes/addons/wl_category_grid.php:704
 msgid "Normal"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:61
+#: includes/admin/include/class.template_cpt.php:41
 msgid "Not found"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:62
+#: includes/admin/include/class.template_cpt.php:42
 msgid "Not found in Trash"
 msgstr ""
 
+#: woolentor-blocks/build/blocks/product-reviews/index.php:41
 #: woolentor-blocks/src/blocks/product-reviews/index.php:41
-#: woolentor-blocks/production/src/blocks/product-reviews/index.php:41
 msgid "Not that bad"
 msgstr ""
 
-#: classes/class.assest_management.php:362
+#: classes/class.assest_management.php:358
 msgid "Nothing Found"
 msgstr ""
 
@@ -3906,7 +3248,7 @@ msgstr ""
 msgid "Odd Heading Background"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:1165
+#: includes/addons/wl_product_horizontal_filter.php:1111
 msgid "of"
 msgstr ""
 
@@ -3928,45 +3270,14 @@ msgstr ""
 msgid "Old Price"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:252
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:139
-msgid "On Click"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:269
-msgid "On Click Specific Element"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:193
-msgid "On Exit Intent"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:175
-msgid "On Inactivity"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:303
-msgid "On Page Exit Intent"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:197
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:95
-msgid "On Page Load"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:215
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:111
-msgid "On Scroll"
-msgstr ""
-
 #: includes/addons/wl_testimonial.php:196
 #: includes/addons/wb_customer_review.php:184
 #: includes/addons/wl_recently_viewed_products.php:76
-#: includes/addons/wl_category_grid.php:252
+#: includes/addons/wl_category_grid.php:227
 msgid "One"
 msgstr ""
 
-#: classes/class.widgets_control.php:252
+#: classes/class.widgets_control.php:256
 msgid "One Page Slider"
 msgstr ""
 
@@ -3982,16 +3293,8 @@ msgstr ""
 msgid "Only for wishlist and compare button."
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:546
-msgid "Only show if the URL has specific keyword"
-msgstr ""
-
 #: includes/addons/wb_image_marker.php:60
 msgid "Opacity Color"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:278
-msgid "Open Animation"
 msgstr ""
 
 #: includes/addons/wb_product_suggest_price.php:547
@@ -4010,11 +3313,6 @@ msgstr ""
 msgid "Open popup"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:456
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:621
-msgid "Opera"
-msgstr ""
-
 #: includes/addons/wb_customer_review.php:173
 msgid "Option"
 msgstr ""
@@ -4026,7 +3324,7 @@ msgstr ""
 #: includes/addons/wl_category.php:133
 #: includes/addons/wl_recently_viewed_products.php:59
 #: includes/addons/product_tabs.php:177
-#: includes/addons/wl_category_grid.php:125
+#: includes/addons/wl_category_grid.php:112
 msgid "Order"
 msgstr ""
 
@@ -4036,13 +3334,9 @@ msgstr ""
 msgid "order"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:141
-msgid "Order Bump"
-msgstr ""
-
 #: includes/addons/wl_product_horizontal_filter.php:45
-#: includes/addons/wl_product_horizontal_filter.php:174
-#: includes/addons/wl_product_horizontal_filter.php:175
+#: includes/addons/wl_product_horizontal_filter.php:122
+#: includes/addons/wl_product_horizontal_filter.php:123
 #: includes/addons/wb_product_upsell.php:62
 #: includes/addons/wb_product_related.php:77
 #: includes/addons/wl_product_filter.php:46
@@ -4061,7 +3355,7 @@ msgstr ""
 msgid "Order Radius"
 msgstr ""
 
-#: includes/addons/wl_category.php:148 includes/addons/wl_category_grid.php:141
+#: includes/addons/wl_category.php:148 includes/addons/wl_category_grid.php:128
 msgid "Orderby"
 msgstr ""
 
@@ -4080,7 +3374,7 @@ msgid ""
 "the pro version."
 msgstr ""
 
-#: includes/helper-function.php:983 includes/helper-function.php:1031
+#: includes/helper-function.php:758 includes/helper-function.php:806
 msgid "Out of stock"
 msgstr ""
 
@@ -4088,17 +3382,17 @@ msgstr ""
 msgid "Out of Stock Badge Color"
 msgstr ""
 
-#: includes/helper-function.php:628
+#: includes/helper-function.php:609
 msgid "p"
 msgstr ""
 
 #: includes/addons/wl_faq.php:326 includes/addons/wl_faq.php:395
 #: includes/addons/wl_faq.php:513 includes/addons/wl_faq.php:598
 #: includes/addons/product_flash_sale.php:398
-#: includes/addons/wl_product_horizontal_filter.php:376
-#: includes/addons/wl_product_horizontal_filter.php:462
-#: includes/addons/wl_product_horizontal_filter.php:529
-#: includes/addons/wl_product_horizontal_filter.php:627
+#: includes/addons/wl_product_horizontal_filter.php:324
+#: includes/addons/wl_product_horizontal_filter.php:410
+#: includes/addons/wl_product_horizontal_filter.php:477
+#: includes/addons/wl_product_horizontal_filter.php:575
 #: includes/addons/wl_onepage_slider.php:303
 #: includes/addons/special_day_offer.php:310
 #: includes/addons/special_day_offer.php:369
@@ -4130,10 +3424,10 @@ msgstr ""
 #: includes/addons/wb_product_suggest_price.php:455
 #: includes/addons/wb_product_suggest_price.php:585
 #: includes/addons/wb_product_suggest_price.php:728
-#: includes/addons/wl_product_filter.php:220
-#: includes/addons/wl_product_filter.php:306
-#: includes/addons/wl_product_filter.php:479
-#: includes/addons/wl_product_filter.php:750
+#: includes/addons/wl_product_filter.php:183
+#: includes/addons/wl_product_filter.php:269
+#: includes/addons/wl_product_filter.php:442
+#: includes/addons/wl_product_filter.php:687
 #: includes/addons/wb_image_marker.php:236
 #: includes/addons/wb_image_marker.php:289
 #: includes/addons/wb_customer_review.php:313
@@ -4150,16 +3444,10 @@ msgstr ""
 #: includes/addons/wb_product_add_to_cart.php:396
 #: includes/addons/wb_product_add_to_cart.php:733
 #: includes/addons/wb_product_add_to_cart.php:1071
-#: includes/addons/wl_category_grid.php:508
-#: includes/addons/wl_category_grid.php:895
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:466
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:248
+#: includes/addons/wl_category_grid.php:483
+#: includes/addons/wl_category_grid.php:784
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:471
 msgid "Padding"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:103
-msgid "Page Load Delay (ms)"
 msgstr ""
 
 #: includes/addons/wl_onepage_slider.php:499
@@ -4168,20 +3456,12 @@ msgstr ""
 msgid "Pagination"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:388
-msgid "Parameter "
-msgstr ""
-
-#: includes/addons/wl_category.php:155 includes/addons/wl_category_grid.php:148
+#: includes/addons/wl_category.php:155 includes/addons/wl_category_grid.php:135
 msgid "Parent"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:51
+#: includes/admin/include/class.template_cpt.php:31
 msgid "Parent Item:"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:157
-msgid "Partial Payment"
 msgstr ""
 
 #: includes/modules/shopify-like-checkout/templates/form-login.php:28
@@ -4190,16 +3470,16 @@ msgid "Password"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:336 includes/addons/product_tabs.php:472
-#: includes/addons/wl_category_grid.php:362
+#: includes/addons/wl_category_grid.php:337
 msgid "Pause on Hover?"
 msgstr ""
 
-#: includes/modules/shopify-like-checkout/templates/form-checkout.php:55
+#: includes/modules/shopify-like-checkout/templates/form-checkout.php:50
 msgid "Payment"
 msgstr ""
 
+#: woolentor-blocks/build/blocks/product-reviews/index.php:38
 #: woolentor-blocks/src/blocks/product-reviews/index.php:38
-#: woolentor-blocks/production/src/blocks/product-reviews/index.php:38
 msgid "Perfect"
 msgstr ""
 
@@ -4207,11 +3487,11 @@ msgstr ""
 msgid "Peter Rose"
 msgstr ""
 
-#: includes/base.php:169
+#: includes/base.php:189
 msgid "PHP"
 msgstr ""
 
-#: includes/modules/shopify-like-checkout/templates/form-checkout.php:68
+#: includes/modules/shopify-like-checkout/templates/form-checkout.php:63
 msgid "Place order"
 msgstr ""
 
@@ -4227,12 +3507,12 @@ msgctxt "placeholder"
 msgid "Enter a Page Name"
 msgstr ""
 
-#: includes/addons/wl_product_filter.php:852
+#: includes/addons/wl_product_filter.php:789
 msgctxt "placeholder"
 msgid "Search Products&hellip;"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:715
+#: includes/addons/wl_product_horizontal_filter.php:663
 #: includes/addons/wb_product_suggest_price.php:211
 #: includes/addons/wb_product_suggest_price.php:313
 msgid "Placeholder Color"
@@ -4259,7 +3539,7 @@ msgstr ""
 msgid "Please fill in your details above to see available payment methods."
 msgstr ""
 
-#: includes/addons/wl_product_filter.php:1037
+#: includes/addons/wl_product_filter.php:971
 msgid "Please Select Filter Type"
 msgstr ""
 
@@ -4268,11 +3548,11 @@ msgid ""
 "Please select some product options before adding this product to your cart."
 msgstr ""
 
-#: includes/admin/include/template-library.php:296
+#: includes/admin/include/template-library.php:269
 msgid "Plugin Not Found"
 msgstr ""
 
-#: includes/admin/include/template-library.php:316
+#: includes/admin/include/template-library.php:289
 msgid "Plugin Successfully Activated"
 msgstr ""
 
@@ -4291,83 +3571,40 @@ msgstr ""
 msgid "Popularity"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-post-type.php:38
-#: includes/modules/popup-builder/includes/admin/class-manage-post-type.php:53
-msgid "Popup"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:400
-msgid "Popup Area"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:137
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:44
-msgid "Popup Builder"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/class-widgets.php:43
-#: includes/modules/popup-builder/includes/class-widgets.php:82
-msgid "Popup Close Trigger Button"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/class-assets.php:79
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:95
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:60
-msgid "Popup Settings"
-msgstr ""
-
 #: includes/addons/product_flash_sale.php:202
 #: includes/addons/wl_testimonial.php:821
 #: includes/addons/wl_testimonial.php:906
 #: includes/addons/wb_archive_product.php:895
 #: includes/addons/wl_recently_viewed_products.php:546
 #: includes/addons/wb_product_add_to_cart.php:497
-#: includes/addons/wl_category_grid.php:830
-#: includes/addons/wl_category_grid.php:915
+#: includes/addons/wl_category_grid.php:719
+#: includes/addons/wl_category_grid.php:804
 msgid "Position"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:421
-msgid "Position Horizontal"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:408
-msgid "Position Vertical"
-msgstr ""
-
 #: woolentor-blocks/includes/classes/Manage_Styles.php:100
-#: woolentor-blocks/production/includes/classes/Manage_Styles.php:100
 msgid "Post Data found."
 msgstr ""
 
 #: woolentor-blocks/includes/classes/Manage_Styles.php:105
-#: woolentor-blocks/production/includes/classes/Manage_Styles.php:105
 msgid "Post Data not found."
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:133
-msgid "Post Duplicator"
-msgstr ""
-
-#: includes/admin/include/class.template-manager.php:548
+#: includes/admin/include/class.template-manager.php:541
 msgid "Post request dose not found"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:45
+#: includes/admin/include/class.template_cpt.php:25
 msgctxt "Post Type General Name"
 msgid "Template Builder"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:46
+#: includes/admin/include/class.template_cpt.php:26
 msgctxt "Post Type Singular Name"
 msgid "Template Builder"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:161
-msgid "Pre Orders"
-msgstr ""
-
-#: classes/class.assest_management.php:370
+#: classes/class.assest_management.php:366
 #: includes/admin/include/admin_field-manager.php:350
 #: includes/admin/include/admin_field-manager.php:469
 msgid "Preview"
@@ -4389,13 +3626,13 @@ msgstr ""
 msgid "price"
 msgstr ""
 
-#: includes/modules/sales-notification/class.sale_notification.php:239
+#: includes/modules/sales-notification/class.sale_notification.php:229
 msgid "Price :"
 msgstr ""
 
 #: includes/addons/wb_product_price.php:51
 #: includes/addons/wb_product_price.php:92
-#: includes/addons/wl_product_filter.php:677
+#: includes/addons/wl_product_filter.php:614
 msgid "Price Color"
 msgstr ""
 
@@ -4407,37 +3644,33 @@ msgstr ""
 msgid "Price does not set this product."
 msgstr ""
 
-#: includes/addons/wl_product_filter.php:657
+#: includes/addons/wl_product_filter.php:594
 msgid "Price Label"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:221
+#: includes/addons/wl_product_horizontal_filter.php:169
 msgid "Price Range"
 msgstr ""
 
-#: includes/addons/wl_product_filter.php:919
+#: includes/addons/wl_product_filter.php:856
 msgid "Price:"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:232
+#: includes/addons/wl_product_horizontal_filter.php:180
 msgid "Price: {{{ min_price }}} {{{ price_seprator }}} {{{ max_price }}}"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:179
-#: includes/addons/wl_product_horizontal_filter.php:180
+#: includes/addons/wl_product_horizontal_filter.php:127
+#: includes/addons/wl_product_horizontal_filter.php:128
 msgid "Pricing"
 msgstr ""
 
-#: classes/class.assest_management.php:357
-#: includes/admin/include/class.template-manager.php:481
+#: classes/class.assest_management.php:353
+#: includes/admin/include/class.template-manager.php:474
 #: includes/admin/include/admin_field-manager.php:131
 #: includes/admin/include/admin_field-manager.php:333
 #: includes/admin/include/admin_field-manager.php:450
-#: includes/admin/templates/dashboard-freevspro.php:215
-#: includes/admin/templates/dashboard-freevspro.php:262
 #: includes/admin/include/template-library/templates_list.php:31
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:244
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:372
 msgid "Pro"
 msgstr ""
 
@@ -4449,25 +3682,18 @@ msgstr ""
 msgid "Producing Perfume From Home"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:63
-msgid "Product Accordion Listing"
-msgstr ""
-
-#: classes/class.widgets_control.php:329
-#: woolentor-blocks/includes/classes/Blocks_List.php:135
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:135
+#: classes/class.widgets_control.php:333
+#: woolentor-blocks/includes/classes/Blocks_List.php:118
 msgid "Product Add To Cart"
 msgstr ""
 
-#: includes/helper-function.php:1312
-#: woolentor-blocks/includes/helper-functions.php:532
-#: woolentor-blocks/production/includes/helper-functions.php:532
+#: includes/helper-function.php:1082
+#: woolentor-blocks/includes/helper-functions.php:526
 msgid "Product Added"
 msgstr ""
 
-#: classes/class.widgets_control.php:333
-#: woolentor-blocks/includes/classes/Blocks_List.php:180
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:180
+#: classes/class.widgets_control.php:337
+#: woolentor-blocks/includes/classes/Blocks_List.php:160
 msgid "Product Additional Info"
 msgstr ""
 
@@ -4475,11 +3701,11 @@ msgstr ""
 msgid "Product Badge"
 msgstr ""
 
-#: classes/class.widgets_control.php:309
+#: classes/class.widgets_control.php:313
 msgid "Product Call for Price"
 msgstr ""
 
-#: classes/class.widgets_control.php:389
+#: classes/class.widgets_control.php:393
 #: includes/addons/product_image_accordion.php:117
 #: includes/addons/product_accordion.php:128
 #: includes/addons/product_curvy.php:163 includes/addons/product_tabs.php:135
@@ -4492,10 +3718,6 @@ msgstr ""
 
 #: classes/class.default_data.php:431
 msgid "Product category does not exists."
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:117
-msgid "Product Compare"
 msgstr ""
 
 #: includes/addons/product_curvy.php:581
@@ -4520,33 +3742,22 @@ msgid ""
 "the pro version"
 msgstr ""
 
-#: classes/class.widgets_control.php:256
+#: classes/class.widgets_control.php:260
 #: woolentor-blocks/includes/classes/Blocks_List.php:82
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:82
 msgid "Product Curvy"
 msgstr ""
 
-#: classes/class.widgets_control.php:337
+#: classes/class.widgets_control.php:341
 msgid "Product Data tabs"
 msgstr ""
 
-#: classes/class.widgets_control.php:341
-#: woolentor-blocks/includes/classes/Blocks_List.php:152
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:152
+#: classes/class.widgets_control.php:345
+#: woolentor-blocks/includes/classes/Blocks_List.php:132
 msgid "Product Description"
 msgstr ""
 
-#: classes/class.widgets_control.php:301
-#: includes/admin/templates/dashboard-freevspro.php:145
+#: classes/class.widgets_control.php:305
 msgid "Product Filter"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:83
-msgid "Product Grid"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:59
-msgid "Product Grid (Curvy)"
 msgstr ""
 
 #: includes/addons/product_tabs.php:1097
@@ -4559,14 +3770,12 @@ msgstr ""
 msgid "Product IDs"
 msgstr ""
 
-#: classes/class.widgets_control.php:361
-#: woolentor-blocks/includes/classes/Blocks_List.php:166
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:166
+#: classes/class.widgets_control.php:365
+#: woolentor-blocks/includes/classes/Blocks_List.php:146
 msgid "Product Image"
 msgstr ""
 
-#: classes/class.widgets_control.php:260
-#: includes/admin/templates/dashboard-freevspro.php:67
+#: classes/class.widgets_control.php:264
 msgid "Product Image Accordion"
 msgstr ""
 
@@ -4591,9 +3800,8 @@ msgstr ""
 msgid "Product Limit"
 msgstr ""
 
-#: classes/class.widgets_control.php:377
-#: woolentor-blocks/includes/classes/Blocks_List.php:173
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:173
+#: classes/class.widgets_control.php:381
+#: woolentor-blocks/includes/classes/Blocks_List.php:153
 msgid "Product Meta"
 msgstr ""
 
@@ -4611,20 +3819,17 @@ msgstr ""
 msgid "Product Per Page"
 msgstr ""
 
-#: classes/class.widgets_control.php:349 includes/helper-function.php:1270
+#: classes/class.widgets_control.php:353 includes/helper-function.php:1045
 #: includes/addons/product_flash_sale.php:466
 #: includes/addons/product_image_accordion.php:411
 #: includes/addons/product_accordion.php:490
 #: includes/addons/product_curvy.php:482 includes/addons/product_tabs.php:1003
-#: woolentor-blocks/includes/classes/Blocks_List.php:128
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:128
+#: woolentor-blocks/includes/classes/Blocks_List.php:111
 msgid "Product Price"
 msgstr ""
 
-#: classes/class.widgets_control.php:393
-#: woolentor-blocks/includes/classes/Blocks_List.php:208
-#: includes/admin/templates/dashboard-freevspro.php:87
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:208
+#: classes/class.widgets_control.php:397
+#: woolentor-blocks/includes/classes/Blocks_List.php:188
 msgid "Product QR Code"
 msgstr ""
 
@@ -4632,27 +3837,24 @@ msgstr ""
 #: includes/addons/product_image_accordion.php:474
 #: includes/addons/product_accordion.php:553
 #: includes/addons/product_curvy.php:643
-#: woolentor-blocks/includes/classes/Blocks_List.php:159
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:159
+#: woolentor-blocks/includes/classes/Blocks_List.php:139
 msgid "Product Rating"
 msgstr ""
 
-#: classes/class.widgets_control.php:353
+#: classes/class.widgets_control.php:357
 msgid "Product rating"
 msgstr ""
 
-#: woolentor-blocks/includes/classes/Blocks_List.php:215
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:215
+#: woolentor-blocks/includes/classes/Blocks_List.php:195
 msgid "Product Related"
 msgstr ""
 
 #: includes/addons/wb_product_reviews.php:43
-#: woolentor-blocks/includes/classes/Blocks_List.php:194
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:194
+#: woolentor-blocks/includes/classes/Blocks_List.php:174
 msgid "Product Reviews"
 msgstr ""
 
-#: classes/class.widgets_control.php:357
+#: classes/class.widgets_control.php:361
 msgid "Product reviews"
 msgstr ""
 
@@ -4660,35 +3862,24 @@ msgstr ""
 msgid "Product Settings"
 msgstr ""
 
-#: woolentor-blocks/includes/classes/Blocks_List.php:145
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:145
+#: woolentor-blocks/includes/classes/Blocks_List.php:125
 msgid "Product Short Description"
 msgstr ""
 
-#: classes/class.widgets_control.php:345
+#: classes/class.widgets_control.php:349
 msgid "Product short description"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:185
-msgid "Product Size Chart"
-msgstr ""
-
-#: classes/class.widgets_control.php:381
+#: classes/class.widgets_control.php:385
 msgid "Product SKU"
 msgstr ""
 
 #: includes/addons/product_tabs.php:206
-#: includes/admin/templates/dashboard-freevspro.php:47
 msgid "Product Slider"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:165
-msgid "Product sticky Add to cart"
-msgstr ""
-
-#: classes/class.widgets_control.php:373
-#: woolentor-blocks/includes/classes/Blocks_List.php:201
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:201
+#: classes/class.widgets_control.php:377
+#: woolentor-blocks/includes/classes/Blocks_List.php:181
 msgid "Product Stock"
 msgstr ""
 
@@ -4696,17 +3887,15 @@ msgstr ""
 msgid "Product Style"
 msgstr ""
 
-#: classes/class.widgets_control.php:313
+#: classes/class.widgets_control.php:317
 msgid "Product suggest price"
 msgstr ""
 
 #: includes/addons/product_tabs.php:193
-#: includes/admin/templates/dashboard-freevspro.php:51
 msgid "Product Tab"
 msgstr ""
 
 #: woolentor-blocks/includes/classes/Blocks_List.php:60
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:60
 msgid "Product tab"
 msgstr ""
 
@@ -4714,13 +3903,12 @@ msgstr ""
 msgid "Product tab menu background"
 msgstr ""
 
-#: classes/class.widgets_control.php:224
-#: woolentor-blocks/includes/classes/Blocks_List.php:187
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:187
+#: classes/class.widgets_control.php:228
+#: woolentor-blocks/includes/classes/Blocks_List.php:167
 msgid "Product Tabs"
 msgstr ""
 
-#: classes/class.widgets_control.php:385
+#: classes/class.widgets_control.php:389
 msgid "Product Tags"
 msgstr ""
 
@@ -4728,35 +3916,27 @@ msgstr ""
 msgid "Product tags does not exists."
 msgstr ""
 
-#: classes/class.widgets_control.php:321
+#: classes/class.widgets_control.php:325
 #: includes/addons/product_flash_sale.php:411
 #: includes/addons/product_image_accordion.php:357
 #: includes/addons/product_curvy.php:410
 #: includes/addons/wb_product_title.php:43
 #: includes/addons/wb_product_title.php:62
-#: woolentor-blocks/includes/classes/Blocks_List.php:121
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:121
+#: woolentor-blocks/includes/classes/Blocks_List.php:104
 msgid "Product Title"
 msgstr ""
 
-#: classes/class.widgets_control.php:369
-#: woolentor-blocks/includes/classes/Blocks_List.php:222
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:222
+#: classes/class.widgets_control.php:373
+#: woolentor-blocks/includes/classes/Blocks_List.php:202
 msgid "Product Upsell"
 msgstr ""
 
-#: classes/class.widgets_control.php:365
+#: classes/class.widgets_control.php:369
 msgid "Product Video Gallery"
 msgstr ""
 
-#: includes/addons/wb_customer_review.php:71
-#, php-format
-msgid ""
-"Product Wise Rating/Review Display is available in ShopLentor Pro. <a "
-"href=\"%s\" target=\"_blank\">Purchase ShopLentor Pro</a>"
-msgstr ""
-
 #: includes/addons/wl_testimonial.php:73
+#: includes/addons/wb_customer_review.php:71
 #, php-format
 msgid ""
 "Product Wise Rating/Review Display is available in WooLentor Pro. <a "
@@ -4771,14 +3951,8 @@ msgstr ""
 msgid "Products reviews"
 msgstr ""
 
-#: includes/base.php:202 woolentor-blocks/includes/classes/Blocks_List.php:68
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:68
+#: includes/base.php:244 woolentor-blocks/includes/classes/Blocks_List.php:68
 msgid "Promo Banner"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:286
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:343
-msgid "pulse"
 msgstr ""
 
 #: includes/addons/wl_brand.php:226 includes/addons/wl_brand.php:369
@@ -4795,12 +3969,9 @@ msgstr ""
 msgid "Quantity"
 msgstr ""
 
+#: includes/addons/wb_product_add_to_cart.php:236
 #: includes/addons/wb_product_add_to_cart.php:353
 msgid "Quantity Backgeound"
-msgstr ""
-
-#: includes/addons/wb_product_add_to_cart.php:236
-msgid "Quantity Background"
 msgstr ""
 
 #: includes/addons/wb_product_add_to_cart.php:371
@@ -4822,14 +3993,10 @@ msgstr ""
 msgid "Query Settings"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:389
-msgid "Query String Is"
-msgstr ""
-
 #: woolentor-blocks/includes/templates/product-universal.php:160
 #: woolentor-blocks/includes/templates/product-universal.php:207
-#: woolentor-blocks/production/includes/templates/product-universal.php:160
-#: woolentor-blocks/production/includes/templates/product-universal.php:207
+#: woolentor-blocks/build/blocks/universal-product/old_index.php:414
+#: woolentor-blocks/build/blocks/universal-product/old_index.php:461
 #: woolentor-blocks/src/blocks/universal-product/old_index.php:414
 #: woolentor-blocks/src/blocks/universal-product/old_index.php:461
 msgid "Quick View"
@@ -4840,7 +4007,7 @@ msgstr ""
 msgid "Qunantity Text Color"
 msgstr ""
 
-#: includes/helper-function.php:1268 includes/addons/product_flash_sale.php:138
+#: includes/helper-function.php:1043 includes/addons/product_flash_sale.php:138
 #: includes/addons/wb_product_upsell.php:71
 #: includes/addons/wb_archive_product.php:132
 #: includes/addons/product_image_accordion.php:151
@@ -4856,16 +4023,16 @@ msgstr ""
 msgid "Random Products"
 msgstr ""
 
-#: includes/addons/wl_product_filter.php:554
+#: includes/addons/wl_product_filter.php:491
 msgid "Range Slider"
 msgstr ""
 
-#: includes/base.php:254
+#: includes/base.php:286
 msgid "Rate the plugin"
 msgstr ""
 
+#: woolentor-blocks/build/blocks/product-reviews/index.php:37
 #: woolentor-blocks/src/blocks/product-reviews/index.php:37
-#: woolentor-blocks/production/src/blocks/product-reviews/index.php:37
 msgid "Rate…"
 msgstr ""
 
@@ -4910,23 +4077,13 @@ msgstr ""
 msgid "Recent Products"
 msgstr ""
 
-#: classes/class.widgets_control.php:276
-#: woolentor-blocks/includes/classes/Blocks_List.php:103
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:103
+#: classes/class.widgets_control.php:280
 msgid "Recently Viewed Products"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:268
+#: includes/addons/wl_product_horizontal_filter.php:216
 #: includes/addons/wl_product_filter.php:71
 msgid "Redirect Custom URL"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:173
-msgid "Redirect to Checkout"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:92
-msgid "Redirect URL"
 msgstr ""
 
 #: includes/addons/wb_archive_product.php:447
@@ -4940,7 +4097,7 @@ msgstr ""
 msgid "Regular Price Color"
 msgstr ""
 
-#: classes/class.widgets_control.php:325
+#: classes/class.widgets_control.php:329
 #: includes/addons/wb_product_related.php:45
 msgid "Related Product"
 msgstr ""
@@ -4954,7 +4111,7 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:65
+#: includes/admin/include/class.template_cpt.php:45
 msgid "Remove featured image"
 msgstr ""
 
@@ -4968,10 +4125,6 @@ msgstr ""
 msgid "Remove image"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:93
-msgid "Rename Label"
-msgstr ""
-
 #: includes/admin/templates/dashboard-welcome.php:54
 msgid "Request"
 msgstr ""
@@ -4980,7 +4133,7 @@ msgstr ""
 msgid "Required for stock progress bar"
 msgstr ""
 
-#: classes/class.assest_management.php:339
+#: classes/class.assest_management.php:336
 msgid "Reset All Settings"
 msgstr ""
 
@@ -4996,7 +4149,7 @@ msgstr ""
 msgid "Reset to Default"
 msgstr ""
 
-#: classes/class.assest_management.php:338
+#: classes/class.assest_management.php:335
 msgid "Resetting..."
 msgstr ""
 
@@ -5005,15 +4158,15 @@ msgstr ""
 msgid "Result Count"
 msgstr ""
 
-#: includes/modules/shopify-like-checkout/templates/form-checkout.php:65
+#: includes/modules/shopify-like-checkout/templates/form-checkout.php:60
 msgid "Return to cart"
 msgstr ""
 
-#: includes/modules/shopify-like-checkout/templates/form-checkout.php:67
+#: includes/modules/shopify-like-checkout/templates/form-checkout.php:62
 msgid "Return to information"
 msgstr ""
 
-#: includes/modules/shopify-like-checkout/templates/form-checkout.php:69
+#: includes/modules/shopify-like-checkout/templates/form-checkout.php:64
 msgid "Return to shipping"
 msgstr ""
 
@@ -5039,7 +4192,7 @@ msgstr ""
 #: includes/addons/wb_product_short_description.php:65
 #: includes/addons/wl_breadcrumbs.php:86
 #: includes/addons/wb_wishsuite_counter.php:77
-#: includes/addons/wl_product_horizontal_filter.php:802
+#: includes/addons/wl_product_horizontal_filter.php:750
 #: includes/addons/wl_onepage_slider.php:181
 #: includes/addons/special_day_offer.php:58
 #: includes/addons/special_day_offer.php:281
@@ -5064,10 +4217,7 @@ msgstr ""
 #: includes/addons/wl_recently_viewed_products.php:554
 #: includes/addons/product_tabs.php:243 includes/addons/product_tabs.php:965
 #: includes/addons/product_tabs.php:1044 includes/addons/add_banner.php:68
-#: includes/addons/wl_category_grid.php:742
 #: includes/addons/wb_product_tags.php:72
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:426
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:67
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:287
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:475
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:489
@@ -5075,54 +4225,6 @@ msgstr ""
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:524
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:554
 msgid "Right"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:328
-msgid "rollIn"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:329
-msgid "rollOut"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:312
-msgid "rotateIn"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:313
-msgid "rotateInDownLeft"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:314
-msgid "rotateInDownRight"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:315
-msgid "rotateInUpLeft"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:316
-msgid "rotateInUpRight"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:369
-msgid "rotateOut"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:370
-msgid "rotateOutDownLeft"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:371
-msgid "rotateOutDownRight"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:372
-msgid "rotateOutUpLeft"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:373
-msgid "rotateOutUpRight"
 msgstr ""
 
 #: includes/modules/variation-swatch/includes/Admin/Product_Metabox.php:190
@@ -5134,26 +4236,12 @@ msgstr ""
 msgid "Rows"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:287
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:344
-msgid "rubberBand"
-msgstr ""
-
 #: includes/addons/wl_onepage_slider.php:474
 msgid "Ruffled Poplin Dress"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:157
 msgid "Ruth Pierce"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:455
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:620
-msgid "Safari"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:75
-msgid "Sale / Discount Schedule Counter"
 msgstr ""
 
 #: includes/addons/wb_archive_product.php:804
@@ -5181,19 +4269,15 @@ msgstr ""
 msgid "Sale Tag"
 msgstr ""
 
-#: includes/helper-function.php:980 includes/helper-function.php:1026
+#: includes/helper-function.php:755 includes/helper-function.php:801
 msgid "Sale!"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:97
-msgid "Sales Notification"
-msgstr ""
-
-#: includes/admin/include/class.template-manager.php:478
+#: includes/admin/include/class.template-manager.php:472
 msgid "Sample Design"
 msgstr ""
 
-#: classes/class.assest_management.php:332
+#: classes/class.assest_management.php:329
 #: includes/admin/templates/dashboard-element.php:39
 #: includes/admin/templates/dashboard-style.php:26
 #: includes/admin/templates/dashboard-gutenberg.php:60
@@ -5203,8 +4287,7 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: includes/admin/include/class.template-manager.php:471
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:516
+#: includes/admin/include/class.template-manager.php:465
 msgid "Save Settings"
 msgstr ""
 
@@ -5212,7 +4295,7 @@ msgstr ""
 msgid "Save Swatches"
 msgstr ""
 
-#: classes/class.assest_management.php:334
+#: classes/class.assest_management.php:331
 msgid "Saved All Data"
 msgstr ""
 
@@ -5220,37 +4303,28 @@ msgstr ""
 msgid "Saved!"
 msgstr ""
 
-#: classes/class.assest_management.php:333
-#: includes/admin/include/class.template-manager.php:472
+#: classes/class.assest_management.php:330
+#: includes/admin/include/class.template-manager.php:466
 #: includes/modules/variation-swatch/includes/Admin.php:50
 msgid "Saving..."
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:127
-msgid "Scroll Direction"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:119
-msgid "Scroll Percentage (%)"
-msgstr ""
-
-#: includes/addons/wl_product_horizontal_filter.php:973
-#: includes/addons/wl_product_filter.php:853
-#: includes/modules/ajax-search/base.php:162
+#: includes/addons/wl_product_horizontal_filter.php:921
+#: includes/addons/wl_product_filter.php:790
 msgid "Search"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:312
+#: includes/addons/wl_product_horizontal_filter.php:260
 msgid "Search Button Icon"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:259
-#: includes/addons/wl_product_horizontal_filter.php:556
+#: includes/addons/wl_product_horizontal_filter.php:207
+#: includes/addons/wl_product_horizontal_filter.php:504
 #: includes/addons/wl_product_filter.php:43
 msgid "Search Form"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:298
+#: includes/addons/wl_product_horizontal_filter.php:246
 msgid "Search Form Placeholder"
 msgstr ""
 
@@ -5258,11 +4332,11 @@ msgstr ""
 msgid "Search Products"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:300
+#: includes/addons/wl_product_horizontal_filter.php:248
 msgid "Search Products..."
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:60
+#: includes/admin/include/class.template_cpt.php:40
 msgid "Search Templates"
 msgstr ""
 
@@ -5280,17 +4354,17 @@ msgstr ""
 msgid "Seconds"
 msgstr ""
 
-#: includes/helper-function.php:420
+#: includes/helper-function.php:401
 #: includes/modules/variation-swatch/includes/Admin/Woo_Config.php:30
 msgid "Select"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:1164
+#: includes/addons/wl_product_horizontal_filter.php:1110
 msgid "select"
 msgstr ""
 
+#: includes/addons/wl_category_grid.php:85
 #: includes/addons/wl_category_grid.php:98
-#: includes/addons/wl_category_grid.php:111
 msgid "Select categories"
 msgstr ""
 
@@ -5302,7 +4376,7 @@ msgstr ""
 msgid "Select Deal"
 msgstr ""
 
-#: includes/admin/include/class.template-manager.php:457
+#: includes/admin/include/class.template-manager.php:451
 msgid "Select Editor"
 msgstr ""
 
@@ -5328,7 +4402,7 @@ msgstr ""
 msgid "Select Table"
 msgstr ""
 
-#: includes/helper-function.php:445 includes/addons/wl_faq.php:97
+#: includes/helper-function.php:426 includes/addons/wl_faq.php:97
 msgid "Select Template"
 msgstr ""
 
@@ -5344,7 +4418,7 @@ msgstr ""
 msgid "Separator Icon"
 msgstr ""
 
-#: includes/admin/include/diagnostic-data.php:492
+#: includes/admin/include/diagnostic-data.php:389
 #, php-format
 msgid ""
 "Server information (Web server, PHP version, MySQL version), WordPress "
@@ -5353,21 +4427,21 @@ msgid ""
 "collected or tracked. %1$sLearn more%2$s."
 msgstr ""
 
-#: includes/admin/include/class.template-manager.php:458
+#: includes/admin/include/class.template-manager.php:452
 msgid "Set Default"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:64
+#: includes/admin/include/class.template_cpt.php:44
 msgid "Set featured image"
 msgstr ""
 
-#: includes/helper-function.php:1191 includes/helper-function.php:1209
+#: includes/helper-function.php:966 includes/helper-function.php:984
 msgid "Set the initial stock amount from"
 msgstr ""
 
-#: includes/base.php:237 includes/addons/wl_recently_viewed_products.php:42
+#: includes/base.php:269 includes/addons/wl_recently_viewed_products.php:42
 #: includes/addons/wb_product_add_to_cart.php:73
-#: includes/admin/admin-init.php:107 includes/admin/admin-init.php:108
+#: includes/admin/admin-init.php:101 includes/admin/admin-init.php:102
 #: includes/admin/templates/dashboard-gutenberg.php:15
 msgid "Settings"
 msgstr ""
@@ -5375,13 +4449,8 @@ msgstr ""
 #: includes/addons/wl_testimonial.php:202
 #: includes/addons/wb_customer_review.php:190
 #: includes/addons/wl_recently_viewed_products.php:82
-#: includes/addons/wl_category_grid.php:258
+#: includes/addons/wl_category_grid.php:233
 msgid "Seven"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:288
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:345
-msgid "shake"
 msgstr ""
 
 #: includes/modules/variation-swatch/includes/Admin/Product_Metabox.php:184
@@ -5403,7 +4472,7 @@ msgstr ""
 #: includes/modules/shopify-like-checkout/class.shopify-like-checkout.php:304
 #: includes/modules/shopify-like-checkout/class.shopify-like-checkout.php:305
 #: includes/modules/shopify-like-checkout/templates/review-order.php:26
-#: includes/modules/shopify-like-checkout/templates/form-checkout.php:54
+#: includes/modules/shopify-like-checkout/templates/form-checkout.php:49
 msgid "Shipping"
 msgstr ""
 
@@ -5411,7 +4480,7 @@ msgstr ""
 msgid "Shipping costs are calculated during checkout."
 msgstr ""
 
-#: includes/modules/shopify-like-checkout/templates/form-checkout.php:62
+#: includes/modules/shopify-like-checkout/templates/form-checkout.php:57
 msgid "Shipping Method"
 msgstr ""
 
@@ -5440,12 +4509,8 @@ msgstr ""
 msgid "Shop page button position"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:101
-msgid "Shopify Style Checkout"
-msgstr ""
-
-#: classes/class.widgets_control.php:40 includes/base.php:168
-#: includes/admin/admin-init.php:96 includes/admin/admin-init.php:97
+#: includes/base.php:188 includes/admin/admin-init.php:90
+#: includes/admin/admin-init.php:91
 msgid "ShopLentor"
 msgstr ""
 
@@ -5457,14 +4522,10 @@ msgstr ""
 msgid "ShopLentor Element"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:200
-msgid "ShopLentor Free Vs Pro"
-msgstr ""
-
 #: includes/admin/templates/dashboard-sidebar.php:9
 msgid ""
 "ShopLentor is one of the most popular WooCommerce Elementor Addons on "
-"WordPress.org. It has been downloaded more than 2,277,153 times and 100,000 "
+"WordPress.org. It has been downloaded more than 1,627,298 times and 90,000 "
 "stores are using ShopLentor plugin. Why not you?"
 msgstr ""
 
@@ -5526,7 +4587,7 @@ msgstr ""
 msgid "Show compare button in single product page."
 msgstr ""
 
-#: includes/addons/wl_category_grid.php:198
+#: includes/addons/wl_category_grid.php:185
 msgid "Show Count"
 msgstr ""
 
@@ -5535,7 +4596,6 @@ msgid "Show Countdown Timer"
 msgstr ""
 
 #: includes/addons/wl_archive_title.php:73
-#: includes/addons/wl_category_grid.php:213
 msgid "Show Description"
 msgstr ""
 
@@ -5547,11 +4607,11 @@ msgstr ""
 msgid "Show fields in table"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:289
+#: includes/addons/wl_product_horizontal_filter.php:237
 msgid "Show Filter Button"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:281
+#: includes/addons/wl_product_horizontal_filter.php:229
 msgid "Show Filter Label"
 msgstr ""
 
@@ -5563,32 +4623,12 @@ msgstr ""
 msgid "Show Image"
 msgstr ""
 
-#: includes/addons/wl_category.php:167 includes/addons/wl_category_grid.php:160
+#: includes/addons/wl_category.php:167 includes/addons/wl_category_grid.php:147
 msgid "Show items"
 msgstr ""
 
 #: includes/modules/ajax-search/widget-product-search-ajax.php:45
 msgid "Show Number of Product:"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:605
-msgid "Show on Browsers"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:582
-msgid "Show on Devices"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:381
-msgid "Show Only if the URL"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:446
-msgid "Show Only on Browsers"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:424
-msgid "Show Only on Devices"
 msgstr ""
 
 #: includes/addons/wl_recently_viewed_products.php:137
@@ -5608,10 +4648,6 @@ msgstr ""
 msgid "Show Title"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:169
-msgid "Side Mini Cart"
-msgstr ""
-
 #: includes/admin/templates/dashboard-welcome.php:66
 msgid ""
 "Sign up for our email list to get discounts, exclusive offers, the latest "
@@ -5627,29 +4663,15 @@ msgstr ""
 msgid "Single Category"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:113
-msgid "Single Product Ajax Add To Cart"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:15
-msgid "Single Product Individual Layout"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/class-repeater-helper.php:23
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:140
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:150
-msgid "Singular"
-msgstr ""
-
 #: includes/addons/wl_testimonial.php:201
 #: includes/addons/wb_customer_review.php:189
 #: includes/addons/wl_recently_viewed_products.php:81
-#: includes/addons/wl_category_grid.php:257
+#: includes/addons/wl_category_grid.php:232
 msgid "Six"
 msgstr ""
 
 #: includes/addons/wb_product_qr_code.php:50
-#: includes/addons/wl_product_filter.php:613
+#: includes/addons/wl_product_filter.php:550
 #: includes/addons/wb_wishsuite_table.php:332
 msgid "Size"
 msgstr ""
@@ -5667,64 +4689,32 @@ msgstr ""
 msgid "SKU:"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:318
-msgid "slideInDown"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:319
-msgid "slideInLeft"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:320
-msgid "slideInRight"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:317
-msgid "slideInUp"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:375
-msgid "slideOutDown"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:376
-msgid "slideOutLeft"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:377
-msgid "slideOutRight"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:374
-msgid "slideOutUp"
-msgstr ""
-
 #: includes/addons/wl_onepage_slider.php:44
 msgid "Slider"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:311 includes/addons/product_tabs.php:441
-#: includes/addons/wl_category_grid.php:337
+#: includes/addons/wl_category_grid.php:312
 msgid "Slider Arrow"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:343 includes/addons/product_tabs.php:479
-#: includes/addons/wl_category_grid.php:369
+#: includes/addons/wl_category_grid.php:344
 msgid "Slider autoplay"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:792 includes/addons/wl_brand.php:354
 #: includes/addons/wl_brand.php:366 includes/addons/product_tabs.php:619
-#: includes/addons/wl_category_grid.php:801
+#: includes/addons/wl_category_grid.php:690
 msgid "Slider Controller Style"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:321 includes/addons/product_tabs.php:454
-#: includes/addons/wl_category_grid.php:347
+#: includes/addons/wl_category_grid.php:322
 msgid "Slider dots"
 msgstr ""
 
-#: includes/addons/wl_product_filter.php:604
+#: includes/addons/wl_product_filter.php:541
 msgid "Slider Handler"
 msgstr ""
 
@@ -5732,9 +4722,9 @@ msgstr ""
 #: includes/addons/wl_testimonial.php:410
 #: includes/addons/wl_testimonial.php:451 includes/addons/product_tabs.php:518
 #: includes/addons/product_tabs.php:551 includes/addons/product_tabs.php:594
-#: includes/addons/wl_category_grid.php:404
-#: includes/addons/wl_category_grid.php:435
-#: includes/addons/wl_category_grid.php:476
+#: includes/addons/wl_category_grid.php:379
+#: includes/addons/wl_category_grid.php:410
+#: includes/addons/wl_category_grid.php:451
 msgid "Slider item to scroll"
 msgstr ""
 
@@ -5742,9 +4732,9 @@ msgstr ""
 #: includes/addons/wl_testimonial.php:399
 #: includes/addons/wl_testimonial.php:440 includes/addons/product_tabs.php:426
 #: includes/addons/product_tabs.php:539 includes/addons/product_tabs.php:582
-#: includes/addons/wl_category_grid.php:326
-#: includes/addons/wl_category_grid.php:424
-#: includes/addons/wl_category_grid.php:465
+#: includes/addons/wl_category_grid.php:301
+#: includes/addons/wl_category_grid.php:399
+#: includes/addons/wl_category_grid.php:440
 msgid "Slider Items"
 msgstr ""
 
@@ -5756,17 +4746,17 @@ msgid ""
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:169
-#: includes/addons/wl_category_grid.php:225
+#: includes/addons/wl_category_grid.php:200
 msgid "Slider On"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:290 includes/addons/wl_brand.php:212
 #: includes/addons/wl_brand.php:223 includes/addons/product_tabs.php:416
-#: includes/addons/wl_category_grid.php:316
+#: includes/addons/wl_category_grid.php:291
 msgid "Slider Option"
 msgstr ""
 
-#: includes/addons/wl_category.php:154 includes/addons/wl_category_grid.php:147
+#: includes/addons/wl_category.php:154 includes/addons/wl_category_grid.php:134
 msgid "Slug"
 msgstr ""
 
@@ -5774,7 +4764,7 @@ msgstr ""
 msgid "Social Share"
 msgstr ""
 
-#: includes/helper-function.php:1204
+#: includes/helper-function.php:979
 msgid "Sold"
 msgstr ""
 
@@ -5805,10 +4795,10 @@ msgid ""
 "& adjust the compare button for the single product page."
 msgstr ""
 
-#: includes/admin/include/class.template-manager.php:601
-#: includes/admin/include/class.template-manager.php:710
-#: includes/admin/include/class.template-manager.php:754
-#: includes/admin/include/class.template-manager.php:878
+#: includes/admin/include/class.template-manager.php:598
+#: includes/admin/include/class.template-manager.php:674
+#: includes/admin/include/class.template-manager.php:718
+#: includes/admin/include/class.template-manager.php:841
 msgid "Some thing is worng !"
 msgstr ""
 
@@ -5818,21 +4808,21 @@ msgid "Something is wrong! try again"
 msgstr ""
 
 #. 1: quantity in stock 2: current quantity
-#: includes/modules/backorder/class.backorder.php:197
+#: includes/modules/backorder/class.backorder.php:192
 #, php-format
 msgid ""
 "Sorry, \"%s\" has reached its maximum backorder limit — (%s available). You "
 "already have %s in your cart."
 msgstr ""
 
-#: includes/modules/backorder/class.backorder.php:139
+#: includes/modules/backorder/class.backorder.php:134
 #, php-format
 msgid ""
 "Sorry, \"%s\" has reached its maximum backorder limit. Orders can be placed "
 "for up to <b>%s</b> units."
 msgstr ""
 
-#: includes/modules/backorder/class.backorder.php:203
+#: includes/modules/backorder/class.backorder.php:198
 #, php-format
 msgid ""
 "Sorry, \"%s\" was not added to cart because it has reached the maximum "
@@ -5857,41 +4847,41 @@ msgid ""
 "Sorry, this product is unavailable. Please choose a different combination."
 msgstr ""
 
-#: includes/admin/include/template-library.php:341
+#: includes/admin/include/template-library.php:304
 msgid "Sorry, you are not allowed to install themes on this site."
 msgstr ""
 
 #: includes/addons/wl_product_horizontal_filter.php:44
-#: includes/addons/wl_product_horizontal_filter.php:169
-#: includes/addons/wl_product_horizontal_filter.php:170
+#: includes/addons/wl_product_horizontal_filter.php:117
+#: includes/addons/wl_product_horizontal_filter.php:118
 #: includes/addons/wl_product_filter.php:45
 msgid "Sort By"
 msgstr ""
 
-#: includes/helper-function.php:1062
+#: includes/helper-function.php:837
 msgid "Sort by average rating"
 msgstr ""
 
-#: includes/helper-function.php:1063
+#: includes/helper-function.php:838
 msgid "Sort by latest"
 msgstr ""
 
-#: includes/helper-function.php:1061
+#: includes/helper-function.php:836
 msgid "Sort by popularity"
 msgstr ""
 
-#: includes/helper-function.php:1065
+#: includes/helper-function.php:840
 msgid "Sort by price: high to low"
 msgstr ""
 
-#: includes/helper-function.php:1064
+#: includes/helper-function.php:839
 msgid "Sort by price: low to high"
 msgstr ""
 
 #: includes/addons/wl_breadcrumbs.php:134
 #: includes/addons/wl_testimonial.php:227
 #: includes/addons/wb_customer_review.php:215
-#: includes/addons/wl_category_grid.php:283
+#: includes/addons/wl_category_grid.php:258
 msgid "Space"
 msgstr ""
 
@@ -5907,18 +4897,13 @@ msgstr ""
 msgid "Spacing"
 msgstr ""
 
-#: includes/helper-function.php:630
+#: includes/helper-function.php:611
 msgid "span"
 msgstr ""
 
-#: classes/class.widgets_control.php:232
+#: classes/class.widgets_control.php:236
 #: woolentor-blocks/includes/classes/Blocks_List.php:46
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:46
 msgid "Special Day Offer"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:55
-msgid "Special Day offer banner"
 msgstr ""
 
 #: includes/modules/variation-swatch/includes/Admin/Product_Metabox.php:189
@@ -5937,10 +4922,6 @@ msgstr ""
 msgid "Start from $100"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:79
-msgid "Sticky Add to cart"
-msgstr ""
-
 #: classes/class.default_data.php:489
 msgid "Stock availability does not exist this product."
 msgstr ""
@@ -5955,11 +4936,10 @@ msgstr ""
 
 #: includes/addons/wl_store_features.php:41
 #: woolentor-blocks/includes/classes/Blocks_List.php:53
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:53
 msgid "Store Feature"
 msgstr ""
 
-#: classes/class.widgets_control.php:240
+#: classes/class.widgets_control.php:244
 msgid "Store Features"
 msgstr ""
 
@@ -6037,14 +5017,14 @@ msgstr ""
 
 #: includes/addons/wb_product_suggest_price.php:99
 #: includes/addons/wb_product_suggest_price.php:100
+#: woolentor-blocks/build/blocks/product-reviews/index.php:52
 #: woolentor-blocks/src/blocks/product-reviews/index.php:52
-#: woolentor-blocks/production/src/blocks/product-reviews/index.php:52
 msgid "Submit"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:639
+#: includes/addons/wl_product_horizontal_filter.php:587
 #: includes/addons/wb_product_suggest_price.php:393
-#: includes/addons/wl_product_filter.php:318
+#: includes/addons/wl_product_filter.php:281
 msgid "Submit Button"
 msgstr ""
 
@@ -6126,11 +5106,6 @@ msgstr ""
 msgid "Swatches Settings"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:289
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:346
-msgid "swing"
-msgstr ""
-
 #: includes/addons/wb_product_data_tab.php:87
 msgid "Tab Menu"
 msgstr ""
@@ -6176,20 +5151,13 @@ msgid "Table style"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:390 includes/addons/product_tabs.php:530
-#: includes/addons/wl_category_grid.php:415
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:432
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:596
+#: includes/addons/wl_category_grid.php:390
 msgid "Tablet"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:421 includes/addons/product_tabs.php:563
-#: includes/addons/wl_category_grid.php:446
+#: includes/addons/wl_category_grid.php:421
 msgid "Tablet Resolution"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:290
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:347
-msgid "tada"
 msgstr ""
 
 #: classes/class.default_data.php:380 classes/class.default_data.php:409
@@ -6203,71 +5171,68 @@ msgstr[1] ""
 msgid "Tags"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:47
-#: includes/admin/include/class.template_cpt.php:48
+#: includes/admin/include/class.template_cpt.php:27
+#: includes/admin/include/class.template_cpt.php:28
 msgid "Template"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:49
+#: includes/admin/include/class.template_cpt.php:29
 msgid "Template Archives"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:50
+#: includes/admin/include/class.template_cpt.php:30
 msgid "Template Attributes"
 msgstr ""
 
 #: includes/admin/include/class.template-manager.php:74
 #: includes/admin/include/class.template-manager.php:75
-#: includes/admin/include/class.template_cpt.php:75
+#: includes/admin/include/class.template_cpt.php:55
 msgid "Template Builder"
 msgstr ""
 
-#: includes/admin/include/class.template-manager.php:871
+#: includes/admin/include/class.template-manager.php:834
 msgid "Template has been imported"
 msgstr ""
 
-#: includes/admin/include/class.template-manager.php:572
+#: includes/admin/include/class.template-manager.php:565
 msgid "Template has been inserted"
 msgstr ""
 
-#: includes/admin/include/class.template-manager.php:636
-#: includes/admin/include/class.template-manager.php:746
+#: includes/admin/include/class.template-manager.php:637
+#: includes/admin/include/class.template-manager.php:710
 msgid "Template has been updated"
 msgstr ""
 
 #: includes/admin/include/template-library.php:34
 #: includes/admin/include/template-library.php:35
-#: includes/admin/templates/dashboard-freevspro.php:43
 msgid "Template Library"
 msgstr ""
 
-#: includes/admin/include/class.template-manager.php:460
+#: includes/admin/include/class.template-manager.php:454
 msgid "Template Settings"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:52
+#: includes/admin/include/class.template_cpt.php:32
 #: includes/admin/include/template-library/templates_list.php:11
 msgid "Templates"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:69
+#: includes/admin/include/class.template_cpt.php:49
 msgid "Templates list"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:70
+#: includes/admin/include/class.template_cpt.php:50
 msgid "Templates list navigation"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:205
 #: includes/addons/wb_customer_review.php:193
 #: includes/addons/wl_recently_viewed_products.php:85
-#: includes/addons/wl_category_grid.php:261
+#: includes/addons/wl_category_grid.php:236
 msgid "Ten"
 msgstr ""
 
-#: classes/class.widgets_control.php:292 includes/addons/wl_testimonial.php:45
-#: woolentor-blocks/includes/classes/Blocks_List.php:110
-#: woolentor-blocks/production/includes/classes/Blocks_List.php:110
+#: classes/class.widgets_control.php:296 includes/addons/wl_testimonial.php:45
 msgid "Testimonial"
 msgstr ""
 
@@ -6301,7 +5266,6 @@ msgstr ""
 #: includes/addons/wb_product_stock.php:51
 #: includes/addons/wb_product_add_to_cart.php:1050
 #: includes/addons/wb_product_add_to_cart.php:1139
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:184
 msgid "Text Color"
 msgstr ""
 
@@ -6322,7 +5286,7 @@ msgstr ""
 msgid "Thank you for contacting with us"
 msgstr ""
 
-#: includes/admin/include/diagnostic-data.php:518
+#: includes/admin/include/diagnostic-data.php:414
 #, php-format
 msgid "Thank you very much for supporting %2$s%1$s%3$s."
 msgstr ""
@@ -6348,12 +5312,12 @@ msgid "The First attribute"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:463 includes/addons/product_tabs.php:607
-#: includes/addons/wl_category_grid.php:488
+#: includes/addons/wl_category_grid.php:463
 msgid "The resolution to mobile."
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:422 includes/addons/product_tabs.php:564
-#: includes/addons/wl_category_grid.php:447
+#: includes/addons/wl_category_grid.php:422
 msgid "The resolution to the tablet."
 msgstr ""
 
@@ -6365,7 +5329,7 @@ msgstr ""
 msgid "Theme"
 msgstr ""
 
-#: includes/admin/include/template-library.php:352
+#: includes/admin/include/template-library.php:315
 msgid "Theme Activated"
 msgstr ""
 
@@ -6376,8 +5340,8 @@ msgid ""
 "been entered correctly, or contact us if you need any help."
 msgstr ""
 
-#: includes/modules/variation-swatch/includes/Frontend/Woo_Config.php:839
-#: includes/modules/variation-swatch/includes/Frontend/Woo_Config.php:921
+#: includes/modules/variation-swatch/includes/Frontend/Woo_Config.php:835
+#: includes/modules/variation-swatch/includes/Frontend/Woo_Config.php:917
 msgid "This product is currently out of stock and unavailable."
 msgstr ""
 
@@ -6388,7 +5352,7 @@ msgstr ""
 #: includes/addons/wl_testimonial.php:198
 #: includes/addons/wb_customer_review.php:186
 #: includes/addons/wl_recently_viewed_products.php:78
-#: includes/addons/wl_category_grid.php:254
+#: includes/addons/wl_category_grid.php:229
 msgid "Three"
 msgstr ""
 
@@ -6417,11 +5381,11 @@ msgstr ""
 msgid "Thumbnails Position"
 msgstr ""
 
-#: includes/helper-function.php:1266 includes/addons/wl_faq.php:68
+#: includes/helper-function.php:1041 includes/addons/wl_faq.php:68
 #: includes/addons/wl_faq.php:342 includes/addons/product_flash_sale.php:136
 #: includes/addons/product_flash_sale.php:772
-#: includes/addons/wl_product_horizontal_filter.php:249
-#: includes/addons/wl_product_horizontal_filter.php:422
+#: includes/addons/wl_product_horizontal_filter.php:197
+#: includes/addons/wl_product_horizontal_filter.php:370
 #: includes/addons/wl_onepage_slider.php:73
 #: includes/addons/wl_onepage_slider.php:211
 #: includes/addons/wb_product_upsell.php:67
@@ -6437,12 +5401,12 @@ msgstr ""
 #: includes/addons/product_accordion.php:170
 #: includes/addons/wl_category.php:340 includes/addons/product_curvy.php:205
 #: includes/addons/wl_product_filter.php:94
-#: includes/addons/wl_product_filter.php:180
+#: includes/addons/wl_product_filter.php:143
 #: includes/addons/wb_image_marker.php:304
 #: includes/addons/wl_recently_viewed_products.php:295
 #: includes/addons/wb_wishsuite_table.php:135
 #: includes/addons/product_tabs.php:164 includes/addons/product_tabs.php:945
-#: includes/addons/add_banner.php:147 includes/addons/wl_category_grid.php:602
+#: includes/addons/add_banner.php:147 includes/addons/wl_category_grid.php:577
 msgid "Title"
 msgstr ""
 
@@ -6487,8 +5451,8 @@ msgstr ""
 msgid "Title:"
 msgstr ""
 
-#: includes/addons/wl_product_horizontal_filter.php:214
-#: includes/addons/wl_product_horizontal_filter.php:229
+#: includes/addons/wl_product_horizontal_filter.php:162
+#: includes/addons/wl_product_horizontal_filter.php:177
 msgid "to"
 msgstr ""
 
@@ -6517,7 +5481,6 @@ msgstr ""
 #: includes/addons/wl_product_video_gallery.php:69
 #: includes/admin/include/template-library/templates_list.php:54
 #: includes/admin/include/template-library/templates_list.php:57
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:411
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:474
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:488
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:502
@@ -6530,7 +5493,7 @@ msgstr ""
 msgid "Top On Image"
 msgstr ""
 
-#: includes/helper-function.php:1272
+#: includes/helper-function.php:1047
 msgid "Top Rated"
 msgstr ""
 
@@ -6540,7 +5503,7 @@ msgstr ""
 msgid "Top Rated Products"
 msgstr ""
 
-#: includes/helper-function.php:1271
+#: includes/helper-function.php:1046
 msgid "Top Seller"
 msgstr ""
 
@@ -6548,28 +5511,15 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/class-repeater-helper.php:321
-msgid "Total price is greater than X ammount"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/class-repeater-helper.php:322
-msgid "Total price is Less than X ammount"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:109
-msgid "Triggers"
-msgstr ""
-
 #: includes/addons/wl_testimonial.php:197
 #: includes/addons/wb_customer_review.php:185
 #: includes/addons/wl_recently_viewed_products.php:77
-#: includes/addons/wl_category_grid.php:253
+#: includes/addons/wl_category_grid.php:228
 msgid "Two"
 msgstr ""
 
 #: includes/admin/include/class.template-manager.php:96
-#: includes/admin/include/class.template-manager.php:456
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:555
+#: includes/admin/include/class.template-manager.php:450
 msgid "Type"
 msgstr ""
 
@@ -6603,9 +5553,9 @@ msgstr ""
 #: includes/addons/wb_product_price.php:63
 #: includes/addons/wb_product_price.php:104
 #: includes/addons/wb_wishsuite_counter.php:168
-#: includes/addons/wl_product_horizontal_filter.php:445
-#: includes/addons/wl_product_horizontal_filter.php:512
-#: includes/addons/wl_product_horizontal_filter.php:598
+#: includes/addons/wl_product_horizontal_filter.php:393
+#: includes/addons/wl_product_horizontal_filter.php:460
+#: includes/addons/wl_product_horizontal_filter.php:546
 #: includes/addons/wb_wc_multicurrency.php:90
 #: includes/addons/wl_onepage_slider.php:232
 #: includes/addons/wl_onepage_slider.php:274
@@ -6634,9 +5584,9 @@ msgstr ""
 #: includes/addons/wb_product_suggest_price.php:577
 #: includes/addons/wb_product_suggest_price.php:720
 #: includes/addons/wb_product_title.php:82
-#: includes/addons/wl_product_filter.php:203
-#: includes/addons/wl_product_filter.php:289
-#: includes/addons/wl_product_filter.php:456
+#: includes/addons/wl_product_filter.php:166
+#: includes/addons/wl_product_filter.php:252
+#: includes/addons/wl_product_filter.php:419
 #: includes/addons/wb_product_sku.php:52
 #: includes/addons/wb_product_stock.php:63
 #: includes/addons/wb_wishsuite_table.php:108
@@ -6651,11 +5601,9 @@ msgstr ""
 #: includes/addons/wb_product_additional_information.php:91
 #: includes/addons/wb_product_additional_information.php:137
 #: includes/addons/add_banner.php:180 includes/addons/add_banner.php:210
-#: includes/addons/add_banner.php:264 includes/addons/wl_category_grid.php:664
-#: includes/addons/wl_category_grid.php:710
-#: includes/addons/wl_category_grid.php:790
+#: includes/addons/add_banner.php:264 includes/addons/wl_category_grid.php:624
+#: includes/addons/wl_category_grid.php:679
 #: includes/addons/wb_product_tags.php:52
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:197
 msgid "Typography"
 msgstr ""
 
@@ -6671,7 +5619,7 @@ msgstr ""
 msgid "Unit"
 msgstr ""
 
-#: classes/class.widgets_control.php:220
+#: classes/class.widgets_control.php:224
 msgid "Universal Product"
 msgstr ""
 
@@ -6679,20 +5627,8 @@ msgstr ""
 msgid "Unnamed Deal"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:133
-msgid "Up"
-msgstr ""
-
-#: includes/admin/include/class.template_cpt.php:57
+#: includes/admin/include/class.template_cpt.php:37
 msgid "Update Template"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:204
-msgid "Upgrade Now"
-msgstr ""
-
-#: includes/admin/admin-init.php:126 includes/admin/admin-init.php:127
-msgid "Upgrade to Pro"
 msgstr ""
 
 #: includes/modules/variation-swatch/includes/Admin/Attribute_Taxonomy_Metabox.php:264
@@ -6715,7 +5651,7 @@ msgstr ""
 msgid "Upload/Add image"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:68
+#: includes/admin/include/class.template_cpt.php:48
 msgid "Uploaded to this Template"
 msgstr ""
 
@@ -6723,123 +5659,7 @@ msgstr ""
 msgid "Upsells"
 msgstr ""
 
-#: classes/class.widgets_control.php:778
-#, php-format
-msgid ""
-"Use %s widget and numerous advanced features to enhance the functionality of "
-"build quickview."
-msgstr ""
-
-#: classes/class.widgets_control.php:771
-#, php-format
-msgid ""
-"Use %s widget and numerous advanced features to enhance the functionality of "
-"build side mini cart template."
-msgstr ""
-
-#: classes/class.widgets_control.php:603
-#, php-format
-msgid ""
-"Use %s widget and numerous advanced features to enhance the functionality of "
-"your cart / empty cart page."
-msgstr ""
-
-#: classes/class.widgets_control.php:568 classes/class.widgets_control.php:575
-#: classes/class.widgets_control.php:582 classes/class.widgets_control.php:589
-#, php-format
-msgid ""
-"Use %s widget and numerous advanced features to enhance the functionality of "
-"your cart page."
-msgstr ""
-
-#: classes/class.widgets_control.php:610 classes/class.widgets_control.php:617
-#: classes/class.widgets_control.php:624 classes/class.widgets_control.php:631
-#: classes/class.widgets_control.php:638 classes/class.widgets_control.php:645
-#: classes/class.widgets_control.php:652 classes/class.widgets_control.php:659
-#, php-format
-msgid ""
-"Use %s widget and numerous advanced features to enhance the functionality of "
-"your checkout page."
-msgstr ""
-
-#: classes/class.widgets_control.php:596
-#, php-format
-msgid ""
-"Use %s widget and numerous advanced features to enhance the functionality of "
-"your empty cart page."
-msgstr ""
-
-#: classes/class.widgets_control.php:666 classes/class.widgets_control.php:673
-#: classes/class.widgets_control.php:680 classes/class.widgets_control.php:687
-#: classes/class.widgets_control.php:694 classes/class.widgets_control.php:701
-#: classes/class.widgets_control.php:708 classes/class.widgets_control.php:715
-#: classes/class.widgets_control.php:722 classes/class.widgets_control.php:729
-#: classes/class.widgets_control.php:736 classes/class.widgets_control.php:743
-#, php-format
-msgid ""
-"Use %s widget and numerous advanced features to enhance the functionality of "
-"your myaccount page."
-msgstr ""
-
-#: classes/class.widgets_control.php:505
-#, php-format
-msgid ""
-"Use %s widget and numerous advanced features to enhance the functionality of "
-"your shop page template."
-msgstr ""
-
-#: classes/class.widgets_control.php:498
-#, php-format
-msgid ""
-"Use %s widget and numerous advanced features to enhance the functionality of "
-"your shop/archive page template filter widget."
-msgstr ""
-
-#: classes/class.widgets_control.php:512
-#, php-format
-msgid ""
-"Use %s widget and numerous advanced features to enhance the functionality of "
-"your single product page template image widget."
-msgstr ""
-
-#: classes/class.widgets_control.php:519
-#, php-format
-msgid ""
-"Use %s widget and numerous advanced features to enhance the functionality of "
-"your single product page template image."
-msgstr ""
-
-#: classes/class.widgets_control.php:547
-#, php-format
-msgid ""
-"Use %s widget and numerous advanced features to enhance the functionality of "
-"your single product page template related product widget."
-msgstr ""
-
-#: classes/class.widgets_control.php:554
-#, php-format
-msgid ""
-"Use %s widget and numerous advanced features to enhance the functionality of "
-"your single product page template upsell product widget."
-msgstr ""
-
-#: classes/class.widgets_control.php:526 classes/class.widgets_control.php:533
-#: classes/class.widgets_control.php:540 classes/class.widgets_control.php:561
-#, php-format
-msgid ""
-"Use %s widget and numerous advanced features to enhance the functionality of "
-"your single product page template."
-msgstr ""
-
-#: classes/class.widgets_control.php:750 classes/class.widgets_control.php:757
-#: classes/class.widgets_control.php:764
-#, php-format
-msgid ""
-"Use %s widget and numerous advanced features to enhance the functionality of "
-"your thankyou page."
-msgstr ""
-
-#: includes/admin/include/class.template_cpt.php:66
+#: includes/admin/include/class.template_cpt.php:46
 msgid "Use as featured image"
 msgstr ""
 
@@ -6861,10 +5681,6 @@ msgstr ""
 msgid "Username or email"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:410
-msgid "Value"
-msgstr ""
-
 #: includes/addons/wb_archive_result_count.php:103
 #: includes/addons/wb_product_categories.php:109
 #: includes/addons/wb_product_sku.php:109
@@ -6877,17 +5693,12 @@ msgstr ""
 msgid "Value Hover Color"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:129
-msgid "Variation Swatches"
-msgstr ""
-
 #: includes/addons/special_day_offer.php:227
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:483
 msgid "Vertical Position"
 msgstr ""
 
+#: woolentor-blocks/build/blocks/product-reviews/index.php:42
 #: woolentor-blocks/src/blocks/product-reviews/index.php:42
-#: woolentor-blocks/production/src/blocks/product-reviews/index.php:42
 msgid "Very poor"
 msgstr ""
 
@@ -6921,19 +5732,19 @@ msgstr ""
 msgid "View Cart"
 msgstr ""
 
-#: includes/modules/backorder/class.backorder.php:195
+#: includes/modules/backorder/class.backorder.php:190
 msgid "View cart"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:58
+#: includes/admin/include/class.template_cpt.php:38
 msgid "View Template"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:59
+#: includes/admin/include/class.template_cpt.php:39
 msgid "View Templates"
 msgstr ""
 
-#: classes/class.widgets_control.php:456
+#: classes/class.widgets_control.php:460
 msgid "WC Multicurrency"
 msgstr ""
 
@@ -6966,7 +5777,7 @@ msgstr ""
 msgid "When the product tab is off, Then working slider."
 msgstr ""
 
-#: classes/class.widgets_control.php:449
+#: classes/class.widgets_control.php:453
 #: includes/admin/include/class.extension-manager.php:67
 msgid "Whols"
 msgstr ""
@@ -6987,7 +5798,6 @@ msgid "Whols Pro – WooCommerce Wholesale Prices"
 msgstr ""
 
 #: woolentor-blocks/includes/classes/Manage_Styles.php:127
-#: woolentor-blocks/production/includes/classes/Manage_Styles.php:127
 msgid "Widget CSS Saved."
 msgstr ""
 
@@ -6995,12 +5805,10 @@ msgstr ""
 #: includes/addons/wl_onepage_slider.php:507
 #: includes/addons/special_day_offer.php:173
 #: includes/addons/wb_product_add_to_cart.php:806
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:434
 #: includes/modules/compare/includes/classes/Admin/Admin_Fields.php:384
 msgid "Width"
 msgstr ""
 
-#: includes/admin/templates/dashboard-freevspro.php:121
 #: includes/modules/wishlist/includes/classes/Admin/Dashboard.php:65
 #: includes/modules/wishlist/includes/classes/Admin/Dashboard.php:66
 msgid "Wishlist"
@@ -7020,22 +5828,13 @@ msgstr ""
 msgid "WishSuite"
 msgstr ""
 
-#: classes/class.widgets_control.php:428
+#: classes/class.widgets_control.php:432
 #: includes/addons/wb_wishsuite_counter.php:38
 msgid "WishSuite Counter"
 msgstr ""
 
-#: classes/class.widgets_control.php:424
+#: classes/class.widgets_control.php:428
 msgid "WishSuite Table"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:231
-msgid "Within (%)"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:201
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:290
-msgid "Within (sec)"
 msgstr ""
 
 #: includes/modules/variation-swatch/includes/Admin/Woo_Config.php:32
@@ -7058,14 +5857,6 @@ msgstr ""
 msgid "WL: Add To cart"
 msgstr ""
 
-#: classes/class.widgets_control.php:495
-msgid "WL: Advance Product Filter"
-msgstr ""
-
-#: classes/class.widgets_control.php:509
-msgid "WL: Advance Product Image"
-msgstr ""
-
 #: includes/addons/wb_archive_catalog_ordering.php:13
 msgid "WL: Archive Catalog Ordering"
 msgstr ""
@@ -7076,10 +5867,6 @@ msgstr ""
 
 #: includes/addons/wl_archive_title.php:13
 msgid "WL: Archive Title"
-msgstr ""
-
-#: classes/class.widgets_control.php:530
-msgid "WL: Available Stock Progressbar"
 msgstr ""
 
 #: includes/addons/wl_brand.php:13
@@ -7094,18 +5881,6 @@ msgstr ""
 msgid "WL: Call For Price"
 msgstr ""
 
-#: classes/class.widgets_control.php:565
-msgid "WL: Cart Table"
-msgstr ""
-
-#: classes/class.widgets_control.php:572
-msgid "WL: Cart Table(List Style)"
-msgstr ""
-
-#: classes/class.widgets_control.php:579
-msgid "WL: Cart Total"
-msgstr ""
-
 #: includes/addons/wl_category_grid.php:12
 msgid "WL: Category Grid"
 msgstr ""
@@ -7114,44 +5889,8 @@ msgstr ""
 msgid "WL: Category List"
 msgstr ""
 
-#: classes/class.widgets_control.php:621
-msgid "WL: Checkout Additional info Form"
-msgstr ""
-
-#: classes/class.widgets_control.php:607
-msgid "WL: Checkout Billing Form"
-msgstr ""
-
-#: classes/class.widgets_control.php:642
-msgid "WL: Checkout Payment Method"
-msgstr ""
-
-#: classes/class.widgets_control.php:614
-msgid "WL: Checkout Shipping Form"
-msgstr ""
-
-#: classes/class.widgets_control.php:649
-msgid "WL: Checkout Shipping Method"
-msgstr ""
-
-#: classes/class.widgets_control.php:628
-msgid "WL: Coupon Form"
-msgstr ""
-
-#: classes/class.widgets_control.php:586
-msgid "WL: Cross Sell"
-msgstr ""
-
-#: classes/class.widgets_control.php:747
-msgid "WL: Customer Address Details"
-msgstr ""
-
 #: includes/addons/wb_customer_review.php:13
 msgid "WL: Customer Review"
-msgstr ""
-
-#: classes/class.widgets_control.php:593
-msgid "WL: Empty Cart Message"
 msgstr ""
 
 #: includes/addons/wb_ever_compare_table.php:13
@@ -7162,10 +5901,6 @@ msgstr ""
 msgid "WL: FAQ"
 msgstr ""
 
-#: classes/class.widgets_control.php:489
-msgid "WL: Filterable Product Grid"
-msgstr ""
-
 #: includes/addons/wb_image_marker.php:13
 msgid "WL: Image Marker"
 msgstr ""
@@ -7174,80 +5909,12 @@ msgstr ""
 msgid "WL: JustTable"
 msgstr ""
 
-#: classes/class.widgets_control.php:635
-msgid "WL: Login Form"
-msgstr ""
-
-#: classes/class.widgets_control.php:768
-msgid "WL: Mini Cart"
-msgstr ""
-
 #: includes/addons/wb_wc_multicurrency.php:13
 msgid "WL: Multi Currency"
 msgstr ""
 
-#: classes/class.widgets_control.php:656
-msgid "WL: Multi Step Checkout"
-msgstr ""
-
-#: classes/class.widgets_control.php:663
-msgid "WL: My Account"
-msgstr ""
-
-#: classes/class.widgets_control.php:677
-msgid "WL: My Account Address"
-msgstr ""
-
-#: classes/class.widgets_control.php:670
-msgid "WL: My Account Dashboard"
-msgstr ""
-
-#: classes/class.widgets_control.php:684
-msgid "WL: My Account Download"
-msgstr ""
-
-#: classes/class.widgets_control.php:691
-msgid "WL: My Account Edit"
-msgstr ""
-
-#: classes/class.widgets_control.php:698
-msgid "WL: My Account Login Form"
-msgstr ""
-
-#: classes/class.widgets_control.php:705
-msgid "WL: My Account Logout"
-msgstr ""
-
-#: classes/class.widgets_control.php:712
-msgid "WL: My Account Lost Password Form"
-msgstr ""
-
-#: classes/class.widgets_control.php:719
-msgid "WL: My Account Navigation"
-msgstr ""
-
-#: classes/class.widgets_control.php:726
-msgid "WL: My Account Order"
-msgstr ""
-
-#: classes/class.widgets_control.php:733
-msgid "WL: My Account Register Form"
-msgstr ""
-
-#: classes/class.widgets_control.php:740
-msgid "WL: My Account Reset Password Form"
-msgstr ""
-
 #: includes/addons/wl_onepage_slider.php:12
 msgid "WL: One page slider"
-msgstr ""
-
-#: classes/class.widgets_control.php:754
-msgid "WL: Order Details"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/widgets/wl_popup_trigger_button.php:12
-msgid "WL: Popup Close Trigger Button"
 msgstr ""
 
 #: includes/addons/product_accordion.php:14
@@ -7256,10 +5923,6 @@ msgstr ""
 
 #: includes/addons/wb_product_additional_information.php:13
 msgid "WL: Product Additional Information"
-msgstr ""
-
-#: classes/class.widgets_control.php:502
-msgid "WL: Product Archive Layout (Custom)"
 msgstr ""
 
 #: includes/addons/wb_archive_product.php:13
@@ -7282,21 +5945,13 @@ msgstr ""
 msgid "WL: Product Description"
 msgstr ""
 
-#: classes/class.widgets_control.php:483
-msgid "WL: Product Expanding Grid"
-msgstr ""
-
 #: includes/addons/wl_product_filter.php:13
 msgid "WL: Product Filter"
 msgstr ""
 
-#: classes/class.widgets_control.php:417
+#: classes/class.widgets_control.php:421
 #: includes/addons/product_flash_sale.php:13
 msgid "WL: Product Flash Sale"
-msgstr ""
-
-#: classes/class.widgets_control.php:477
-msgid "WL: Product Grid"
 msgstr ""
 
 #: includes/addons/wl_product_horizontal_filter.php:13
@@ -7309,10 +5964,6 @@ msgstr ""
 
 #: includes/addons/product_image_accordion.php:14
 msgid "WL: Product Image Accordion"
-msgstr ""
-
-#: classes/class.widgets_control.php:516
-msgid "WL: Product Image With Zoom"
 msgstr ""
 
 #: includes/addons/wb_product_meta.php:13
@@ -7331,20 +5982,12 @@ msgstr ""
 msgid "WL: Product Reviews"
 msgstr ""
 
-#: classes/class.widgets_control.php:537
-msgid "WL: Product Sale Schedule"
-msgstr ""
-
 #: includes/addons/wb_product_short_description.php:13
 msgid "WL: Product Short Description"
 msgstr ""
 
 #: includes/addons/wb_product_sku.php:13
 msgid "WL: Product SKU"
-msgstr ""
-
-#: classes/class.widgets_control.php:523
-msgid "WL: Product Social Share"
 msgstr ""
 
 #: includes/addons/wb_product_stock.php:13
@@ -7375,28 +6018,12 @@ msgstr ""
 msgid "WL: QR Code"
 msgstr ""
 
-#: classes/class.widgets_control.php:775
-msgid "WL: Quickview Product Image"
-msgstr ""
-
 #: includes/addons/wl_recently_viewed_products.php:13
 msgid "WL: Recently Viewed Products"
 msgstr ""
 
 #: includes/addons/wb_product_related.php:13
 msgid "WL: Related Product"
-msgstr ""
-
-#: classes/class.widgets_control.php:544
-msgid "WL: Related Product layout(Custom)"
-msgstr ""
-
-#: classes/class.widgets_control.php:600
-msgid "WL: Return To Shop Button"
-msgstr ""
-
-#: classes/class.widgets_control.php:558
-msgid "WL: Single Product Navigation"
 msgstr ""
 
 #: includes/addons/special_day_offer.php:13
@@ -7415,17 +6042,11 @@ msgstr ""
 msgid "WL: Testimonial"
 msgstr ""
 
-#: classes/class.widgets_control.php:761
-msgid "WL: Thank You Order"
-msgstr ""
-
+#: woolentor-blocks/build/blocks/universal-product/old_index.php:48
+#: woolentor-blocks/build/blocks/universal-product/sort_index.php:48
 #: woolentor-blocks/src/blocks/universal-product/old_index.php:48
 #: woolentor-blocks/src/blocks/universal-product/sort_index.php:48
 msgid "WL: Universal Product Layout"
-msgstr ""
-
-#: classes/class.widgets_control.php:551
-msgid "WL: Upsell Product layout(Custom)"
 msgstr ""
 
 #: includes/addons/wb_whols.php:13
@@ -7440,29 +6061,15 @@ msgstr ""
 msgid "WL: WishSuite Table"
 msgstr ""
 
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:291
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:348
-msgid "wobble"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:141
-msgid "WooCommerce"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/class-repeater-helper.php:25
-#: includes/modules/popup-builder/includes/admin/tmpl-popup-builder-modal.php:152
-msgid "WooCommerce (Pro)"
-msgstr ""
-
-#: includes/admin/templates/dashboard-freevspro.php:11
-msgid "WooCommerce Template Builder"
-msgstr ""
-
-#: includes/manage_wc_template.php:102
+#: includes/manage_wc_template.php:103
 msgid "WooLentor"
 msgstr ""
 
-#: includes/manage_wc_template.php:102
+#: classes/class.widgets_control.php:44
+msgid "Woolentor Addons"
+msgstr ""
+
+#: includes/manage_wc_template.php:103
 msgid "WooLentor Admin Menu"
 msgstr ""
 
@@ -7471,12 +6078,10 @@ msgid "WooLentor Ajax Product Search Widget"
 msgstr ""
 
 #: woolentor-blocks/includes/classes/Manage_Styles.php:160
-#: woolentor-blocks/production/includes/classes/Manage_Styles.php:160
 msgid "WooLentor Blocks CSS Delete."
 msgstr ""
 
 #: woolentor-blocks/includes/classes/Manage_Styles.php:150
-#: woolentor-blocks/production/includes/classes/Manage_Styles.php:150
 msgid "WooLentor Blocks css file update."
 msgstr ""
 
@@ -7492,7 +6097,7 @@ msgstr ""
 msgid "Woolentor Logo"
 msgstr ""
 
-#: includes/admin/include/class.template_cpt.php:76
+#: includes/admin/include/class.template_cpt.php:56
 msgid "WooLentor Template"
 msgstr ""
 
@@ -7529,19 +6134,22 @@ msgstr ""
 msgid "YES"
 msgstr ""
 
-#: classes/class.assest_management.php:335 includes/addons/wl_faq.php:113
+#: classes/class.assest_management.php:332 includes/addons/wl_faq.php:113
 #: includes/addons/wl_faq.php:192 includes/addons/wl_faq.php:205
 #: includes/addons/wl_testimonial.php:217
 #: includes/addons/wl_testimonial.php:333 includes/addons/wl_category.php:183
 #: includes/addons/wb_customer_review.php:205
 #: includes/addons/product_tabs.php:469
-#: includes/addons/wl_category_grid.php:176
-#: includes/addons/wl_category_grid.php:200
-#: includes/addons/wl_category_grid.php:215
-#: includes/addons/wl_category_grid.php:273
-#: includes/addons/wl_category_grid.php:359
-#: includes/admin/include/class.template-manager.php:491
+#: includes/addons/wl_category_grid.php:163
+#: includes/addons/wl_category_grid.php:187
+#: includes/addons/wl_category_grid.php:248
+#: includes/addons/wl_category_grid.php:334
+#: includes/admin/include/class.template-manager.php:484
 msgid "Yes"
+msgstr ""
+
+#: includes/admin/include/diagnostic-data.php:391
+msgid "Yes, I Agree"
 msgstr ""
 
 #: includes/admin/include/template-library.php:78
@@ -7550,8 +6158,6 @@ msgstr ""
 
 #: woolentor-blocks/includes/classes/Manage_Styles.php:146
 #: woolentor-blocks/includes/classes/Manage_Styles.php:199
-#: woolentor-blocks/production/includes/classes/Manage_Styles.php:146
-#: woolentor-blocks/production/includes/classes/Manage_Styles.php:199
 msgid "You are not permitted to save CSS."
 msgstr ""
 
@@ -7599,69 +6205,23 @@ msgid "You haven't viewed at any of the products yet."
 msgstr ""
 
 #: includes/addons/wl_recently_viewed_products.php:738
-#: woolentor-blocks/src/blocks/recently-viewed-products/index.php:23
-#: woolentor-blocks/production/src/blocks/recently-viewed-products/index.php:23
 msgid ""
 "You haven't viewed at any of the products yet. Below are demo product for "
 "the editing mode."
 msgstr ""
 
+#: woolentor-blocks/build/blocks/product-reviews/index.php:26
 #: woolentor-blocks/src/blocks/product-reviews/index.php:26
-#: woolentor-blocks/production/src/blocks/product-reviews/index.php:26
 msgid "Your rating"
 msgstr ""
 
+#: woolentor-blocks/build/blocks/product-reviews/index.php:47
 #: woolentor-blocks/src/blocks/product-reviews/index.php:47
-#: woolentor-blocks/production/src/blocks/product-reviews/index.php:47
 msgid "Your review"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:450
-msgid "Z-Index"
 msgstr ""
 
 #: includes/addons/wl_onepage_slider.php:484
 msgid "Zippers cotton jogger"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:321
-msgid "zoomIn"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:322
-msgid "zoomInDown"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:323
-msgid "zoomInLeft"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:324
-msgid "zoomInRight"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:325
-msgid "zoomInUp"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:378
-msgid "zoomOut"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:379
-msgid "zoomOutDown"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:380
-msgid "zoomOutLeft"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:381
-msgid "zoomOutRight"
-msgstr ""
-
-#: includes/modules/popup-builder/includes/admin/class-manage-metabox.php:382
-msgid "zoomOutUp"
 msgstr ""
 
 #: includes/addons/wl_testimonial.php:153
@@ -7678,9 +6238,4 @@ msgid ""
 "“ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod "
 "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
 "laboris consequat. ”"
-msgstr ""
-
-#: includes/admin/include/diagnostic-data.php:502
-#, php-format
-msgid "🌟 Enhance Your %1$s Experience as a Valued Contributor!"
 msgstr ""

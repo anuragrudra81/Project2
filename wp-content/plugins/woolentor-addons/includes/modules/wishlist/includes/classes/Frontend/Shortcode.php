@@ -45,10 +45,6 @@ class Shortcode {
         $product_id = '';
         if ( $product && is_a( $product, 'WC_Product' ) ) {
             $product_id = $product->get_id();
-        } else if ( get_post_type( get_the_ID() ) === 'product' ) {
-            $product_id = get_the_ID();
-        }else{
-            $product_id = '';
         }
 
         $has_product = false;
@@ -137,11 +133,8 @@ class Shortcode {
         /* Fetch From option data */
         $empty_text = woolentor_get_option( 'empty_table_text', 'wishsuite_table_settings_tabs' );
 
-        $current_page = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
-        $product_per_page = (int) woolentor_get_option( 'wishlist_product_per_page', 'wishsuite_table_settings_tabs', 20 );
-
         /* Product and Field */
-        $products   = Manage_Wishlist::instance()->get_products_data( $product_per_page, $current_page );
+        $products   = Manage_Wishlist::instance()->get_products_data();
         $fields     = Manage_Wishlist::instance()->get_all_fields();
 
         $custom_heading = !empty( woolentor_get_option( 'table_heading', 'wishsuite_table_settings_tabs' ) ) ? woolentor_get_option( 'table_heading', 'wishsuite_table_settings_tabs' ) : array();

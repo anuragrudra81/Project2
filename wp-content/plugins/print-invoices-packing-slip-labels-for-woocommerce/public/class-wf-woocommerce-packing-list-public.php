@@ -62,8 +62,8 @@ class Wf_Woocommerce_Packing_List_Public {
 	public static $modules_label=array(
 		'invoice'=>'Invoice',
 		'packinglist'=>'Packing slip',
-		'deliverynote'=>'Delivery note',
 		'shippinglabel'=>'Shipping label',
+		'deliverynote'=>'Delivery note',
 		'dispatchlabel'=>'Dispatch label',
 	);
 
@@ -124,35 +124,18 @@ class Wf_Woocommerce_Packing_List_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name.'_public', plugin_dir_url( __FILE__ ) . 'js/wf-woocommerce-packing-list-public.js', array( 'jquery' ), $this->version, false );
-		$user_id = get_current_user_id();
-		$dont_show_again = false;
-		if(0 !== $user_id){
-			if(1 == get_user_meta($user_id, 'wt_pklist_doc_create_dont_show_popup',true) || "1" === get_user_meta($user_id, 'wt_pklist_doc_create_dont_show_popup',true)){
-				$dont_show_again = true;
-			}
-		}
-		$params=array(
-			'msgs'=>array(
-				'invoice_number_prompt_free_order' => __("‘Generate invoice for free orders’ is disabled in Invoice settings > Advanced. You are attempting to generate invoice for this free order. Proceed?",'print-invoices-packing-slip-labels-for-woocommerce'),
-				'creditnote_number_prompt' => __("Refund in this order seems not having credit number yet. Do you want to manually generate one ?",'print-invoices-packing-slip-labels-for-woocommerce'),
-				'invoice_number_prompt_no_from_addr' => __("Please fill the `from address` in the plugin's general settings.",'print-invoices-packing-slip-labels-for-woocommerce'),
-				'invoice_title_prompt' => __("Invoice",'print-invoices-packing-slip-labels-for-woocommerce'),
-				'invoice_number_prompt' => __("number has not been generated yet. Do you want to manually generate one ?",'print-invoices-packing-slip-labels-for-woocommerce'),
-				'pop_dont_show_again' => $dont_show_again,	
-			)
-		);
-		wp_localize_script($this->plugin_name.'_public', 'wf_pklist_params_public', $params);
+		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wf-woocommerce-packing-list-public.js', array( 'jquery' ), $this->version, false );
+
 	}
 
 	/**
-	 *Registers modules: public+admin	 
+	 Registers modules: public+admin	 
 	 */
 	public function common_modules()
 	{ 
 		$wt_pklist_common_modules=get_option('wt_pklist_common_modules');
 		$common_modules_set = true;
-		if(false === $wt_pklist_common_modules)
+		if($wt_pklist_common_modules===false)
 		{	
 			$common_modules_set = false;
 			$wt_pklist_common_modules=self::$modules_default_state;
@@ -168,7 +151,7 @@ class Wf_Woocommerce_Packing_List_Public {
 				$wt_pklist_common_modules[$module]=1; //default status is active
 			}
 			$module_file=plugin_dir_path( __FILE__ )."modules/$module/$module.php";
-			if(file_exists($module_file) && (1 === $is_active || "1" === $is_active))
+			if(file_exists($module_file) && $is_active==1)
 			{
 				self::$existing_modules[]=$module; //this is for module_exits checking
 				require_once $module_file;
@@ -185,7 +168,7 @@ class Wf_Woocommerce_Packing_List_Public {
 				$out[$k]=$m;
 			}
 		}
-		if(false === $common_modules_set){
+		if($common_modules_set === false){
 			update_option('wt_pklist_common_modules',$out);
 		}
 	}
@@ -194,9 +177,4 @@ class Wf_Woocommerce_Packing_List_Public {
 		return in_array($module,self::$existing_modules);
 	}
 
-	public static function get_document_module_labels()
-	{
-		$labels=apply_filters('wf_pklist_alter_document_module_labels',self::$modules_label);
-		return $labels;
-	}
 }

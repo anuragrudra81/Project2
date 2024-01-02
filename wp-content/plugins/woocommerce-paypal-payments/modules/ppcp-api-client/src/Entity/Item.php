@@ -67,32 +67,11 @@ class Item {
 	private $category;
 
 	/**
-	 * The product url.
-	 *
-	 * @var string
-	 */
-	protected $url;
-
-	/**
-	 * The product image url.
-	 *
-	 * @var string
-	 */
-	protected $image_url;
-
-	/**
 	 * The tax rate.
 	 *
 	 * @var float
 	 */
 	protected $tax_rate;
-
-	/**
-	 * The cart item key.
-	 *
-	 * @var string|null
-	 */
-	protected $cart_item_key;
 
 	/**
 	 * Item constructor.
@@ -104,10 +83,7 @@ class Item {
 	 * @param Money|null $tax The tax.
 	 * @param string     $sku The SKU.
 	 * @param string     $category The category.
-	 * @param string     $url The product url.
-	 * @param string     $image_url The product image url.
 	 * @param float      $tax_rate The tax rate.
-	 * @param ?string    $cart_item_key The cart key for this item.
 	 */
 	public function __construct(
 		string $name,
@@ -117,23 +93,18 @@ class Item {
 		Money $tax = null,
 		string $sku = '',
 		string $category = 'PHYSICAL_GOODS',
-		string $url = '',
-		string $image_url = '',
-		float $tax_rate = 0,
-		string $cart_item_key = null
+		float $tax_rate = 0
 	) {
 
-		$this->name          = $name;
-		$this->unit_amount   = $unit_amount;
-		$this->quantity      = $quantity;
-		$this->description   = $description;
-		$this->tax           = $tax;
-		$this->sku           = $sku;
-		$this->category      = $category;
-		$this->url           = $url;
-		$this->image_url     = $image_url;
-		$this->tax_rate      = $tax_rate;
-		$this->cart_item_key = $cart_item_key;
+		$this->name        = $name;
+		$this->unit_amount = $unit_amount;
+		$this->quantity    = $quantity;
+		$this->description = $description;
+		$this->tax         = $tax;
+		$this->sku         = $sku;
+		$this->category    = ( self::DIGITAL_GOODS === $category ) ? self::DIGITAL_GOODS : self::PHYSICAL_GOODS;
+		$this->category    = $category;
+		$this->tax_rate    = $tax_rate;
 	}
 
 	/**
@@ -200,24 +171,6 @@ class Item {
 	}
 
 	/**
-	 * Returns the url.
-	 *
-	 * @return string
-	 */
-	public function url():string {
-		return $this->url;
-	}
-
-	/**
-	 * Returns the image url.
-	 *
-	 * @return string
-	 */
-	public function image_url():string {
-		return $this->validate_image_url() ? $this->image_url : '';
-	}
-
-	/**
 	 * Returns the tax rate.
 	 *
 	 * @return float
@@ -227,20 +180,11 @@ class Item {
 	}
 
 	/**
-	 * Returns the cart key for this item.
-	 *
-	 * @return string|null
-	 */
-	public function cart_item_key():?string {
-		return $this->cart_item_key;
-	}
-
-	/**
 	 * Returns the object as array.
 	 *
 	 * @return array
 	 */
-	public function to_array(): array {
+	public function to_array() {
 		$item = array(
 			'name'        => $this->name(),
 			'unit_amount' => $this->unit_amount()->to_array(),
@@ -248,12 +192,7 @@ class Item {
 			'description' => $this->description(),
 			'sku'         => $this->sku(),
 			'category'    => $this->category(),
-			'url'         => $this->url(),
 		);
-
-		if ( $this->image_url() ) {
-			$item['image_url'] = $this->image_url();
-		}
 
 		if ( $this->tax() ) {
 			$item['tax'] = $this->tax()->to_array();
@@ -263,20 +202,6 @@ class Item {
 			$item['tax_rate'] = (string) $this->tax_rate();
 		}
 
-		if ( $this->cart_item_key() ) {
-			$item['cart_item_key'] = (string) $this->cart_item_key();
-		}
-
 		return $item;
-	}
-
-	/**
-	 * Validates the image url for PayPal request.
-	 *
-	 * @return bool true if valid, otherwise false.
-	 */
-	protected function validate_image_url(): bool {
-		$pattern = '/^(https:)([\/|\.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|JPG|GIF|PNG|JPEG)$/';
-		return (bool) preg_match( $pattern, $this->image_url );
 	}
 }

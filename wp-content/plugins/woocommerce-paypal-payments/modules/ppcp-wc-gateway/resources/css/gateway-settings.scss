@@ -12,7 +12,7 @@
 
 	@media (min-width: 1200px) {
 		float: right;
-		margin-top: -300px;
+		margin-top: -400px;
 	}
 
 	@media (min-width: 1400px) {
@@ -26,6 +26,12 @@
 	@media (max-width: 600px) {
 		width: auto;
 		margin-right: 0px;
+	}
+}
+
+.ppcp-message-preview {
+	@media (min-width: 1200px) {
+		margin-top: -300px;
 	}
 }
 

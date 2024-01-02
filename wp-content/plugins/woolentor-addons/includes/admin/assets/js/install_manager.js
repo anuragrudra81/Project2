@@ -82,7 +82,6 @@
                     type: 'POST',
                     data: {
                         action   : 'woolentor_ajax_plugin_activation',
-                        nonce    : WLIM.nonce,
                         location : $plugindata['location'],
                     },
                 } ).done( function( result ) {
@@ -132,7 +131,6 @@
                 type: 'POST',
                 data: {
                     action   : 'woolentor_ajax_plugin_activation',
-                    nonce    : WLIM.nonce,
                     location : $plugindata['location'],
                 },
             }).done( function( response ) {
@@ -232,7 +230,6 @@
                     type: 'POST',
                     data: {
                         action   : 'woolentor_ajax_theme_activation',
-                        nonce    : WLIM.nonce,
                         themeslug : $themedata['slug'],
                     },
                 } ).done( function( result ) {
@@ -272,7 +269,6 @@
                 type: 'POST',
                 data: {
                     action   : 'woolentor_ajax_theme_activation',
-                    nonce    : WLIM.nonce,
                     themeslug : $themedata['slug'],
                 },
             }).done( function( response ) {

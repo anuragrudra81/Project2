@@ -65,9 +65,6 @@
 	
 	wf_do_invoice_number_preview();
 	function wf_do_invoice_number_preview(){
-		if($("#sample_invoice_number").length <= 0){
-			return false;
-		}
 		var invoice_no = $("#sample_invoice_number").val();
 		var number_ref=$('[name="woocommerce_wf_invoice_as_ordernumber"]:checked').val();
 		var invoice_start_no = $('#sample_current_invoice_number').val();
@@ -99,7 +96,7 @@
 		}else if(number_format === "[number][suffix]"){
 			invoice_no = invoice_no+postfix_val;
 		}
-		invoice_no = replace_date_val_invoice_number(invoice_no);		
+		invoice_no = replace_date_val_invoice_number(invoice_no);
 
 		/* final preview */
 		$("#preview_invoice_number").text(invoice_no);

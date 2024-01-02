@@ -20,7 +20,7 @@ class Wf_Woocommerce_Packing_List_Admin_Notices
 
     public function invoice_number_action_scheduler_notice(){
         $auto_generate = Wf_Woocommerce_Packing_List_Admin::check_before_auto_generating_invoice_no();
-        if((true === $auto_generate["invoice_enabled"]) && (true === $auto_generate["auto_generate"]) && (10 < $auto_generate["order_empty_invoice_count"]))
+        if((true === $auto_generate["invoice_enabled"]) && (true === $auto_generate["auto_generate"]) && (100 < $auto_generate["order_empty_invoice_count"]))
         {
             $group = "wt_pklist_invoice_number_auto_generation";
             $pending_actions_url = admin_url( 'admin.php?page=wc-status&tab=action-scheduler&s=wt_pklist_schedule_auto_generate_invoice_number');

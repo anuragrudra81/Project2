@@ -233,7 +233,7 @@ class Woolentor_Wb_Product_Add_To_Cart_Widget extends Widget_Base {
                     $this->add_control(
                         'advance_quantity_background_color',
                         [
-                            'label'     => __( 'Quantity Background', 'woolentor' ),
+                            'label'     => __( 'Quantity Backgeound', 'woolentor' ),
                             'type'      => Controls_Manager::COLOR,
                             'selectors' => [
                                 '{{WRAPPER}} .wl-addto-cart.wl-style-4 form.cart .wl-quantity-wrap .wl-quantity-cal' => 'background: {{VALUE}}',
@@ -1050,8 +1050,8 @@ class Woolentor_Wb_Product_Add_To_Cart_Widget extends Widget_Base {
                             'label'     => __( 'Text Color', 'woolentor' ),
                             'type'      => Controls_Manager::COLOR,
                             'selectors' => [
-                                '{{WRAPPER}} .wl-addto-cart[class*="wl-style-"] form.cart button' => 'color: {{VALUE}} !important;',
-                                '{{WRAPPER}} .wl-style-1 form.cart button' => 'color: {{VALUE}} !important;',
+                                '{{WRAPPER}} .wl-addto-cart[class*="wl-style-"] form.cart button' => 'color: {{VALUE}};',
+                                '{{WRAPPER}} .wl-style-1 form.cart button' => 'color: {{VALUE}};',
                             ],
                         ]
                     );
@@ -1117,8 +1117,8 @@ class Woolentor_Wb_Product_Add_To_Cart_Widget extends Widget_Base {
                             'label' => __( 'Background Color', 'woolentor' ),
                             'type' => Controls_Manager::COLOR,
                             'selectors' => [
-                                '{{WRAPPER}} .wl-addto-cart[class*="wl-style-"] form.cart button' => 'background-color: {{VALUE}} !important;',
-                                '{{WRAPPER}} .wl-style-1 form.cart button' => 'background-color: {{VALUE}} !important;',
+                                '{{WRAPPER}} .wl-addto-cart[class*="wl-style-"] form.cart button' => 'background-color: {{VALUE}}',
+                                '{{WRAPPER}} .wl-style-1 form.cart button' => 'background-color: {{VALUE}}',
                             ],
                         ]
                     );
@@ -1139,8 +1139,8 @@ class Woolentor_Wb_Product_Add_To_Cart_Widget extends Widget_Base {
                             'label'     => __( 'Text Color', 'woolentor' ),
                             'type'      => Controls_Manager::COLOR,
                             'selectors' => [
-                                '{{WRAPPER}} .wl-addto-cart[class*="wl-style-"] form.cart button:hover' => 'color: {{VALUE}} !important;',
-                                '{{WRAPPER}} .wl-style-1 form.cart button:hover' => 'color: {{VALUE}} !important;',
+                                '{{WRAPPER}} .wl-addto-cart[class*="wl-style-"] form.cart button:hover' => 'color: {{VALUE}}',
+                                '{{WRAPPER}} .wl-style-1 form.cart button:hover' => 'color: {{VALUE}}',
                             ],
                         ]
                     );
@@ -1151,8 +1151,8 @@ class Woolentor_Wb_Product_Add_To_Cart_Widget extends Widget_Base {
                             'label' => __( 'Background Color', 'woolentor' ),
                             'type' => Controls_Manager::COLOR,
                             'selectors' => [
-                                '{{WRAPPER}} .wl-addto-cart[class*="wl-style-"] form.cart button:hover' => 'background-color: {{VALUE}} !important;',
-                                '{{WRAPPER}} .wl-style-1 form.cart button:hover' => 'background-color: {{VALUE}} !important;',
+                                '{{WRAPPER}} .wl-addto-cart[class*="wl-style-"] form.cart button:hover' => 'background-color: {{VALUE}}',
+                                '{{WRAPPER}} .wl-style-1 form.cart button:hover' => 'background-color: {{VALUE}}',
                             ],
                         ]
                     );
@@ -1274,9 +1274,8 @@ class Woolentor_Wb_Product_Add_To_Cart_Widget extends Widget_Base {
                                 <?php echo woolentor_compare_button(
                                         array(
                                             'style'=> 2,
-                                            'btn_text_type'=> 'text',
-                                            'btn_text'=> esc_html__('Compare','woolentor'),
-                                            'btn_added_txt'=> esc_html__('Already Compared','woolentor')
+                                            'btn_text'=> 'Compare',
+                                            'btn_added_txt'=> 'Already Compared'
                                         )
                                     ); 
                                 ?>
@@ -1289,9 +1288,7 @@ class Woolentor_Wb_Product_Add_To_Cart_Widget extends Widget_Base {
     }
 
     protected function render() {
-        $settings = $this->get_settings();
-        $id = $this->get_id();
-
+         $settings = $this->get_settings();
         if( Plugin::instance()->editor->is_edit_mode() ){
             $product = wc_get_product( woolentor_get_last_product_id() );
         }else{
@@ -1300,12 +1297,8 @@ class Woolentor_Wb_Product_Add_To_Cart_Widget extends Widget_Base {
 
         $product_layout_class = $settings['single_product_advance_layout_style'];
         $poduct_type = $product ? $product->get_type() : '';  
-        
-        $min_value = $product ? $product->get_min_purchase_quantity() : '';
-        $max_value = $product ? $product->get_max_purchase_quantity() : '';
-        $hide_quantity = $min_value > 0 && $min_value === $max_value ? false : true;
 
-        if( 'wl-style-1' != $product_layout_class && $hide_quantity){
+        if( 'wl-style-1' != $product_layout_class ){
             $this->customise_single_product_add_to_cart($settings, $poduct_type);
         }  
 
@@ -1323,7 +1316,7 @@ class Woolentor_Wb_Product_Add_To_Cart_Widget extends Widget_Base {
             if ( empty( $product ) ) { return; }
                 if('wl-style-1' == $product_layout_class):
             ?>
-                <div class="wl-addto-cart <?php echo esc_attr( $product->get_type() ).' '.esc_attr( $product_layout_class ); ?>">
+                <div class="<?php echo esc_attr( $product->get_type() ).' '.esc_attr( $product_layout_class ); ?>">
                     <?php woocommerce_template_single_add_to_cart(); ?>
                 </div>
             <?php
@@ -1345,7 +1338,7 @@ class Woolentor_Wb_Product_Add_To_Cart_Widget extends Widget_Base {
         ?>
             <script type="text/javascript">
                 ;jQuery(document).ready(function($){ 
-                    $('.elementor-element-<?php echo $id; ?> form.cart').on( 'click', 'span.wl-qunatity-plus, span.wl-qunatity-minus', function() {
+                    $('form.cart').on( 'click', 'span.wl-qunatity-plus, span.wl-qunatity-minus', function() {
                         
                         // Get current quantity values
                         <?php if('grouped' != $poduct_type): ?>

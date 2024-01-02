@@ -89,17 +89,16 @@
                     return { ...o, ...e };
                 },
                 f = (e, r) => {
-
                     if ("" === e || void 0 === e) return "";
 		    if (typeof woocs_current_currency != 'undefined') {
-			//e = e * woocs_current_currency['rate'];
+			e = e * woocs_current_currency['rate'];
 			//e = parseInt(e, 10);
-			//e = Math.round(e);
-	
+			e = Math.round(e);
+
 		    }
                     const t = "number" == typeof e ? e : parseInt(e, 10);
                     if (!Number.isFinite(t)) return "";
-	
+		    
                     const n = a(r),
                         { minorUnit: o, prefix: i, suffix: c, decimalSeparator: u, thousandSeparator: f } = n,
                         s = t / 10 ** o,
@@ -118,3 +117,6 @@
             e.exports = window.wc.wcSettings;
         },
     });
+
+
+

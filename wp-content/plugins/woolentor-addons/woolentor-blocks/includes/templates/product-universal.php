@@ -90,119 +90,72 @@
     }
 
     ?>
-    <!--Product Start-->
-    <div class="<?php echo $collumval; ?>">
-        <div class="ht-product-inner">
+        <!--Product Start-->
+        <div class="<?php echo $collumval; ?>">
+            <div class="ht-product-inner">
 
-            <div class="ht-product-image-wrap">
-                <?php
-                    if( class_exists('WooCommerce') ){
-                        woolentor_custom_product_badge(); 
-                        woolentor_sale_flash();
-                    }
-                ?>
-                <div class="ht-product-image">
-                    <?php  if( $settings['thumbnailsStyle'] == 2 && $gallery_images_ids ): ?>
-                        <div class="ht-product-image-slider ht-product-image-thumbnaisl-<?php echo $tabuniqid; ?>" data-slick='{"rtl":<?php if( is_rtl() ){ echo 'true'; }else{ echo 'false'; } ?> }'>
-                            <?php
-                                foreach ( $gallery_images_ids as $gallery_attachment_id ) {
-                                    echo '<a href="'.esc_url( get_the_permalink() ).'" class="item">'.wp_get_attachment_image( $gallery_attachment_id, 'woocommerce_thumbnail' ).'</a>';
-                                }
-                            ?>
-                        </div>
+                <div class="ht-product-image-wrap">
+                    <?php
+                        if( class_exists('WooCommerce') ){
+                            woolentor_custom_product_badge(); 
+                            woolentor_sale_flash();
+                        }
+                    ?>
+                    <div class="ht-product-image">
+                        <?php  if( $settings['thumbnailsStyle'] == 2 && $gallery_images_ids ): ?>
+                            <div class="ht-product-image-slider ht-product-image-thumbnaisl-<?php echo $tabuniqid; ?>" data-slick='{"rtl":<?php if( is_rtl() ){ echo 'true'; }else{ echo 'false'; } ?> }'>
+                                <?php
+                                    foreach ( $gallery_images_ids as $gallery_attachment_id ) {
+                                        echo '<a href="'.esc_url( get_the_permalink() ).'" class="item">'.wp_get_attachment_image( $gallery_attachment_id, 'woocommerce_thumbnail' ).'</a>';
+                                    }
+                                ?>
+                            </div>
 
-                    <?php elseif( $settings['thumbnailsStyle'] == 3 && $gallery_images_ids ) : $tabactive = ''; ?>
-                        <div class="ht-product-cus-tab">
-                            <?php
-                                $i = 0;
-                                foreach ( $gallery_images_ids as $gallery_attachment_id ) {
-                                    $i++;
-                                    if( $i == 1 ){ $tabactive = 'htactive'; }else{ $tabactive = ' '; }
-                                    echo '<div class="ht-product-cus-tab-pane '.$tabactive.'" id="image-'.$i.get_the_ID().'"><a href="#">'.wp_get_attachment_image( $gallery_attachment_id, 'woocommerce_thumbnail' ).'</a></div>';
-                                }
-                            ?>
-                        </div>
-                        <ul class="ht-product-cus-tab-links">
-                            <?php
-                                $j = 0;
-                                foreach ( $gallery_images_ids as $gallery_attachment_id ) {
-                                    $j++;
-                                    if( $j == 1 ){ $tabactive = 'htactive'; }else{ $tabactive = ' '; }
-                                    echo '<li><a href="#image-'.$j.get_the_ID().'" class="'.$tabactive.'">'.wp_get_attachment_image( $gallery_attachment_id, 'woocommerce_gallery_thumbnail' ).'</a></li>';
-                                }
-                            ?>
-                        </ul>
+                        <?php elseif( $settings['thumbnailsStyle'] == 3 && $gallery_images_ids ) : $tabactive = ''; ?>
+                            <div class="ht-product-cus-tab">
+                                <?php
+                                    $i = 0;
+                                    foreach ( $gallery_images_ids as $gallery_attachment_id ) {
+                                        $i++;
+                                        if( $i == 1 ){ $tabactive = 'htactive'; }else{ $tabactive = ' '; }
+                                        echo '<div class="ht-product-cus-tab-pane '.$tabactive.'" id="image-'.$i.get_the_ID().'"><a href="#">'.wp_get_attachment_image( $gallery_attachment_id, 'woocommerce_thumbnail' ).'</a></div>';
+                                    }
+                                ?>
+                            </div>
+                            <ul class="ht-product-cus-tab-links">
+                                <?php
+                                    $j = 0;
+                                    foreach ( $gallery_images_ids as $gallery_attachment_id ) {
+                                        $j++;
+                                        if( $j == 1 ){ $tabactive = 'htactive'; }else{ $tabactive = ' '; }
+                                        echo '<li><a href="#image-'.$j.get_the_ID().'" class="'.$tabactive.'">'.wp_get_attachment_image( $gallery_attachment_id, 'woocommerce_gallery_thumbnail' ).'</a></li>';
+                                    }
+                                ?>
+                            </ul>
 
-                    <?php else: ?>
-                        <a href="<?php the_permalink();?>"> 
-                            <?php woocommerce_template_loop_product_thumbnail(); ?> 
-                        </a>
-                    <?php endif; ?>
+                        <?php else: ?>
+                            <a href="<?php the_permalink();?>"> 
+                                <?php woocommerce_template_loop_product_thumbnail(); ?> 
+                            </a>
+                        <?php endif; ?>
 
-                </div>
-
-                <?php if( $settings['showCountdown'] == true && $settings['countdownPosition'] != 'contentbottom' && $offer_end_date != '' ):
-
-                    if( $offer_start_date_timestamp && $offer_end_date_timestamp && current_time( 'timestamp' ) > $offer_start_date_timestamp && current_time( 'timestamp' ) < $offer_end_date_timestamp
-                    ): 
-                ?>
-                    <div class="ht-product-countdown-wrap">
-                        <div class="ht-product-countdown" data-countdown="<?php echo esc_attr( $offer_end_date ); ?>" data-customlavel='<?php echo wp_json_encode( $data_customlavel ) ?>'></div>
                     </div>
-                <?php endif; endif; ?>
 
-                <?php if( $settings['showActionButton'] == true ){ if( $settings['actionButtonPosition'] != 'contentbottom' ): ?>
-                    <div class="ht-product-action">
-                        <ul class="woolentor-action-btn-area">
-                            <li>
-                                <a href="#" class="woolentorquickview" data-quick-id="<?php the_ID();?>" <?php echo wc_implode_html_attributes( ['aria-label'=>$product->get_title()] ); ?>>
-                                    <i class="sli sli-magnifier"></i>
-                                    <span class="ht-product-action-tooltip"><?php esc_html_e('Quick View','woolentor'); ?></span>
-                                </a>
-                            </li>
-                            <?php
-                                if( true === woolentor_has_wishlist_plugin() ){
-                                    echo '<li>'.woolentor_add_to_wishlist_button('<i class="sli sli-heart"></i>','<i class="sli sli-heart"></i>', 'yes').'</li>';
-                                }
-                            ?>
-                            <?php
-                                if( function_exists('woolentor_compare_button') && true === woolentor_exist_compare_plugin() ){
-                                    echo '<li>';
-                                        woolentor_compare_button(
-                                            array(
-                                                'style'=>2,
-                                                'btn_text'=>'<i class="sli sli-refresh"></i>',
-                                                'btn_added_txt'=>'<i class="sli sli-check"></i>'
-                                            )
-                                        );
-                                    echo '</li>';
-                                }
-                            ?>
-                            <li class="woolentor-cart"><?php woocommerce_template_loop_add_to_cart(); ?></li>
-                        </ul>
-                    </div>
-                <?php endif; }?>
+                    <?php if( $settings['showCountdown'] == true && $settings['countdownPosition'] != 'contentbottom' && $offer_end_date != '' ):
 
-            </div>
+                        if( $offer_start_date_timestamp && $offer_end_date_timestamp && current_time( 'timestamp' ) > $offer_start_date_timestamp && current_time( 'timestamp' ) < $offer_end_date_timestamp
+                        ): 
+                    ?>
+                        <div class="ht-product-countdown-wrap">
+                            <div class="ht-product-countdown" data-countdown="<?php echo esc_attr( $offer_end_date ); ?>" data-customlavel='<?php echo wp_json_encode( $data_customlavel ) ?>'></div>
+                        </div>
+                    <?php endif; endif; ?>
 
-            <div class="ht-product-content">
-                <div class="ht-product-content-inner">
-                    <?php if ( $settings['hideCategory'] != true ) : ?>
-                        <div class="ht-product-categories <?php if ( $settings['hideCategoryBeforeBorder'] == true ) {echo 'hide-category-before';} ?>"><?php woolentor_get_product_category_list(); ?></div>
-                    <?php endif; ?>
-                    <?php if ( $settings['hideTitle'] != true ) { echo sprintf( "<%s class='ht-product-title'><a href='%s'>%s</a></%s>", $title_html_tag, get_the_permalink(), get_the_title(), $title_html_tag ); } ?>
-                    <?php if ( $settings['hidePrice'] != true ) : ?>
-                        <div class="ht-product-price"><?php woocommerce_template_loop_price();?></div>
-                    <?php endif; ?>
-                    <?php if ( $settings['hideRating'] != true ) : ?>
-                        <div class="ht-product-ratting-wrap"><?php echo woolentor_wc_get_rating_html('yes'); ?></div>
-                    <?php endif; ?>
-
-                    <?php if( $settings['showActionButton'] == true ){ if( $settings['actionButtonPosition'] == 'contentbottom' ): ?>
+                    <?php if( $settings['showActionButton'] == true ){ if( $settings['actionButtonPosition'] != 'contentbottom' ): ?>
                         <div class="ht-product-action">
                             <ul class="woolentor-action-btn-area">
                                 <li>
-                                    <a href="#" class="woolentorquickview" data-quick-id="<?php the_ID();?>" <?php echo wc_implode_html_attributes( ['aria-label'=>$product->get_title()] ); ?>>
+                                    <a href="#" class="woolentorquickview" data-quick-id="<?php the_ID();?>" >
                                         <i class="sli sli-magnifier"></i>
                                         <span class="ht-product-action-tooltip"><?php esc_html_e('Quick View','woolentor'); ?></span>
                                     </a>
@@ -228,20 +181,68 @@
                                 <li class="woolentor-cart"><?php woocommerce_template_loop_add_to_cart(); ?></li>
                             </ul>
                         </div>
-                    <?php endif; } ?>
+                    <?php endif; }?>
+
                 </div>
-                <?php 
-                    if( $settings['showCountdown'] == true && $settings['countdownPosition'] == 'contentbottom' && $offer_end_date != ''  ):
 
-                        if( $offer_start_date_timestamp && $offer_end_date_timestamp && current_time( 'timestamp' ) > $offer_start_date_timestamp && current_time( 'timestamp' ) < $offer_end_date_timestamp
-                        ):
-                ?>
-                    <div class="ht-product-countdown-wrap">
-                        <div class="ht-product-countdown" data-countdown="<?php echo esc_attr( $offer_end_date ); ?>" data-customlavel='<?php echo wp_json_encode( $data_customlavel ) ?>'></div>
+                <div class="ht-product-content">
+                    <div class="ht-product-content-inner">
+                        <?php if ( $settings['hideCategory'] != true ) : ?>
+                            <div class="ht-product-categories <?php if ( $settings['hideCategoryBeforeBorder'] == true ) {echo 'hide-category-before';} ?>"><?php woolentor_get_product_category_list(); ?></div>
+                        <?php endif; ?>
+                        <?php if ( $settings['hideTitle'] != true ) { echo sprintf( "<%s class='ht-product-title'><a href='%s'>%s</a></%s>", $title_html_tag, get_the_permalink(), get_the_title(), $title_html_tag ); } ?>
+                        <?php if ( $settings['hidePrice'] != true ) : ?>
+                            <div class="ht-product-price"><?php woocommerce_template_loop_price();?></div>
+                        <?php endif; ?>
+                        <?php if ( $settings['hideRating'] != true ) : ?>
+                            <div class="ht-product-ratting-wrap"><?php echo woolentor_wc_get_rating_html('yes'); ?></div>
+                        <?php endif; ?>
+
+                        <?php if( $settings['showActionButton'] == true ){ if( $settings['actionButtonPosition'] == 'contentbottom' ): ?>
+                            <div class="ht-product-action">
+                                <ul class="woolentor-action-btn-area">
+                                    <li>
+                                        <a href="#" class="woolentorquickview" data-quick-id="<?php the_ID();?>" >
+                                            <i class="sli sli-magnifier"></i>
+                                            <span class="ht-product-action-tooltip"><?php esc_html_e('Quick View','woolentor'); ?></span>
+                                        </a>
+                                    </li>
+                                    <?php
+                                        if( true === woolentor_has_wishlist_plugin() ){
+                                            echo '<li>'.woolentor_add_to_wishlist_button('<i class="sli sli-heart"></i>','<i class="sli sli-heart"></i>', 'yes').'</li>';
+                                        }
+                                    ?>
+                                    <?php
+                                        if( function_exists('woolentor_compare_button') && true === woolentor_exist_compare_plugin() ){
+                                            echo '<li>';
+                                                woolentor_compare_button(
+                                                    array(
+                                                        'style'=>2,
+                                                        'btn_text'=>'<i class="sli sli-refresh"></i>',
+                                                        'btn_added_txt'=>'<i class="sli sli-check"></i>'
+                                                    )
+                                                );
+                                            echo '</li>';
+                                        }
+                                    ?>
+                                    <li class="woolentor-cart"><?php woocommerce_template_loop_add_to_cart(); ?></li>
+                                </ul>
+                            </div>
+                        <?php endif; } ?>
                     </div>
-                <?php endif; endif; ?>
-            </div>
+                    <?php 
+                        if( $settings['showCountdown'] == true && $settings['countdownPosition'] == 'contentbottom' && $offer_end_date != ''  ):
 
+                            if( $offer_start_date_timestamp && $offer_end_date_timestamp && current_time( 'timestamp' ) > $offer_start_date_timestamp && current_time( 'timestamp' ) < $offer_end_date_timestamp
+                            ):
+                    ?>
+                        <div class="ht-product-countdown-wrap">
+                            <div class="ht-product-countdown" data-countdown="<?php echo esc_attr( $offer_end_date ); ?>" data-customlavel='<?php echo wp_json_encode( $data_customlavel ) ?>'></div>
+                        </div>
+                    <?php endif; endif; ?>
+                </div>
+
+            </div>
         </div>
-    </div>
-    <!--Product End-->
+        <!--Product End-->
+    <?php

@@ -141,7 +141,7 @@ class MC4WP_Admin {
 	*/
 	public function register_dashboard_widgets() {
 		if ( ! $this->tools->is_user_authorized() ) {
-			return;
+			return false;
 		}
 
 		/**
@@ -153,12 +153,15 @@ class MC4WP_Admin {
 		* @ignore
 		*/
 		do_action( 'mc4wp_dashboard_setup' );
+
+		return true;
 	}
 
 	/**
 	* Upgrade routine
 	*/
 	private function init_upgrade_routines() {
+
 		// upgrade routine for upgrade routine....
 		$previous_version = get_option( 'mc4wp_lite_version', 0 );
 		if ( $previous_version ) {
@@ -167,6 +170,11 @@ class MC4WP_Admin {
 		}
 
 		$previous_version = get_option( 'mc4wp_version', 0 );
+
+		// allow setting migration version from URL, to easily re-run previous migrations.
+		if ( isset( $_GET['mc4wp_run_migration'] ) ) {
+			$previous_version = $_GET['mc4wp_run_migration'];
+		}
 
 		// Ran upgrade routines before?
 		if ( empty( $previous_version ) ) {
@@ -180,15 +188,21 @@ class MC4WP_Admin {
 				)
 			);
 			if ( empty( $posts ) ) {
-				return;
+				return false;
 			}
 
 			$previous_version = '3.9';
 		}
 
+		// Rollback'ed?
+		if ( version_compare( $previous_version, MC4WP_VERSION, '>' ) ) {
+			update_option( 'mc4wp_version', MC4WP_VERSION );
+			return false;
+		}
+
 		// This means we're good!
-		if ( version_compare( $previous_version, MC4WP_VERSION, '>=' ) ) {
-			return;
+		if ( version_compare( $previous_version, MC4WP_VERSION ) > -1 ) {
+			return false;
 		}
 
 		define( 'MC4WP_DOING_UPGRADE', true );
@@ -229,6 +243,11 @@ class MC4WP_Admin {
 		// merge with current settings to allow passing partial arrays to this method
 		$settings = array_merge( $current, $settings );
 
+		// toggle usage tracking
+		if ( $settings['allow_usage_tracking'] !== $current['allow_usage_tracking'] ) {
+			MC4WP_Usage_Tracking::instance()->toggle( $settings['allow_usage_tracking'] );
+		}
+
 		// Make sure not to use obfuscated key
 		if ( strpos( $settings['api_key'], '*' ) !== false ) {
 			$settings['api_key'] = $current['api_key'];
@@ -255,10 +274,14 @@ class MC4WP_Admin {
 
 	/**
 	* Load scripts and stylesheet on Mailchimp for WP Admin pages
+	*
+	* @return bool
 	*/
 	public function enqueue_assets() {
+		global $wp_scripts;
+
 		if ( ! $this->tools->on_plugin_page() ) {
-			return;
+			return false;
 		}
 
 		$opts      = mc4wp_get_options();
@@ -305,6 +328,8 @@ class MC4WP_Admin {
 		* @param string $page
 		*/
 		do_action( 'mc4wp_admin_enqueue_assets', '', $page );
+
+		return true;
 	}
 
 
@@ -405,8 +430,8 @@ class MC4WP_Admin {
 			} catch ( MC4WP_API_Connection_Exception $e ) {
 				$message = sprintf( '<strong>%s</strong> %s %s ', esc_html__( 'Error connecting to Mailchimp:', 'mailchimp-for-wp' ), $e->getCode(), $e->getMessage() );
 
-				if ( is_object( $e->response_data ) && ! empty( $e->response_data->ref_no ) ) {
-					$message .= '<br />' . sprintf( esc_html__( 'Looks like your server is blocked by Mailchimp\'s firewall. Please contact Mailchimp support and include the following reference number: %s', 'mailchimp-for-wp' ), $e->response_data->ref_no );
+				if ( is_object( $e->data ) && ! empty( $e->data->ref_no ) ) {
+					$message .= '<br />' . sprintf( esc_html__( 'Looks like your server is blocked by Mailchimp\'s firewall. Please contact Mailchimp support and include the following reference number: %s', 'mailchimp-for-wp' ), $e->data->ref_no );
 				}
 
 				$message .= '<br /><br />' . sprintf( '<a href="%s">' . esc_html__( 'Here\'s some info on solving common connectivity issues.', 'mailchimp-for-wp' ) . '</a>', 'https://www.mc4wp.com/kb/solving-connectivity-issues/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-notice' );

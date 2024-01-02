@@ -19,7 +19,7 @@ use WooCommerce\PayPalCommerce\ApiClient\Factory\PaymentTokenActionLinksFactory;
 use WooCommerce\PayPalCommerce\ApiClient\Factory\PaymentTokenFactory;
 use Psr\Log\LoggerInterface;
 use WooCommerce\PayPalCommerce\ApiClient\Repository\CustomerRepository;
-use WP_Error;
+use WooCommerce\PayPalCommerce\ApiClient\Repository\PayPalRequestIdRepository;
 
 /**
  * Class PaymentTokenEndpoint
@@ -71,6 +71,13 @@ class PaymentTokenEndpoint {
 	protected $customer_repository;
 
 	/**
+	 * The request id repository.
+	 *
+	 * @var PayPalRequestIdRepository
+	 */
+	private $request_id_repository;
+
+	/**
 	 * PaymentTokenEndpoint constructor.
 	 *
 	 * @param string                         $host The host.
@@ -79,6 +86,7 @@ class PaymentTokenEndpoint {
 	 * @param PaymentTokenActionLinksFactory $payment_token_action_links_factory The PaymentTokenActionLinks factory.
 	 * @param LoggerInterface                $logger The logger.
 	 * @param CustomerRepository             $customer_repository The customer repository.
+	 * @param PayPalRequestIdRepository      $request_id_repository The request id repository.
 	 */
 	public function __construct(
 		string $host,
@@ -86,7 +94,8 @@ class PaymentTokenEndpoint {
 		PaymentTokenFactory $factory,
 		PaymentTokenActionLinksFactory $payment_token_action_links_factory,
 		LoggerInterface $logger,
-		CustomerRepository $customer_repository
+		CustomerRepository $customer_repository,
+		PayPalRequestIdRepository $request_id_repository
 	) {
 
 		$this->host                               = $host;
@@ -95,10 +104,11 @@ class PaymentTokenEndpoint {
 		$this->payment_token_action_links_factory = $payment_token_action_links_factory;
 		$this->logger                             = $logger;
 		$this->customer_repository                = $customer_repository;
+		$this->request_id_repository              = $request_id_repository;
 	}
 
 	/**
-	 * Returns the payment tokens for the given user id.
+	 * Returns the payment tokens for a user.
 	 *
 	 * @param int $id The user id.
 	 *
@@ -119,67 +129,7 @@ class PaymentTokenEndpoint {
 		$response = $this->request( $url, $args );
 		if ( is_wp_error( $response ) ) {
 			$error = new RuntimeException(
-				__( 'Could not fetch payment token for customer id.', 'woocommerce-paypal-payments' )
-			);
-			$this->logger->log(
-				'warning',
-				$error->getMessage(),
-				array(
-					'args'     => $args,
-					'response' => $response,
-				)
-			);
-			throw $error;
-		}
-		$json        = json_decode( $response['body'] );
-		$status_code = (int) wp_remote_retrieve_response_code( $response );
-		if ( 200 !== $status_code ) {
-			$error = new PayPalApiException(
-				$json,
-				$status_code
-			);
-			$this->logger->log(
-				'warning',
-				$error->getMessage(),
-				array(
-					'args'     => $args,
-					'response' => $response,
-				)
-			);
-			throw $error;
-		}
-
-		$tokens = array();
-		foreach ( $json->payment_tokens as $token_value ) {
-			$tokens[] = $this->factory->from_paypal_response( $token_value );
-		}
-
-		return $tokens;
-	}
-
-	/**
-	 * Returns the payment tokens for the given guest customer id.
-	 *
-	 * @param string $customer_id The guest customer id.
-	 *
-	 * @return PaymentToken[]
-	 * @throws RuntimeException If the request fails.
-	 */
-	public function for_guest( string $customer_id ): array {
-		$bearer = $this->bearer->bearer();
-		$url    = trailingslashit( $this->host ) . 'v2/vault/payment-tokens/?customer_id=' . $customer_id;
-		$args   = array(
-			'method'  => 'GET',
-			'headers' => array(
-				'Authorization' => 'Bearer ' . $bearer->token(),
-				'Content-Type'  => 'application/json',
-			),
-		);
-
-		$response = $this->request( $url, $args );
-		if ( $response instanceof WP_Error ) {
-			$error = new RuntimeException(
-				__( 'Could not fetch payment token for guest customer id.', 'woocommerce-paypal-payments' )
+				__( 'Could not fetch payment token.', 'woocommerce-paypal-payments' )
 			);
 			$this->logger->log(
 				'warning',
@@ -259,40 +209,6 @@ class PaymentTokenEndpoint {
 	}
 
 	/**
-	 * Deletes payment token by the given id.
-	 *
-	 * @param string $token_id Token id.
-	 * @return bool
-	 *
-	 * @throws RuntimeException If something goes wrong while deleting the token.
-	 */
-	public function delete_token_by_id( string $token_id ): bool {
-		$bearer = $this->bearer->bearer();
-
-		$url  = trailingslashit( $this->host ) . 'v2/vault/payment-tokens/' . $token_id;
-		$args = array(
-			'method'  => 'DELETE',
-			'headers' => array(
-				'Authorization' => 'Bearer ' . $bearer->token(),
-				'Content-Type'  => 'application/json',
-			),
-		);
-
-		$response = $this->request( $url, $args );
-
-		if ( is_wp_error( $response ) ) {
-			$error = new RuntimeException(
-				__( 'Could not delete payment token.', 'woocommerce-paypal-payments' )
-			);
-			$this->logger->warning( $error->getMessage() );
-
-			throw $error;
-		}
-
-		return wp_remote_retrieve_response_code( $response ) === 204;
-	}
-
-	/**
 	 * Starts the process of PayPal account vaulting (without payment), returns the links for further actions.
 	 *
 	 * @param int    $user_id The WP user id.
@@ -327,11 +243,14 @@ class PaymentTokenEndpoint {
 			),
 		);
 
+		$request_id = uniqid( 'ppcp-vault', true );
+
 		$args = array(
 			'method'  => 'POST',
 			'headers' => array(
 				'Authorization' => 'Bearer ' . $bearer->token(),
 				'Content-Type'  => 'application/json',
+				'Request-Id'    => $request_id,
 			),
 			'body'    => wp_json_encode( $data ),
 		);
@@ -358,6 +277,8 @@ class PaymentTokenEndpoint {
 
 		$links = $this->payment_token_action_links_factory->from_paypal_response( $json );
 
+		$this->request_id_repository->set( "ppcp-vault-{$user_id}", $request_id );
+
 		return $links;
 	}
 
@@ -381,6 +302,7 @@ class PaymentTokenEndpoint {
 			'method'  => 'POST',
 			'headers' => array(
 				'Authorization' => 'Bearer ' . $bearer->token(),
+				'Request-Id'    => $this->request_id_repository->get( "ppcp-vault-{$user_id}" ),
 				'Content-Type'  => 'application/json',
 			),
 		);

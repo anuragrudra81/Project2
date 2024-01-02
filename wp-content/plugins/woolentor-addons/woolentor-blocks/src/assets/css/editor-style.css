@@ -48,9 +48,6 @@ span.woolentor-reset-btn {
 span.woolentor-reset-btn:hover{
     color: #007cba;
 }
-.woolentor-alignment-btn-group .components-button.is-small svg {
-    width: 15px;
-}
 
 .wp-block-image-selector-woolentor-image-uploader{
     margin-bottom: 15px;
@@ -103,12 +100,6 @@ span.woolentor-reset-btn:hover{
 /* Product grid */
 
 /* Builder block style */
-.wp-block-woolentor-shop-archive-default .wishsuite-button,.wp-block-woolentor-product-related .wishsuite-button,.wp-block-woolentor-product-upsell .wishsuite-button{
-    width: 100%;
-}
-.woocommerce-page .wp-block-woolentor-cart-table table.cart{
-    width: 100%;
-}
 .woocommerce-page .wp-block-woolentor-cart-table table.cart td.actions .coupon input.input-text {
     width: auto;
     border-radius: 0;
@@ -129,9 +120,6 @@ span.woolentor-reset-btn:hover{
 }
 .woocommerce-page .wp-block-woolentor-cart-table table.shop_table .variation p{
     margin-top: 0;
-}
-.woocommerce-page .wp-block-woolentor-cart-table .wl_cart_table tr td .quantity .qty {
-    width: 50px;
 }
 
 /* Checkout page Addons */
@@ -236,7 +224,6 @@ button.components-button.woolentor-elements-tab-menu-item.tab-menu-active{
     font-size: 16px;
     margin-right: 3px;
     line-height: 1;
-    position: static;
 }
 .woolentor-panel-control button.woolentor-tab-menu-item.general::before {
     content: "\f107"
@@ -300,7 +287,6 @@ button.components-button.woolentor-elements-tab-menu-item.tab-menu-active{
     flex-flow: row wrap;
     flex-direction: column-reverse;
     margin: 0 !important;
-    padding: 0 !important;
 }
 .wp-block-selector-woolentor-dimensions-control .components-base-control__label{
     margin-bottom: -3px;
@@ -324,7 +310,7 @@ button.components-button.woolentor-elements-tab-menu-item.tab-menu-active{
 .wp-block-selector-woolentor-dimensions-control button.components-button.has-icon{
     height: 100%;
     width: auto;
-    padding: 2px 3px;
+    padding: 4px 3px;
     border-radius: 0;
     border: 1px solid #d5dadf;
     min-width: 45px;
@@ -444,13 +430,6 @@ label.woolentor-control-title {
     padding: 10px;
     border-top: 0;
 }
-.components-panel__body .woolentor_repeater-controls .components-base-control__field{
-    padding: 0;
-}
-.components-panel__body .woolentor_repeater-controls label{
-    text-transform: none !important;
-    font-size: 12px !important;
-}
 
 /* Taxonomy Field style */
 /* .woolentor-component-taxonomy-area {
@@ -565,6 +544,7 @@ label.woolentor-control-title {
 .woolentor-field-section .components-circular-option-picker {
     min-width: auto;
     margin-top: 0;
+    /* margin-left: 8px; */
     width: auto;
     padding: 0;
 }
@@ -581,20 +561,20 @@ label.woolentor-control-title {
 .woolentor-field-wrap .components-dropdown {
     width: 25px;
 }
-.woolentor-field-wrap .components-color-palette__custom-color,.woolentor-field-wrap .components-color-palette__custom-color-button{
+.woolentor-field-wrap .components-color-palette__custom-color{
     font-size: 0;
     height: 24px;
     background-size: 10px 10px;
     box-shadow: 0 0 0 1px #cccccc !important;
 }
-.woolentor-field-wrap .components-circular-option-picker__swatches,.woolentor-field-wrap .components-color-palette__custom-color-text-wrapper{
+.woolentor-field-wrap .components-circular-option-picker__swatches{
     display: none;
 }
 .woolentor-field-wrap button.components-circular-option-picker__clear{
     position: relative;
     font-size: 0;
     box-shadow: none !important;
-    height: 24px;
+    height: auto;
 }
 .woolentor-field-wrap button.components-circular-option-picker__clear:before {
     content: "\f531";
@@ -603,10 +583,6 @@ label.woolentor-control-title {
     top: 0;
     font-size: 16px;
     font-family: 'dashicons';
-}
-.woolentor-field-wrap .components-color-palette__custom-color-button:after {
-    background-position: 0 0, 6px 6px;
-    background-size: 12px 12px;
 }
 /* Toggle Control */
 .woolentor-field-wrap .components-base-control,.woolentor-field-wrap .components-base-control__field{
@@ -748,10 +724,6 @@ button.components-button.woolentor-icon-control-icon-button.is-secondary {
     border-right: 0;
 }
 
-.woocommerce .woolentor-product-tabs ul.wc-tabs li a::before{
-    display: none;
-}
-
 /* Universal Product */
 [class*="woolentorblock-"].ht-products .wishsuite-button.wishlist{
     line-height: 35px;
@@ -816,11 +788,6 @@ button.components-button.woolentor-icon-control-icon-button.is-secondary {
 /* Thank you page */
 .woocommerce .woolentor_block_thankyou_address_details .woocommerce-customer-details address{
     width: auto;
-}
-
-/* Advanced Product image */
-*, :after, :before {
-    box-sizing: inherit;
 }
 
 /*

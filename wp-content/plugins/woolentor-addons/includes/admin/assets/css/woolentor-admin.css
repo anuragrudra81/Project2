@@ -1666,7 +1666,7 @@
   /* Sidebar Pro-Banner */
   .woolentor-promo-banner {
     margin-bottom: 30px;
-    padding-top: 47px;
+    padding-top: 30px;
   }
   .woolentor-promo-banner a{
     display: block;
@@ -1789,25 +1789,6 @@
   }
   .woolentor-admin-others-options .woolentor-admin-option:last-child{
     padding-bottom: 0;
-  }
-
-  /* Setting Page Pro notice */
-  .woolentor-admin-notice.notice-custom {
-    position: relative;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    border-top: 3px solid #f56640;
-}
-  .woolentor-admin-notice.notice-custom p{
-    margin: 0;
-  }
-  .woolentor-admin-notice.notice-custom .notice-dismiss {
-    padding: 0;
-    top: 7px;
-    right: 7px;
   }
 
 
@@ -2156,58 +2137,4 @@
 .woolentor-adv-pro-notice > *,.woolentor-adv-pro-opacity{
   opacity: 0.5;
   pointer-events: none;
-}
-
-/* Free VS Pro Tabs */
-.freevspro .woolentor-admin-main-nav-btn{
-  color: #f56640;
-}
-.freevspro .woolentor-admin-main-nav-btn:hover,.freevspro .woolentor-admin-main-nav-btn.wlactive{
-  color: #ffffff;
-}
-#woolentor_freevspro_tabs .woolentor-admin-header .woolentor-admin-btn.enable{
-  background-color: #007EFF;
-  color: #ffffff;
-}
-#woolentor_freevspro_tabs .woolentor-admin-header .woolentor-admin-btn.enable:hover{
-  background-color: #ffffff;
-  color: #007EFF;
-}
-.different-free-vs-pro table {
-  border: none;
-  width: 100%;
-  border-collapse:collapse;
-}
-.different-free-vs-pro table tr {
-  flex-flow: row wrap;
-  border-right: 1px solid #d3d4d4;
-  border-left: 1px solid #d3d4d4;
-}
-.different-free-vs-pro table tr td, .different-free-vs-pro table tr th {
-  word-break: break-all;
-  border: 1px solid #d3d4d4;
-  font-size: 14px;
-  padding: 16px;
-  text-align: center;
-  border-right: 0;
-  border-left: 0;
-}
-.different-free-vs-pro table tbody tr td:first-child, .different-free-vs-pro table thead tr th:first-child{
-  text-align: left;
-}
-.different-free-vs-pro table tbody tr:nth-child(2n+1) {
-  background-color: #fbfcfd;
-}
-#woolentor_freevspro_tabs .woolentor_heading_style_two{
-  padding-left: 0;
-}
-.different-free-vs-pro table tbody tr.explore-pro-features{
-  background-color: #ffffff;
-}
-.different-free-vs-pro table tbody tr.explore-pro-features td {
-  text-align: center;
-  font-size: 16px;
-}
-.different-free-vs-pro .explore-pro-features a {
-  display: inline-flex;
 }

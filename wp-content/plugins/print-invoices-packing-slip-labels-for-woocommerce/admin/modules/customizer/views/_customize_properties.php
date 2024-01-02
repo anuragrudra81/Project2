@@ -34,20 +34,20 @@ function wt_pklist_gen_customize_form_field_sub($arg)
 	$elm_props=$css_prop.$trgt_elm.$preview_elm.$unit.$default_data.$refresh_html;
 	$frmgrp_style_props=$width.$float;
 	?>
-	<div class="wf_side_panel_frmgrp" style="<?php echo esc_attr($frmgrp_style_props);?>">
-		<label><?php echo esc_html($label);?></label>
+	<div class="wf_side_panel_frmgrp" style="<?php echo $frmgrp_style_props;?>">
+		<label><?php echo $label;?></label>
 	<?php
-	if("text" === $field_type)
+	if($field_type=='text')
 	{
 		?>
-		<input type="text" name="" class="wf_sidepanel_txt <?php echo esc_attr($event_class);?>" <?php echo $elm_props;?> />
+		<input type="text" name="" class="wf_sidepanel_txt <?php echo $event_class;?>" <?php echo $elm_props;?> />
 		<?php
-	}elseif("select" === $field_type)
+	}elseif($field_type=='select')
 	{
 		$select_options=isset($arg['select_options']) ? $arg['select_options'] : array();
 		$disabled_options = isset($arg['disabled_options']) ? $arg['disabled_options'] : array();
 		?>
-		<select class="wf_sidepanel_sele <?php echo esc_attr($event_class);?>" <?php echo $elm_props;?> >
+		<select class="wf_sidepanel_sele <?php echo $event_class;?>" <?php echo $elm_props;?> >
 			<?php
 			foreach($select_options as $select_optionK=>$select_optionV)
 			{
@@ -57,14 +57,14 @@ function wt_pklist_gen_customize_form_field_sub($arg)
 					$disabled_attr = ''; 
 				}
 				?>
-				<option value="<?php echo esc_attr($select_optionK);?>" <?php echo $disabled_attr; ?>><?php echo wp_kses_post($select_optionV);?></option>
+				<option value="<?php echo $select_optionK;?>" <?php echo $disabled_attr; ?>><?php echo $select_optionV;?></option>
 				<?php
 			}
 			?>
 		</select>
 		<?php
 	}
-	elseif("text_inputgrp" === $field_type)
+	elseif($field_type=='text_inputgrp')
 	{
 		$addonblock_vl=isset($arg['addonblock']) ? $arg['addonblock'] : 'px';
 		?>
@@ -74,22 +74,22 @@ function wt_pklist_gen_customize_form_field_sub($arg)
 		</div>
 		<?php
 	}
-	elseif("textarea" === $field_type)
+	elseif($field_type=='textarea')
 	{
 		?>
-		<textarea class="wf_sidepanel_txtarea <?php echo esc_attr($event_class);?>" <?php echo $elm_props;?> ></textarea>
+		<textarea class="wf_sidepanel_txtarea <?php echo $event_class;?>" <?php echo $elm_props;?> ></textarea>
 		<?php
 	}
-	elseif("color" === $field_type)
+	elseif($field_type=='color')
 	{
 		?>
-		<input type="text" name="" class="wf-color-field <?php echo esc_attr($event_class);?>" <?php echo $elm_props;?> >
+		<input type="text" name="" class="wf-color-field <?php echo $event_class;?>" <?php echo $elm_props;?> >
 		<?php
 	}
-	elseif("checkbox" === $field_type)
+	elseif($field_type=='checkbox')
 	{
 		?>
-		<input type="checkbox" name="" class="wf-checkbox <?php echo esc_attr($event_class);?>" <?php echo $elm_props;?> >
+		<input type="checkbox" name="" class="wf-checkbox <?php echo $event_class;?>" <?php echo $elm_props;?> >
 		<?php
 	}
 	?>
@@ -112,7 +112,7 @@ function wt_pklist_gen_customize_form_field($args)
 function wt_pklist_get_customize_panel_html($type,$template_type)
 {
 	$fields=array();
-	if("doc_title" === $type)
+	if($type=='doc_title')
 	{
 		$fields=array(
 			array(
@@ -147,7 +147,7 @@ function wt_pklist_get_customize_panel_html($type,$template_type)
 			)
 		);
 	}
-	elseif("company_logo" === $type)
+	elseif($type=='company_logo')
 	{
 		$fields=array(
 			array(
@@ -200,7 +200,25 @@ function wt_pklist_get_customize_panel_html($type,$template_type)
 				'event_class'=>'wf_cst_click',
 			),
 		);
-	}elseif("invoice_number" === $type || "order_number" === $type || "proforma_invoice_number" === $type || "creditnote_number" === $type)
+	}elseif('barcode' === $type)
+	{
+		$show_qrcode_placeholder = apply_filters('wt_pklist_show_qrcode_placeholder_in_template',false,$template_type);
+
+		if($show_qrcode_placeholder){
+			$fields=array(
+				array(
+					'label'=>__('Display','print-invoices-packing-slip-labels-for-woocommerce'),
+					'type'=>'select',
+					'event_class'=>'wf_cst_switcher',
+					'select_options'=>array(
+						'img_barcode'=>__('Barcode','print-invoices-packing-slip-labels-for-woocommerce'),
+						'img_qrcode'=>__('QR Code','print-invoices-packing-slip-labels-for-woocommerce'),
+					),
+					'disabled_options' => array(),
+				),
+			);
+		}
+	}elseif($type=='invoice_number' || $type=='order_number' || $type=='proforma_invoice_number' || $type=='creditnote_number')
 	{
 		$fields=array(
 			array(
@@ -234,7 +252,7 @@ function wt_pklist_get_customize_panel_html($type,$template_type)
 				'event_class'=>'wf_cst_click',
 			),
 		);
-	}elseif("invoice_date" === $type || "order_date" === $type || "dispatch_date" === $type || "proforma_invoice_date" === $type || "creditnote_date" === $type)
+	}elseif($type=='invoice_date' || $type=='order_date' || $type=='dispatch_date' || $type=='proforma_invoice_date')
 	{
 		$fields=array(
 			array(
@@ -286,7 +304,7 @@ function wt_pklist_get_customize_panel_html($type,$template_type)
 				'event_class'=>'wf_cst_click',
 			),
 		);
-	}elseif("from_address" === $type || "billing_address" === $type || "shipping_address" === $type || "return_address" === $type)
+	}elseif($type=='from_address' || $type=='billing_address' || $type=='shipping_address' || $type=='return_address')
 	{
 		$fields=array(
 			array(
@@ -310,7 +328,7 @@ function wt_pklist_get_customize_panel_html($type,$template_type)
 				'event_class'=>'wf_cst_click',
 			),
 		);
-	}elseif("email" === $type || "tel" === $type || "customer_note" === $type || "vat_number" === $type || "ssn_number" === $type || "shipping_method" === $type || "tracking_number" === $type || "total_no_of_items" === $type || "box_name" === $type)
+	}elseif($type=='email' || $type=='tel' || $type=='vat_number' || $type=='ssn_number' || $type=='shipping_method' || $type=='tracking_number')
 	{
 		$fields=array(
 			array(
@@ -324,7 +342,18 @@ function wt_pklist_get_customize_panel_html($type,$template_type)
 				'css_prop'=>'font-size',
 				'trgt_elm'=>$type,
 				'unit'=>'px',
+				//'width'=>'49%',
 			),
+			/*array(
+				'label'=>__('Text align','print-invoices-packing-slip-labels-for-woocommerce'),
+				'type'=>'select',
+				'select_options'=>Wf_Woocommerce_Packing_List_Customizer::get_customizer_presets('text-align'),
+				'css_prop'=>'text-align',
+				'trgt_elm'=>$type,
+				'event_class'=>'wf_cst_change',
+				'width'=>'49%',
+				'float'=>'right',
+			), */
 			array(
 				'label'=>__('Text color','print-invoices-packing-slip-labels-for-woocommerce'),
 				'type'=>'color',
@@ -333,7 +362,7 @@ function wt_pklist_get_customize_panel_html($type,$template_type)
 				'event_class'=>'wf_cst_click',
 			),
 		);
-	}elseif("product_table" === $type)
+	}elseif($type=='product_table')
 	{
 		$fields=array(
 			array(
@@ -565,7 +594,7 @@ function wt_pklist_get_customize_panel_html($type,$template_type)
 				'float'=>'right',
 			),
 		);
-	}elseif("signature" === $type)
+	}elseif($type=='signature')
 	{
 		$fields=array(
 			array(
@@ -602,9 +631,9 @@ function wt_pklist_get_customize_panel_html($type,$template_type)
 			)
 		);
 	}
-	elseif("product_table_subtotal" === $type || "product_table_shipping" === $type || "product_table_cart_discount" === $type
- || "product_table_order_discount" === $type || "product_table_total_tax" === $type || "product_table_fee" === $type
-  || "product_table_payment_method" === $type || "product_table_payment_total" === $type || "product_table_coupon" === $type || "payment_link" === $type)
+	elseif($type=='product_table_subtotal' || $type=='product_table_shipping' || $type=='product_table_cart_discount'
+ || $type=='product_table_order_discount' || $type=='product_table_total_tax' || $type=='product_table_fee'
+  || $type=='product_table_payment_method' || $type=='product_table_payment_total' || $type=='product_table_coupon')
 	{
 		$fields=array(			
 			array(
@@ -614,7 +643,7 @@ function wt_pklist_get_customize_panel_html($type,$template_type)
 			),
 		);
 	}
-	elseif("product_table_payment_summary" === $type)
+	elseif($type=='product_table_payment_summary')
 	{
 
 		$fields=array(			
@@ -674,32 +703,9 @@ function wt_pklist_get_customize_panel_html($type,$template_type)
 	}
 
 	//an informational text
-	$info_text			= '';
-	$template_addon_key = Wf_Woocommerce_Packing_List_Pro_Addons::wt_get_addon_key_by_template_type($template_type);
-	if( !empty( $template_addon_key ) ) {
-		if( false === Wf_Woocommerce_Packing_List_Admin::wt_plugin_active($template_addon_key) ){
-			
-			if( "wt_ipc_addon" === $template_addon_key ){
-				$pro_link = "https://www.webtoffee.com/product/woocommerce-pdf-invoices-packing-slips";
-			} else {
-				$pro_link = "https://www.webtoffee.com/product/woocommerce-shipping-labels-delivery-notes";
-			}
-
-			if( "vat_number" === $type ){
-				$vat_text	= sprintf('<div><span>%1$s</span>:<br>%2$s <b>%3$s</b>. %4$s <a href="%6$s" target="_blank" style="cursor:pointer;">%5$s</a></div>',
-					__("Note","print-invoices-packing-slip-labels-for-woocommerce"),
-					__("Displays customer`s VAT number saved in the order details by third-party plugins in this document. Supported meta keys are","print-invoices-packing-slip-labels-for-woocommerce"),
-					"vat, vat_number, eu_vat_number",
-					__("To add a different meta key","print-invoices-packing-slip-labels-for-woocommerce"),
-					__("Upgrade to premium","print-invoices-packing-slip-labels-for-woocommerce"),
-					esc_url($pro_link)
-				);
-				$info_text	= $vat_text;
-			}
-		}
-	}
+	$info_text='';
 	$info_text=apply_filters('wf_pklist_alter_customize_info_text',$info_text,$type,$template_type);
-	echo '<div class="wf_side_panel_info_text">'.wp_kses_post($info_text).'</div>';
+	echo '<div class="wf_side_panel_info_text">'.$info_text.'</div>';
 	$fields=apply_filters('wf_pklist_alter_customize_inputs',$fields,$type,$template_type);
 	if(count($fields)>0)
 	{
@@ -716,50 +722,5 @@ foreach($customizable_items as $key=>$label)
 	Wf_Woocommerce_Packing_List_Customizer::envelope_customize_ftblock($expndble);
 }
 ?>
-<?php
-/**
- * Customizer add-on CTA Banner, when pro add-on is active and adc is not active
- * 
- * @since 4.1.1
- */
-if(!empty($template_type) && "addresslabel" !== $template_type){
-	$template_addon_key = Wf_Woocommerce_Packing_List_Pro_Addons::wt_get_addon_key_by_template_type($template_type);
-	if(!empty($template_addon_key)){
-		if(true === Wf_Woocommerce_Packing_List_Admin::wt_plugin_active($template_addon_key) && false === Wf_Woocommerce_Packing_List_Admin::wt_plugin_active('wt_adc_addon')){
-			$adc_banner_content = Wf_Woocommerce_Packing_List_Pro_Addons::wt_get_addon_cta_banner_content('accounting','wt_adc_addon');
-			?>
-<div class="wt_pro_addon_tile_pro_ad" style="width:99%;min-height: 316px;margin:0;">
-	<div class="wt_pro_addon_widget_pro_ad">
-		<div class="wt_pro_addon_widget_wrapper_pro_ad">
-			<div class="wt_pro_addon_widget_column_pro_ad_1">
-				<img src="<?php echo esc_url($adc_banner_content['logo']); ?>">
-			</div>
-			<div class="wt_pro_addon_widget_column_pro_ad_2">
-				<h4 class="wt_pro_addon_title"><?php echo esc_html($adc_banner_content['title']); ?></h4>
-			</div>
-		</div>
-		<div class="wt_pro_addon_features_list_pro_ad">
-			<ul>
-			<?php
-				foreach($adc_banner_content['features_list'] as $p_feature){
-					?>
-					<li><?php echo esc_html($p_feature); ?></li>
-					<?php
-				}
-			?>
-			</ul>
-		</div>
-		<div class="wt_pro_show_more_less_pro_ad">
-			<a class="wt_pro_addon_show_more_pro_ad"><p><? echo __("Show More","print-invoices-packing-slip-labels-for-woocommerce"); ?></p></a>
-			<a class="wt_pro_addon_show_less_pro_ad"><p><? echo __("Show Less","print-invoices-packing-slip-labels-for-woocommerce"); ?></p></a>
-		</div>
-	</div>
-	<a class="wt_pro_addon_premium_link_div_pro_ad" href="https://www.webtoffee.com/product/customizer-for-woocommerce-pdf-invoice/?utm_source=free_plugin_customizer_bottom&utm_medium=pdf_premium&utm_campaign=PDF_Customizer&utm_content=<?php esc_attr_e(WF_PKLIST_VERSION); ?>" target="_blank">
-		<?php _e("Checkout Premium","print-invoices-packing-slip-labels-for-woocommerce"); ?>
-	</a>
-</div>
-			<?php
-		}
-	}
-}
-?>
+
+

@@ -87,7 +87,7 @@ class Woo_Wallet_Install {
             transaction_id BIGINT UNSIGNED NOT NULL auto_increment,
             blog_id BIGINT UNSIGNED NOT NULL DEFAULT 1,
             user_id BIGINT UNSIGNED NOT NULL DEFAULT 0,
-            type ENUM('credit', 'debit') NOT NULL,
+            type varchar(200 ) NOT NULL,
             amount DECIMAL( 16,8 ) NOT NULL,
             balance DECIMAL( 16,8 ) NOT NULL,
             currency varchar(20 ) NOT NULL,

@@ -81,5 +81,5 @@ if ($show_flags) {
             <?php endforeach; ?>
     </ul>
 
-    <div class="woocs_display_none">FOX v.<?php echo WOOCS_VERSION ?></div>
+    <div class="woocs_display_none">WOOCS v.<?php echo WOOCS_VERSION ?></div>
 </div>

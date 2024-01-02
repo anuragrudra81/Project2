@@ -9,14 +9,11 @@ declare(strict_types=1);
 
 namespace WooCommerce\PayPalCommerce\Onboarding\Render;
 
-use Psr\Log\LoggerInterface;
 use WooCommerce\PayPalCommerce\ApiClient\Endpoint\PartnerReferrals;
 use WooCommerce\PayPalCommerce\ApiClient\Exception\RuntimeException;
 use WooCommerce\PayPalCommerce\ApiClient\Helper\Cache;
 use WooCommerce\PayPalCommerce\ApiClient\Repository\PartnerReferralsData;
-use WooCommerce\PayPalCommerce\Onboarding\Helper\OnboardingUrl;
 use WooCommerce\PayPalCommerce\WcGateway\Settings\Settings;
-use WooCommerce\WooCommerce\Logging\Logger\NullLogger;
 
 /**
  * Class OnboardingRenderer
@@ -59,13 +56,6 @@ class OnboardingRenderer {
 	protected $cache;
 
 	/**
-	 * The logger
-	 *
-	 * @var LoggerInterface
-	 */
-	private $logger;
-
-	/**
 	 * OnboardingRenderer constructor.
 	 *
 	 * @param Settings             $settings The settings.
@@ -73,22 +63,19 @@ class OnboardingRenderer {
 	 * @param PartnerReferrals     $sandbox_partner_referrals The PartnerReferrals for sandbox.
 	 * @param PartnerReferralsData $partner_referrals_data The default partner referrals data.
 	 * @param Cache                $cache The cache.
-	 * @param ?LoggerInterface     $logger The logger.
 	 */
 	public function __construct(
 		Settings $settings,
 		PartnerReferrals $production_partner_referrals,
 		PartnerReferrals $sandbox_partner_referrals,
 		PartnerReferralsData $partner_referrals_data,
-		Cache $cache,
-		LoggerInterface $logger = null
+		Cache $cache
 	) {
 		$this->settings                     = $settings;
 		$this->production_partner_referrals = $production_partner_referrals;
 		$this->sandbox_partner_referrals    = $sandbox_partner_referrals;
 		$this->partner_referrals_data       = $partner_referrals_data;
 		$this->cache                        = $cache;
-		$this->logger                       = $logger ?: new NullLogger();
 	}
 
 	/**
@@ -109,29 +96,14 @@ class OnboardingRenderer {
 
 		$environment = $is_production ? 'production' : 'sandbox';
 		$product     = 'PPCP' === $data['products'][0] ? 'ppcp' : 'express_checkout';
-		$cache_key   = $environment . '-' . $product;
-
-		$onboarding_url = new OnboardingUrl( $this->cache, $cache_key, get_current_user_id() );
-
-		if ( $onboarding_url->load() ) {
-			$this->logger->debug( 'Loaded onbording URL from cache: ' . $cache_key );
-			return $onboarding_url->get() ?: '';
+		if ( $this->cache->has( $environment . '-' . $product ) ) {
+			return $this->cache->get( $environment . '-' . $product );
 		}
-
-		$this->logger->info( 'Generating onboarding URL for: ' . $cache_key );
-
-		$onboarding_url->init();
-
-		$data = $this->partner_referrals_data
-			->append_onboarding_token( $data, $onboarding_url->token() ?: '' );
 
 		$url = $is_production ? $this->production_partner_referrals->signup_link( $data ) : $this->sandbox_partner_referrals->signup_link( $data );
 		$url = add_query_arg( $args, $url );
 
-		$onboarding_url->set( $url );
-		$onboarding_url->persist();
-
-		$this->logger->info( 'Persisted onboarding URL for: ' . $cache_key );
+		$this->cache->set( $environment . '-' . $product, $url, 3 * MONTH_IN_SECONDS );
 
 		return $url;
 	}

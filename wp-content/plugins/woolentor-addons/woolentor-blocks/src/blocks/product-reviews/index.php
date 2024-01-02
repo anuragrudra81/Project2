@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $uniqClass 	 = 'woolentorblock-'.$settings['blockUniqId'];
 $areaClasses = array( $uniqClass, 'woolentor_block_product_reviews' );
 !empty( $settings['align'] ) ? $areaClasses[] = 'align'.$settings['align'] : '';
-!empty( $settings['className'] ) ? $areaClasses[] = esc_attr( $settings['className'] ) : '';
+!empty( $settings['className'] ) ? $areaClasses[] = $settings['className'] : '';
 
 $is_editor = ( $block['is_editor'] == 'yes' ) ? true : false;
 

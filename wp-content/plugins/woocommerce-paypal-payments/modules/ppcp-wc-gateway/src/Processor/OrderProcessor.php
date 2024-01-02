@@ -9,25 +9,17 @@ declare(strict_types=1);
 
 namespace WooCommerce\PayPalCommerce\WcGateway\Processor;
 
-use Exception;
 use Psr\Log\LoggerInterface;
-use WC_Order;
 use WooCommerce\PayPalCommerce\ApiClient\Endpoint\OrderEndpoint;
-use WooCommerce\PayPalCommerce\ApiClient\Entity\ApplicationContext;
 use WooCommerce\PayPalCommerce\ApiClient\Entity\Order;
 use WooCommerce\PayPalCommerce\ApiClient\Entity\OrderStatus;
-use WooCommerce\PayPalCommerce\ApiClient\Exception\RuntimeException;
 use WooCommerce\PayPalCommerce\ApiClient\Factory\OrderFactory;
-use WooCommerce\PayPalCommerce\ApiClient\Factory\PayerFactory;
-use WooCommerce\PayPalCommerce\ApiClient\Factory\PurchaseUnitFactory;
-use WooCommerce\PayPalCommerce\ApiClient\Factory\ShippingPreferenceFactory;
 use WooCommerce\PayPalCommerce\ApiClient\Helper\OrderHelper;
 use WooCommerce\PayPalCommerce\Button\Helper\ThreeDSecure;
 use WooCommerce\PayPalCommerce\Onboarding\Environment;
 use WooCommerce\PayPalCommerce\Session\SessionHandler;
 use WooCommerce\PayPalCommerce\Subscription\Helper\SubscriptionHelper;
 use WooCommerce\PayPalCommerce\Vaulting\PaymentTokenRepository;
-use WooCommerce\PayPalCommerce\WcGateway\Exception\PayPalOrderMissingException;
 use WooCommerce\PayPalCommerce\WcGateway\Gateway\PayPalGateway;
 use WooCommerce\PayPalCommerce\WcGateway\Settings\Settings;
 
@@ -95,6 +87,13 @@ class OrderProcessor {
 	private $settings;
 
 	/**
+	 * The last error.
+	 *
+	 * @var string
+	 */
+	private $last_error = '';
+
+	/**
 	 * A logger.
 	 *
 	 * @var LoggerInterface
@@ -116,34 +115,6 @@ class OrderProcessor {
 	private $order_helper;
 
 	/**
-	 * The PurchaseUnit factory.
-	 *
-	 * @var PurchaseUnitFactory
-	 */
-	private $purchase_unit_factory;
-
-	/**
-	 * The payer factory.
-	 *
-	 * @var PayerFactory
-	 */
-	private $payer_factory;
-
-	/**
-	 * The shipping_preference factory.
-	 *
-	 * @var ShippingPreferenceFactory
-	 */
-	private $shipping_preference_factory;
-
-	/**
-	 * Array to store temporary order data changes to restore after processing.
-	 *
-	 * @var array
-	 */
-	private $restore_order_data = array();
-
-	/**
 	 * OrderProcessor constructor.
 	 *
 	 * @param SessionHandler              $session_handler The Session Handler.
@@ -156,9 +127,6 @@ class OrderProcessor {
 	 * @param Environment                 $environment The environment.
 	 * @param SubscriptionHelper          $subscription_helper The subscription helper.
 	 * @param OrderHelper                 $order_helper The order helper.
-	 * @param PurchaseUnitFactory         $purchase_unit_factory The PurchaseUnit factory.
-	 * @param PayerFactory                $payer_factory The payer factory.
-	 * @param ShippingPreferenceFactory   $shipping_preference_factory The shipping_preference factory.
 	 */
 	public function __construct(
 		SessionHandler $session_handler,
@@ -170,10 +138,7 @@ class OrderProcessor {
 		LoggerInterface $logger,
 		Environment $environment,
 		SubscriptionHelper $subscription_helper,
-		OrderHelper $order_helper,
-		PurchaseUnitFactory $purchase_unit_factory,
-		PayerFactory $payer_factory,
-		ShippingPreferenceFactory $shipping_preference_factory
+		OrderHelper $order_helper
 	) {
 
 		$this->session_handler               = $session_handler;
@@ -186,56 +151,39 @@ class OrderProcessor {
 		$this->logger                        = $logger;
 		$this->subscription_helper           = $subscription_helper;
 		$this->order_helper                  = $order_helper;
-		$this->purchase_unit_factory         = $purchase_unit_factory;
-		$this->payer_factory                 = $payer_factory;
-		$this->shipping_preference_factory   = $shipping_preference_factory;
 	}
 
 	/**
 	 * Processes a given WooCommerce order and captured/authorizes the connected PayPal orders.
 	 *
-	 * @param WC_Order $wc_order The WooCommerce order.
+	 * @param \WC_Order $wc_order The WooCommerce order.
 	 *
-	 * @throws PayPalOrderMissingException If no PayPal order.
-	 * @throws Exception If processing fails.
+	 * @return bool
 	 */
-	public function process( WC_Order $wc_order ): void {
-		$order = $this->session_handler->order();
+	public function process( \WC_Order $wc_order ): bool {
+		$order_id = $wc_order->get_meta( PayPalGateway::ORDER_ID_META_KEY );
+		$order    = $this->session_handler->order() ?? $this->order_endpoint->order( $order_id );
 		if ( ! $order ) {
-			// phpcs:ignore WordPress.Security.NonceVerification
-			$order_id = $wc_order->get_meta( PayPalGateway::ORDER_ID_META_KEY ) ?: wc_clean( wp_unslash( $_POST['paypal_order_id'] ?? '' ) );
-			if ( is_string( $order_id ) && $order_id ) {
-				try {
-					$order = $this->order_endpoint->order( $order_id );
-				} catch ( RuntimeException $exception ) {
-					throw new Exception( __( 'Could not retrieve PayPal order.', 'woocommerce-paypal-payments' ) );
-				}
-			} else {
-				$this->logger->warning(
-					sprintf(
-						'No PayPal order ID found in order #%d meta.',
-						$wc_order->get_id()
-					)
-				);
-
-				throw new PayPalOrderMissingException(
-					__(
-						'Could not retrieve order. Maybe it was already completed or this browser is not supported. Please check your email or try again with a different browser.',
-						'woocommerce-paypal-payments'
-					)
-				);
-			}
+			$this->last_error = __( 'No PayPal order found in the current WooCommerce session.', 'woocommerce-paypal-payments' );
+			return false;
 		}
 
 		$this->add_paypal_meta( $wc_order, $order, $this->environment );
 
+		$error_message = null;
 		if ( $this->order_helper->contains_physical_goods( $order ) && ! $this->order_is_ready_for_process( $order ) ) {
-			throw new Exception(
-				__(
-					'The payment is not ready for processing yet.',
-					'woocommerce-paypal-payments'
-				)
+			$error_message = __(
+				'The payment is not ready for processing yet.',
+				'woocommerce-paypal-payments'
 			);
+		}
+		if ( $error_message ) {
+			$this->last_error = sprintf(
+				// translators: %s is the message of the error.
+				__( 'Payment error: %s', 'woocommerce-paypal-payments' ),
+				$error_message
+			);
+			return false;
 		}
 
 		$order = $this->patch_order( $wc_order, $order );
@@ -265,28 +213,8 @@ class OrderProcessor {
 		if ( $this->capture_authorized_downloads( $order ) ) {
 			$this->authorized_payments_processor->capture_authorized_payment( $wc_order );
 		}
-	}
-
-	/**
-	 * Creates a PayPal order for the given WC order.
-	 *
-	 * @param WC_Order $wc_order The WC order.
-	 * @return Order
-	 * @throws RuntimeException If order creation fails.
-	 */
-	public function create_order( WC_Order $wc_order ): Order {
-		$pu                  = $this->purchase_unit_factory->from_wc_order( $wc_order );
-		$shipping_preference = $this->shipping_preference_factory->from_state( $pu, 'checkout' );
-		$order               = $this->order_endpoint->create(
-			array( $pu ),
-			$shipping_preference,
-			$this->payer_factory->from_wc_order( $wc_order ),
-			null,
-			'',
-			ApplicationContext::USER_ACTION_PAY_NOW
-		);
-
-		return $order;
+		$this->last_error = '';
+		return true;
 	}
 
 	/**
@@ -324,20 +252,26 @@ class OrderProcessor {
 	}
 
 	/**
+	 * Returns the last error.
+	 *
+	 * @return string
+	 */
+	public function last_error(): string {
+
+		return $this->last_error;
+	}
+
+	/**
 	 * Patches a given PayPal order with a WooCommerce order.
 	 *
-	 * @param WC_Order $wc_order The WooCommerce order.
-	 * @param Order    $order The PayPal order.
+	 * @param \WC_Order $wc_order The WooCommerce order.
+	 * @param Order     $order The PayPal order.
 	 *
 	 * @return Order
 	 */
-	public function patch_order( WC_Order $wc_order, Order $order ): Order {
-		$this->apply_outbound_order_filters( $wc_order );
+	public function patch_order( \WC_Order $wc_order, Order $order ): Order {
 		$updated_order = $this->order_factory->from_wc_order( $wc_order, $order );
-		$this->restore_order_from_filters( $wc_order );
-
-		$order = $this->order_endpoint->patch_order_with( $order, $updated_order );
-
+		$order         = $this->order_endpoint->patch_order_with( $order, $updated_order );
 		return $order;
 	}
 
@@ -366,49 +300,5 @@ class OrderProcessor {
 			),
 			true
 		);
-	}
-
-	/**
-	 * Applies filters to the WC_Order, so they are reflected only on PayPal Order.
-	 *
-	 * @param WC_Order $wc_order The WoocOmmerce Order.
-	 * @return void
-	 */
-	private function apply_outbound_order_filters( WC_Order $wc_order ): void {
-		$items = $wc_order->get_items();
-
-		$this->restore_order_data['names'] = array();
-
-		foreach ( $items as $item ) {
-			if ( ! $item instanceof \WC_Order_Item ) {
-				continue;
-			}
-
-			$original_name = $item->get_name();
-			$new_name      = apply_filters( 'woocommerce_paypal_payments_order_line_item_name', $original_name, $item->get_id(), $wc_order->get_id() );
-
-			if ( $new_name !== $original_name ) {
-				$this->restore_order_data['names'][ $item->get_id() ] = $original_name;
-				$item->set_name( $new_name );
-			}
-		}
-	}
-
-	/**
-	 * Restores the WC_Order to it's state before filters.
-	 *
-	 * @param WC_Order $wc_order The WooCommerce Order.
-	 * @return void
-	 */
-	private function restore_order_from_filters( WC_Order $wc_order ): void {
-		if ( is_array( $this->restore_order_data['names'] ?? null ) ) {
-			foreach ( $this->restore_order_data['names'] as $wc_item_id => $original_name ) {
-				$wc_item = $wc_order->get_item( $wc_item_id, false );
-
-				if ( $wc_item ) {
-					$wc_item->set_name( $original_name );
-				}
-			}
-		}
 	}
 }

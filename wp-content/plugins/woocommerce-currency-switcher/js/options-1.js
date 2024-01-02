@@ -353,10 +353,8 @@ function woocs_edit_geoip_profile() {
 function woocs_delete_geoip_profile() {
     var selected = jQuery('select.woocs_geoip_profile_countries option:selected');
     var key = selected.data('key');
-    var woocs_wpnonce =jQuery('input[name="woocs_wpnonce_geo"]').val(); 
     var data = {
         action: "woocs_delete_profiles_data",
-	woocs_wpnonce_geo: woocs_wpnonce,
         key: key
     };
     if (confirm("Sure?")) {

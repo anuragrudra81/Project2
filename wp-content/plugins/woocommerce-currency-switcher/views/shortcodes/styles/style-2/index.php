@@ -129,6 +129,6 @@ $height = (count($options) - 2) * 65 + 200;
     </div>
 </div>
 
-<div class="woocs_display_none">FOX v.<?php echo WOOCS_VERSION ?></div>
+<div class="woocs_display_none">WOOCS v.<?php echo WOOCS_VERSION ?></div>
 
 

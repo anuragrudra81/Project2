@@ -19,10 +19,10 @@ $wf_admin_img_path=WF_PKLIST_PLUGIN_URL . 'admin/images';
     .wfte_buy_qrcode_btn{background: linear-gradient(90.67deg, #2608DF -34.86%, #3284FF 115.74%);box-shadow: 0px 4px 13px rgb(46 80 242 / 39%);border-radius: 5px;padding: 10px 35px 10px 35px;display: inline-block;font-style: normal;font-weight: bold;font-size: 14px;line-height: 18px;color: #FFFFFF;text-decoration: none;transition: all .2s ease;border: none;margin-left: 10px;margin-top: 10px;}
     .wfte_buy_qrcode_btn:hover{box-shadow: 0px 4px 13px rgb(46 80 242 / 50%);text-decoration: none;transform: translateY(2px);transition: all .2s ease;color: #FFFFFF;}
 </style>
-<div class="wf-tab-content" data-id="<?php echo esc_attr($target_id);?>">
+<div class="wf-tab-content" data-id="<?php echo $target_id;?>">
     <div style="display:flex;">
         <div class="wfte_qrcode_promotion_content">
-            <h3 style="font-size:1.7em;"><?php _e("QR Code Addon for WooCommerce PDF Invoices","print-invoices-packing-slip-labels-for-woocommerce"); ?></h3>
+            <h3 style="font-size:1.7em;">QR Code Addon for WooCommerce PDF Invoices</h3>
             <p style="font-size: 14px;"><?php _e('To help you comply with invoice mandates that require QR Codes','print-invoices-packing-slip-labels-for-woocommerce'); ?></p>
             <ul class="wfte_qr_code_features_list">
                 <li><?php _e('Assign QR code to all of invoices generated for the orders in your store','print-invoices-packing-slip-labels-for-woocommerce'); ?></li>

@@ -226,8 +226,8 @@ class Woolentor_Wl_Archive_Title_Widget extends Widget_Base {
             $data['desc']       = esc_html__('Archive Description','woolentor');
         }
 
-        $title          = ( $settings['show_title'] == 'yes' && !empty( $data['title'] ) ) ? sprintf( "<%s class='woolentor-archive-title'>%s</%s>", $title_tag, wp_kses( $data['title'], woolentor_get_html_allowed_tags('title') ), $title_tag  ) : '';
-        $description    = ( $settings['show_description'] == 'yes' && !empty( $data['desc'] ) ) ? sprintf( "<div class='woolentor-archive-desc'>%s</div>", wp_kses( $data['desc'], woolentor_get_html_allowed_tags('desc') )  ) : '';
+        $title          = ( $settings['show_title'] == 'yes' && !empty( $data['title'] ) ) ? sprintf( "<%s class='woolentor-archive-title'>%s</%s>", $title_tag, esc_html( $data['title'] ), $title_tag  ) : '';
+        $description    = ( $settings['show_description'] == 'yes' && !empty( $data['desc'] ) ) ? sprintf( "<div class='woolentor-archive-desc'>%s</div>", esc_html( $data['desc'] )  ) : '';
         $image          = ( $settings['show_image'] == 'yes' && !empty( $data['image_url'] ) ) ? sprintf( "<div class='woolentor-archive-image'><img src='%s' alt='%s'></div>", esc_url( $data['image_url'] ), esc_attr( $data['title'] )  ) : '';
         
         ?>

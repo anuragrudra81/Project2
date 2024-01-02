@@ -1,60 +1,65 @@
-import widgetBuilder from "./WidgetBuilder";
-
 class MessageRenderer {
 
     constructor(config) {
         this.config = config;
-        this.optionsFingerprint = null;
-        this.currentNumber = 0;
     }
 
-    renderWithAmount(amount) {
+    render() {
         if (! this.shouldRender()) {
             return;
         }
 
-        const options = {
-            amount,
+        paypal.Messages({
+            amount: this.config.amount,
             placement: this.config.placement,
             style: this.config.style
-        };
+        }).render(this.config.wrapper);
 
-        // sometimes the element is destroyed while the options stay the same
-        if (document.querySelector(this.config.wrapper).getAttribute('data-render-number') !== this.currentNumber.toString()) {
-            this.optionsFingerprint = null;
-        }
+        jQuery(document.body).on('updated_cart_totals', () => {
+            paypal.Messages({
+                amount: this.config.amount,
+                placement: this.config.placement,
+                style: this.config.style
+            }).render(this.config.wrapper);
+        });
+    }
 
-        if (this.optionsEqual(options)) {
+    renderWithAmount(amount) {
+
+        if (! this.shouldRender()) {
             return;
         }
 
-        const wrapper = document.querySelector(this.config.wrapper);
-        this.currentNumber++;
-        wrapper.setAttribute('data-render-number', this.currentNumber);
+        const newWrapper = document.createElement('div');
+        newWrapper.setAttribute('id', this.config.wrapper.replace('#', ''));
 
-        widgetBuilder.registerMessages(this.config.wrapper, options);
-        widgetBuilder.renderMessages(this.config.wrapper);
-    }
-
-    optionsEqual(options) {
-        const fingerprint = JSON.stringify(options);
-
-        if (this.optionsFingerprint === fingerprint) {
-            return true;
-        }
-
-        this.optionsFingerprint = fingerprint;
-        return false;
+        const sibling = document.querySelector(this.config.wrapper).nextSibling;
+        document.querySelector(this.config.wrapper).parentElement.removeChild(document.querySelector(this.config.wrapper));
+        sibling.parentElement.insertBefore(newWrapper, sibling);
+        paypal.Messages({
+            amount,
+            placement: this.config.placement,
+            style: this.config.style
+        }).render(this.config.wrapper);
     }
 
     shouldRender() {
 
-        if (typeof paypal === 'undefined' || typeof paypal.Messages === 'undefined' || typeof this.config.wrapper === 'undefined' ) {
+        if (typeof paypal.Messages === 'undefined' || typeof this.config.wrapper === 'undefined' ) {
             return false;
         }
         if (! document.querySelector(this.config.wrapper)) {
             return false;
         }
+        return true;
+    }
+
+    hideMessages() {
+        const domElement = document.querySelector(this.config.wrapper);
+        if (! domElement ) {
+            return false;
+        }
+        domElement.style.display = 'none';
         return true;
     }
 }

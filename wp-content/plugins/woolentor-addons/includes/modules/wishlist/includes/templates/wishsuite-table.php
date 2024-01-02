@@ -51,7 +51,6 @@
         </tbody>
     </table>
 
-    <?php $wishsuite->pagination(); ?>
     <?php $wishsuite->social_share(); ?>
 
     <div class="wishsuite-table-content-loader"></div>

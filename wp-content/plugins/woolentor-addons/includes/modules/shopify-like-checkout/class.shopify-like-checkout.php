@@ -314,7 +314,7 @@ class Woolentor_Shopify_Like_Checkout extends \WC_Checkout{
         }
         $fragments['.woolentor-checkout__shipping-method'] = '<table class="woolentor-checkout__shipping-method"><tbody>'. ob_get_clean() .'</tbody></table>';
 
-        $fragments['.woolentor-order-reivew-shipping-cost'] = '<span class="woolentor-order-reivew-shipping-fee">'. wc_price( $this::get_cart_totals_shipping_cost() ) .'</span>';
+        $fragments['.woolentor-order-reivew-shipping-cost'] = '<sapn class="woolentor-order-reivew-shipping-fee">'. wc_price( $this::get_cart_totals_shipping_cost() ) .'</span>';
 
         // Compatibilty for the WooFunnels order bump plugin
         ob_start();
@@ -521,10 +521,7 @@ class Woolentor_Shopify_Like_Checkout extends \WC_Checkout{
                             <span class="woolentor-checkout__product-quantity"><?php echo esc_html($cart_item['quantity']) ?></span>
                         </div>
                         <div class="woolentor-checkout__product-description">
-                            <span class="woolentor-checkout__product-name"><a href="<?php echo esc_url( get_permalink($_product->get_id()) ); ?>"><?php echo wp_kses_post($_product->get_name()); ?></a></span>
-                            <span class="woolentor-checkout__product-meta">
-                                <?php echo wc_get_formatted_cart_item_data( $cart_item );?>
-                            </span>
+                            <span class="woolentor-checkout__product-name"><a href="<?php echo esc_url( get_permalink($_product->get_id()) ); ?>"><?php echo esc_html($_product->get_name()); ?></a></span>
                         </div>
                     </div>
                     <div class="woolentor-checkout__product-price-box">

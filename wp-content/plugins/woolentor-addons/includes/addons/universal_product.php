@@ -184,25 +184,6 @@ class Woolentor_Universal_Product_Widget extends Widget_Base {
             );
 
             $this->add_control(
-                'hidden_outofstock',
-                [
-                    'label' => esc_html__( 'Exclude Out Of Stock Item', 'woolentor-pro' ),
-                    'type' => Controls_Manager::SWITCHER,
-                    'return_value' => 'yes',
-                    'default' => 'no',
-                ]
-            );
-            $this->add_control(
-                'hidden_item',
-                [
-                    'label' => esc_html__( 'Exclude Hidden Item', 'woolentor-pro' ),
-                    'type' => Controls_Manager::SWITCHER,
-                    'return_value' => 'yes',
-                    'default' => 'no',
-                ]
-            );
-
-            $this->add_control(
                 'woolentor_custom_order',
                 [
                     'label' => esc_html__( 'Custom Order', 'woolentor' ),
@@ -728,17 +709,6 @@ class Woolentor_Universal_Product_Widget extends Widget_Base {
                     'return_value' => 'yes',
                     'default' => 'yes',
                     'label' => __('Pause on Hover?', 'woolentor'),
-                ]
-            );
-            $this->add_control(
-                'infinite_loop',
-                [
-                    'type'      => Controls_Manager::SWITCHER,
-                    'label_off' => __('No', 'woolentor'),
-                    'label_on'  => __('Yes', 'woolentor'),
-                    'return_value' => 'yes',
-                    'default'   => 'yes',
-                    'label'     => __('Infinite loop?', 'woolentor'),
                 ]
             );
 
@@ -2143,9 +2113,6 @@ class Woolentor_Universal_Product_Widget extends Widget_Base {
             );
         }
 
-        $query_args['hidden'] = ( 'yes' === $settings['hidden_item'] );
-        $query_args['hide_out_of_stock'] = ( 'yes' === $settings['hidden_outofstock'] );
-
         $args = woolentor_product_query( $query_args );
 
         $products = new \WP_Query( $args );
@@ -2235,7 +2202,6 @@ class Woolentor_Universal_Product_Widget extends Widget_Base {
             'arrows' => ('yes' === $settings['slarrows']),
             'dots' => ('yes' === $settings['sldots']),
             'autoplay' => ('yes' === $settings['slautolay']),
-            'infinite' => ('yes' === $settings['infinite_loop']),
             'autoplay_speed' => absint($settings['slautoplay_speed']),
             'animation_speed' => absint($settings['slanimation_speed']),
             'pause_on_hover' => ('yes' === $settings['slpause_on_hover']),
@@ -2439,7 +2405,7 @@ class Woolentor_Universal_Product_Widget extends Widget_Base {
                                                     <div class="ht-product-action">
                                                         <ul <?php echo $this->get_render_attribute_string( 'action_btn_attr' ); ?>>
                                                             <li>
-                                                                <a href="#" class="woolentorquickview" data-quick-id="<?php the_ID();?>" <?php echo wc_implode_html_attributes( ['aria-label'=>$product->get_title()] ); ?>>
+                                                                <a href="#" class="woolentorquickview" data-quick-id="<?php the_ID();?>" >
                                                                     <i class="sli sli-magnifier"></i>
                                                                     <span class="ht-product-action-tooltip"><?php esc_html_e('Quick View','woolentor'); ?></span>
                                                                 </a>
@@ -2484,7 +2450,7 @@ class Woolentor_Universal_Product_Widget extends Widget_Base {
                                                         <div class="ht-product-action">
                                                             <ul <?php echo $this->get_render_attribute_string( 'action_btn_attr' ); ?>>
                                                                 <li>
-                                                                    <a href="#" class="woolentorquickview" data-quick-id="<?php the_ID();?>" <?php echo wc_implode_html_attributes( ['aria-label'=>$product->get_title()] ); ?>>
+                                                                    <a href="#" class="woolentorquickview" data-quick-id="<?php the_ID();?>" >
                                                                         <i class="sli sli-magnifier"></i>
                                                                         <span class="ht-product-action-tooltip"><?php esc_html_e('Quick View','woolentor'); ?></span>
                                                                     </a>
@@ -2632,7 +2598,7 @@ class Woolentor_Universal_Product_Widget extends Widget_Base {
                                             <div class="ht-product-action">
                                                 <ul <?php echo $this->get_render_attribute_string( 'action_btn_attr' ); ?>>
                                                     <li>
-                                                        <a href="#" class="woolentorquickview" data-quick-id="<?php the_ID();?>" <?php echo wc_implode_html_attributes( ['aria-label'=>$product->get_title()] ); ?>>
+                                                        <a href="#" class="woolentorquickview" data-quick-id="<?php the_ID();?>" >
                                                             <i class="sli sli-magnifier"></i>
                                                             <span class="ht-product-action-tooltip"><?php esc_html_e('Quick View','woolentor'); ?></span>
                                                         </a>
@@ -2677,7 +2643,7 @@ class Woolentor_Universal_Product_Widget extends Widget_Base {
                                                 <div class="ht-product-action">
                                                     <ul <?php echo $this->get_render_attribute_string( 'action_btn_attr' ); ?>>
                                                         <li>
-                                                            <a href="#" class="woolentorquickview" data-quick-id="<?php the_ID();?>" <?php echo wc_implode_html_attributes( ['aria-label'=>$product->get_title()] ); ?>>
+                                                            <a href="#" class="woolentorquickview" data-quick-id="<?php the_ID();?>" >
                                                                 <i class="sli sli-magnifier"></i>
                                                                 <span class="ht-product-action-tooltip"><?php esc_html_e('Quick View','woolentor'); ?></span>
                                                             </a>

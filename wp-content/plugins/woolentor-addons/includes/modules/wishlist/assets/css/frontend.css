@@ -430,45 +430,6 @@ a.wishsuite-button.loading img{
     margin: 0 !important;
 }
 
-/* Pagination */
-nav.wishsuite-pagination {
-    margin-top: 30px;
-}
-nav.wishsuite-pagination ul {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    gap: 10px;
-}
-nav.wishsuite-pagination ul .page-numbers {
-    display: flex;
-    width: 40px;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid #ebebeb;
-    text-decoration: none;
-    background-color: transparent;
-    color: #333333;
-    transition: all 0.3s ease 0s;
-}
-nav.wishsuite-pagination ul .page-numbers.prev,
-nav.wishsuite-pagination ul .page-numbers.next {
-    font-size: 24px;
-}
-nav.wishsuite-pagination ul .page-numbers:focus,
-nav.wishsuite-pagination ul .page-numbers:hover {
-    border-color: #333333;
-    outline: none;
-}
-nav.wishsuite-pagination ul .page-numbers.current {
-    color: #ffffff;
-    background-color: #333333;
-    border-color: #333333;
-}
-
 /*@media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {*/
 

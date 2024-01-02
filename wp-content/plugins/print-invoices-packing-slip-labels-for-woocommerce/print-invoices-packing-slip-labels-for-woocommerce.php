@@ -12,14 +12,14 @@
  * Plugin Name:       WooCommerce PDF Invoices, Packing Slips, Delivery Notes and Shipping Labels
  * Plugin URI:        https://www.webtoffee.com/product/woocommerce-pdf-invoices-packing-slips/
  * Description:       Prints Packing List,Invoice,Delivery Note and Shipping Label.
- * Version:           4.3.0
+ * Version:           3.0.7
  * Author:            WebToffee
  * Author URI:        https://www.webtoffee.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       print-invoices-packing-slip-labels-for-woocommerce
  * Domain Path:       /languages
- * WC tested up to:   8.3
+ * WC tested up to:   7.1
  */
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -63,15 +63,13 @@ if(!defined('WF_PKLIST_VERSION')) //check plugin file already included
     define ( 'WF_PKLIST_ACTIVATION_ID','wt_pdfinvoice');
     define ( 'WF_PKLIST_DOMAIN','print-invoices-packing-slip-labels-for-woocommerce');
     define ( 'WF_PKLIST_SETTINGS_FIELD','Wf_Woocommerce_Packing_List');
-    if(!defined('WF_PKLIST_PLUGIN_NAME')){
-        define ( 'WF_PKLIST_PLUGIN_NAME','print-invoices-packing-slip-labels-for-woocommerce');
-    }
+    define ( 'WF_PKLIST_PLUGIN_NAME','print-invoices-packing-slip-labels-for-woocommerce');
     define ( 'WF_PKLIST_PLUGIN_DESCRIPTION','WooCommerce PDF Invoices, Packing Slips, Delivery Notes & Shipping Labels');
 
     /**
      * Currently plugin version.
      */
-    define( 'WF_PKLIST_VERSION', '4.3.0' );
+    define( 'WF_PKLIST_VERSION', '3.0.7' );
 }
 
 /**
@@ -107,21 +105,6 @@ if(!function_exists('deactivate_wf_woocommerce_packing_list'))
  * admin-specific hooks, and public-facing site hooks.
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-wf-woocommerce-packing-list.php';
-
-/**
- *  Declare compatibility with custom order tables for WooCommerce.
- * 
- *  @since 4.1.0
- *  
- */
-add_action(
-    'before_woocommerce_init',
-    function () {
-        if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
-            \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
-        }
-    }
-);
 
 /**
  * Begins execution of the plugin.

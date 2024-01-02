@@ -113,7 +113,7 @@ if (!function_exists('woocs_price_options_geo')) {
 
     <?php if ($is_fixed_enabled): ?>
         <div id="woocs_tab_fixed_<?php echo woocs_short_id($post_id) ?>" class="woocs_tab">
-            <h4><?php esc_html_e('FOX - the product fixed prices', 'woocommerce-currency-switcher') ?><img class="help_tip" data-tip="<?php esc_html_e('Here you can set FIXED price for the product for any the currency you want. In the case of empty amount field - will work recounting by rate!', 'woocommerce-currency-switcher') ?>" src="<?php echo WOOCS_LINK ?>/img/help.png" height="16" width="16" /></h4>
+            <h4><?php esc_html_e('WOOCS - the product fixed prices', 'woocommerce-currency-switcher') ?><img class="help_tip" data-tip="<?php esc_html_e('Here you can set FIXED price for the product for any the currency you want. In the case of empty amount field - will work recounting by rate!', 'woocommerce-currency-switcher') ?>" src="<?php echo WOOCS_LINK ?>/img/help.png" height="16" width="16" /></h4>
             <select class="select short woocs-width-200" id="woocs_mselect_<?php echo woocs_short_id($post_id) ?>">
                 <?php foreach ($currencies as $code => $curr): ?>
                     <?php
@@ -149,7 +149,7 @@ if (!function_exists('woocs_price_options_geo')) {
     <?php if (true OR $is_geoip_manipulation): ?>
 
         <div id="woocs_tab_geo_<?php echo woocs_short_id($post_id) ?>" class="woocs_tab">
-            <h4><?php esc_html_e('FOX - the product custom GeoIP rules', 'woocommerce-currency-switcher') ?><img class="help_tip" data-tip="<?php esc_html_e('Here you can set prices in the basic currency for different countries, and recount will be done relatively of this values. ATTENTION: fixed price has higher priority!', 'woocommerce-currency-switcher') ?>" src="<?php echo WOOCS_LINK ?>/img/help.png" height="16" width="16" /></h4>
+            <h4><?php esc_html_e('WOOCS - the product custom GeoIP rules', 'woocommerce-currency-switcher') ?><img class="help_tip" data-tip="<?php esc_html_e('Here you can set prices in the basic currency for different countries, and recount will be done relatively of this values. ATTENTION: fixed price has higher priority!', 'woocommerce-currency-switcher') ?>" src="<?php echo WOOCS_LINK ?>/img/help.png" height="16" width="16" /></h4>
 
             <a href="javascript: woocs_add_group_geo('<?php echo $post_id ?>', '<?php echo woocs_short_id($post_id) ?>');void(0);" class="button"><?php esc_html_e('Add group', 'woocommerce-currency-switcher') ?></a>
 

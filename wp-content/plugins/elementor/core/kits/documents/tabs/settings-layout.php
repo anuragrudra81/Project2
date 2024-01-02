@@ -52,9 +52,8 @@ class Settings_Layout extends Tab_Base {
 		$this->add_responsive_control(
 			'container_width',
 			[
-				'label' => esc_html__( 'Content Width', 'elementor' ),
+				'label' => esc_html__( 'Content Width', 'elementor' ) . ' (px)',
 				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'default' => [
 					'size' => '1140',
 				],
@@ -71,7 +70,7 @@ class Settings_Layout extends Tab_Base {
 						'step' => 10,
 					],
 				],
-				'description' => esc_html__( 'Sets the default width of the content area (Default: 1140px)', 'elementor' ),
+				'description' => esc_html__( 'Sets the default width of the content area (Default: 1140)', 'elementor' ),
 				'selectors' => [
 					'.elementor-section.elementor-section-boxed > .elementor-container' => 'max-width: {{SIZE}}{{UNIT}}',
 					'.e-con' => '--container-max-width: {{SIZE}}{{UNIT}}',
@@ -80,8 +79,6 @@ class Settings_Layout extends Tab_Base {
 		);
 
 		$is_container_active = Plugin::instance()->experiments->is_feature_active( 'container' );
-		$logical_dimensions_inline_start = is_rtl() ? '{{RIGHT}}{{UNIT}}' : '{{LEFT}}{{UNIT}}';
-		$logical_dimensions_inline_end = is_rtl() ? '{{LEFT}}{{UNIT}}' : '{{RIGHT}}{{UNIT}}';
 
 		if ( $is_container_active ) {
 			$this->add_responsive_control(
@@ -89,51 +86,43 @@ class Settings_Layout extends Tab_Base {
 				[
 					'label' => esc_html__( 'Container Padding', 'elementor' ),
 					'type' => Controls_Manager::DIMENSIONS,
-					'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
+					'size_units' => [ 'px', 'em', '%', 'rem' ],
+					'default' => [
+						'unit' => 'px',
+					],
 					'description' => esc_html__( 'Sets the default space inside the container (Default is 10px)', 'elementor' ),
 					'selectors' => [
-						'.e-con' => "--container-default-padding-block-start: {{TOP}}{{UNIT}}; --container-default-padding-inline-end: $logical_dimensions_inline_end; --container-default-padding-block-end: {{BOTTOM}}{{UNIT}}; --container-default-padding-inline-start: $logical_dimensions_inline_start;",
+						'.e-con' => '--container-default-padding-top: {{TOP}}{{UNIT}}; --container-default-padding-right: {{RIGHT}}{{UNIT}}; --container-default-padding-bottom: {{BOTTOM}}{{UNIT}}; --container-default-padding-left: {{LEFT}}{{UNIT}};',
 					],
 				]
 			);
 		}
 
 		$widgets_space_label = $is_container_active
-			? esc_html__( 'Gaps', 'elementor' )
+			? esc_html__( 'Gap between elements', 'elementor' )
 			: esc_html__( 'Widgets Space', 'elementor' );
 
 		$this->add_control(
 			'space_between_widgets',
 			[
-				'label' => $widgets_space_label,
-				'type' => Controls_Manager::GAPS,
+				'label' => $widgets_space_label . ' (px)',
+				'type' => Controls_Manager::SLIDER,
 				'default' => [
-					'row' => '20',
-					'column' => '20',
-					'unit' => 'px',
+					'size' => 20,
 				],
-				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
-				'placeholder' => [
-					'row' => '20',
-					'column' => '20',
-				],
-				'description' => esc_html__( 'Sets the default space between widgets (Default: 20px)', 'elementor' ),
-				'selectors' => [
-					'.elementor-widget:not(:last-child)' => 'margin-block-end: {{ROW}}{{UNIT}}',
-					'.elementor-element' => '--widgets-spacing: {{ROW}}{{UNIT}} {{COLUMN}}{{UNIT}}',
-				],
-				'conversion_map' => [
-					'old_key' => 'size',
-					'new_key' => 'column',
-				],
-				'upgrade_conversion_map' => [
-					'old_key' => 'size',
-					'new_keys' => [ 'column', 'row' ],
-				],
-				'validators' => [
-					'Number' => [
+				'range' => [
+					'px' => [
 						'min' => 0,
+						'max' => 40,
 					],
+				],
+				'placeholder' => [
+					'size' => '20',
+				],
+				'description' => esc_html__( 'Sets the default space between widgets (Default: 20)', 'elementor' ),
+				'selectors' => [
+					'.elementor-widget:not(:last-child)' => 'margin-bottom: {{SIZE}}{{UNIT}}',
+					'.elementor-element' => '--widgets-spacing: {{SIZE}}{{UNIT}}',
 				],
 			]
 		);
@@ -337,7 +326,6 @@ class Settings_Layout extends Tab_Base {
 				'type' => Controls_Manager::NUMBER,
 				'placeholder' => $default_breakpoint_config['default_value'],
 				'frontend_available' => true,
-				'separator' => 'after',
 				'validators' => [
 					'Breakpoint' => [
 						'breakpointName' => $breakpoint_key,

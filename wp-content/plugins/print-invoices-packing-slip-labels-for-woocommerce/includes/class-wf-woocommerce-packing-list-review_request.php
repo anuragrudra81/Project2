@@ -51,7 +51,7 @@ class Wf_Woocommerce_Packing_List_Review_Request
 
 		if($this->check_condition()) /* checks the banner is active now */
 		{
-			$this->banner_message=sprintf(__('Hey, we at %1$s WebToffee %2$s would like to thank you for using %3$s %4$s %5$s. %6$s Less than a minute of your time will motivate us to keep doing what we do. We would really appreciate if you could take a moment to drop a quick review that motivate us to keep going.', 'print-invoices-packing-slip-labels-for-woocommerce'), '<b>', '</b>','<b>', $this->plugin_title, '</b>', '<br />');
+			$this->banner_message=sprintf(__("Hey, we at %sWebToffee%s would like to thank you for using %s %s %s. %s Less than a minute of your time will motivate us to keep doing what we do. We would really appreciate if you could take a moment to drop a quick review that motivate us to keep going.", 'print-invoices-packing-slip-labels-for-woocommerce'), '<b>', '</b>','<b>', $this->plugin_title, '</b>', '<br />');
 
 			/* button texts */
 			$this->later_btn_text=__("Remind me later", 'print-invoices-packing-slip-labels-for-woocommerce');
@@ -63,7 +63,7 @@ class Wf_Woocommerce_Packing_List_Review_Request
 				$round_count = floor($this->doc_created_count/100) * 100;
 				$this->banner_message=sprintf('<b>%1$s</b> %2$s <b style="color:#FF6636;font-size: 14px;">%3$s +</b> %4$s <b style="color:#FF6636;font-size: 14px;">%5$s</b>. %6$s',
 					__("Knock, Knock!",'print-invoices-packing-slip-labels-for-woocommerce'),
-					__("You`ve just created","print-invoices-packing-slip-labels-for-woocommerce"),
+					__("You`ve just crated","print-invoices-packing-slip-labels-for-woocommerce"),
 					$round_count,
 					__("commercial documents using","print-invoices-packing-slip-labels-for-woocommerce"),
 					__("Woocommerce PDF invoices, packing slips, delivery notes, and shipping labels","print-invoices-packing-slip-labels-for-woocommerce"),
@@ -156,23 +156,23 @@ class Wf_Woocommerce_Packing_List_Review_Request
 			<?php
 		}else{
 			?>
-			<div class="<?php echo esc_attr($this->banner_css_class); ?> notice-info notice is-dismissible">
+			<div class="<?php echo $this->banner_css_class; ?> notice-info notice is-dismissible">
 	            <?php
-	            if ("" !== $this->webtoffee_logo_url) {
+	            if ($this->webtoffee_logo_url != "") {
 	            ?>
-	                <h3 style="margin: 10px 0;"><?php echo wp_kses_post($this->plugin_title); ?></h3>
+	                <h3 style="margin: 10px 0;"><?php echo $this->plugin_title; ?></h3>
 	            <?php
 	            }
 	            ?>
 	            <p>
-	                <?php echo wp_kses_post($this->banner_message); ?>
+	                <?php echo $this->banner_message; ?>
 	            </p>
 	            <p>
-	                <a class="button button-secondary" style="color:#333; border-color:#ccc; background:#efefef;" data-type="later"><?php echo wp_kses_post($this->later_btn_text); ?></a>
-	                <a class="button button-primary" data-type="review"><?php echo wp_kses_post($this->review_btn_text); ?></a>
+	                <a class="button button-secondary" style="color:#333; border-color:#ccc; background:#efefef;" data-type="later"><?php echo $this->later_btn_text; ?></a>
+	                <a class="button button-primary" data-type="review"><?php echo $this->review_btn_text; ?></a>
 	            </p>
 	            <div class="wt-cli-review-footer" style="position: relative;">
-	                <span class="wt-cli-footer-icon" style="position: absolute;bottom: 10px;<?php echo is_rtl() ? 'left: 0;' :'right:0;'; ?>"><img src="<?php echo esc_url($this->webtoffee_logo_url); ?>" style="max-width:100px;"></span>
+	                <span class="wt-cli-footer-icon" style="position: absolute;right: 0;bottom: 10px;"><img src="<?php echo $this->webtoffee_logo_url; ?>" style="max-width:100px;"></span>
 	            </div>
 	        </div>
 			<?php
@@ -192,7 +192,7 @@ class Wf_Woocommerce_Packing_List_Review_Request
 			/* current action is in allowed action list */
 			if(in_array($action_type, $this->allowed_action_type_arr))
 			{
-				if("never" === $action_type || "closed" === $action_type)
+				if($action_type=='never' || $action_type=='closed')
 				{
 					$new_banner_state=3;
 					$this->reset_start_date();
@@ -200,7 +200,7 @@ class Wf_Woocommerce_Packing_List_Review_Request
 						$new_banner_state=33; 
 					}
 				}
-				elseif("review" === $action_type)
+				elseif($action_type=='review')
 				{
 					$new_banner_state=4;
 				}else
@@ -274,21 +274,21 @@ class Wf_Woocommerce_Packing_List_Review_Request
 	*/
 	private function check_condition()
 	{
-		if(1 === $this->current_banner_state || "1" === $this->current_banner_state) /* currently showing then return true */
+		if($this->current_banner_state==1) /* currently showing then return true */
 		{
 			return true;
 		}
 		
-		if(2 === $this->current_banner_state || "2" === $this->current_banner_state || 5 === $this->current_banner_state || "5" === $this->current_banner_state) /* only waiting/remind later state */
+		if($this->current_banner_state==2 || $this->current_banner_state==5) /* only waiting/remind later state */
 		{
-			if(0 === $this->start_date || "0" === $this->start_date) /* unable to get activated date */
+			if($this->start_date==0) /* unable to get activated date */
 			{
 				/* set current date as activation date*/
 				$this->reset_start_date();
 				return false;
 			}
 
-			$days=(2 === $this->current_banner_state || "2" === $this->current_banner_state ? $this->days_to_show_banner : $this->remind_days);
+			$days=($this->current_banner_state==2 ? $this->days_to_show_banner : $this->remind_days);
 			$date_to_check=$this->start_date+(86400*$days);
 			// $date_to_check = $this->start_date+(60); // for testing
 			if($date_to_check<=time()) /* time reached to show the banner */
@@ -300,7 +300,7 @@ class Wf_Woocommerce_Packing_List_Review_Request
 			}
 		}
 
-		if((3 === $this->current_banner_state || "3" === $this->current_banner_state) && 1000 <= $this->doc_created_count){
+		if(3 === $this->current_banner_state && 1000 <= $this->doc_created_count){
 			$date_to_check=$this->start_date+(86400*15);
 			// $date_to_check = $this->start_date+(60); // for testing
 			if($date_to_check<=time()) /* time reached to show the banner */

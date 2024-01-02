@@ -9,16 +9,12 @@ declare(strict_types=1);
 
 namespace WooCommerce\PayPalCommerce\Session\Cancellation;
 
-use WooCommerce\PayPalCommerce\Button\Helper\ContextTrait;
 use WooCommerce\PayPalCommerce\Session\SessionHandler;
 
 /**
  * Class CancelController
  */
 class CancelController {
-	use ContextTrait;
-
-	public const NONCE = 'ppcp-cancel';
 
 	/**
 	 * The Session handler.
@@ -52,27 +48,37 @@ class CancelController {
 	/**
 	 * Runs the controller.
 	 */
-	public function run(): void {
-		$param_name = self::NONCE;
+	public function run() {
+		$param_name = 'ppcp-cancel';
+		$nonce      = 'ppcp-cancel-' . get_current_user_id();
 		if ( isset( $_GET[ $param_name ] ) && // Input var ok.
 			wp_verify_nonce(
 				sanitize_text_field( wp_unslash( $_GET[ $param_name ] ) ), // Input var ok.
-				self::NONCE
+				$nonce
 			)
 		) { // Input var ok.
 			$this->session_handler->destroy_session_data();
 		}
 
-		if ( ! $this->is_paypal_continuation() ) {
+		$order = $this->session_handler->order();
+		if ( ! $order ) {
 			return;
 		}
 
-		$url = add_query_arg( array( $param_name => wp_create_nonce( self::NONCE ) ), wc_get_checkout_url() );
+		$source = $order->payment_source();
+		if ( $source && $source->card() ) {
+			return; // Ignore for DCC.
+		}
+
+		if ( 'card' === $this->session_handler->funding_source() ) {
+			return; // Ignore for card buttons.
+		}
+
+		$url = add_query_arg( array( $param_name => wp_create_nonce( $nonce ) ), wc_get_checkout_url() );
 		add_action(
 			'woocommerce_review_order_after_submit',
 			function () use ( $url ) {
-				// phpcs:ignore WordPress.Security.EscapeOutput
-				echo $this->view->render_session_cancellation( $url, $this->session_handler->funding_source() );
+				$this->view->render_session_cancellation( $url, $this->session_handler->funding_source() );
 			}
 		);
 	}

@@ -428,7 +428,7 @@ class WooCustomizer
             ?>
 					<p class="wcz-admin-special">
 						<?php 
-            esc_html_e( 'Use the coupon "GET35OFFNOW" to get a limited 35% off any StoreCustomizer license (applies to first purchases and all future renewals!)', 'woocustomizer' );
+            esc_html_e( 'Use the coupon "GET50OFFNOW" to get a limited 50% off any StoreCustomizer license (applies to first purchases and all future renewals!)', 'woocustomizer' );
             ?>
 					</p>
 				<?php 
@@ -568,17 +568,17 @@ class WooCustomizer
                 <h4>
 					<?php 
             // printf( esc_html__( '20&#37; Discount for the month of %1$s !', 'woocustomizer' ), esc_attr( date( "F", strtotime( 'm' ) ) ) );
-            esc_html_e( 'NEW 35&#37; discount on StoreCustomizer Pro', 'woocustomizer' );
+            esc_html_e( 'Limited 50&#37; discount on StoreCustomizer Pro', 'woocustomizer' );
             ?>
                 </h4>
 				<p>
 					<?php 
-            esc_html_e( 'We\'re running a new 35% special on StoreCustomizer for all licenses for this month (applies to first payments and renewals, forever).', 'woocustomizer' );
+            esc_html_e( 'We\'re running a limited 50% special on StoreCustomizer for all licenses (applies to first payments and renewals, forever).', 'woocustomizer' );
             ?>
 				</p>
 				<p class="wcz-admin-special">
 					<?php 
-            esc_html_e( 'Use the coupon "GET35OFFNOW" to get your discount now!', 'woocustomizer' );
+            esc_html_e( 'Use the coupon "GET50OFFNOW" to get your discount now!', 'woocustomizer' );
             ?>
 				</p>
 				<a href="<?php 

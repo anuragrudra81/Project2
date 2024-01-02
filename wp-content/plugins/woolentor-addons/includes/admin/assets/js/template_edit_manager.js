@@ -21,8 +21,7 @@
             'edit-account',
             'lost-password',
             'reset-password',
-            'thankyou',
-            'popup'
+            'thankyou'
         ],
 
         init: function() {
@@ -40,7 +39,6 @@
                     woolentorTemplateAdmin.manageEditButton( selectedEditor );
                     $('#woolentor-template-editor').find('option[value="gutenberg"]').removeAttr('disabled');
                 }
-
                 woolentorTemplateAdmin.showSampleDemoTypeWise( this.value, selectedEditor );
             });
 
@@ -108,11 +106,12 @@
                 $('.woolentor-template-edit-set-design').show();
             }
 
-            $('.woolentor-template-edit-demo-design-slider').removeClass('demo-show');
             if( tmpEditor === 'gutenberg'){
-                $('.woolentor-template-edit-demo-design-slider.demo-'+tmpType).not('.woolentor-elementor-temp').addClass('demo-show').slick('refresh');
+                $('.woolentor-template-edit-set-design').hide();
+                $('.woolentor-template-edit-demo-design-slider.demo-'+tmpType).removeClass('demo-show').slick('refresh');
             }else{
-                $('.woolentor-template-edit-demo-design-slider.demo-'+tmpType).not('.woolentor-gutenberg-temp').addClass('demo-show').slick('refresh');
+                $('.woolentor-template-edit-demo-design-slider').removeClass('demo-show');
+                $('.woolentor-template-edit-demo-design-slider.demo-'+tmpType).addClass('demo-show').slick('refresh');
             }
             
         },
@@ -216,9 +215,6 @@
                         // Show Demo Design
                         woolentorTemplateAdmin.showSampleDemoTypeWise( response.data.tmpType, tmpBuilder );
 
-                        // Fire custom event.
-                        $(document).trigger('woolentor_template_edit_popup_open_ajax_success', [ response.data.tmpType ]);
-
                     },
 
                     complete:function( response ){
@@ -240,13 +236,11 @@
                 document.querySelector("#woolentor-template-type option[value='single']").selected = "true";
                 $('#woolentor-template-default').prop('checked', false);
 
-                let tmpBuilder = WLTMCPT.haselementor === 'yes' ? 'elementor' : 'gutenberg';
-
                 // Disabled Button
                 woolentorTemplateAdmin.enableDisableEditorButton();
 
                 // Show Demo Design
-                woolentorTemplateAdmin.showSampleDemoTypeWise('single', tmpBuilder);
+                woolentorTemplateAdmin.showSampleDemoTypeWise('single');
 
                 // Show Editor Selector Field
                 $('.woolentor-template-editor-field').show();
@@ -254,9 +248,6 @@
             }
 
             $('body.post-type-woolentor-template').addClass('open-editor');
-
-            // Fire custom event.
-            $(document).trigger('woolentor_template_edit_popup_open');
 
         },
 

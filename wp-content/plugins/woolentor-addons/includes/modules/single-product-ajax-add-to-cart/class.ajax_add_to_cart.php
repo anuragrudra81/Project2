@@ -21,12 +21,8 @@ class Single_Product_Ajax_Add_To_Cart{
 
     // Ajax Cart Script
     public function enqueue_scripts(){
-        global $post;
-        if( function_exists( 'is_product' ) && is_product() ){
-            $product = wc_get_product( $post->ID );
-            if ( ( $product->is_type( 'simple' ) || $product->is_type( 'variable' ) ) ) {
-                wp_enqueue_script( 'jquery-single-product-ajax-cart' );
-            }
+        if( is_product() ){
+            wp_enqueue_script( 'jquery-single-product-ajax-cart' );
         }
     }
 

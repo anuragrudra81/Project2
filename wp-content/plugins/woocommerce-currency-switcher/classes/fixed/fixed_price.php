@@ -22,7 +22,7 @@ final class WOOCS_FIXED_PRICE extends WOOCS_FIXED_AMOUNT {
 	add_action('admin_footer', array($this, 'admin_footer'));
 	
 	$product_types = apply_filters('woocs_product_fixed_price_data_simple_types', array('simple', 'external', 'subscription', 'composite', 'bundle', 'box_product'));
-    if ($_product && in_array($_product->get_type(), $product_types)) {
+    if (in_array($_product->get_type(), $product_types)) {
 	    $data = array();
 	    $data['currencies'] = $WOOCS->get_currencies();
 	    $data['default_currency'] = $WOOCS->default_currency;
@@ -214,37 +214,33 @@ final class WOOCS_FIXED_PRICE extends WOOCS_FIXED_AMOUNT {
 	//***
 
 	if (version_compare(WOOCOMMERCE_VERSION, '2.7', '>=')) {
-			if (method_exists($product, 'get_regular_price')) {
-				$regular_price = $product->get_regular_price('edit');
-				$product_id = $product->get_id();
-			} else {
-				if (isset($product->regular_price)) {
-					$regular_price = $product->regular_price;
-				}
-				$product_id = $product->id;
-			}
-		} else {
-			if (isset($product->regular_price)) {
-				$regular_price = $product->regular_price;
-			}
-			$product_id = $product->id;
+	    if (method_exists($product, 'get_regular_price')) {
+		$regular_price = $product->get_regular_price('edit');
+		$product_id = $product->get_id();
+	    } else {
+		if (isset($product->regular_price)) {
+		    $regular_price = $product->regular_price;
 		}
+		$product_id = $product->id;
+	    }
+	} else {
+	    if (isset($product->regular_price)) {
+		$regular_price = $product->regular_price;
+	    }
+	    $product_id = $product->id;
+	}
 
 
-		//***
-		if (isset($regular_price) && $regular_price == $price) {
-			return 'regular';
-		} elseif (isset($sale_price) && $sale_price == $price) {
-			return 'sale';
-		}
+	//***
 
-		if (isset($products_data[$product_id])) {
-			if ($products_data[$product_id] < $price) {
-				$type = 'regular';
-			} else {
-				$type = 'sale';
-			}
-		} else {
+
+	if (isset($products_data[$product_id])) {
+	    if ($products_data[$product_id] < $price) {
+		$type = 'regular';
+	    } else {
+		$type = 'sale';
+	    }
+	} else {
 	    $products_data[$product_id] = $price;
 	    $type = 'sale';
 	}

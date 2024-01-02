@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	$areaClasses = array( 'woolentor-marker-area' );
 	$classes = array( $uniqClass, 'wlb-marker-wrapper' );
 	!empty( $settings['align'] ) ? $areaClasses[] = 'align'.$settings['align'] : '';
-	!empty( $settings['className'] ) ? $classes[] = esc_attr( $settings['className'] ) : '';
+	!empty( $settings['className'] ) ? $classes[] = $settings['className'] : '';
 	!empty( $settings['style'] ) ? $classes[] = 'wlb-marker-style-'.$settings['style'] : 'wlb-marker-style-1';
 
 	$background_image = woolentorBlocks_Background_Control( $settings, 'bgProperty' );

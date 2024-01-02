@@ -10,8 +10,7 @@ if( $block['is_editor'] ){
 
 $uniqClass 	 = 'woolentorblock-'.$settings['blockUniqId'];
 $areaClasses = array( $uniqClass, 'woolentor_block_archive_default' );
-!empty( $settings['className'] ) ? $areaClasses[] = esc_attr( $settings['className'] ) : '';
-!empty( $settings['align'] ) ? $areaClasses[] = 'align'.$settings['align'] : '';
+!empty( $settings['className'] ) ? $areaClasses[] = $settings['className'] : '';
 !empty( $settings['contentAlignment'] ) ? $areaClasses[] = 'woolentor-content-align-'.$settings['contentAlignment'] : '';
 
 if( isset( $settings['saleTagShow'] ) && $settings['saleTagShow'] === false){

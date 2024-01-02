@@ -96,6 +96,12 @@ class Wf_Woocommerce_Packing_List_Uninstall_Feedback
                 'placeholder' => __('What did you expect?', 'print-invoices-packing-slip-labels-for-woocommerce')
             ),
             array(
+                'id' => 'upgrade-to-pro-version',
+                'text' => __('Upgraded to pro version', 'print-invoices-packing-slip-labels-for-woocommerce'),
+                'type' => '',
+                'placeholder' => ''
+            ),
+            array(
                 'id' => 'other',
                 'text' => __('Other', 'print-invoices-packing-slip-labels-for-woocommerce'),
                 'type' => 'textarea',
@@ -156,10 +162,8 @@ class Wf_Woocommerce_Packing_List_Uninstall_Feedback
 
                     <div class="wt_pklist_policy_infobox">
                         <?php _e("We do not collect any personal data when you submit this form. It's your feedback that we value.", "print-invoices-packing-slip-labels-for-woocommerce");?>
-                        <a href="https://www.webtoffee.com/privacy-policy/" target="_blank"><?php _e('Privacy Policy', 'print-invoices-packing-slip-labels-for-woocommerce');?></a>
+                        <a href="https://www.webtoffee.com/privacy-policy/" target="_blank"><?php _e('Privacy Policy', 'print-invoices-packing-slip-labels-for-woocommerce');?></a>        
                     </div>
-                    <br>
-                    <label><input type="checkbox" id="wt_delete_all_settings" name="wt_delete_all_settings" value="1"> <?php _e("Delete all the settings made by this plugin","print-invoices-packing-slip-labels-for-woocommerce"); ?></label>
                 </div>
                 <div class="wfinvoice-modal-footer">
                     <a class="button-primary" href="https://www.webtoffee.com/support/" target="_blank">
@@ -225,25 +229,12 @@ class Wf_Woocommerce_Packing_List_Uninstall_Feedback
                         modal.addClass('modal-active');
                         deactivateLink = $(this).attr('href');
                         modal.find('a.dont-bother-me').attr('href', deactivateLink);
-                        modal.find('a.dont-bother-me').attr('data-href',deactivateLink);
                         modal.find('input[type="radio"]:checked').prop('checked', false);
                     });
-
-                    $('#wt_delete_all_settings').on('change',function(){
-                        var dlink = modal.find('a.dont-bother-me').attr('data-href');
-                        if($(this).is(":checked")){
-                            deactivateLink = deactivateLink+'&delete_all_settings=1';
-                        }else{
-                            deactivateLink = dlink;
-                        }
-                        modal.find('a.dont-bother-me').attr('href', deactivateLink);
-                    });
-                    
                     modal.on('click', 'button.wfinvoice-model-cancel', function (e) {
                         e.preventDefault();
                         modal.removeClass('modal-active');
                     });
-
                     modal.on('click', 'input[type="radio"]', function () {
                         var reason_id=$(this).val();
                         var parent = $(this).parents('li:first');
@@ -276,11 +267,10 @@ class Wf_Woocommerce_Packing_List_Uninstall_Feedback
                         if (button.hasClass('disabled')) {
                             return;
                         }
-                        
                         var reason_id='none';
                         var reason_info='';
-                        var $radio = $('input[type="radio"][name="selected-reason"]:checked', modal);
 
+                        var $radio = $('input[type="radio"][name="selected-reason"]:checked', modal);
                         if($radio.length>0)
                         {
                             reason_id=$radio.val();
@@ -307,6 +297,7 @@ class Wf_Woocommerce_Packing_List_Uninstall_Feedback
                                 }
                             }  
                         }
+
                         $.ajax({
                             url: ajaxurl,
                             type: 'POST',
@@ -343,7 +334,6 @@ class Wf_Woocommerce_Packing_List_Uninstall_Feedback
         {
             wp_send_json_error();
         }
-
         //$current_user = wp_get_current_user();
         $data = array(
             'reason_id' => sanitize_text_field($_POST['reason_id']),
@@ -357,7 +347,7 @@ class Wf_Woocommerce_Packing_List_Uninstall_Feedback
             'php_version' => phpversion(),
             'mysql_version' => $wpdb->db_version(),
             'wp_version' => get_bloginfo('version'),
-            'wc_version' => (!class_exists( 'WooCommerce' )) ? '' : WC()->version,
+            'wc_version' => (!defined('WC_VERSION')) ? '' : WC_VERSION,
             'locale' => get_locale(),
             'multisite' => is_multisite() ? 'Yes' : 'No',
             'wfinvoice_version' =>$this->current_version,

@@ -18,16 +18,9 @@ class woocs_woo_stat {
     public function recalculate_order_stats($order_id) {
         global $wpdb;
         global $WOOCS;
-		//hpos
-        //$_order_currency = get_post_meta($order_id, '_order_currency', true);
-		//$order_rate = get_post_meta($order_id, '_woocs_order_rate', true);
-        //$order_recalculated = get_post_meta($order_id, 'woocs_order_stat_recalculated', true);
-		$order = wc_get_order( $order_id );
-		$_order_currency  = $order->get_currency();
-		$order_rate = $order->get_meta( '_woocs_order_rate', true);	
-		$order_recalculated = $order->get_meta( 'woocs_order_stat_recalculated', true);	
-		
-		
+        $_order_currency = get_post_meta($order_id, '_order_currency', true);
+        $order_rate = get_post_meta($order_id, '_woocs_order_rate', true);
+        $order_recalculated = get_post_meta($order_id, 'woocs_order_stat_recalculated', true);
         $currencies = $WOOCS->get_currencies();
         $decimals = 2;
         if (isset($currencies[$_order_currency])) {

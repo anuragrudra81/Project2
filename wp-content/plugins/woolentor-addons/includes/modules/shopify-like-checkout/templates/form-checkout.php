@@ -9,11 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $blog_info       = get_bloginfo( 'name' );
 $get_custom_logo = woolentor_get_option( 'logo', 'woolentor_shopify_checkout_settings', '' );
-$get_logo_url_type = woolentor_get_option( 'logo_page', 'woolentor_shopify_checkout_settings', '' );
-$get_logo_custom_url = woolentor_get_option( 'logo_custom_url', 'woolentor_shopify_checkout_settings', '' );
-$get_custom_logo_url = $get_logo_url_type == 'custom' ? $get_logo_custom_url : ( !empty( $get_logo_url_type ) ? get_permalink( $get_logo_url_type ) : "" );
 $get_custom_menu_id = woolentor_get_option( 'custommenu', 'woolentor_shopify_checkout_settings', '0' );
-$has_footer_menu = '';
 $menu_html = '';
 
 if( !empty( $get_custom_menu_id ) ){
@@ -28,7 +24,6 @@ if( !empty( $get_custom_menu_id ) ){
     ];
     // General Menu.
     $menu_html = wp_nav_menu( $custom_menuargs );
-    $has_footer_menu = true;
 }
 
 // Skip shipping tab
@@ -117,11 +112,7 @@ $labels = apply_filters( 'woolentor_slc_labels', $labels );
                 <div class="woolentor-checkout__logo">
                     <?php 
                         if( !empty( $get_custom_logo ) ){
-                            if( !empty($get_custom_logo_url) ){
-                                echo sprintf('<a href="%s"><img src="%s" alt="%s" /></a>',esc_url($get_custom_logo_url),esc_url( $get_custom_logo ), $blog_info );
-                            }else{
-                                echo sprintf('<img src="%s" alt="%s" />',esc_url( $get_custom_logo ), $blog_info );
-                            }
+                            echo sprintf('<img src="%s" alt="%s" />',esc_url( $get_custom_logo ), $blog_info );
                         }else if( has_custom_logo() ){
                             ?><div class="site-logo"><?php the_custom_logo(); ?></div><?php
                         }else{
@@ -253,6 +244,7 @@ $labels = apply_filters( 'woolentor_slc_labels', $labels );
                         $terms_page_link = get_permalink($terms_page_id);
 
                         $policy_page_id     = (int) get_option( 'wp_page_for_privacy_policy' );
+                        $has_footer_menu = '';
                         if( $terms_page_id || $policy_page_id ){
                             $has_footer_menu = true;
                         }
@@ -373,11 +365,7 @@ $labels = apply_filters( 'woolentor_slc_labels', $labels );
                 <div class="woolentor-checkout__logo">
                     <?php 
                         if( !empty( $get_custom_logo ) ){
-                            if( !empty($get_custom_logo_url) ){
-                                echo sprintf('<a href="%s"><img src="%s" alt="%s" /></a>',esc_url($get_custom_logo_url),esc_url( $get_custom_logo ), $blog_info );
-                            }else{
-                                echo sprintf('<img src="%s" alt="%s" />',esc_url( $get_custom_logo ), $blog_info );
-                            }
+                            echo sprintf('<img src="%s" alt="%s" />',esc_url( $get_custom_logo ), $blog_info );
                         }else if( has_custom_logo() ){
                             ?><div class="site-logo"><?php the_custom_logo(); ?></div><?php
                         }else{
@@ -386,19 +374,15 @@ $labels = apply_filters( 'woolentor_slc_labels', $labels );
                     ?>
                 </div>
                 <ul class="woolentor-checkout__breadcrumb">
-                    <?php if(!$hide_cart_nivigation): ?>
-                        <li class="woolentor-checkout__breadcrumb-item">
-                            <a class="woolentor-checkout__breadcrumb-link" href="<?php echo esc_url(wc_get_cart_url()) ?>"><?php echo esc_html($labels['cart']) ?></a>
-                        </li>
-                    <?php endif; ?>
+                    <li class="woolentor-checkout__breadcrumb-item">
+                        <a class="woolentor-checkout__breadcrumb-link" href="<?php echo esc_url(wc_get_cart_url()) ?>"><?php echo esc_html($labels['cart']) ?></a>
+                    </li>
                     <li class="woolentor-checkout__breadcrumb-item active" data-step="step--info">
                         <span class="woolentor-checkout__breadcrumb-text"><?php echo esc_html($labels['information']) ?></span>
                     </li>
-                    <?php if( !$hide_shipping_step ): ?>
                     <li class="woolentor-checkout__breadcrumb-item" data-step="step--shipping">
                         <span class="woolentor-checkout__breadcrumb-text"><?php echo esc_html($labels['shipping']) ?></span>
                     </li>
-                    <?php endif; ?>
                     <li class="woolentor-checkout__breadcrumb-item" data-step="step--payment">
                         <span class="woolentor-checkout__breadcrumb-text"><?php echo esc_html($labels['payment']) ?></span>
                     </li>

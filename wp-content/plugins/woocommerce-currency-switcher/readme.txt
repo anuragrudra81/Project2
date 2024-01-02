@@ -1,20 +1,20 @@
-=== FOX - Currency Switcher Professional for WooCommerce ===
+=== WOOCS - Currency Switcher for WooCommerce Professional ===
 Contributors: RealMag777
 Donate link: https://pluginus.net/affiliate/woocommerce-currency-switcher
 Tags: woocommerce, currency, switcher, currency switcher, converter, user role, role based pricing
 Requires at least: 4.9.0
-Tested up to: 6.4
+Tested up to: 6.1
 Requires PHP: 7.2
-Stable tag: 1.4.1.7
+Stable tag: trunk
 
 
-FOX - Currency Switcher Professional for WooCommerce (former name is WOOCS) is free currency plugin for woocommerce and multi currency shop that allows to switch products prices and pay in the selected currency
+WooCommerce Currency Switcher Professional is free currency plugin for woocommerce and multi currency shop that allows to switch products prices and pay in the selected currency
 
 == Description ==
 
-**FOX - Currency Switcher Professional for WooCommerce** (former name is WOOCS) is free WooCommerce multi currency switcher plugin for woocommerce, that allows your site visitors switch products prices currencies according to set currencies rates in the real time and pay in the selected currency (optionally). FOX is multi currency plugin that allows to add any currency to WooCommerce store. Ideal solution to make the serious WooCommerce store site in multiple currencies!
+**WOOCS - WooCommerce Currency Switcher Professional** is free WooCommerce multi currency switcher plugin for woocommerce, that allows your site visitors switch products prices currencies according to set currencies rates in the real time and pay in the selected currency (optionally). WOOCS is multi currency plugin that allows to add any currency to WooCommerce store. Ideal solution to make the serious WooCommerce store site in multiple currencies!
 
-FOX is woo currency tool and available as shortcode **[[woocs]](https://currency-switcher.com/shortcode/woocs/)** so as the widget.
+WOOCS is woo currency tool and available as shortcode **[[woocs]](https://currency-switcher.com/shortcode/woocs/)** so as the widget.
 
 List of supported currencies: [https://en.wikipedia.org/wiki/ISO_4217#Active_codes](https://en.wikipedia.org/wiki/ISO_4217#Active_codes)
 
@@ -30,16 +30,16 @@ List of supported currencies: [https://en.wikipedia.org/wiki/ISO_4217#Active_cod
 
 
 
-Latest PHP 8.x.x – COMPATIBLE!
+Latest PHP 8.x – COMPATIBLE!
 
 
-### FOX Currency Switcher Features:
+### Currency Switcher Features:
 
 &#9989;&nbsp;**Representation:** Currency Switcher is available as a widget and works in any widgetized area, for flexibility the shortcode is also available [[woocs]](https://currency-switcher.com/shortcode/woocs/).  You can insert shortcode [woocs] in any place of your site, [even in the top menu](https://currency-switcher.com/how-to-drop-woocommerce-currency-switcher-in-menu/).
 
 Also the plugin has ajaxed shortcode/widget of [currency converter](https://demo.currency-switcher.com/shortcode-woocs_converter/) and ajaxed shortcode/widget of [currency rates](https://demo.currency-switcher.com/shortcode-woocs_rates/)
 
-&#9989;&nbsp;**Design**: graphically Currency Switcher can be represented in 3 different ways: drop-down, flags, [side switcher](https://demo.currency-switcher.com/). For each currency it is possible to set flag. Also it is possible using in-built Smart Designer to create your own customized currency drop-down!
+&#9989;&nbsp;**Design**: graphically Currency Switcher can be represented in 3 different ways: drop-down, flags, [side switcher](https://demo.currency-switcher.com/). For each currency it is possible to set flag.
 
 &#9989;&nbsp;**Checkout**: the customers are allowed to pay in their selected(preferred) currency. This feature has name 'Is multiple allowed' and should be enabled in the plugin settings.
 
@@ -63,13 +63,13 @@ Also the plugin has ajaxed shortcode/widget of [currency converter](https://demo
 
 &#9989;&nbsp;**Light video to understand basics**:
 
-
+https://www.youtube.com/watch?v=wUoM9EHjnYs
 
 Note: for today design of the plugin is different of the video (is improved), see screenshots below!
 
 &#9989;&nbsp;**Payments rules**: rules to hide/show payment gates on the checkout page depending on the current currency
 
-&#9989;&nbsp;**Welcome currency**: allows to set any price currency you want for your site visitors first visit. So if your shop currency is INR and you want let your customers on their first visit see prices converted to USD you just need to set 'Welcome currency' in FOX options.
+&#9989;&nbsp;**Welcome currency**: allows to set any price currency you want for your site visitors first visit. So if your shop currency is INR and you want let your customers on their first visit see prices converted to USD you just need to set 'Welcome currency' in WOOCS options.
 
 &#9989;&nbsp;**Individual prices based on User Role**: gives ability to set different prices for each user role in basic currency. Very power feature for your shop customers with loyalty program
 
@@ -105,15 +105,15 @@ Note: for today design of the plugin is different of the video (is improved), se
 
 &#9989;&nbsp;Ability to recount order from any currency to the basic currency in multi currency mode of the plugin
 
-&#9989;&nbsp;**Possible to change currency according to the language**: if you you using WPML or Polylang plugins in your shop and by business logic you want to set currency according to the current language [it is possible with FOX API](https://currency-switcher.com/switch-currency-with-language-change/)
+&#9989;&nbsp;**Possible to change currency according to the language**: if you you using WPML or Polylang plugins in your shop and by business logic you want to set currency according to the current language [it is possible with WOOCS API](https://currency-switcher.com/switch-currency-with-language-change/)
 
-&#9989;&nbsp;FOX understand currency in the site link as [demo.currency-switcher.com/?currency=EUR](https://demo.currency-switcher.com/?currency=EUR)
+&#9989;&nbsp;WOOCS understand currency in the site link as [demo.currency-switcher.com/?currency=EUR](https://demo.currency-switcher.com/?currency=EUR)
 
 &#9989;&nbsp;**No GET data in the link**: switches currency without GET properties (?currency=USD) in the link (optionally)
 
 &#9989;&nbsp;**Smart Designer**: Interactive customization of currency drop-down. [Description](https://currency-switcher.com/how-to-customize-currency-switcher-view/), [Demo page](https://demo.currency-switcher.com/woocs-smart-designer).
 
-&#9989;&nbsp;**Selected currency storage**: For the site admin FOX provides set of mechanisms to storage user selected currency on different hosting architectures: Session, Transient, Memcached, Redis
+&#9989;&nbsp;**Selected currency storage**: For the site admin WOOCS provides set of mechanisms to storage user selected currency on different hosting architectures: Session, Transient, Memcached, Redis
 
 &#9989;&nbsp;**Wide API**: For site developer - advanced [API functionality set](https://currency-switcher.com/codex/) which allows to manipulate with prices and their rates on the fly using conditional logic
 
@@ -125,11 +125,9 @@ Note: for today design of the plugin is different of the video (is improved), se
 
 &#9989;&nbsp;Compatible with [CTX Feed – WooCommerce Product Feed Generator](https://wordpress.org/plugins/webappick-product-feed-for-woocommerce/)
 
-&#9989;&nbsp;Compatible with [RnB - WooCommerce Booking & Rental Plugin](https://codecanyon.pluginus.net/item/rnb-woocommerce-rental-booking-system/14835145)
-
 &#9989;&nbsp;95% compatibility with different payment gates in multi currency mode, just try it!
 
-&#9989;&nbsp;We do [compatibility](https://currency-switcher.com/codex/#compatibility) with our special program [FOX LABS](https://currency-switcher.com/woocs-labs)
+&#9989;&nbsp;We do [compatibility](https://currency-switcher.com/codex/#compatibility) with our special program [WOOCS LABS](https://currency-switcher.com/woocs-labs)
 
 &#9989;&nbsp;**Strong technical support which each day works with tones of code!**
 
@@ -144,19 +142,19 @@ Note: for today design of the plugin is different of the video (is improved), se
 
 ### Make your site more profitable with next powerful scripts:
 
-&#9989;&nbsp;[HUSKY - Products Filter for WooCommerce](https://wordpress.org/plugins/woocommerce-products-filter/): is an extendable, flexible and robust plugin for WooCommerce that allows your site customers filter products by products categories, attributes, tags, custom taxonomies and price. Supports latest version of the WooCommerce plugin. A must have plugin for your WooCommerce powered online store! Maximum flexibility!
+&#9989;&nbsp;[WOOF - Products Filter for WooCommerce](https://wordpress.org/plugins/woocommerce-products-filter/): is an extendable, flexible and robust plugin for WooCommerce that allows your site customers filter products by products categories, attributes, tags, custom taxonomies and price. Supports latest version of the WooCommerce plugin. A must have plugin for your WooCommerce powered online store! Maximum flexibility!
 
 &#9989;&nbsp;[BEAR - Bulk Editor for WooCommerce](https://wordpress.org/plugins/woo-bulk-editor/): WordPress plugin for managing and bulk edit WooCommerce Products data in robust and flexible way! Be professionals with managing data of your woocommerce e-shop!
 
 &#9989;&nbsp;[WooCommerce Active Products Tables](https://wordpress.org/plugins/profit-products-tables-for-woocommerce/): is WooCommerce plugin for displaying shop products in table format. Tables makes focus for your buyers on the things they want to get, nothing superfluous, just what the client wants, and full attention to what is offered!
 
-&#9989;&nbsp;[WOLF - WordPress Posts Bulk Editor Professional](https://wordpress.org/plugins/bulk-editor/): is WordPress plugin for managing and bulk edit WordPress posts, pages and custom post types data in robust and flexible way! Be professionals with managing data of your site!
-
 &#9989;&nbsp;[TABLEON - WordPress Post Tables Filterable](https://wordpress.org/plugins/posts-table-filterable): WordPress plugin for displaying site posts and their custom post types in table format. Tables makes focus for your customers on the things they want to get, nothing superfluous, just what the client wants, and full attention to what is offered!
 
 &#9989;&nbsp;[WPCS - WordPress Currency Switcher](https://wordpress.org/plugins/currency-switcher/): is a WordPress plugin that allows to switch currencies and get their rates converted in the real time on your site!
 
-&#9989;&nbsp;[MDTF - Meta Data Filter & Taxonomies Filter](https://wp-filter.com/): the plugin for filtering and searching WordPress content in posts and their custom types by taxonomies and meta data fields. The plugin has very high flexibility thanks to its rich filter elements and in-built meta fields constructor!
+&#9989;&nbsp;[MDTF - WordPress Meta Data Filter & Taxonomies Filter](https://wp-filter.com/): the plugin for filtering and searching WordPress content in posts and their custom types by taxonomies and meta data fields. The plugin has very high flexibility thanks to its rich filter elements and in-built meta fields constructor!
+
+&#9989;&nbsp;[WPBE - WordPress Posts Bulk Editor Professional](https://wordpress.org/plugins/bulk-editor/): is WordPress plugin for managing and bulk edit WordPress posts, pages and custom post types data in robust and flexible way! Be professionals with managing data of your site!
 
 
 
@@ -182,40 +180,10 @@ R: [FAQ](https://currency-switcher.com/faq/)
 
 
 == Screenshots ==
-1. Currency options
+1. Currencies options
 
 
 == Changelog ==
-
-= 1.4.1.7 =
-* 1 security issue fixed thanks to Lucio Sá from wordfence.com
-* 1 minor fix
-
-= 1.4.1.6 =
-* 1 security issue fixed thanks to Lucio Sá from wordfence.com
-
-= 1.4.1.5 =
-* 1 security issue fixed thanks to Brandon Roldan from patchstack.com
-
-= 1.4.1.4 =
-* small fixes
-
-= 1.4.1.3 =
-* 1 fix for HPOS class WoocsHpos
-
-= 1.4.1.2 =
-* some fixes got from customer support
-
-= 1.4.1.1 =
-* 1 javascript fix active-filters-wrapper-frontend.js
-
-= 1.4.1 =
-* [https://currency-switcher.com/update-v-2-4-1-and-v-1-4-1/](https://currency-switcher.com/update-v-2-4-1-and-v-1-4-1/)
-
-= 1.4.0 =
-* heap of little fixes
-* new storage type 'FOX Session'
-* new function [convert_from_to_currency](https://currency-switcher.com/function/woocs-convert_from_to_currency/) which allows to convert money amount from one currency to another one
 
 = 1.3.9.4 =
 * 1 security issue fixed thanks to Erwan Le Rousseau, via WPScan
@@ -460,7 +428,7 @@ Plugin release. Operate all the basic functions.
 
 == License ==
 
-This plugin is copyright pluginus.net &copy; 2012-2024 with [GNU General Public License][] by realmag777.
+This plugin is copyright pluginus.net &copy; 2012-2023 with [GNU General Public License][] by realmag777.
 
 This program is free software; you can redistribute it and/or modify it under the terms of the [GNU General Public License][] as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 

@@ -8,7 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	$classes 	 = array( $uniqClass, 'ht-brand-wrap' );
 	$areaClasses = array( 'woolentor-brand-area' );
 
-	!empty( $settings['className'] ) ? $areaClasses[] = esc_attr( $settings['className'] ) : '';
 	!empty( $settings['align'] ) ? $areaClasses[] = 'align'.$settings['align'] : '';
 
 	!empty( $settings['columns']['desktop'] ) ? $areaClasses[] = 'woolentor-grid-columns-'.$settings['columns']['desktop'] : 'woolentor-grid-columns-4';

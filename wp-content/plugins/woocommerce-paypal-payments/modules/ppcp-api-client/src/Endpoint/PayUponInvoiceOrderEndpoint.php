@@ -26,7 +26,7 @@ use WooCommerce\PayPalCommerce\ApiClient\Entity\Order;
 use WooCommerce\PayPalCommerce\ApiClient\Entity\PurchaseUnit;
 use WooCommerce\PayPalCommerce\ApiClient\Exception\PayPalApiException;
 use WooCommerce\PayPalCommerce\ApiClient\Factory\OrderFactory;
-use WooCommerce\PayPalCommerce\WcGateway\FraudNet\FraudNet;
+use WooCommerce\PayPalCommerce\WcGateway\Gateway\PayUponInvoice\FraudNet;
 use WooCommerce\PayPalCommerce\WcGateway\Gateway\PayUponInvoice\PaymentSource;
 use WP_Error;
 
@@ -112,7 +112,7 @@ class PayUponInvoiceOrderEndpoint {
 			'processing_instruction' => 'ORDER_COMPLETE_ON_PAYMENT_APPROVAL',
 			'purchase_units'         => array_map(
 				static function ( PurchaseUnit $item ): array {
-					return $item->to_array( true, false );
+					return $item->to_array( false );
 				},
 				$items
 			),
@@ -133,7 +133,7 @@ class PayUponInvoiceOrderEndpoint {
 				'Content-Type'              => 'application/json',
 				'Prefer'                    => 'return=representation',
 				'PayPal-Client-Metadata-Id' => $this->fraudnet->session_id(),
-				'PayPal-Request-Id'         => uniqid( 'ppcp-', true ), // Request-Id header is required.
+				'PayPal-Request-Id'         => uniqid( 'ppcp-', true ),
 			),
 			'body'    => wp_json_encode( $data ),
 		);
@@ -166,11 +166,8 @@ class PayUponInvoiceOrderEndpoint {
 
 			throw new PayPalApiException( $json, $status_code );
 		}
-		$order = $this->order_factory->from_paypal_response( $json );
 
-		do_action( 'woocommerce_paypal_payments_paypal_order_created', $order );
-
-		return $order;
+		return $this->order_factory->from_paypal_response( $json );
 	}
 
 	/**
@@ -236,15 +233,9 @@ class PayUponInvoiceOrderEndpoint {
 	 * @return array
 	 */
 	private function ensure_taxes( WC_Order $wc_order, array $data ): array {
-		$tax_total  = $data['purchase_units'][0]['amount']['breakdown']['tax_total']['value'];
-		$item_total = $data['purchase_units'][0]['amount']['breakdown']['item_total']['value'];
-		$shipping   = $data['purchase_units'][0]['amount']['breakdown']['shipping']['value'];
-
-		$handling          = isset( $data['purchase_units'][0]['amount']['breakdown']['handling'] ) ? $data['purchase_units'][0]['amount']['breakdown']['handling']['value'] : 0;
-		$insurance         = isset( $data['purchase_units'][0]['amount']['breakdown']['insurance'] ) ? $data['purchase_units'][0]['amount']['breakdown']['insurance']['value'] : 0;
-		$shipping_discount = isset( $data['purchase_units'][0]['amount']['breakdown']['shipping_discount'] ) ? $data['purchase_units'][0]['amount']['breakdown']['shipping_discount']['value'] : 0;
-		$discount          = isset( $data['purchase_units'][0]['amount']['breakdown']['discount'] ) ? $data['purchase_units'][0]['amount']['breakdown']['discount']['value'] : 0;
-
+		$tax_total       = $data['purchase_units'][0]['amount']['breakdown']['tax_total']['value'];
+		$item_total      = $data['purchase_units'][0]['amount']['breakdown']['item_total']['value'];
+		$shipping        = $data['purchase_units'][0]['amount']['breakdown']['shipping']['value'];
 		$order_tax_total = $wc_order->get_total_tax();
 		$tax_rate        = round( ( $order_tax_total / $item_total ) * 100, 1 );
 
@@ -272,7 +263,7 @@ class PayUponInvoiceOrderEndpoint {
 		);
 
 		$total_amount    = $data['purchase_units'][0]['amount']['value'];
-		$breakdown_total = $item_total + $tax_total + $shipping + $handling + $insurance - $shipping_discount - $discount;
+		$breakdown_total = $item_total + $tax_total + $shipping;
 		$diff            = round( $total_amount - $breakdown_total, 2 );
 		if ( $diff === -0.01 || $diff === 0.01 ) {
 			$data['purchase_units'][0]['amount']['value'] = number_format( $breakdown_total, 2, '.', '' );

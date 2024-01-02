@@ -188,20 +188,6 @@ class MC4WP_API_V3 {
 	}
 
 	/**
-	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
-	 * @since 4.8.12
-	 * @param string $list_id
-	 * @param array $args
-	 *
-	 * @return object
-	 * @throws MC4WP_API_Exception
-	 */
-	public function get_list_members( $list_id, array $args = array() ) {
-		$resource = sprintf( '/lists/%s/members', $list_id );
-		return $this->client->get( $resource, $args );
-	}
-
-	/**
 	 * Batch subscribe / unsubscribe list members.
 	 *
 	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/#create-post_lists_list_id
@@ -239,10 +225,6 @@ class MC4WP_API_V3 {
 			$args['interests'] = (object) $args['interests'];
 		}
 
-		if ( isset( $args['marketing_permissions'] ) ) {
-			$args['marketing_permissions'] = (array) $args['marketing_permissions'];
-		}
-
 		return $this->client->post( $resource, $args );
 	}
 
@@ -275,10 +257,6 @@ class MC4WP_API_V3 {
 			$args['interests'] = (object) $args['interests'];
 		}
 
-		if ( isset( $args['marketing_permissions'] ) ) {
-			$args['marketing_permissions'] = (array) $args['marketing_permissions'];
-		}
-
 		// "put" updates the member if it's already on the list... take notice
 		return $this->client->put( $resource, $args );
 	}
@@ -304,10 +282,6 @@ class MC4WP_API_V3 {
 
 		if ( isset( $args['interests'] ) ) {
 			$args['interests'] = (object) $args['interests'];
-		}
-
-		if ( isset( $args['marketing_permissions'] ) ) {
-			$args['marketing_permissions'] = (array) $args['marketing_permissions'];
 		}
 
 		return $this->client->patch( $resource, $args );

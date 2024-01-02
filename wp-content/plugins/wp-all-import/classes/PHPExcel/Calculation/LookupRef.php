@@ -717,7 +717,7 @@ class PHPExcel_Calculation_LookupRef
         }
 
         if (!$not_exact_match) {
-            uasort($lookup_array, array(self::class, 'vlookupSort'));
+            uasort($lookup_array, array('self', 'vlookupSort'));
         }
 
         $rowNumber = $rowValue = false;

@@ -8,7 +8,7 @@ $uniqClass 	 = 'woolentorblock-'.$settings['blockUniqId'];
 $areaClasses = array( $uniqClass );
 $classes 	 = array( 'wlspcial-banner' );
 
-!empty( $settings['className'] ) ? $areaClasses[] = esc_attr( $settings['className'] ) : '';
+!empty( $settings['className'] ) ? $areaClasses[] = $settings['className'] : '';
 !empty( $settings['align'] ) ? $areaClasses[] = 'align'.$settings['align'] : '';
 
 !empty( $settings['contentPosition'] ) ? $classes[] = 'woolentor-banner-content-pos-'.$settings['contentPosition'] : '';

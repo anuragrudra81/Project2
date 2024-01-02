@@ -802,7 +802,7 @@ html body .pswp__caption__center {
     font-size: 16px;
     line-height: 24px;
     margin: 0;
-    background: url(https://anuragrudra81.github.io/Project2/wp-content/themes/vehica/assets/img/chevron-down.png) no-repeat right transparent;
+    background: url(assets/img/chevron-down.png) no-repeat right transparent;
     background-size: 16px 16px;
     -webkit-appearance: none;
     background-position: right 20px bottom 15px;
@@ -1140,7 +1140,7 @@ html body .pswp__caption__center {
     background: #fff;
     margin: 10px 0;
     padding-right: 50px;
-    background: url(https://anuragrudra81.github.io/Project2/wp-content/themes/vehica/assets/img/chevron-down.png) no-repeat right transparent;
+    background: url(assets/img/chevron-down.png) no-repeat right transparent;
     background-size: 16px 16px;
     -webkit-appearance: none;
     background-position: right 20px bottom 15px;
@@ -4904,7 +4904,7 @@ form.wp-block-search .wp-block-search__button, .vehica-post-field__text input[ty
     font-size: 16px;
     line-height: 24px;
     margin: 0;
-    background: url(https://anuragrudra81.github.io/Project2/wp-content/themes/vehica/assets/img/chevron-down.png) no-repeat right transparent;
+    background: url(assets/img/chevron-down.png) no-repeat right transparent;
     background-size: 16px 16px;
     -webkit-appearance: none;
     background-position: right 20px bottom 15px;
@@ -8312,7 +8312,7 @@ form.wp-block-search .wp-block-search__input {
     width: 100%;
     height: 310px;
     display: block;
-    background: url(https://anuragrudra81.github.io/Project2/wp-content/themes/vehica/assets/img/mask.png);
+    background: url(assets/img/mask.png);
 }
 
 .vehica-gallery-v2-link {
@@ -13802,7 +13802,7 @@ vehica-show-advanced-fields .vehica-results__fields .vehica-results__field input
     position: absolute;
     top: 0;
     left: 0;
-    background: url(https://anuragrudra81.github.io/Project2/wp-content/themes/vehica/assets/img/user-placeholder.png);
+    background: url(assets/img/user-placeholder.png);
     background-size: cover;
     z-index: 0;
 }
@@ -14774,7 +14774,7 @@ vehica-show-advanced-fields .vehica-results__fields .vehica-results__field input
     position: absolute;
     top: 0;
     left: 0;
-    background: url(https://anuragrudra81.github.io/Project2/wp-content/themes/vehica/assets/img/user-placeholder.png);
+    background: url(assets/img/user-placeholder.png);
     background-size: cover;
     z-index: 0;
 }
@@ -14835,7 +14835,7 @@ vehica-show-advanced-fields .vehica-results__fields .vehica-results__field input
     position: absolute;
     top: 0;
     left: 0;
-    background: url(https://anuragrudra81.github.io/Project2/wp-content/themes/vehica/assets/img/user-placeholder.png);
+    background: url(assets/img/user-placeholder.png);
     background-size: cover;
     z-index: 0;
 }
@@ -16267,7 +16267,7 @@ vehica-show-advanced-fields .vehica-results__fields .vehica-results__field input
     top: 0;
     left: 0;
     position: absolute;
-    background: url(https://anuragrudra81.github.io/Project2/wp-content/themes/vehica/assets/img/map-placeholder.jpg);
+    background: url(assets/img/map-placeholder.jpg);
     background-size: cover;
 }
 
@@ -18225,7 +18225,7 @@ vehica-show-advanced-fields .vehica-results__fields .vehica-results__field input
         position: absolute;
         top: 0;
         left: 0;
-        background: url(https://anuragrudra81.github.io/Project2/wp-content/themes/vehica/assets/img/background-team.png);
+        background: url(assets/img/background-team.png);
         background-size: cover;
         z-index: 0;
     }
@@ -19666,7 +19666,7 @@ vehica-show-advanced-fields .vehica-results__fields .vehica-results__field input
     width: 144px;
     height: 117px;
     display: block;
-    background: url(https://anuragrudra81.github.io/Project2/wp-content/themes/vehica/assets/img/dots.png);
+    background: url(assets/img/dots.png);
     background-size: cover;
     z-index: 0;
     top: 482px;
@@ -22401,7 +22401,7 @@ x .mce-toolbar-grp > div {
     position: absolute;
     top: 0;
     left: 0;
-    background: url(https://anuragrudra81.github.io/Project2/wp-content/themes/vehica/assets/img/user-placeholder.png);
+    background: url(assets/img/user-placeholder.png);
     background-size: cover;
     z-index: 0;
 }
@@ -22415,7 +22415,7 @@ x .mce-toolbar-grp > div {
     position: absolute;
     bottom: 10px;
     left: 0;
-    background: url(https://anuragrudra81.github.io/Project2/wp-content/themes/vehica/assets/img/user-placeholder.png);
+    background: url(assets/img/user-placeholder.png);
     background-size: cover;
     z-index: 0;
 }

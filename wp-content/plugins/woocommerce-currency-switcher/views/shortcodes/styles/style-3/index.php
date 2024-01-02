@@ -120,6 +120,6 @@ foreach ($all_currencies as $key => $currency) {
     </button>
 
 
-    <div class="woocs_display_none">FOX v.<?php echo WOOCS_VERSION ?></div>
+    <div class="woocs_display_none">WOOCS v.<?php echo WOOCS_VERSION ?></div>
 
 

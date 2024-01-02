@@ -23,15 +23,16 @@ class Woolentor_Manage_WC_Template{
 
         // Add Admin bar Menu
         add_action( 'admin_bar_menu', [ $this, 'add_menu_in_admin_bar' ], 300 );
-
-        // Change Template
-        add_filter( 'template_include', [ $this, 'change_page_template' ], 999);
         
         // Product details page
-        add_action( 'woolentor_woocommerce_product_content', [ $this, 'set_product_page_builder_content' ], 5 );
+        add_filter( 'wc_get_template_part', [ $this, 'set_product_content_template' ], 99, 3 );
+        add_filter( 'template_include', [ $this, 'set_product_template' ], 100 );
+        add_action( 'woolentor_woocommerce_product_content', [ $this, 'set_product_builder_content' ], 5 );
+        add_action( 'woolentor_woocommerce_product_content', [ $this, 'get_default_product_data' ], 10 );
 
         // Product Archive Page
-        add_action( 'woolentor_woocommerce_archive_product_content', [ $this, 'set_shop_page_builder_content' ] );
+        add_filter('template_include', [ $this, 'set_product_archive_template' ], 999 );
+        add_action( 'woolentor_woocommerce_archive_product_content', [ $this, 'set_archive_product_builder_content' ] );
 
     }
 
@@ -183,17 +184,41 @@ class Woolentor_Manage_WC_Template{
     /*
     * Manage Product Page
     */
-
-    // Set Builder Content For Shop page
-    public function set_shop_page_builder_content(){
-        $archive_template_id = $this->archive_template_id();
-        if( $archive_template_id != '0' ){
-            echo self::render_build_content( $archive_template_id );
+    // Change Product page content template
+    public function set_product_content_template( $template, $slug, $name ) {
+        if ( 'content' === $slug && 'single-product' === $name ) {
+            if ( self::has_template( 'singleproductpage', '_selectproduct_layout' ) ) {
+                $template = WOOLENTOR_ADDONS_PL_PATH . 'wl-woo-templates/single-product.php';
+            }
         }
+        return $template;
     }
 
-    // Set Builder content for Single product page
-    public static function set_product_page_builder_content() {
+    // Set Product page template
+    public function set_product_template( $template ) {
+        if ( is_embed() ) {
+            return $template;
+        }
+        if ( is_singular( 'product' ) ) {
+            if ( self::has_template( 'singleproductpage', '_selectproduct_layout' ) ) {
+                $templateid = get_page_template_slug( self::get_template_id( 'singleproductpage', '_selectproduct_layout' ) );
+                if ( ( 'elementor_header_footer' === $templateid ) || ( 'woolentor_fullwidth' === $templateid ) ) {
+                    $template = WOOLENTOR_ADDONS_PL_PATH . 'wl-woo-templates/single-product-fullwidth.php';
+                } elseif ( ( 'elementor_canvas' === $templateid ) || ( 'woolentor_canvas' === $templateid ) ) {
+                    $template = WOOLENTOR_ADDONS_PL_PATH . 'wl-woo-templates/single-product-canvas.php';
+                }
+            }
+        }
+        return $template;
+    }
+
+    // Single product default content
+    public function get_default_product_data() {
+        WC()->structured_data->generate_product_data();
+    }
+
+    // Set Builder content
+    public static function set_product_builder_content() {
         if ( self::has_template( 'singleproductpage', '_selectproduct_layout' ) ) {
             $wltemplateid = self::get_template_id( 'singleproductpage', '_selectproduct_layout' );
             echo self::render_build_content( $wltemplateid );
@@ -220,17 +245,12 @@ class Woolentor_Manage_WC_Template{
                 if(( is_tax('product_cat') && is_product_category() ) || ( is_tax('product_tag') && is_product_tag() )){
 
                     $product_archive_custom_page_id = self::get_template_id( 'productallarchivepage' );
-                    $product_display_mode = function_exists('woocommerce_get_loop_display_mode') ? woocommerce_get_loop_display_mode() : '';
 
                     // Get Meta Value
                     $wltermlayoutid = get_term_meta( $termobj->term_id, 'wooletor_selectcategory_layout', true ) ? get_term_meta( $termobj->term_id, 'wooletor_selectcategory_layout', true ) : '0';
 
                     if( !empty( $product_archive_custom_page_id ) && $wltermlayoutid == '0' ){
-                        if ( 'subcategories' === $product_display_mode || 'both' === $product_display_mode ) {
-                            $wltermlayoutid = 0;
-                        }else{
-                            $wltermlayoutid = $product_archive_custom_page_id;
-                        }
+                        $wltermlayoutid = $product_archive_custom_page_id;
                     }
 
                 }
@@ -241,7 +261,7 @@ class Woolentor_Manage_WC_Template{
                         $template_id = $product_shop_custom_page_id;
                     }
                 }
-
+                // return $template_id;
             }
 
             return $template_id;
@@ -249,142 +269,35 @@ class Woolentor_Manage_WC_Template{
 
     }
 
-    /**
-     * Page Tempalte
-     */
-    public function get_page_template_path( $template_part, $template_id ) {
-
-        $template = 0;
-
-        if( Woolentor_Template_Manager::instance()->edit_with_gutenberg( $template_id ) ) {
-
-            $page_template_slug = get_post_meta( $template_id, '_wp_page_template', true );
-
-            $page_template_slug = ( in_array( $page_template_slug, ['elementor_header_footer', 'elementor_canvas'] ) ? 'woolentor_fullwidth' : $page_template_slug );
-			$template = WOOLENTOR_ADDONS_PL_PATH . 'wl-woo-templates/page/'.$page_template_slug.'.php';
-
-			if( empty( $page_template_slug ) ) {
-				$template = WOOLENTOR_ADDONS_PL_PATH . 'wl-woo-templates/page/woolentor-default.php';
-			}
-
-            add_action('woolentor/builder/content', function () use ( $template_id, $template_part ) {
-                include_once ( $this->get_template_part( $template_part, $template_id ) );
-            });
-
-            return $template;
-        }
-
-        if( woolentor_is_elementor_active() ){
-
-            // The code snippet originates in Elementor, specifically in /elementor/modules/page-templates/module.php at line 82.
-            $document        = \Elementor\Plugin::$instance->documents->get_doc_for_frontend($template_id);
-            $template_module = \Elementor\Plugin::$instance->modules_manager->get_modules('page-templates');
-
-            if( $document && $document::get_property('support_wp_page_templates') ) {
-                $page_template = $document->get_meta('_wp_page_template');
-                $page_template = ( in_array( $page_template, ['elementor_header_footer', 'elementor_canvas'] ) ? $page_template : 'elementor_header_footer');
-
-                $template_path = $template_module->get_template_path( $page_template );
-
-                if( 'elementor_theme' !== $page_template && !$template_path && $document->is_built_with_elementor() ) {
-                    $kit_default_template = \Elementor\Plugin::$instance->kits_manager->get_current_settings('default_page_template');
-                    $template_path        = $template_module->get_template_path( $kit_default_template );
-                }
-
-                if( $template_path ) {
-                    $template = $template_path;
-                }
+    public function set_product_archive_template( $template ){
+        $archive_template_id = $this->archive_template_id();
+        $templatefile   = array();
+        $templatefile[] = 'wl-woo-templates/archive-product.php';
+        if( $archive_template_id != '0' ){
+            $template = locate_template( $templatefile );
+            if ( ! $template || ( ! empty( $status_options['template_debug_mode'] ) && current_user_can( 'manage_options' ) ) ){
+                $template = WOOLENTOR_ADDONS_PL_PATH . '/wl-woo-templates/archive-product.php';
             }
-
-            $template_module->set_print_callback(function () use ( $template_id, $template_part ){
-                include_once ( $this->get_template_part( $template_part, $template_id ) );
-            });
-
-        }
-
-        return $template;
-    }
-    
-    // Manage Template part
-    public function get_template_part( $slug, $template_id ){
-        if( empty( $template_id ) ){
-            return;
-        }
-        $template = '';
-        if( $slug === 'shop'){
-            $template = WOOLENTOR_ADDONS_PL_PATH . 'wl-woo-templates/content-shop.php';
-        }
-        elseif( $slug === 'singleproduct' ){
-            if ( self::has_template( 'singleproductpage', '_selectproduct_layout' ) ) {
-                $template = WOOLENTOR_ADDONS_PL_PATH . 'wl-woo-templates/single-product.php';
+            $page_template_slug = get_page_template_slug( $archive_template_id );
+            if ( ( 'elementor_header_footer' === $page_template_slug ) || ( 'woolentor_fullwidth' === $page_template_slug ) ) {
+                $template = WOOLENTOR_ADDONS_PL_PATH . '/wl-woo-templates/archive-product-fullwidth.php';
+            } elseif ( ( 'elementor_canvas' === $page_template_slug ) || ( 'woolentor_canvas' === $page_template_slug ) ) {
+                $template = WOOLENTOR_ADDONS_PL_PATH . '/wl-woo-templates/archive-product-canvas.php';
             }
         }
-
         return $template;
     }
 
-    /**
-     * Template Change
-     *
-     * @param [type] $template
-     * @return void
-     */
-    public function change_page_template( $template ){
-
-        $template_part = '';
-        $template_id = 0;
-
-        if ( class_exists( 'WooCommerce' ) ) {
-
-            if ( is_singular( 'product' ) ) {
-                if ( self::has_template( 'singleproductpage', '_selectproduct_layout' ) ) {
-                    $single_product_page_id = self::get_template_id( 'singleproductpage', '_selectproduct_layout' );
-                    if( !empty( $single_product_page_id ) ) {
-                        $template_id = $single_product_page_id;
-                        $template_part = 'singleproduct';
-                    }
-                }
-            }else{
-                $archive_template_id = $this->archive_template_id();
-                if( !empty( $archive_template_id )){
-                    $template_id = $archive_template_id;
-                    $template_part = 'shop';
-                }
-            }
-
-        }
-
-        if( !empty( $template_id ) ){
-            $template_path = $this->get_page_template_path( $template_part, $template_id );
-            if ( $template_path && !$this->is_elementor_editor_mode()) {
-                $template = $template_path;
-            }
-            add_filter('woolentor_builder_template_width',function( $template_width ) use( $template_id ){
-                $template_width = $this->get_template_width( $template_id );
-                return $template_width;
-            });
-        }
-
-        return $template;
-    }
-
-    // Check Elementor Editor mode
-    public function is_elementor_editor_mode(){
-        if( isset( $_GET['action'] ) && $_GET['action'] == 'elementor' ){
-            return true;
-        }else{
-            if( isset( $_GET['elementor-preview'] ) && $_GET['elementor-preview'] !== ''){
-                return true;
-            }
-            return false;
+    // Set Builder Content
+    public function set_archive_product_builder_content(){
+        $archive_template_id = $this->archive_template_id();
+        if( $archive_template_id != '0' ){
+            echo self::render_build_content( $archive_template_id );
         }
     }
 
     // Get Template width
     public static function get_template_width( $template_id ){
-        if( ! Woolentor_Template_Manager::instance()->edit_with_gutenberg( $template_id ) ){
-            return '';
-        }
         $get_width = get_post_meta( $template_id, '_woolentor_container_width', true );
 		return $get_width ? $get_width : '';
     }

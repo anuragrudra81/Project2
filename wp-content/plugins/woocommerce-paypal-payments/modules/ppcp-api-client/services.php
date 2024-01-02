@@ -9,21 +9,6 @@ declare(strict_types=1);
 
 namespace WooCommerce\PayPalCommerce\ApiClient;
 
-use WooCommerce\PayPalCommerce\ApiClient\Helper\FailureRegistry;
-use WooCommerce\PayPalCommerce\Common\Pattern\SingletonDecorator;
-use WooCommerce\PayPalCommerce\ApiClient\Endpoint\BillingSubscriptions;
-use WooCommerce\PayPalCommerce\ApiClient\Endpoint\CatalogProducts;
-use WooCommerce\PayPalCommerce\ApiClient\Endpoint\BillingPlans;
-use WooCommerce\PayPalCommerce\ApiClient\Entity\SellerPayableBreakdown;
-use WooCommerce\PayPalCommerce\ApiClient\Factory\BillingCycleFactory;
-use WooCommerce\PayPalCommerce\ApiClient\Factory\PaymentPreferencesFactory;
-use WooCommerce\PayPalCommerce\ApiClient\Factory\RefundFactory;
-use WooCommerce\PayPalCommerce\ApiClient\Factory\PlanFactory;
-use WooCommerce\PayPalCommerce\ApiClient\Factory\ProductFactory;
-use WooCommerce\PayPalCommerce\ApiClient\Factory\RefundPayerFactory;
-use WooCommerce\PayPalCommerce\ApiClient\Factory\SellerPayableBreakdownFactory;
-use WooCommerce\PayPalCommerce\ApiClient\Factory\ShippingOptionFactory;
-use WooCommerce\PayPalCommerce\Session\SessionHandler;
 use WooCommerce\PayPalCommerce\Vendor\Psr\Container\ContainerInterface;
 use WooCommerce\PayPalCommerce\ApiClient\Authentication\Bearer;
 use WooCommerce\PayPalCommerce\ApiClient\Authentication\PayPalBearer;
@@ -64,13 +49,12 @@ use WooCommerce\PayPalCommerce\ApiClient\Factory\WebhookFactory;
 use WooCommerce\PayPalCommerce\ApiClient\Helper\Cache;
 use WooCommerce\PayPalCommerce\ApiClient\Helper\DccApplies;
 use WooCommerce\PayPalCommerce\ApiClient\Helper\OrderHelper;
-use WooCommerce\PayPalCommerce\ApiClient\Helper\OrderTransient;
-use WooCommerce\PayPalCommerce\ApiClient\Helper\PurchaseUnitSanitizer;
 use WooCommerce\PayPalCommerce\ApiClient\Repository\ApplicationContextRepository;
 use WooCommerce\PayPalCommerce\ApiClient\Repository\CustomerRepository;
 use WooCommerce\PayPalCommerce\ApiClient\Repository\OrderRepository;
 use WooCommerce\PayPalCommerce\ApiClient\Repository\PartnerReferralsData;
 use WooCommerce\PayPalCommerce\ApiClient\Repository\PayeeRepository;
+use WooCommerce\PayPalCommerce\ApiClient\Repository\PayPalRequestIdRepository;
 use WooCommerce\PayPalCommerce\WcGateway\Settings\Settings;
 
 return array(
@@ -79,14 +63,6 @@ return array(
 	},
 	'api.paypal-host'                           => function( ContainerInterface $container ) : string {
 		return PAYPAL_API_URL;
-	},
-	'api.paypal-website-url'                    => function( ContainerInterface $container ) : string {
-		return PAYPAL_URL;
-	},
-	'api.factory.paypal-checkout-url'           => function( ContainerInterface $container ) : callable {
-		return function ( string $id ) use ( $container ): string {
-			return $container->get( 'api.paypal-website-url' ) . '/checkoutnow?token=' . $id;
-		};
 	},
 	'api.partner_merchant_id'                   => static function () : string {
 		return '';
@@ -129,8 +105,7 @@ return array(
 			$container->get( 'woocommerce.logger.woocommerce' ),
 			$container->get( 'api.factory.sellerstatus' ),
 			$container->get( 'api.partner_merchant_id' ),
-			$container->get( 'api.merchant_id' ),
-			$container->get( 'api.helper.failure-registry' )
+			$container->get( 'api.merchant_id' )
 		);
 	},
 	'api.factory.sellerstatus'                  => static function ( ContainerInterface $container ) : SellerStatusFactory {
@@ -143,7 +118,8 @@ return array(
 			$container->get( 'api.factory.payment-token' ),
 			$container->get( 'api.factory.payment-token-action-links' ),
 			$container->get( 'woocommerce.logger.woocommerce' ),
-			$container->get( 'api.repository.customer' )
+			$container->get( 'api.repository.customer' ),
+			$container->get( 'api.repository.paypal-request-id' )
 		);
 	},
 	'api.endpoint.webhook'                      => static function ( ContainerInterface $container ) : WebhookEndpoint {
@@ -203,15 +179,15 @@ return array(
 		$patch_collection_factory = $container->get( 'api.factory.patch-collection-factory' );
 		$logger                   = $container->get( 'woocommerce.logger.woocommerce' );
 
-		$session_handler = $container->get( 'session.handler' );
-		assert( $session_handler instanceof SessionHandler );
-		$bn_code         = $session_handler->bn_code();
-
-		$settings = $container->get( 'wcgateway.settings' );
-		assert( $settings instanceof Settings );
-
+		/**
+		 * The settings.
+		 *
+		 * @var Settings $settings
+		 */
+		$settings                       = $container->get( 'wcgateway.settings' );
 		$intent                         = $settings->has( 'intent' ) && strtoupper( (string) $settings->get( 'intent' ) ) === 'AUTHORIZE' ? 'AUTHORIZE' : 'CAPTURE';
 		$application_context_repository = $container->get( 'api.repository.application-context' );
+		$paypal_request_id              = $container->get( 'api.repository.paypal-request-id' );
 		$subscription_helper = $container->get( 'subscription.helper' );
 		return new OrderEndpoint(
 			$container->get( 'api.host' ),
@@ -221,10 +197,8 @@ return array(
 			$intent,
 			$logger,
 			$application_context_repository,
-			$subscription_helper,
-			$container->get( 'wcgateway.is-fraudnet-enabled' ),
-			$container->get( 'wcgateway.fraudnet' ),
-			$bn_code
+			$paypal_request_id,
+			$subscription_helper
 		);
 	},
 	'api.endpoint.billing-agreements'           => static function ( ContainerInterface $container ): BillingAgreementsEndpoint {
@@ -234,29 +208,8 @@ return array(
 			$container->get( 'woocommerce.logger.woocommerce' )
 		);
 	},
-	'api.endpoint.catalog-products'             => static function ( ContainerInterface $container ): CatalogProducts {
-		return new CatalogProducts(
-			$container->get( 'api.host' ),
-			$container->get( 'api.bearer' ),
-			$container->get( 'api.factory.product' ),
-			$container->get( 'woocommerce.logger.woocommerce' )
-		);
-	},
-	'api.endpoint.billing-plans'                => static function( ContainerInterface $container ): BillingPlans {
-		return new BillingPlans(
-			$container->get( 'api.host' ),
-			$container->get( 'api.bearer' ),
-			$container->get( 'api.factory.billing-cycle' ),
-			$container->get( 'api.factory.plan' ),
-			$container->get( 'woocommerce.logger.woocommerce' )
-		);
-	},
-	'api.endpoint.billing-subscriptions'        => static function( ContainerInterface $container ): BillingSubscriptions {
-		return new BillingSubscriptions(
-			$container->get( 'api.host' ),
-			$container->get( 'api.bearer' ),
-			$container->get( 'woocommerce.logger.woocommerce' )
-		);
+	'api.repository.paypal-request-id'          => static function( ContainerInterface $container ) : PayPalRequestIdRepository {
+		return new PayPalRequestIdRepository();
 	},
 	'api.repository.application-context'        => static function( ContainerInterface $container ) : ApplicationContextRepository {
 
@@ -306,32 +259,24 @@ return array(
 			$container->get( 'api.factory.fraud-processor-response' )
 		);
 	},
-	'api.factory.refund'                        => static function ( ContainerInterface $container ): RefundFactory {
-		$amount_factory   = $container->get( 'api.factory.amount' );
-		return new RefundFactory(
-			$amount_factory,
-			$container->get( 'api.factory.seller-payable-breakdown' ),
-			$container->get( 'api.factory.refund_payer' )
-		);
-	},
 	'api.factory.purchase-unit'                 => static function ( ContainerInterface $container ): PurchaseUnitFactory {
 
 		$amount_factory   = $container->get( 'api.factory.amount' );
+		$payee_repository = $container->get( 'api.repository.payee' );
+		$payee_factory    = $container->get( 'api.factory.payee' );
 		$item_factory     = $container->get( 'api.factory.item' );
 		$shipping_factory = $container->get( 'api.factory.shipping' );
 		$payments_factory = $container->get( 'api.factory.payments' );
 		$prefix           = $container->get( 'api.prefix' );
-		$soft_descriptor  = $container->get( 'wcgateway.soft-descriptor' );
-		$sanitizer        = $container->get( 'api.helper.purchase-unit-sanitizer' );
 
 		return new PurchaseUnitFactory(
 			$amount_factory,
+			$payee_repository,
+			$payee_factory,
 			$item_factory,
 			$shipping_factory,
 			$payments_factory,
-			$prefix,
-			$soft_descriptor,
-			$sanitizer
+			$prefix
 		);
 	},
 	'api.factory.patch-collection-factory'      => static function ( ContainerInterface $container ): PatchCollectionFactory {
@@ -346,18 +291,11 @@ return array(
 		);
 	},
 	'api.factory.shipping'                      => static function ( ContainerInterface $container ): ShippingFactory {
-		return new ShippingFactory(
-			$container->get( 'api.factory.address' ),
-			$container->get( 'api.factory.shipping-option' )
-		);
+		$address_factory = $container->get( 'api.factory.address' );
+		return new ShippingFactory( $address_factory );
 	},
 	'api.factory.shipping-preference'           => static function ( ContainerInterface $container ): ShippingPreferenceFactory {
 		return new ShippingPreferenceFactory();
-	},
-	'api.factory.shipping-option'               => static function ( ContainerInterface $container ): ShippingOptionFactory {
-		return new ShippingOptionFactory(
-			$container->get( 'api.factory.money' )
-		);
 	},
 	'api.factory.amount'                        => static function ( ContainerInterface $container ): AmountFactory {
 		$item_factory = $container->get( 'api.factory.item' );
@@ -373,9 +311,6 @@ return array(
 	'api.factory.payer'                         => static function ( ContainerInterface $container ): PayerFactory {
 		$address_factory = $container->get( 'api.factory.address' );
 		return new PayerFactory( $address_factory );
-	},
-	'api.factory.refund_payer'                  => static function ( ContainerInterface $container ): RefundPayerFactory {
-		return new RefundPayerFactory();
 	},
 	'api.factory.address'                       => static function ( ContainerInterface $container ): AddressFactory {
 		return new AddressFactory();
@@ -400,8 +335,7 @@ return array(
 	'api.factory.payments'                      => static function ( ContainerInterface $container ): PaymentsFactory {
 		$authorizations_factory = $container->get( 'api.factory.authorization' );
 		$capture_factory        = $container->get( 'api.factory.capture' );
-		$refund_factory         = $container->get( 'api.factory.refund' );
-		return new PaymentsFactory( $authorizations_factory, $capture_factory, $refund_factory );
+		return new PaymentsFactory( $authorizations_factory, $capture_factory );
 	},
 	'api.factory.authorization'                 => static function ( ContainerInterface $container ): AuthorizationFactory {
 		return new AuthorizationFactory();
@@ -422,29 +356,8 @@ return array(
 			$container->get( 'api.factory.platform-fee' )
 		);
 	},
-	'api.factory.seller-payable-breakdown'      => static function ( ContainerInterface $container ): SellerPayableBreakdownFactory {
-		return new SellerPayableBreakdownFactory(
-			$container->get( 'api.factory.money' ),
-			$container->get( 'api.factory.platform-fee' )
-		);
-	},
 	'api.factory.fraud-processor-response'      => static function ( ContainerInterface $container ): FraudProcessorResponseFactory {
 		return new FraudProcessorResponseFactory();
-	},
-	'api.factory.product'                       => static function( ContainerInterface $container ): ProductFactory {
-		return new ProductFactory();
-	},
-	'api.factory.billing-cycle'                 => static function( ContainerInterface $container ): BillingCycleFactory {
-		return new BillingCycleFactory( $container->get( 'api.shop.currency' ) );
-	},
-	'api.factory.payment-preferences'           => static function( ContainerInterface $container ):PaymentPreferencesFactory {
-		return new PaymentPreferencesFactory( $container->get( 'api.shop.currency' ) );
-	},
-	'api.factory.plan'                          => static function( ContainerInterface $container ): PlanFactory {
-		return new PlanFactory(
-			$container->get( 'api.factory.billing-cycle' ),
-			$container->get( 'api.factory.payment-preferences' )
-		);
 	},
 	'api.helpers.dccapplies'                    => static function ( ContainerInterface $container ) : DccApplies {
 		return new DccApplies(
@@ -604,37 +517,6 @@ return array(
 					'SGD',
 					'USD',
 				),
-				'BE' => array(
-					'EUR',
-					'USD',
-					'CAD',
-					'GBP',
-					'PLN',
-					'SEK',
-					'CHF',
-				),
-				'BG' => array(
-					'EUR',
-					'USD',
-				),
-				'CY' => array(
-					'EUR',
-					'USD',
-					'CAD',
-					'GBP',
-					'AUD',
-					'CZK',
-					'DKK',
-					'NOK',
-					'PLN',
-					'SEK',
-					'CHF',
-				),
-				'CZ' => array(
-					'EUR',
-					'USD',
-					'CZK',
-				),
 				'DE' => array(
 					'AUD',
 					'CAD',
@@ -653,16 +535,6 @@ return array(
 					'SGD',
 					'USD',
 				),
-				'DK' => array(
-					'EUR',
-					'USD',
-					'DKK',
-					'NOK',
-				),
-				'EE' => array(
-					'EUR',
-					'USD',
-				),
 				'ES' => array(
 					'AUD',
 					'CAD',
@@ -679,10 +551,6 @@ return array(
 					'PLN',
 					'SEK',
 					'SGD',
-					'USD',
-				),
-				'FI' => array(
-					'EUR',
 					'USD',
 				),
 				'FR' => array(
@@ -721,16 +589,6 @@ return array(
 					'SGD',
 					'USD',
 				),
-				'GR' => array(
-					'EUR',
-					'USD',
-					'GBP',
-				),
-				'HU' => array(
-					'EUR',
-					'USD',
-					'HUF',
-				),
 				'IT' => array(
 					'AUD',
 					'CAD',
@@ -749,32 +607,6 @@ return array(
 					'SGD',
 					'USD',
 				),
-				'LT' => array(
-					'EUR',
-					'USD',
-					'CAD',
-					'GBP',
-					'JPY',
-					'AUD',
-					'CZK',
-					'DKK',
-					'HUF',
-					'PLN',
-					'SEK',
-					'CHF',
-					'NZD',
-					'NOK',
-				),
-				'LU' => array(
-					'EUR',
-					'USD',
-				),
-				'LV' => array(
-					'EUR',
-					'USD',
-					'CAD',
-					'GBP',
-				),
 				'US' => array(
 					'AUD',
 					'CAD',
@@ -784,99 +616,6 @@ return array(
 					'USD',
 				),
 				'CA' => array(
-					'AUD',
-					'CAD',
-					'CHF',
-					'CZK',
-					'DKK',
-					'EUR',
-					'GBP',
-					'HKD',
-					'HUF',
-					'JPY',
-					'NOK',
-					'NZD',
-					'PLN',
-					'SEK',
-					'SGD',
-					'USD',
-				),
-				'MT' => array(
-					'EUR',
-					'USD',
-					'CAD',
-					'GBP',
-					'JPY',
-					'AUD',
-					'CZK',
-					'DKK',
-					'HUF',
-					'NOK',
-					'PLN',
-					'SEK',
-					'CHF',
-				),
-				'MX' => array(
-					'MXN',
-				),
-				'NL' => array(
-					'EUR',
-					'GBP',
-					'AUD',
-					'CZK',
-					'HUF',
-					'CHF',
-					'CAD',
-					'USD',
-				),
-				'NO' => array(
-					'EUR',
-					'USD',
-					'CAD',
-					'GBP',
-					'NOK',
-				),
-				'PL' => array(
-					'EUR',
-					'USD',
-					'CAD',
-					'GBP',
-					'AUD',
-					'DKK',
-					'PLN',
-					'SEK',
-					'CZK',
-				),
-				'PT' => array(
-					'EUR',
-					'USD',
-					'CAD',
-					'GBP',
-					'CZK',
-				),
-				'RO' => array(
-					'EUR',
-					'USD',
-					'GBP',
-				),
-				'SE' => array(
-					'EUR',
-					'USD',
-					'NOK',
-					'SEK',
-				),
-				'SI' => array(
-					'EUR',
-					'USD',
-				),
-				'SK' => array(
-					'EUR',
-					'USD',
-					'GBP',
-					'CZK',
-					'HUF',
-				),
-				'JP' => array(
 					'AUD',
 					'CAD',
 					'CHF',
@@ -913,47 +652,12 @@ return array(
 					'visa'       => array(),
 					'amex'       => array( 'AUD' ),
 				),
-				'BE' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'EUR', 'USD', 'CAD' ),
-				),
-				'BG' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'EUR' ),
-				),
-				'CY' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'EUR' ),
-				),
-				'CZ' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'CZK' ),
-				),
 				'DE' => array(
 					'mastercard' => array(),
 					'visa'       => array(),
 					'amex'       => array( 'EUR' ),
 				),
-				'DK' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'DKK' ),
-				),
-				'EE' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array(),
-				),
 				'ES' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'EUR' ),
-				),
-				'FI' => array(
 					'mastercard' => array(),
 					'visa'       => array(),
 					'amex'       => array( 'EUR' ),
@@ -967,16 +671,6 @@ return array(
 					'mastercard' => array(),
 					'visa'       => array(),
 					'amex'       => array( 'GBP', 'USD' ),
-				),
-				'GR' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'EUR' ),
-				),
-				'HU' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'HUF' ),
 				),
 				'IT' => array(
 					'mastercard' => array(),
@@ -994,77 +688,6 @@ return array(
 					'visa'       => array(),
 					'amex'       => array( 'CAD' ),
 					'jcb'        => array( 'CAD' ),
-				),
-				'LT' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'EUR' ),
-				),
-				'LU' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'EUR' ),
-				),
-				'LV' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'EUR', 'USD' ),
-				),
-				'MT' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'EUR' ),
-				),
-				'MX' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array(),
-				),
-				'NL' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'EUR', 'USD' ),
-				),
-				'NO' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'NOK' ),
-				),
-				'PL' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'EUR', 'USD', 'GBP', 'PLN' ),
-				),
-				'PT' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'EUR', 'USD', 'CAD', 'GBP' ),
-				),
-				'RO' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'EUR', 'USD' ),
-				),
-				'SE' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'EUR', 'SEK' ),
-				),
-				'SI' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'EUR' ),
-				),
-				'SK' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'EUR', 'GBP' ),
-				),
-				'JP' => array(
-					'mastercard' => array(),
-					'visa'       => array(),
-					'amex'       => array( 'JPY' ),
-					'jcb'        => array( 'JPY' ),
 				),
 			)
 		);
@@ -1105,23 +728,4 @@ return array(
 	'api.order-helper'                          => static function( ContainerInterface $container ): OrderHelper {
 		return new OrderHelper();
 	},
-	'api.helper.order-transient'                => static function( ContainerInterface $container ): OrderTransient {
-		$cache                   = new Cache( 'ppcp-paypal-bearer' );
-		$purchase_unit_sanitizer = $container->get( 'api.helper.purchase-unit-sanitizer' );
-		return new OrderTransient( $cache, $purchase_unit_sanitizer );
-	},
-	'api.helper.failure-registry'               => static function( ContainerInterface $container ): FailureRegistry {
-		$cache = new Cache( 'ppcp-paypal-api-status-cache' );
-		return new FailureRegistry( $cache );
-	},
-	'api.helper.purchase-unit-sanitizer'        => SingletonDecorator::make(
-		static function( ContainerInterface $container ): PurchaseUnitSanitizer {
-			$settings  = $container->get( 'wcgateway.settings' );
-			assert( $settings instanceof Settings );
-
-			$behavior  = $settings->has( 'subtotal_mismatch_behavior' ) ? $settings->get( 'subtotal_mismatch_behavior' ) : null;
-			$line_name = $settings->has( 'subtotal_mismatch_line_name' ) ? $settings->get( 'subtotal_mismatch_line_name' ) : null;
-			return new PurchaseUnitSanitizer( $behavior, $line_name );
-		}
-	),
 );

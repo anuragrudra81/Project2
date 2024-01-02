@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace WooCommerce\PayPalCommerce\Webhooks;
 
-use WooCommerce\PayPalCommerce\Onboarding\State;
 use WooCommerce\PayPalCommerce\Vendor\Dhii\Container\ServiceProvider;
 use WooCommerce\PayPalCommerce\Vendor\Dhii\Modular\Module\ModuleInterface;
 use Exception;
@@ -127,8 +126,8 @@ class WebhookModule implements ModuleInterface {
 
 			try {
 				$webhooks = $container->get( 'webhook.status.registered-webhooks' );
-				$state    = $container->get( 'onboarding.state' );
-				if ( empty( $webhooks ) && $state->current_state() >= State::STATE_ONBOARDED ) {
+
+				if ( empty( $webhooks ) ) {
 					$registrar = $container->get( 'webhook.registrar' );
 					assert( $registrar instanceof WebhookRegistrar );
 
@@ -153,6 +152,7 @@ class WebhookModule implements ModuleInterface {
 				add_action(
 					'init',
 					function () use ( $registrar ) {
+						$registrar->unregister();
 						$registrar->register();
 					}
 				);

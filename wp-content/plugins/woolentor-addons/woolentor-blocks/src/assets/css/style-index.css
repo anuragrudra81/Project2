@@ -27,10 +27,7 @@
 .woolentor-text-align-center{
     text-align: center !important;
 }
-/* [class*="woolentor"] a{
-    text-decoration: none !important;
-} */
-[class*="woolentorblock-"] a,.block-editor__container[class*="woocommerce"] {
+[class*="woolentor"] a{
     text-decoration: none !important;
 }
 
@@ -138,7 +135,7 @@
 }
 .woocommerce [class*="woolentor-products-columns-"] ul.products li.product, .woocommerce-page [class*="woolentor-products-columns-"] ul.products li.product {
     float: none;
-    width: 100% !important;
+    width: 100%;
     margin-right: 0 !important;
 }
 [class*="woolentor-products-columns-"] ul.products li.product.first{
@@ -357,7 +354,7 @@
 }
 
 /* Cross Sells */
-.woocommerce:not(.woocommerce-js) .woolentor_block_cross_sell .products .star-rating,.woocommerce:not(.woocommerce-js) .woolentor_block_archive_default .products .star-rating{
+.woocommerce .woolentor_block_cross_sell .products .star-rating,.woocommerce .woolentor_block_archive_default .products .star-rating{
     display: inline-block;
 }
 .woolentor-content-align-center .wishsuite-button{
@@ -380,44 +377,6 @@
 .woocommerce-page.woocommerce-checkout form .woolentor_block_checkout_order_review #order_review_heading {
     float: none;
     width: auto;
-}
-
-/* Recently Viewed Product */
-.woolentor_block_recently_viewed_product .woolentor-recently-viewed-product{
-    margin-bottom: 0;
-}
-.woolentor_block_recently_viewed_product .woolentor-recently-view-title {
-    font-size: 18px !important;
-    line-height: 1.2 !important;
-    margin-bottom: 10px !important;
-}
-
-/* Product Advanced Image */
-.woolentor-advance-product-image-area .wl-thumbnails-image-area {
-    display: flex;
-    flex-flow: row wrap;
-    position: relative;
-}
-.woolentor-advance-product-image-area.wlpro-product-thumbnails .woolentor-thumbnails, .woolentor-advance-product-image-area.wlpro-product-thumbnails .woolentor-learg-img{
-    width: 100%;
-}
-.woolentor-advance-product-image-area .product-slider .slick-arrow.slick-next {
-    right: 15px;
-    left: auto;
-}
-.woolentor-advance-product-image-area .ht-product-label{
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    z-index: 9;
-}
-.thumbnails-tab-position-bottom.wlpro-product-thumbnails ul.woolentor-thumbanis-image,.thumbnails-tab-position-top.wlpro-product-thumbnails ul.woolentor-thumbanis-image{
-    width: 100%;
-}
-
-/* Product Add to cart Button */
-.wl-nonequantity-txt.wl-addto-cart form.cart .wl-quantity-wrap .wl-quantity-cal {
-    margin-left: 0 !important;
 }
 
 /*

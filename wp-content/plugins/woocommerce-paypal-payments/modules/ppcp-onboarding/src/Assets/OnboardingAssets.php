@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace WooCommerce\PayPalCommerce\Onboarding\Assets;
 
 use WooCommerce\PayPalCommerce\Onboarding\Endpoint\LoginSellerEndpoint;
-use WooCommerce\PayPalCommerce\Onboarding\Endpoint\UpdateSignupLinksEndpoint;
 use WooCommerce\PayPalCommerce\Onboarding\Environment;
 use WooCommerce\PayPalCommerce\Onboarding\State;
 use WooCommerce\PayPalCommerce\WcGateway\Settings\Settings;
@@ -111,16 +110,6 @@ class OnboardingAssets {
 			$this->version,
 			true
 		);
-		wp_localize_script(
-			'ppcp-settings',
-			'PayPalCommerceSettings',
-			array(
-				'empty_smart_button_location_message' => sprintf(
-					'<p class="description ppcp-empty-smart-button-location">%1$s</p>',
-					__( 'Note: If no button location is selected, the PayPal gateway will not be available.', 'woocommerce-paypal-payments' )
-				),
-			)
-		);
 
 		$url = untrailingslashit( $this->module_url ) . '/assets/js/onboarding.js';
 		wp_register_script(
@@ -146,18 +135,18 @@ class OnboardingAssets {
 	 */
 	public function get_script_data() {
 		return array(
-			'endpoint'                     => \WC_AJAX::get_endpoint( LoginSellerEndpoint::ENDPOINT ),
-			'nonce'                        => wp_create_nonce( $this->login_seller_endpoint::nonce() ),
-			'paypal_js_url'                => 'https://www.paypal.com/webapps/merchantboarding/js/lib/lightbox/partner.js',
-			'sandbox_state'                => State::get_state_name( $this->state->sandbox_state() ),
-			'production_state'             => State::get_state_name( $this->state->production_state() ),
-			'current_state'                => State::get_state_name( $this->state->current_state() ),
-			'current_env'                  => $this->environment->current_environment(),
-			'error_messages'               => array(
+			'endpoint'         => \WC_AJAX::get_endpoint( LoginSellerEndpoint::ENDPOINT ),
+			'nonce'            => wp_create_nonce( $this->login_seller_endpoint::nonce() ),
+			'paypal_js_url'    => 'https://www.paypal.com/webapps/merchantboarding/js/lib/lightbox/partner.js',
+			'sandbox_state'    => State::get_state_name( $this->state->sandbox_state() ),
+			'production_state' => State::get_state_name( $this->state->production_state() ),
+			'current_state'    => State::get_state_name( $this->state->current_state() ),
+			'current_env'      => $this->environment->current_environment(),
+			'error_messages'   => array(
 				'no_credentials' => __( 'API credentials must be entered to save the settings.', 'woocommerce-paypal-payments' ),
 			),
-			'update_signup_links_endpoint' => \WC_AJAX::get_endpoint( UpdateSignupLinksEndpoint::ENDPOINT ),
-			'update_signup_links_nonce'    => wp_create_nonce( UpdateSignupLinksEndpoint::ENDPOINT ),
+			'pui_endpoint'     => \WC_AJAX::get_endpoint( 'ppc-pui' ),
+			'pui_nonce'        => wp_create_nonce( 'ppc-pui' ),
 		);
 	}
 

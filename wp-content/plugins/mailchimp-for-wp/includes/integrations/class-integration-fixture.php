@@ -22,12 +22,12 @@ class MC4WP_Integration_Fixture {
 	/**
 	 * @var bool
 	 */
-	public $enabled;
+	public $enabled = false;
 
 	/**
 	 * @var bool
 	 */
-	public $enabled_by_default;
+	public $enabled_by_default = true;
 
 	/**
 	 * @var MC4WP_Integration
@@ -45,7 +45,7 @@ class MC4WP_Integration_Fixture {
 	 * @param bool $enabled_by_default
 	 * @param array $options
 	 */
-	public function __construct( $slug, $class, $enabled_by_default, array $options ) {
+	public function __construct( $slug, $class, $enabled_by_default = false, array $options = array() ) {
 		$this->slug               = $slug;
 		$this->class              = $class;
 		$this->enabled_by_default = $enabled_by_default;
@@ -73,8 +73,8 @@ class MC4WP_Integration_Fixture {
 	/**
 	 * Tunnel everything to MC4WP_Integration class
 	 *
-	 * @param string $name
-	 * @param array $arguments
+	 * @param $name
+	 * @param $arguments
 	 *
 	 * @return MC4WP_Integration
 	 */
@@ -83,7 +83,7 @@ class MC4WP_Integration_Fixture {
 	}
 
 	/**
-	 * @param string $name
+	 * @param $name
 	 *
 	 * @return string
 	 */

@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace WooCommerce\PayPalCommerce\ApiClient\Factory;
 
 use WooCommerce\PayPalCommerce\ApiClient\Entity\Shipping;
-use WooCommerce\PayPalCommerce\ApiClient\Entity\ShippingOption;
 use WooCommerce\PayPalCommerce\ApiClient\Exception\RuntimeException;
 
 /**
@@ -26,32 +25,22 @@ class ShippingFactory {
 	private $address_factory;
 
 	/**
-	 * The shipping option factory.
-	 *
-	 * @var ShippingOptionFactory
-	 */
-	private $shipping_option_factory;
-
-	/**
 	 * ShippingFactory constructor.
 	 *
-	 * @param AddressFactory        $address_factory The address factory.
-	 * @param ShippingOptionFactory $shipping_option_factory The shipping option factory.
+	 * @param AddressFactory $address_factory The address factory.
 	 */
-	public function __construct( AddressFactory $address_factory, ShippingOptionFactory $shipping_option_factory ) {
-		$this->address_factory         = $address_factory;
-		$this->shipping_option_factory = $shipping_option_factory;
+	public function __construct( AddressFactory $address_factory ) {
+		$this->address_factory = $address_factory;
 	}
 
 	/**
 	 * Creates a shipping object based off a WooCommerce customer.
 	 *
 	 * @param \WC_Customer $customer The WooCommerce customer.
-	 * @param bool         $with_shipping_options Include WC shipping methods.
 	 *
 	 * @return Shipping
 	 */
-	public function from_wc_customer( \WC_Customer $customer, bool $with_shipping_options = false ): Shipping {
+	public function from_wc_customer( \WC_Customer $customer ): Shipping {
 		// Replicates the Behavior of \WC_Order::get_formatted_shipping_full_name().
 		$full_name = sprintf(
 			// translators: %1$s is the first name and %2$s is the second name. wc translation.
@@ -62,8 +51,7 @@ class ShippingFactory {
 		$address = $this->address_factory->from_wc_customer( $customer );
 		return new Shipping(
 			$full_name,
-			$address,
-			$with_shipping_options ? $this->shipping_option_factory->from_wc_cart() : array()
+			$address
 		);
 	}
 
@@ -103,14 +91,9 @@ class ShippingFactory {
 			);
 		}
 		$address = $this->address_factory->from_paypal_response( $data->address );
-		$options = array_map(
-			array( $this->shipping_option_factory, 'from_paypal_response' ),
-			$data->options ?? array()
-		);
 		return new Shipping(
 			$data->name->full_name,
-			$address,
-			$options
+			$address
 		);
 	}
 }

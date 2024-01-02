@@ -10,23 +10,8 @@
     <ul class="woolentor-admin-main-nav-ul">
         <?php
             foreach( $navs as $key => $nav ){
-                $classes = ['woolentor-admin-main-nav-li'];
-                if( isset( $nav['class'] ) ){
-                    $classes[] = $nav['class'];
-                }
-                $classes = implode(' ',$classes);
-
-                $title = !empty( $nav['title'] ) ? $nav['title'] : '';
-                $icon = '';
-                if( isset( $nav['icon'] ) ){
-                    if ( strstr( $nav['icon'], 'dashicons' ) ){
-                        $icon = sprintf('<i class="dashicons %s"></i>', $nav['icon'] );
-                    }else{
-                        $icon = sprintf('<i class="wli %s"></i>', $nav['icon'] );
-                    }
-                }
             ?>
-                <li class="<?php echo esc_attr( $classes ); ?>">
+                <li class="woolentor-admin-main-nav-li">
                     <a href="#<?php echo esc_attr( $nav['id'] ); ?>" class="woolentor-admin-main-nav-btn">
                         <svg class="left" width="8" height="8" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8 8H0L0.152774 7.97004C4.16091 7.18414 7.27643 4.01985 8 0V8Z" fill="currentColor" />
@@ -34,7 +19,13 @@
                         <svg class="right" width="8" height="8" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0 8H8L7.84723 7.97004C3.83909 7.18414 0.723573 4.01985 0 0V8Z" fill="currentColor" />
                         </svg>
-                        <?php echo sprintf('%s %s',$icon, esc_html( $title ) ); ?>
+                        <?php 
+                            if ( strstr( $nav['icon'], 'dashicons' ) ){
+                                echo sprintf('<i class="dashicons %s"></i>%s', $nav['icon'], esc_html__( $nav['title'],'woolentor') );
+                            }else{
+                                echo sprintf('<i class="wli %s"></i>%s', $nav['icon'], esc_html__( $nav['title'],'woolentor') );
+                            }
+                        ?>
                     </a>
                 </li>
             <?php

@@ -8,7 +8,7 @@ $uniqClass = 'woolentorblock-'.$settings['blockUniqId'];
 $areaClasses = array('woolentor-store-feature-area');
 $classes = array( $uniqClass, 'woolentor-blocks ht-feature-wrap' );
 !empty( $settings['align'] ) ? $areaClasses[] = 'align'.$settings['align'] : '';
-!empty( $settings['className'] ) ? $classes[] = esc_attr( $settings['className'] ) : '';
+!empty( $settings['className'] ) ? $classes[] = $settings['className'] : '';
 !empty( $settings['layout'] ) ? $classes[] = 'ht-feature-style-'.$settings['layout'] : 'ht-feature-style-1';
 !empty( $settings['textAlignment'] ) ? $classes[] = 'woolentor-text-align-'.$settings['textAlignment'] : 'woolentor-text-align-center';
 

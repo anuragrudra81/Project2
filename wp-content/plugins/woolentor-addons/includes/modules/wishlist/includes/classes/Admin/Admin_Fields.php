@@ -245,14 +245,6 @@ class Admin_Fields {
                 ),
 
                 array(
-                    'name'    => 'wishlist_product_per_page',
-                    'label'   => __( 'Products per page', 'wishsuite' ),
-                    'type'    => 'number',
-                    'default' => '20',
-                    'desc'    => __('You can choose the number of wishlist products to display per page. The default value is 20 products.', 'wishsuite'),
-                ),
-
-                array(
                     'name'  => 'after_added_to_cart',
                     'label'  => __( 'Remove from the "Wishlist" after adding to the cart.', 'wishsuite' ),
                     'type'  => 'checkbox',

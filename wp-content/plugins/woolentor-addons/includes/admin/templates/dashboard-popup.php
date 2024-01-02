@@ -11,6 +11,6 @@
         <div class="woolentor-admin-popup-icon"><img src="<?php echo WOOLENTOR_ADDONS_PL_URL; ?>includes/admin/assets/images/icons/pro-badge.png" alt="pro"></div>
         <h2 class="woolentor-admin-popup-title"><?php echo esc_html__('BUY PRO','woolentor'); ?></h2>
         <p class="woolentor-admin-popup-text"><?php echo esc_html__('Our free version is great, but it doesn\'t have all our advanced features. The best way to unlock all of the features in our plugin is by purchasing the pro version.','woolentor'); ?></p>
-        <a href="https://woolentor.com/pricing/?utm_source=admin&utm_medium=lockfeatures&utm_campaign=free" class="woolentor-admin-btn woolentor-admin-btn-primary" target="_blank"><?php echo esc_html__('Buy Now','woolentor'); ?></a>
+        <a href="https://woolentor.com/?utm_source=admin&utm_medium=notice&utm_campaign=free" class="woolentor-admin-btn woolentor-admin-btn-primary" target="_blank"><?php echo esc_html__('Buy Now','woolentor'); ?></a>
     </div>
 </div>

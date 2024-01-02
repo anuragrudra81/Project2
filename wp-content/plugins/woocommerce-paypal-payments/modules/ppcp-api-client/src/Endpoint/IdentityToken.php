@@ -103,8 +103,7 @@ class IdentityToken {
 		);
 		if (
 			( $this->settings->has( 'vault_enabled' ) && $this->settings->get( 'vault_enabled' ) )
-			|| ( $this->settings->has( 'vault_enabled_dcc' ) && $this->settings->get( 'vault_enabled_dcc' ) )
-			|| ( $this->settings->has( 'subscriptions_mode' ) && $this->settings->get( 'subscriptions_mode' ) === 'vaulting_api' )
+			&& defined( 'PPCP_FLAG_SUBSCRIPTION' ) && PPCP_FLAG_SUBSCRIPTION
 		) {
 			$customer_id = $this->customer_repository->customer_id_for_user( ( $user_id ) );
 			update_user_meta( $user_id, 'ppcp_customer_id', $customer_id );

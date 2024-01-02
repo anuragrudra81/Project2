@@ -739,14 +739,9 @@ class Woo_Config {
      * More icon for the shop page
      */
     public function get_more_icon_html( $product, $more_swatch_count ){
-        $pl_more_text_link_url = $product->get_permalink();
-        $pl_more_text_link_target = '';
-
         $pl_more_text_link_arr    = Helper::get_option('pl_more_text_link');
-        if( !empty($pl_more_text_link_arr) ){
-            $pl_more_text_link_url    = esc_url($pl_more_text_link_arr['url'] ? $pl_more_text_link_arr['url'] : $pl_more_text_link_url);
-            $pl_more_text_link_target = esc_attr($pl_more_text_link_arr['target']);
-        }
+        $pl_more_text_link_url    = esc_url($pl_more_text_link_arr['url'] ? $pl_more_text_link_arr['url'] : $product->get_permalink());
+        $pl_more_text_link_target = esc_attr($pl_more_text_link_arr['target']);
 
         $html = '';
         if( Helper::get_option('pl_more_text_type') == 'text' ){
@@ -759,6 +754,7 @@ class Woo_Config {
             $html .= '</div>';
 
         } else {
+
             $attr_data_tooltip_text = '';
             if(Helper::get_option('pl_more_icon_enable_tooltip')){
                 $pl_more_icon_tooltip_text = Helper::get_option('pl_more_icon_tooltip_text');
@@ -921,13 +917,40 @@ class Woo_Config {
                     <p class="stock out-of-stock"><?php echo esc_html( apply_filters( 'woocommerce_out_of_stock_message', __( 'This product is currently out of stock and unavailable.', 'woolentor' ) ) ); ?></p>
                 <?php else : ?>
                     <table class="variations" cellspacing="0">
-                        <?php foreach ( $attributes as $attribute_name => $options ) :
-                                // if only one catalog attribute match with this product
-                                // then continue till matched the attribute
-                                if( $this->check_catalog_mode_match( $attribute_name ) == 'did_not_matched' ){
-                                    continue;
+                        <tbody>
+                            <?php
+                                // Catalog mode support for shop page
+                                $enable_catalog_mode       = Helper::get_option('pl_enable_catalog_mode');
+                                $global_catalog_attributes = (array) Helper::get_option('pl_catalog_global_attributes');
+                                foreach($global_catalog_attributes as $key => $value){
+                                    if(is_array($value)){
+                                        $global_catalog_attributes[$key] = 'pa_'. $value[0];
+                                    }
+                                }
+                                $custom_catalog_attributes = Helper::get_option('pl_catalog_custom_attributes');
+                                $custom_catalog_attributes = explode(PHP_EOL, $custom_catalog_attributes);
+                                $custom_catalog_attributes = array_map('trim', $custom_catalog_attributes); // remove white space from end of elements
+
+                                $catalog_attrs           = array_values(array_merge($global_catalog_attributes, $custom_catalog_attributes));
+                                $double_matched          = false;
+                                $attribute_to_match      = '';
+
+                                // filter & get product attributes which only match with the catalog attributes
+                                $filtered_attributes = array_intersect_key($attributes, array_flip($catalog_attrs));
+
+                                if( count($filtered_attributes) == 1 ){
+                                    $attribute_to_match = array_keys($filtered_attributes);
+                                    $attribute_to_match = $attribute_to_match[0];
+                                } else {
+                                    $double_matched = true;
                                 }
 
+                                foreach ( $attributes as $attribute_name => $options ) :
+                                    // if only one catalog attribute match with this product
+                                    // then continue till matched the attribute
+                                    if( $enable_catalog_mode && $attribute_to_match && $attribute_to_match != $attribute_name ){
+                                        continue;
+                                    }
                                 ?>
                                 <tr>
                                     <?php if(Helper::get_option('pl_show_swatches_label')): ?>
@@ -950,60 +973,19 @@ class Woo_Config {
                                         ?>
                                     </td>
                                 </tr>
-                                <?php
-
-                                // stop the loop
-                                // when catalog mode is enabled & more that one catalog attributes matched with this product. So only the first attribute will show for shop.
-                                // When current attribute is matched with the catalog attribute
-                                if( $this->check_catalog_mode_match( $attribute_name ) == 'matched' ){
-                                    break;
-                                }
+                            <?php
+                            // stop the loop
+                            // when catalog mode is enabled & more that one catalog attributes matched with this product. So only the first attribute will show for shop.
+                            // When current attribute is matched with the catalog attribute
+                            if( $enable_catalog_mode && ( $double_matched || $attribute_to_match == $attribute_name) ){
+                                break;
+                            }
                             endforeach; ?>
                         </tbody>
                     </table>
                 <?php endif; ?>
             </div>
         <?php
-    }
-
-   /**
-    * The current product attribute is checked to see if it is listed in the catalog mode attributes.
-    * 
-    * @param product_attributes An array of all the product attributes.
-    * @param attribute_name The attribute name you want to check.
-    * @param condition check_does_not_match or check_exact_match
-    */
-    public function check_catalog_mode_match( $attribute_name ){
-        $enable_catalog_mode       = Helper::get_option('pl_enable_catalog_mode');
-        $global_catalog_attributes = (array) Helper::get_option('pl_catalog_global_attributes');
-
-        foreach($global_catalog_attributes as $key => $value){
-            if( is_array($value) && !empty($value) ){
-                /* Format the $value array as like the swatchly plugin */
-                $value[0] = $value['attribute'];
-                $global_catalog_attributes[$key] = 'pa_'. $value[0];
-            }
-        }
-
-        $custom_catalog_attributes = Helper::get_option('pl_catalog_custom_attributes');
-        $custom_catalog_attributes = explode(PHP_EOL, $custom_catalog_attributes);
-        $custom_catalog_attributes = array_map('trim', $custom_catalog_attributes); // remove white space from end of elements
-
-        $catalog_attrs = array_values(array_merge($global_catalog_attributes, $custom_catalog_attributes));
-
-        $matched = '';
-
-        if( $enable_catalog_mode && $catalog_attrs ){
-            if( in_array($attribute_name, $catalog_attrs) ){
-                $matched = 'matched';
-            }
-
-            if( !in_array($attribute_name, $catalog_attrs) ){
-                $matched = 'did_not_matched';
-            }
-        }
-
-        return $matched;
     }
 
     /**

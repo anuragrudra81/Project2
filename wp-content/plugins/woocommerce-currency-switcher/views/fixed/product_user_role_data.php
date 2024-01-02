@@ -58,7 +58,7 @@ if (!defined('ABSPATH'))
     ?>
     <?php if ($is_fixed_enabled): ?>
         <div id="woocs_tab_user_role_<?php echo woocs_short_id($post_id) ?>" class="woocs_tab">
-            <h4><?php esc_html_e('FOX - the price based on user role', 'woocommerce-currency-switcher') ?><img class="help_tip" data-tip="<?php esc_html_e('Gives ability to set different prices for each user role. Native WooCommerce price filter is blind for this data!', 'woocommerce-currency-switcher') ?>" src="<?php echo WOOCS_LINK ?>/img/help.png" height="16" width="16" /></h4>
+            <h4><?php esc_html_e('WOOCS - the price based on user role', 'woocommerce-currency-switcher') ?><img class="help_tip" data-tip="<?php esc_html_e('Gives ability to set different prices for each user role. Native WooCommerce price filter is blind for this data!', 'woocommerce-currency-switcher') ?>" src="<?php echo WOOCS_LINK ?>/img/help.png" height="16" width="16" /></h4>
 
             <a href="javascript: woocs_add_group_user_role('<?php echo $post_id ?>', '<?php echo woocs_short_id($post_id) ?>');void(0);" class="button"><?php esc_html_e('Add group', 'woocommerce-currency-switcher') ?></a>
 

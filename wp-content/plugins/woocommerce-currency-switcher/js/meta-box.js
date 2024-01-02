@@ -1,6 +1,6 @@
 "use strict";
 var woocs_old_currency = null;
-function  woocs_change_order_data() {
+function woocs_change_order_data() {
     woocs_old_currency = jQuery('#woocs_order_metabox .woocs_order_currency i').html();
     jQuery('#woocs_order_metabox .woocs_order_currency select').show();
     jQuery('#woocs_order_metabox .woocs_order_currency select').attr('name', 'woocs_order_currency');

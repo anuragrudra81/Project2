@@ -1,11 +1,11 @@
+<h3 style="display:inline-block;"><?php _e('System Configuration','print-invoices-packing-slip-labels-for-woocommerce'); ?></h3>
+<a id="sys_info_copy" class="page-title-action" style="display:inline-block;"><span class="dashicons dashicons-admin-page"></span> <?php echo __('Copy','print-invoices-packing-slip-labels-for-woocommerce'); ?></a>
+<span id="wt_sys_info_copied" style="color:#3F7E00;font-weight: 600;display: none;"><i><?php echo __('Copied','print-invoices-packing-slip-labels-for-woocommerce'); ?></i></span>
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-?><h3 style="display:inline-block;"><?php _e('System Configuration','print-invoices-packing-slip-labels-for-woocommerce'); ?></h3>
-<a id="sys_info_copy" class="page-title-action" style="display:inline-block;"><span class="dashicons dashicons-admin-page"></span> <?php echo __('Copy','print-invoices-packing-slip-labels-for-woocommerce'); ?></a>
-<span id="wt_sys_info_copied" style="color:#3F7E00;font-weight: 600;display: none;"><i><?php echo __('Copied','print-invoices-packing-slip-labels-for-woocommerce'); ?></i></span>
-<?php
+
 $memory_limit   = function_exists( 'wc_let_to_num' )?wc_let_to_num( WP_MEMORY_LIMIT ):woocommerce_let_to_num( WP_MEMORY_LIMIT );
 $php_mem_limit  = function_exists( 'memory_get_usage' ) ? @ini_get( 'memory_limit' ) : '-';
 $upload_loc=Wf_Woocommerce_Packing_List::get_temp_dir();

@@ -19,7 +19,7 @@ use Psr\Log\LoggerInterface;
  */
 class PaymentCaptureReversed implements RequestHandler {
 
-	use RequestHandlerTrait;
+	use PrefixTrait;
 
 	/**
 	 * The logger.
@@ -32,9 +32,11 @@ class PaymentCaptureReversed implements RequestHandler {
 	 * PaymentCaptureReversed constructor.
 	 *
 	 * @param LoggerInterface $logger The logger.
+	 * @param string          $prefix The prefix.
 	 */
-	public function __construct( LoggerInterface $logger ) {
+	public function __construct( LoggerInterface $logger, string $prefix ) {
 		$this->logger = $logger;
+		$this->prefix = $prefix;
 	}
 
 	/**
@@ -69,23 +71,45 @@ class PaymentCaptureReversed implements RequestHandler {
 	 * @return \WP_REST_Response
 	 */
 	public function handle_request( \WP_REST_Request $request ): \WP_REST_Response {
+		$response = array( 'success' => false );
 		$order_id = isset( $request['resource']['custom_id'] ) ?
-			$request['resource']['custom_id'] : 0;
+			$this->sanitize_custom_id( $request['resource']['custom_id'] ) : 0;
 		if ( ! $order_id ) {
 			$message = sprintf(
-				'No order for webhook event %s was found.',
+				// translators: %s is the PayPal webhook Id.
+				__(
+					'No order for webhook event %s was found.',
+					'woocommerce-paypal-payments'
+				),
 				isset( $request['id'] ) ? $request['id'] : ''
 			);
-			return $this->failure_response( $message );
+			$this->logger->log(
+				'warning',
+				$message,
+				array(
+					'request' => $request,
+				)
+			);
+			$response['message'] = $message;
+			return rest_ensure_response( $response );
 		}
 
 		$wc_order = wc_get_order( $order_id );
 		if ( ! is_a( $wc_order, \WC_Order::class ) ) {
 			$message = sprintf(
-				'Order for PayPal refund %s not found.',
+			// translators: %s is the PayPal refund Id.
+				__( 'Order for PayPal refund %s not found.', 'woocommerce-paypal-payments' ),
 				isset( $request['resource']['id'] ) ? $request['resource']['id'] : ''
 			);
-			return $this->failure_response( $message );
+			$this->logger->log(
+				'warning',
+				$message,
+				array(
+					'request' => $request,
+				)
+			);
+			$response['message'] = $message;
+			return rest_ensure_response( $response );
 		}
 
 		/**
@@ -93,20 +117,33 @@ class PaymentCaptureReversed implements RequestHandler {
 		 */
 		$note = apply_filters( 'ppcp_payment_capture_reversed_webhook_update_status_note', '', $wc_order, $request['event_type'] );
 
-		$is_success = $wc_order->update_status( 'cancelled', $note );
-		if ( ! $is_success ) {
-			$message = sprintf(
-				'Failed to cancel order %1$s cancelled through PayPal',
-				(string) $wc_order->get_id()
-			);
-			return $this->failure_response( $message );
-		}
+		/**
+		 * The WooCommerce order.
+		 *
+		 * @var \WC_Order $wc_order
+		 */
+		$response['success'] = (bool) $wc_order->update_status( 'cancelled', $note );
 
-		$message = sprintf(
-			'Order %1$s has been cancelled through PayPal',
+		$message = $response['success'] ? sprintf(
+			// translators: %1$s is the order id.
+			__(
+				'Order %1$s has been cancelled through PayPal',
+				'woocommerce-paypal-payments'
+			),
+			(string) $wc_order->get_id()
+		) : sprintf(
+			// translators: %1$s is the order id.
+			__( 'Failed to cancel order %1$s through PayPal', 'woocommerce-paypal-payments' ),
 			(string) $wc_order->get_id()
 		);
-		$this->logger->info( $message );
-		return $this->success_response();
+		$this->logger->log(
+			$response['success'] ? 'info' : 'warning',
+			$message,
+			array(
+				'request' => $request,
+				'order'   => $wc_order,
+			)
+		);
+		return rest_ensure_response( $response );
 	}
 }

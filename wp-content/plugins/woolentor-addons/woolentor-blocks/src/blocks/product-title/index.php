@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		
 $uniqClass 	 = 'woolentorblock-'.$settings['blockUniqId'];
 $areaClasses = array( $uniqClass, 'product_title' );
-!empty( $settings['className'] ) ? $areaClasses[] = esc_attr( $settings['className'] ) : '';
+!empty( $settings['className'] ) ? $areaClasses[] = $settings['className'] : '';
 
 $title_html_tag = woolentor_validate_html_tag( $settings['titleTag'] );
 // $title = $block['is_editor'] ? get_the_title( woolentorBlocks_get_last_product_id() ) : get_the_title();

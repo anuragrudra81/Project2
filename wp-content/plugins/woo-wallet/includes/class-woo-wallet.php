@@ -137,8 +137,6 @@ final class WooWallet {
 		add_action( 'widgets_init', array( $this, 'woo_wallet_widget_init' ) );
 		add_action( 'woocommerce_loaded', array( $this, 'woocommerce_loaded_callback' ) );
 		add_action( 'rest_api_init', array( $this, 'rest_api_init' ) );
-		// Registers WooCommerce Blocks integration.
-		add_action( 'woocommerce_blocks_loaded', array( __CLASS__, 'woocommerce_gateway_wallet_woocommerce_block_support' ) );
 		do_action( 'woo_wallet_init' );
 	}
 
@@ -149,7 +147,6 @@ final class WooWallet {
 		$this->load_plugin_textdomain();
 		include_once WOO_WALLET_ABSPATH . 'includes/class-woo-wallet-payment-method.php';
 		$this->add_marketplace_support();
-		$this->add_multicurrency_support();
 		add_filter( 'woocommerce_email_classes', array( $this, 'woocommerce_email_classes' ), 999 );
 		add_filter( 'woocommerce_template_directory', array( $this, 'woocommerce_template_directory' ), 10, 2 );
 		add_filter( 'woocommerce_payment_gateways', array( $this, 'load_gateway' ) );
@@ -158,7 +155,9 @@ final class WooWallet {
 			add_action( 'woocommerce_order_status_' . $status, array( $this->wallet, 'wallet_credit_purchase' ) );
 		}
 
-		add_action( 'woocommerce_checkout_order_processed', array( $this->wallet, 'wallet_partial_payment' ), 99 );
+		foreach ( apply_filters( 'wallet_partial_payment_order_status', array( 'on-hold', 'processing', 'completed' ) ) as $status ) {
+			add_action( 'woocommerce_order_status_' . $status, array( $this->wallet, 'wallet_partial_payment' ) );
+		}
 
 		foreach ( apply_filters( 'wallet_cashback_order_status', $this->settings_api->get_option( 'process_cashback_status', '_wallet_settings_credit', array( 'processing', 'completed' ) ) ) as $status ) {
 			add_action( 'woocommerce_order_status_' . $status, array( $this->wallet, 'wallet_cashback' ), 12 );
@@ -182,8 +181,6 @@ final class WooWallet {
 		}
 
 		add_action( 'deleted_user', array( $this, 'delete_user_transaction_records' ) );
-
-		add_action( 'woocommerce_order_data_store_cpt_get_orders_query', array( $this, 'filter_wallet_topup_orders' ), 10, 2 );
 	}
 	/**
 	 * WooWallet init widget
@@ -331,24 +328,13 @@ final class WooWallet {
 		}
 	}
 	/**
-	 * Load multicurrency supported file.
-	 */
-	public function add_multicurrency_support() {
-		if ( class_exists( 'WOOCS' ) ) {
-			include_once WOO_WALLET_ABSPATH . 'includes/multicurrency/woocommerce-currency-switcher/class-wallet-multi-currency.php';
-		}
-		if ( class_exists( 'WCML_Multi_Currency' ) ) {
-			include_once WOO_WALLET_ABSPATH . 'includes/multicurrency/woocommerce-multilingual/class-wallet-wpml-multi-currency.php';
-		}
-	}
-	/**
 	 * Store fee key to order item meta.
 	 *
 	 * @param Int               $item_id ItemId.
 	 * @param WC_Order_Item_Fee $item Item.
 	 */
 	public function woocommerce_new_order_item( $item_id, $item ) {
-		if ( 'fee' === $item->get_type() && property_exists( $item, 'legacy_fee_key' ) ) {
+		if ( 'fee' === $item->get_type() ) {
 			update_metadata( 'order_item', $item_id, '_legacy_fee_key', $item->legacy_fee_key );
 		}
 	}
@@ -361,37 +347,6 @@ final class WooWallet {
 		global $wpdb;
 		if ( apply_filters( 'woo_wallet_delete_transaction_records', true ) ) {
 			$wpdb->query( $wpdb->prepare( "DELETE t.*, tm.* FROM {$wpdb->base_prefix}woo_wallet_transactions t JOIN {$wpdb->base_prefix}woo_wallet_transaction_meta tm ON t.transaction_id = tm.transaction_id WHERE t.user_id = %d", $id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		}
-	}
-	/**
-	 * Filter wallet topup orders.
-	 *
-	 * @param array $query query.
-	 * @param array $query_vars query_vars.
-	 * @return array
-	 */
-	public function filter_wallet_topup_orders( $query, $query_vars ) {
-		if ( ! empty( $query_vars['topuporders'] ) && $query_vars['topuporders'] ) {
-			$query['meta_query'][] = array(
-				'key'   => '_wc_wallet_purchase_credited',
-				'value' => true,
-			);
-		}
-
-		return $query;
-	}
-	/**
-	 * Registers WooCommerce Blocks integration.
-	 */
-	public static function woocommerce_gateway_wallet_woocommerce_block_support() {
-		if ( class_exists( 'Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType' ) ) {
-			require_once WOO_WALLET_ABSPATH . 'includes/class-woo-wallet-payments-blocks.php';
-			add_action(
-				'woocommerce_blocks_payment_method_type_registration',
-				function( Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry $payment_method_registry ) {
-					$payment_method_registry->register( new WC_Gateway_Wallet_Blocks_Support() );
-				}
-			);
 		}
 	}
 

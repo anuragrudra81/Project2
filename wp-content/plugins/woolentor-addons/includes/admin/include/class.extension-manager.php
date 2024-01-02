@@ -111,7 +111,7 @@ class Woolentor_Extension_Manager{
     		),
     	);
 
-    	echo '<div class="wrap">';
+    	echo '<div class="wrap"><h2>'.get_admin_page_title().'</h2>';
 
     		?>
     			<style>

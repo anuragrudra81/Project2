@@ -137,7 +137,7 @@ class CheckoutPayPalAddressPreset {
 		}
 
 		$shipping = null;
-		foreach ( $order->purchase_units() as $unit ) {
+		foreach ( $this->session_handler->order()->purchase_units() as $unit ) {
 			$shipping = $unit->shipping();
 			if ( $shipping ) {
 				break;

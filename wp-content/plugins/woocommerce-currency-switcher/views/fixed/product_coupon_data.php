@@ -39,7 +39,7 @@ if (!function_exists('woocs_coupon_options')) {
 
     <?php if ($is_fixed_enabled): ?>
         <div id="woocs_tab_fixed_<?php echo woocs_short_id($post_id) ?>" class="woocs_tab">
-            <h4><?php esc_html_e('FOX - the coupon fixed amount', 'woocommerce-currency-switcher') ?><img class="help_tip" data-tip="<?php esc_html_e('Here you can set FIXED amount for the coupon for any currency you want. In the case of empty amount field recounting by rate will work!', 'woocommerce-currency-switcher') ?>" src="<?php echo WOOCS_LINK ?>/img/help.png" height="16" width="16" /></h4>
+            <h4><?php esc_html_e('WOOCS - the coupon fixed amount', 'woocommerce-currency-switcher') ?><img class="help_tip" data-tip="<?php esc_html_e('Here you can set FIXED amount for the coupon for any currency you want. In the case of empty amount field recounting by rate will work!', 'woocommerce-currency-switcher') ?>" src="<?php echo WOOCS_LINK ?>/img/help.png" height="16" width="16" /></h4>
             <select class="select short woocs-width-200" id="woocs_mselect_<?php echo woocs_short_id($post_id) ?>">
                 <?php foreach ($currencies as $code => $curr): ?>
                     <?php

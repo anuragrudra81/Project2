@@ -4,12 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 class Woolentor_Template_Library_Manager{
 
     const TRANSIENT_KEY = 'woolentor_template_info';
-    const TRANSIENT_GUTENBERG_KEY = 'woolentor_gutenberg_template_info';
 
-    public static $endpoint = 'https://library.shoplentor.com/wp-json/woolentor/v1/templates';
-    public static $templateapi = 'https://library.shoplentor.com/wp-json/woolentor/v1/templates/%s';
-
-    public static $endpoint_gutenberg = 'https://library.shoplentor.com/wp-json/woolentor/v1/gutenbergtemplates';
+    public static $endpoint = 'https://woolentor.com/library/wp-json/woolentor/v1/templates';
+    public static $templateapi = 'https://woolentor.com/library/wp-json/woolentor/v1/templates/%s';
 
     private static $_instance = null;
     public static function instance(){
@@ -26,11 +23,6 @@ class Woolentor_Template_Library_Manager{
         }
         return self::$endpoint;
     }
-
-    // Get Endpoint
-    public static function get_gutenberg_api_endpoint(){
-        return self::$endpoint_gutenberg;
-    }
     
     // Get Template API
     public static function get_api_templateapi(){
@@ -41,28 +33,20 @@ class Woolentor_Template_Library_Manager{
     }
 
     // Set data to transient
-    public static function set_templates_info( $url = '', $transient_key = '', $force_update = false ) {
-        $transient = get_transient( $transient_key );
+    public static function set_templates_info( $url = '', $force_update = false ) {
+        $transient = get_transient( self::TRANSIENT_KEY );
         if ( ! $transient || $force_update ) {
             $info = self::get_content_remote_request( $url );
-            set_transient( $transient_key, wp_json_encode( $info ) , DAY_IN_SECONDS );
+            set_transient( self::TRANSIENT_KEY, wp_json_encode( $info ) , DAY_IN_SECONDS );
         }
     }
 
     // Get Template data
     public static function get_templates_info( $force_update = false ) {
         if ( !get_transient( self::TRANSIENT_KEY ) || $force_update ) {
-            self::set_templates_info( self::get_api_endpoint(), self::TRANSIENT_KEY, true );
+            self::set_templates_info( self::get_api_endpoint(), true );
         }
         return is_array( get_transient( self::TRANSIENT_KEY ) ) ? get_transient( self::TRANSIENT_KEY ) : json_decode( get_transient( self::TRANSIENT_KEY ), JSON_OBJECT_AS_ARRAY );
-    }
-
-    // Get Gutenberg Template data
-    public static function get_gutenberg_templates_info( $force_update = false ) {
-        if ( !get_transient( self::TRANSIENT_GUTENBERG_KEY ) || $force_update ) {
-            self::set_templates_info( self::get_gutenberg_api_endpoint(), self::TRANSIENT_GUTENBERG_KEY, true );
-        }
-        return is_array( get_transient( self::TRANSIENT_GUTENBERG_KEY ) ) ? get_transient( self::TRANSIENT_GUTENBERG_KEY ) : json_decode( get_transient( self::TRANSIENT_GUTENBERG_KEY ), JSON_OBJECT_AS_ARRAY );
     }
 
     // Request remote data

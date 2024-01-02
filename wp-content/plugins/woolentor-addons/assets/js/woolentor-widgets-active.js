@@ -16,7 +16,6 @@
             var arrows = settings['arrows'];
             var dots = settings['dots'];
             var autoplay = settings['autoplay'];
-            var infinite = settings.hasOwnProperty('infinite') ? settings['infinite'] : true;
             var rtl = settings['rtl'];
             var autoplay_speed = parseInt(settings['autoplay_speed']) || 3000;
             var animation_speed = parseInt(settings['animation_speed']) || 300;
@@ -36,7 +35,7 @@
                 prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-angle-left"></i></button>',
                 nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
                 dots: dots,
-                infinite: infinite,
+                infinite: true,
                 autoplay: autoplay,
                 autoplaySpeed: autoplay_speed,
                 speed: animation_speed,
@@ -278,18 +277,14 @@
                     woolentorquickviewMainImageSlider();
                     woolentorquickviewThumb();
                     woolentor_render_variation_quick_view_data( $('.woolentorquickview-open') );
-                    woolentorquickviewAjaxCart( ".htwl-modal-content .woolentorquickview-content-template:not(.external) .single_add_to_cart_button:not(.disabled)" );
+                    woolentorquickviewAjaxCart( ".htwl-modal-content .single_add_to_cart_button:not(.disabled)" );
 
                     $(document).trigger('woolentor_quick_view_rendered');
                 }, 300 );
             },
             complete: function () {
                 $('#htwlquick-viewmodal').removeClass('wlloading');
-                $('#htwlquick-viewmodal').append('<div class="wlquickview-overlay"></div>');
                 $('.htwl-modal-dialog').css("background-color","#ffffff");
-                $('.wlquickview-overlay').on('click', function(event){
-                    $(this).closeQuickView();
-                });
             },
             error: function () {
                 console.log("Quick View Not Loaded");
@@ -298,16 +293,10 @@
 
     });
     $('.htcloseqv').on('click', function(event){
-        $(this).closeQuickView();
-    });
-
-    // QuickView Close
-    $.fn.closeQuickView = function(){
         $('#htwlquick-viewmodal').removeClass('woolentorquickview-open');
         $('body').removeClass('woolentorquickview');
         $('.htwl-modal-dialog').css("background-color","transparent");
-        $('.wlquickview-overlay').remove();
-    };
+    });
 
     function woolentor_render_variation_quick_view_data( $product ) {
         $product.find('.variations_form').wc_variation_form().find('.variations select:eq(0)').change();
@@ -459,8 +448,6 @@
         elementorFrontend.hooks.addAction( 'frontend/element_ready/wl-testimonial.default', WidgetProductSliderHandler );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/wl-product-grid.default', WidgetProductSliderHandler );
         elementorFrontend.hooks.addAction( 'frontend/element_ready/wl-onepage-slider.default', WoolentorOnePageSlider );
-
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/wl-customer-veview.default', WidgetProductSliderHandler );
 
     });
 

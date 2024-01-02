@@ -9,7 +9,6 @@ final class WOOCS_STORAGE {
     public $type = 'session'; //session, transient, woo_session, cookie
     private $user_ip = null;
     private $transient_key = null;
-    private $woocs_session = null;
 
     public function __construct($type = '') {
         if (!empty($type)) {
@@ -24,19 +23,13 @@ final class WOOCS_STORAGE {
             }
         }
 
-        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        } elseif(isset($_SERVER['REMOTE_ADDR'])) {
-            $ip = $_SERVER['REMOTE_ADDR'];
-        } else {
-            $ip='';
-        }
+		if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		} else {
+			$ip = $_SERVER['REMOTE_ADDR'];
+		}
         $this->user_ip = filter_var($ip, FILTER_VALIDATE_IP);
         $this->transient_key = substr(md5($this->user_ip), 7, 23);
-        if ($this->type == 'woocs_session') {
-            $this->woocs_session = new WOOCS_SESSION();
-            $this->woocs_session->init();
-        }
     }
 
     public function set_val($key, $value) {
@@ -55,13 +48,6 @@ final class WOOCS_STORAGE {
                     }
 
                     WC()->session->set($key, $value);
-                }
-
-                break;
-            case 'woocs_session':
-
-                if ($this->woocs_session) {
-                    $this->woocs_session->set($key, $value);
                 }
 
                 break;
@@ -111,13 +97,6 @@ final class WOOCS_STORAGE {
             case 'woo_session':
                 if (WC()->session) {
                     $value = WC()->session->get($key);
-                }
-
-                break;
-            case 'woocs_session':
-
-                if ($this->woocs_session && $this->is_isset($key)) {
-                    $value = $this->woocs_session->get($key);
                 }
 
                 break;
@@ -173,13 +152,6 @@ final class WOOCS_STORAGE {
                 if (WC()->session) {
                     $isset = (bool) WC()->session->get($key);
                 }
-                break;
-            case 'woocs_session':
-
-                if ($this->woocs_session) {
-                    $isset = (bool) $this->woocs_session->get($key);
-                }
-
                 break;
             case 'session':
                 $isset = isset($_SESSION[$key]);

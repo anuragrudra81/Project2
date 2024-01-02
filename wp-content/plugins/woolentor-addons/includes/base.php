@@ -75,10 +75,6 @@ final class Base {
      */
     public function init() {
 
-        if( is_admin()){
-            include_once( WOOLENTOR_ADDONS_PL_PATH.'includes/admin/include/class.notice.php' );
-        }
-
         // Check for required PHP version
         if ( version_compare( PHP_VERSION, self::MINIMUM_PHP_VERSION, '<' ) ) {
             add_action( 'admin_notices', [ $this, 'admin_notice_minimum_php_version' ] );
@@ -86,7 +82,7 @@ final class Base {
         }
 
         // Check WooCommerce
-        if ( !did_action( 'woocommerce_loaded' ) ) {
+        if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
             add_action('admin_notices', [ $this, 'admin_notic_missing_woocommerce' ] );
             return;
         }
@@ -111,8 +107,11 @@ final class Base {
 
         // Promo Banner
         if( is_admin() ){
-            if( !is_plugin_active('woolentor-addons-pro/woolentor_addons_pro.php') ){
-                add_action( 'admin_notices', [ $this, 'admin_promo_notice' ] );
+            if( isset( self::$template_info['notices'][0]['status'] ) ){
+                if( !is_plugin_active('woolentor-addons-pro/woolentor_addons_pro.php') && ( self::$template_info['notices'][0]['status'] == 1 ) ){
+                    add_action( 'wp_ajax_woolentor_pro_notice', [ $this, 'ajax_dismiss' ] );
+                    add_action( 'admin_notices', [ $this, 'admin_promo_notice' ] );
+                }
             }
         }
 
@@ -127,33 +126,54 @@ final class Base {
     }
 
     /**
+     * [admin_notice_missing_main_plugin] Admin Notice For missing elementor.
+     * @return [void]
+     */
+    public function admin_notice_missing_main_plugin() {
+        if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+        $elementor = 'elementor/elementor.php';
+        if( $this->is_plugins_active( $elementor ) ) {
+            if( ! current_user_can( 'activate_plugins' ) ) {
+                return;
+            }
+            $activation_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $elementor . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $elementor );
+            $message = sprintf( __( 'If you want to use the %1$sTemplate Builder%2$s feature, make sure the %1$s"Elementor"%2$s plugin is activated. Please activate Elementor to continue.', 'woolentor' ), '<strong>', '</strong>' );
+            $button_text = esc_html__( 'Activate Elementor', 'woolentor' );
+        } else {
+            if( ! current_user_can( 'activate_plugins' ) ) {
+                return;
+            }
+            $activation_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=elementor' ), 'install-plugin_elementor' );
+            $message = sprintf( __( 'If you want to use the %1$sTemplate Builder%2$s feature, make sure the %1$s"Elementor"%2$s plugin is installed and activated. Please install Elementor to continue.', 'woolentor' ), '<strong>', '</strong>' );
+            $button_text = esc_html__( 'Install Elementor', 'woolentor' );
+        }
+        $button = '<p><a href="' . $activation_url . '" class="button-primary">' . $button_text . '</a></p>';
+        printf( '<div class="error"><p>%1$s</p>%2$s</div>', $message, $button );
+    }
+
+    /**
      * [admin_notic_missing_woocommerce] Admin Notice For missing WooCommerce
      * @return [void]
      */
     public function admin_notic_missing_woocommerce(){
-
-        if( ! current_user_can( 'activate_plugins' ) ) {
-            return;
-        }
         $woocommerce = 'woocommerce/woocommerce.php';
-        if( $this->is_plugins_install( $woocommerce ) ) {
-            $button['url'] = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $woocommerce . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $woocommerce );
-            $button['text'] = __( 'Activate WooCommerce', 'woolentor' );
+        if( $this->is_plugins_active( $woocommerce ) ) {
+            if( ! current_user_can( 'activate_plugins' ) ) {
+                return;
+            }
+            $activation_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $woocommerce . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $woocommerce );
             $message = sprintf( __( '%1$sShopLentor Addons for Elementor%2$s requires %1$s"WooCommerce"%2$s plugin to be active. Please activate WooCommerce to continue.', 'woolentor' ), '<strong>', '</strong>');
-        }else{
-            $button['url']  = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=woocommerce' ), 'install-plugin_woocommerce' );
-            $button['text'] = __( 'Install WooCommerce', 'woolentor' );
+            $button_text = __( 'Activate WooCommerce', 'woolentor' );
+        } else {
+            if( ! current_user_can( 'activate_plugins' ) ) {
+                return;
+            }
+            $activation_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=woocommerce' ), 'install-plugin_woocommerce' );
             $message = sprintf( __( '%1$sShopLentor Addons for Elementor%2$s requires %1$s"WooCommerce"%2$s plugin to be installed and activated. Please install WooCommerce to continue.', 'woolentor' ), '<strong>', '</strong>' );
+            $button_text = __( 'Install WooCommerce', 'woolentor' );
         }
-
-        \Woolentor_Admin_Notice::add_notice(
-			[
-				'id'          => 'missing-woocommerce',
-				'type'        => 'error',
-                'button'      => $button,
-				'message'     => $message,
-			]
-		);
+        $button = '<p><a href="' . $activation_url . '" class="button-primary">' . $button_text . '</a></p>';
+        printf( '<div class="error"><p>%1$s</p>%2$s</div>', __( $message ), $button );
     }
 
     /**
@@ -169,14 +189,16 @@ final class Base {
             '<strong>' . esc_html__( 'PHP', 'woolentor' ) . '</strong>',
              self::MINIMUM_PHP_VERSION
         );
+        printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+    }
 
-        \Woolentor_Admin_Notice::add_notice(
-			[
-				'id'          => 'phpcompatibility',
-				'type'        => 'warning',
-				'message'     => $message,
-			]
-		);
+    /**
+     * [ajax_dismiss] Ajax Call back funtion for update user meta
+     * @return [void]
+     */
+    public function ajax_dismiss() {
+        update_user_meta( get_current_user_id(), 'woolentor_dismissed_notice_id', 1 );
+        wp_die();
     }
 
     /**
@@ -185,45 +207,55 @@ final class Base {
      */
     public function admin_promo_notice(){
 
-        if( !isset( self::$template_info['notices'] ) && !is_array( self::$template_info['notices'] ) ){
+        if( get_user_meta( get_current_user_id(), 'woolentor_dismissed_notice_id', true ) ){
             return;
         }
 
-        if( isset( self::$template_info['notices'][0]['status'] ) ){
-            if( self::$template_info['notices'][0]['status'] == 0 ){
-                return;
-            }
-        }else{
-            return;
-        }
+        if( isset( self::$template_info['notices'] ) && is_array( self::$template_info['notices'] ) ){
+            ?>
+            <style type="text/css">
+                .woolentor-admin-notice.notice {
+                  position: relative;
+                  padding-top: 20px !important;
+                  padding-right: 40px;
+                }
+                .woolentor-admin-notice.notice img{
+                  width: 100%;
+                }
+                .woolentor-admin-notice.notice-warning {
+                  border-left-color: #22b9ff;
+                }
+            </style>
+            <script>
+                ;jQuery( function( $ ) {
+                    $( 'div.notice.woolentor-admin-notice' ).on( 'click', 'button.notice-dismiss', function( event ) {
+                        event.preventDefault();
+                        $.ajax({
+                            url: ajaxurl,
+                            data: {
+                                'action': 'woolentor_pro_notice',
+                            }
+                        });
+                    } );
+                });
+            </script>
+            <?php
+            $bannerLink = self::$template_info['notices'][0]['bannerlink'] ? self::$template_info['notices'][0]['bannerlink'] : '#';
+            $bannerTitle = self::$template_info['notices'][0]['title'] ? self::$template_info['notices'][0]['title'] : esc_html__('Promo Banner','woolentor');
+            $bannerDescription = self::$template_info['notices'][0]['description'] ? '<p>'.self::$template_info['notices'][0]['description'].'</p>' : '';
+            $bannerImage = self::$template_info['notices'][0]['bannerimage'] ? '<img src='.self::$template_info['notices'][0]['bannerimage'].' alt='.$bannerTitle.'/>' : '#';
 
-        // Fetch data
-        $bannerLink = self::$template_info['notices'][0]['bannerlink'] ? self::$template_info['notices'][0]['bannerlink'] : '#';
-        $bannerTitle = self::$template_info['notices'][0]['title'] ? self::$template_info['notices'][0]['title'] : esc_html__('Promo Banner','woolentor');
-        $bannerDescription = self::$template_info['notices'][0]['description'] ? self::$template_info['notices'][0]['description'] : '';
-        $bannerImage = self::$template_info['notices'][0]['bannerimage'] ? '<img src='.self::$template_info['notices'][0]['bannerimage'].' alt='.$bannerTitle.'/>' : '';
-
-        $banner['image'] = $bannerImage;
-        $banner['url'] = $bannerLink;
-        \Woolentor_Admin_Notice::add_notice(
-            [
-                'id'          => 'promo-banner',
-                'type'        => 'info',
-                'dismissible' => true,
-                'message'     => $bannerDescription,
-                'banner'      => $banner,
-                'close_by'    => 'transient'
-            ]
-        );
+            printf( '<div class="woolentor-admin-notice is-dismissible notice notice-warning"><a href="%1$s" target="_blank">%2$s</a>%3$s</div>', $bannerLink, $bannerImage, $bannerDescription  );
            
+        }
     }
 
    /**
-    * [is_plugins_install] Check Plugin is Installed or not
+    * [is_plugins_active] Check Plugin is Installed or not
     * @param  [string]  $pl_file_path plugin file path
     * @return boolean  true|false
     */
-    public function is_plugins_install( $pl_file_path = NULL ){
+    public function is_plugins_active( $pl_file_path = NULL ){
         $installed_plugins_list = get_plugins();
         return isset( $installed_plugins_list[$pl_file_path] );
     }

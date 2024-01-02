@@ -19,7 +19,7 @@ use WP_REST_Response;
  */
 class CheckoutOrderCompleted implements RequestHandler {
 
-	use RequestHandlerTrait;
+	use PrefixTrait, RequestHandlerTrait;
 
 	/**
 	 * The logger.
@@ -32,9 +32,11 @@ class CheckoutOrderCompleted implements RequestHandler {
 	 * CheckoutOrderCompleted constructor.
 	 *
 	 * @param LoggerInterface $logger The logger.
+	 * @param string          $prefix The prefix.
 	 */
-	public function __construct( LoggerInterface $logger ) {
+	public function __construct( LoggerInterface $logger, string $prefix ) {
 		$this->logger = $logger;
+		$this->prefix = $prefix;
 	}
 
 	/**
@@ -67,14 +69,16 @@ class CheckoutOrderCompleted implements RequestHandler {
 	 * @return WP_REST_Response
 	 */
 	public function handle_request( WP_REST_Request $request ): WP_REST_Response {
-		$custom_ids = $this->get_wc_order_ids_from_request( $request );
+		$response = array( 'success' => false );
+
+		$custom_ids = $this->get_custom_ids_from_request( $request );
 		if ( empty( $custom_ids ) ) {
-			return $this->no_custom_ids_response( $request );
+			return $this->no_custom_ids_from_request( $request, $response );
 		}
 
 		$wc_orders = $this->get_wc_orders_from_custom_ids( $custom_ids );
 		if ( ! $wc_orders ) {
-			return $this->no_wc_orders_response( $request );
+			return $this->no_wc_orders_from_custom_ids( $request, $response );
 		}
 
 		foreach ( $wc_orders as $wc_order ) {
@@ -89,12 +93,17 @@ class CheckoutOrderCompleted implements RequestHandler {
 
 			$this->logger->info(
 				sprintf(
-					'Order %s has been updated through PayPal',
+					// translators: %s is the order ID.
+					__(
+						'Order %s has been updated through PayPal',
+						'woocommerce-paypal-payments'
+					),
 					(string) $wc_order->get_id()
 				)
 			);
 		}
 
-		return $this->success_response();
+		$response['success'] = true;
+		return new WP_REST_Response( $response );
 	}
 }

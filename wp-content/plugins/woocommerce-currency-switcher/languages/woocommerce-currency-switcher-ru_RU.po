@@ -354,10 +354,10 @@ msgstr "Валютный агрегатор"
 #: views/plugin_options_2.php:271 views/plugin_options_1.php:26
 msgid ""
 "Currency aggregators. Note: If you know aggregator which not is represented "
-"in FOX write request on support please with suggestion to add it!"
+"in WOOCS write request on support please with suggestion to add it!"
 msgstr ""
 "Валютные агрегаторы. Примечание: если вы знаете агрегатор, которого нет в "
-"FOX, напишите запрос в поддержку, пожалуйста, с предложением его добавить!"
+"WOOCS, напишите запрос в поддержку, пожалуйста, с предложением его добавить!"
 
 #: views/woocs_order_metabox.php:24
 msgid "Currency in which the customer paid."
@@ -516,10 +516,10 @@ msgstr "Отключить на страницах"
 
 #: views/plugin_options_2.php:665 views/plugin_options_1.php:515
 msgid ""
-"Disabling or Enabling FOX on the described pages only. Use comma and pages "
+"Disabling or Enabling WOOCS on the described pages only. Use comma and pages "
 "slugs. Example: blog,account"
 msgstr ""
-"Отключение или включение FOX только на описанных страницах. Используйте "
+"Отключение или включение WOOCS только на описанных страницах. Используйте "
 "запятую и ярлыки страниц. Пример: блог, аккаунт"
 
 #: views/plugin_options_2.php:1058 views/plugin_options_1.php:762
@@ -948,10 +948,10 @@ msgstr ""
 #: views/plugin_options_2.php:1846 views/plugin_options_1.php:1273
 #: views/plugin_options_1.php:1355
 msgid ""
-"If FOX settings panel looks incorrect or you have JavaScript errors (after "
+"If WOOCS settings panel looks incorrect or you have JavaScript errors (after "
 "update) - firstly"
 msgstr ""
-"Если панель настроек FOX выглядит некорректно или у вас есть ошибки "
+"Если панель настроек WOOCS выглядит некорректно или у вас есть ошибки "
 "JavaScript (после обновления) - сначала"
 
 #: views/plugin_options_1.php:1261
@@ -1152,8 +1152,8 @@ msgid "Missing options? Describe your proposal please on the support forum."
 msgstr "Отсутствуют варианты? Опишите свое предложение на форуме поддержки."
 
 #: views/plugin_options_1.php:139
-msgid "Modern FOX admin theme"
-msgstr "Современная тема администратора FOX"
+msgid "Modern WOOCS admin theme"
+msgstr "Современная тема администратора WOOCS"
 
 #: views/plugin_options_1.php:1410
 msgid "Money signs"
@@ -1269,8 +1269,8 @@ msgid "Notes*"
 msgstr "Заметки*"
 
 #: views/plugin_options_2.php:23
-msgid "Obsolete FOX admin panel"
-msgstr "Устаревшая админ-панель FOX"
+msgid "Obsolete WOOCS admin panel"
+msgstr "Устаревшая админ-панель WOOCS"
 
 #: classes/woocs_after_33.php:5579
 #| msgid "Ok, you deserve it"
@@ -1850,10 +1850,10 @@ msgstr "Показать заголовок"
 
 #: views/plugin_options_2.php:632 views/plugin_options_1.php:505
 msgid ""
-"Show FOX options button on top admin bar for quick access. Very handy for "
+"Show WOOCS options button on top admin bar for quick access. Very handy for "
 "active work. Visible for site administrators only!"
 msgstr ""
-"Показать кнопку параметров FOX на верхней панели администратора для "
+"Показать кнопку параметров WOOCS на верхней панели администратора для "
 "быстрого доступа. Очень удобно для активной работы. Доступно только "
 "администраторам сайта!"
 
@@ -2179,18 +2179,18 @@ msgstr "Посмотреть видеоинструкцию"
 
 #: views/plugin_options_2.php:1684
 msgid ""
-"Watch video tutorials about FOX features to use its functionality in full "
+"Watch video tutorials about WOOCS features to use its functionality in full "
 "force"
 msgstr ""
-"Посмотрите видеоуроки о функциях FOX, чтобы использовать его функции в "
+"Посмотрите видеоуроки о функциях WOOCS, чтобы использовать его функции в "
 "полную силу."
 
 #: classes/woocs_after_33.php:5586
 msgid ""
-"We are sorry to hear you aren't enjoying FOX. We would love a chance to "
+"We are sorry to hear you aren't enjoying WOOCS. We would love a chance to "
 "improve it. Could you take a minute and let us know what we can do better?"
 msgstr ""
-"Сожалеем, что вам не нравится FOX. Мы хотели бы иметь возможность улучшить "
+"Сожалеем, что вам не нравится WOOCS. Мы хотели бы иметь возможность улучшить "
 "его. Не могли бы вы уделить минуту и сообщить нам, что мы можем сделать "
 "лучше?"
 
@@ -2331,41 +2331,41 @@ msgid "WooCommerce GeoIP functionality doesn't work on your site"
 msgstr "Функциональность WooCommerce GeoIP не работает на вашем сайте"
 
 #: views/fixed/product_coupon_restriction_data.php:47
-#| msgid "FOX - the fixed Minimum and Maximum spend"
-msgid "FOX - fixed Minimum and Maximum spend"
-msgstr "FOX - фиксированной максимальная и минимальная трата"
+#| msgid "WOOCS - the fixed Minimum and Maximum spend"
+msgid "WOOCS - fixed Minimum and Maximum spend"
+msgstr "WOOCS - фиксированной максимальная и минимальная трата"
 
 #: views/fixed/product_coupon_data.php:42
-msgid "FOX - the coupon fixed amount"
-msgstr "FOX - фиксированная сумма купона"
+msgid "WOOCS - the coupon fixed amount"
+msgstr "WOOCS - фиксированная сумма купона"
 
 #: views/fixed/product_user_role_data.php:61
-msgid "FOX - the price based on user role"
-msgstr "FOX - цена зависит от роли пользователя"
+msgid "WOOCS - the price based on user role"
+msgstr "WOOCS - цена зависит от роли пользователя"
 
 #: views/fixed/product_price_data.php:152
-msgid "FOX - the product custom GeoIP rules"
-msgstr "FOX - пользовательские правила GeoIP продукта"
+msgid "WOOCS - the product custom GeoIP rules"
+msgstr "WOOCS - пользовательские правила GeoIP продукта"
 
 #: views/fixed/product_price_data.php:116
-msgid "FOX - the product fixed prices"
-msgstr "FOX - фиксированные цены на товар"
+msgid "WOOCS - the product fixed prices"
+msgstr "WOOCS - фиксированные цены на товар"
 
 #. Name of the plugin
-msgid "FOX - WooCommerce Currency Switcher"
+msgid "WOOCS - WooCommerce Currency Switcher"
 msgstr ""
 
 #: classes/woocs_after_33.php:721
-msgid "FOX Currency Options"
-msgstr "Варианты валюты FOX"
+msgid "WOOCS Currency Options"
+msgstr "Варианты валюты WOOCS"
 
 #: views/plugin_options_2.php:1583
-msgid "FOX has power bunch of functionality"
-msgstr "FOX обладает мощным набором функций"
+msgid "WOOCS has power bunch of functionality"
+msgstr "WOOCS обладает мощным набором функций"
 
 #: classes/woocs_after_33.php:1040 classes/woocs_after_33.php:1042
-msgid "FOX Order Info"
-msgstr "Информация для заказа FOX"
+msgid "WOOCS Order Info"
+msgstr "Информация для заказа WOOCS"
 
 #: views/plugin_options_2.php:1862 views/plugin_options_2.php:1863
 #: views/plugin_options_1.php:1370 views/plugin_options_1.php:1371

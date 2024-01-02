@@ -4,7 +4,7 @@
 	<div class="mc4wp-row">
 
 		<!-- Main Content -->
-		<div class="main-content mc4wp-col">
+		<div class="main-content mc4wp-col mc4wp-col-4">
 
 			<h1 class="mc4wp-page-title">
 				<?php echo esc_html__( 'Add new form', 'mailchimp-for-wp' ); ?>
@@ -74,13 +74,13 @@
 			</div>
 
 
-			<?php require MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-footer.php'; ?>
+			<?php include MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-footer.php'; ?>
 
 		</div><!-- / Main content -->
 
 		<!-- Sidebar -->
-		<div class="mc4wp-sidebar mc4wp-col">
-			<?php require MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-sidebar.php'; ?>
+		<div class="mc4wp-sidebar mc4wp-col mc4wp-col-2">
+			<?php include MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-sidebar.php'; ?>
 		</div>
 
 

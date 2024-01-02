@@ -11,24 +11,19 @@ class UpdateCart {
      *
      * @param onResolve
      * @param {Product[]} products
-     * @param {Object} options
      * @returns {Promise<unknown>}
      */
-    update(onResolve, products, options = {})
+    update(onResolve, products)
     {
         return new Promise((resolve, reject) => {
             fetch(
                 this.endpoint,
                 {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
                     credentials: 'same-origin',
                     body: JSON.stringify({
                         nonce: this.nonce,
                         products,
-                        ...options
                     })
                 }
             ).then(

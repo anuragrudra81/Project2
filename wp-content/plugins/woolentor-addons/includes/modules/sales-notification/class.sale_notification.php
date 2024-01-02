@@ -27,73 +27,40 @@ class Woolentor_Sale_Notification{
 
     public function purchased_new_products(){
 
-        if ( isset( $_POST ) ) {
+        $cachekey = 'woolentor-new-products';
+        $products = get_transient( $cachekey );
 
-			$nonce = $_POST['security'];
+        if ( ! $products ) {
+            $args = array(
+                'post_type' => 'shop_order',
+                'post_status' => array('wc-completed', 'wc-pending', 'wc-processing', 'wc-on-hold'),
+                'orderby' => 'ID',
+                'order' => 'DESC',
+                'posts_per_page' => woolentor_get_option( 'notification_limit','woolentor_sales_notification_tabs','5' ),
+                'date_query' => array(
+                    'after' => date('Y-m-d', strtotime('-'.woolentor_get_option('notification_uptodate','woolentor_sales_notification_tabs','5' ).' days'))
+                )
+            );
+            $posts = get_posts($args);
 
-			if ( ! wp_verify_nonce( $nonce, 'woolentor-ajax-request' ) ) {
-				$errormessage = array(
-					'message'  => __('Nonce Varification Faild !','woolentor')
-				);
-				wp_send_json_error( $errormessage );
-			}
-        
-            $cachekey = 'woolentor-new-products';
-            $products = get_transient( $cachekey );
+            $products = array();
+            $check_wc_version = version_compare( WC()->version, '3.0', '<') ? true : false;
 
-            if ( ! $products ) {
-                
-                $query_args = array(
-                    'limit'  => woolentor_get_option( 'notification_limit','woolentor_sales_notification_tabs','5' ),
-                    'type'   => 'shop_order',
-                    'status' => array('wc-completed', 'wc-pending', 'wc-processing', 'wc-on-hold'),
-                    'orderby'=> 'ID',
-                    'order'  => 'DESC',
-                    'date_query' => array (
-                        'after' => date('Y-m-d', strtotime('-'.woolentor_get_option('notification_uptodate','woolentor_sales_notification_tabs','5' ).' days'))
-                    )
-                );
-                $posts = wc_get_orders( $query_args );
+            foreach( $posts as $post ) {
 
-                $products = array();
-                $check_wc_version = version_compare( WC()->version, '3.0', '<') ? true : false;
+                $order = new WC_Order( $post->ID );
+                $order_items = $order->get_items();
 
-                foreach( $posts as $post ) {
+                if( !empty( $order_items ) ) {
 
-                    $order = new WC_Order( $post->ID );
-                    $order_items = $order->get_items();
+                    if( woolentor_get_option( 'showallproduct','woolentor_sales_notification_tabs','off' ) == 'on' ){
 
-                    if( !empty( $order_items ) ) {
-
-                        if( woolentor_get_option( 'showallproduct','woolentor_sales_notification_tabs','off' ) == 'on' ){
-
-                            foreach( $order_items as $item ){
-                                $product = wc_get_product( $item['product_id'] );
-                                if( !empty( $product ) ){
-                                    preg_match( '/src="(.*?)"/', $product->get_image( 'thumbnail' ), $imgurl );
-                                    $p = array(
-                                        'id'    => $item['order_id'],
-                                        'name'  => $product->get_title(),
-                                        'url'   => $product->get_permalink(),
-                                        'date'  => $post->post_date_gmt,
-                                        'image' => count($imgurl) === 2 ? $imgurl[1] : null,
-                                        'price' => $this->woolentor_productprice($check_wc_version ? $product->get_display_price() : wc_get_price_to_display($product) ),
-                                        'buyer' => $this->woolentor_buyer_info($order)
-                                    );
-                                    $p = apply_filters( 'woolentor_product_data',$p );
-                                    array_push( $products, $p);
-                                }
-                            }
-
-                        }else{
-                            $first_item = array_values( $order_items )[0];
-                            $product_id = $first_item['product_id'];
-
-                            $product = wc_get_product( $product_id );
+                        foreach( $order_items as $item ){
+                            $product = wc_get_product( $item['product_id'] );
                             if( !empty( $product ) ){
                                 preg_match( '/src="(.*?)"/', $product->get_image( 'thumbnail' ), $imgurl );
                                 $p = array(
-                                    'id'    => $first_item['order_id'],
+                                    'id'    => $item['order_id'],
                                     'name'  => $product->get_title(),
                                     'url'   => $product->get_permalink(),
                                     'date'  => $post->post_date_gmt,
@@ -106,14 +73,34 @@ class Woolentor_Sale_Notification{
                             }
                         }
 
+                    }else{
+                        $first_item = array_values( $order_items )[0];
+                        $product_id = $first_item['product_id'];
+
+                        $product = wc_get_product( $product_id );
+                        if( !empty( $product ) ){
+                            preg_match( '/src="(.*?)"/', $product->get_image( 'thumbnail' ), $imgurl );
+                            $p = array(
+                                'id'    => $first_item['order_id'],
+                                'name'  => $product->get_title(),
+                                'url'   => $product->get_permalink(),
+                                'date'  => $post->post_date_gmt,
+                                'image' => count($imgurl) === 2 ? $imgurl[1] : null,
+                                'price' => $this->woolentor_productprice($check_wc_version ? $product->get_display_price() : wc_get_price_to_display($product) ),
+                                'buyer' => $this->woolentor_buyer_info($order)
+                            );
+                            $p = apply_filters( 'woolentor_product_data',$p );
+                            array_push( $products, $p);
+                        }
                     }
 
                 }
-                set_transient( $cachekey, $products, 60 ); // Cache the results for 1 minute
+
             }
-            echo( json_encode( $products ) );
-            wp_die();
+            set_transient( $cachekey, $products, 60 ); // Cache the results for 1 minute
         }
+        echo( json_encode( $products ) );
+        wp_die();
 
     }
 
@@ -229,15 +216,6 @@ class Woolentor_Sale_Notification{
         $notposition   = woolentor_get_option( 'notification_pos','woolentor_sales_notification_tabs', 'bottomleft' );
         $notlayout     = woolentor_get_option( 'notification_layout','woolentor_sales_notification_tabs', 'imageleft' );
 
-        // Display Item and Label
-        $show_city = ( woolentor_get_option( 'show_city','woolentor_sales_notification_tabs','on' ) == 'on' );
-        $show_state = ( woolentor_get_option( 'show_state','woolentor_sales_notification_tabs','on' ) == 'on' );
-        $show_country = ( woolentor_get_option( 'show_country','woolentor_sales_notification_tabs','on' ) == 'on' );
-
-        // Label
-        $purched_by = woolentor_get_option( 'purchased_by', 'woolentor_sales_notification_tabs', esc_html__('By','woolentor') );
-        $price_label = woolentor_get_option( 'price_prefix', 'woolentor_sales_notification_tabs', esc_html__('Price :','woolentor') );
-
         // Set Nonce
         $ajax_nonce = wp_create_nonce( "woolentor-ajax-request" );
         ?>
@@ -246,16 +224,10 @@ class Woolentor_Sale_Notification{
 
                     var notposition = '<?php echo $notposition; ?>',
                         notlayout = ' '+'<?php echo $notlayout; ?>';
-                    
-                    var displayItems = {
-                        city: '<?php echo $show_city; ?>',
-                        state: '<?php echo $show_state; ?>',
-                        country: '<?php echo $show_country; ?>'
-                    };
 
                     var other_text = {
-                        price:'<?php echo esc_html__( $price_label, 'woolentor');?>',
-                        priceby:'<?php echo esc_html__( $purched_by, 'woolentor' );?>'
+                        price:'<?php echo esc_html__('Price :','woolentor');?>',
+                        priceby:'<?php echo esc_html__('By','woolentor');?>',
                     };
 
                     $('body').append('<div class="woolentor-sale-notification"><div class="woolentor-notification-content '+notposition+notlayout+'"></div></div>');
@@ -279,9 +251,6 @@ class Woolentor_Sale_Notification{
                             ajaxurl, 
                             data,
                             function( response ){
-                                if( response?.success === false ){
-                                    return;
-                                }
                                 var wcpobj = $.parseJSON( response );
                                 if( wcpobj.length > 0 ){
                                     woolentor_start_notification( wcpobj );
@@ -305,7 +274,7 @@ class Woolentor_Sale_Notification{
                     function woolentor_notification_content( wlpobj, i ){
                         $('.woolentor-notification-content').html('');
                         $('.woolentor-notification-content').css('padding','15px');
-                        var ordercontent = `<div class="wlnotification_image"><img src="${wlpobj[i].image}" alt="${wlpobj[i].name}" /></div><div class="wlnotification_content"><h4><a href="${wlpobj[i].url}">${wlpobj[i].name}</a></h4><p>${ ( displayItems.city ? wlpobj[i].buyer.city + ' ' : '' ) + ( displayItems.state ? wlpobj[i].buyer.state + ', ' : '') + ( displayItems.country ? wlpobj[i].buyer.country : '' ) }.</p><h6>${other_text.price+wlpobj[i].price}</h6><span class="woolentor-buyername">${other_text.priceby + ' ' + wlpobj[i].buyer.fname + ' ' + wlpobj[i].buyer.lname}</span></div><span class="wlcross">&times;</span>`;
+                        var ordercontent = `<div class="wlnotification_image"><img src="${wlpobj[i].image}" alt="${wlpobj[i].name}" /></div><div class="wlnotification_content"><h4><a href="${wlpobj[i].url}">${wlpobj[i].name}</a></h4><p>${wlpobj[i].buyer.city + ' ' + wlpobj[i].buyer.state + ', ' + wlpobj[i].buyer.country }.</p><h6>${other_text.price+wlpobj[i].price}</h6><span class="woolentor-buyername">${other_text.priceby + ' ' + wlpobj[i].buyer.fname + ' ' + wlpobj[i].buyer.lname}</span></div><span class="wlcross">&times;</span>`;
                         $('.woolentor-notification-content').append( ordercontent ).addClass('animated '+inanimation).removeClass(outanimation);
                     }
 

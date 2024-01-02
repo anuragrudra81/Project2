@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace WooCommerce\PayPalCommerce\Webhooks\Status\Assets;
 
-use WooCommerce\PayPalCommerce\Onboarding\Environment;
 use WooCommerce\PayPalCommerce\Webhooks\Endpoint\ResubscribeEndpoint;
 use WooCommerce\PayPalCommerce\Webhooks\Endpoint\SimulateEndpoint;
 use WooCommerce\PayPalCommerce\Webhooks\Endpoint\SimulationStateEndpoint;
@@ -35,27 +34,17 @@ class WebhooksStatusPageAssets {
 	private $version;
 
 	/**
-	 * The environment object.
-	 *
-	 * @var Environment
-	 */
-	private $environment;
-
-	/**
 	 * WebhooksStatusPageAssets constructor.
 	 *
-	 * @param string      $module_url  The URL to the module.
-	 * @param string      $version     The assets version.
-	 * @param Environment $environment The environment object.
+	 * @param string $module_url                         The URL to the module.
+	 * @param string $version                            The assets version.
 	 */
 	public function __construct(
 		string $module_url,
-		string $version,
-		Environment $environment
+		string $version
 	) {
-		$this->module_url  = untrailingslashit( $module_url );
-		$this->version     = $version;
-		$this->environment = $environment;
+		$this->module_url = untrailingslashit( $module_url );
+		$this->version    = $version;
 	}
 
 	/**
@@ -114,7 +103,6 @@ class WebhooksStatusPageAssets {
 					'tooLongDelayMessage' => __( 'Looks like the webhook cannot be received. Check that your website is accessible from the internet.', 'woocommerce-paypal-payments' ),
 				),
 			),
-			'environment' => $this->environment->current_environment(),
 		);
 	}
 

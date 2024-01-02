@@ -81,54 +81,45 @@ class Scripts {
 	 */
 	public function block_editor_assets() {
 
-		global $pagenow;
+        wp_enqueue_style( 'font-awesome-four' );
+		wp_enqueue_style( 'htflexboxgrid' );
+		wp_enqueue_style( 'simple-line-icons-wl' );
+		wp_enqueue_style( 'slick' );
+		wp_enqueue_style( 'woolentor-widgets' );
 
-		if ( $pagenow !== 'widgets.php' ) {
+		// Third-Party Scripts
+		$this->load_extra_scripts();
 
-			wp_enqueue_style( 'font-awesome-four' );
-			wp_enqueue_style( 'htflexboxgrid' );
-			wp_enqueue_style( 'simple-line-icons-wl' );
-			wp_enqueue_style( 'slick' );
-			wp_enqueue_style( 'woolentor-widgets' );
+		wp_enqueue_style( 'woolentor-block-editor-style', WOOLENTOR_BLOCK_URL . '/src/assets/css/editor-style.css', false, WOOLENTOR_VERSION, 'all' );
 
-			// Third-Party Scripts
-			$this->load_extra_scripts();
+		$dependencies = require_once( WOOLENTOR_BLOCK_PATH . '/build/blocks-woolentor.asset.php' );
+		wp_enqueue_script(
+		    'woolentor-blocks',
+		    WOOLENTOR_BLOCK_URL . '/build/blocks-woolentor.js',
+		    $dependencies['dependencies'],
+		    WOOLENTOR_VERSION,
+		    true
+		);
 
-			wp_enqueue_style( 'woolentor-block-template-library', WOOLENTOR_BLOCK_URL . '/src/assets/css/template-library.css', false, WOOLENTOR_VERSION, 'all' );
-			wp_enqueue_style( 'woolentor-block-editor-style', WOOLENTOR_BLOCK_URL . '/src/assets/css/editor-style.css', false, WOOLENTOR_VERSION, 'all' );
+		/**
+		 * Localize data
+		 */
+		$editor_localize_data = array(
+			'url' 		=> WOOLENTOR_BLOCK_URL,
+			'ajax' 		=> admin_url('admin-ajax.php'),
+			'security' 	=> wp_create_nonce('woolentorblock-nonce'),
+			'locale' 	=> get_locale(),
+			'options'	=> $this->get_block_list()['block_list'],
+			'templateType'=> $this->get_block_list()['template_type'],
+			'sampledata'=> is_admin() ? Sample_Data::instance()->get_sample_data( false, 'sampledata/product' ) : array(),
+		);
 
-			$dependencies = require_once( WOOLENTOR_BLOCK_PATH . '/build/blocks-woolentor.asset.php' );
-			wp_enqueue_script(
-				'woolentor-blocks',
-				WOOLENTOR_BLOCK_URL . '/build/blocks-woolentor.js',
-				$dependencies['dependencies'],
-				WOOLENTOR_VERSION,
-				true
-			);
-
-			/**
-			 * Localize data
-			 */
-			$editor_localize_data = array(
-				'url' 		=> WOOLENTOR_BLOCK_URL,
-				'ajax' 		=> admin_url('admin-ajax.php'),
-				'security' 	=> wp_create_nonce('woolentorblock-nonce'),
-				'locale' 	=> get_locale(),
-				'options'	=> $this->get_block_list()['block_list'],
-				'templateType'	=> $this->get_block_list()['template_type'],
-				'sampledata'	=> is_admin() ? Sample_Data::instance()->get_sample_data( false, 'sampledata/product' ) : array(),
-				'prostatus'		=> is_admin() ? is_plugin_active('woolentor-addons-pro/woolentor_addons_pro.php') : false,
-				'templatelist'	=> is_admin() ? \Woolentor_Template_Library_Manager::get_gutenberg_templates_info() : array(),
-				'prolink'		=> 'https://woolentor.com/pricing/',
-			);
-
-			// My Account MenuList
-			if( get_post_type() === 'woolentor-template' ){
-				$editor_localize_data['myaccountmenu'] = function_exists('wc_get_account_menu_items') ? ( wc_get_account_menu_items() + ['customadd' => esc_html__( 'Custom', 'woolentor' )] ) : [];
-			}
-
-			wp_localize_script( 'woolentor-blocks', 'woolentorData', $editor_localize_data );
+		// My Account MenuList
+		if( get_post_type() === 'woolentor-template' ){
+			$editor_localize_data['myaccountmenu'] = function_exists('wc_get_account_menu_items') ? ( wc_get_account_menu_items() + ['customadd' => esc_html__( 'Custom', 'woolentor' )] ) : [];
 		}
+
+		wp_localize_script( 'woolentor-blocks', 'woolentorData', $editor_localize_data );
 
 	}
 

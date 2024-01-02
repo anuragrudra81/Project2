@@ -254,9 +254,6 @@
                 case 'My Account':
                     return 'myaccount';
 
-                case 'Popup Builder':
-                    return 'popup';
-
                 default:
                     return 'other';
             }
@@ -433,7 +430,6 @@
             type: 'POST',
             data: {
                 action: 'woolentor_ajax_get_required_plugin',
-                nonce    : WLTM.nonce,
                 freeplugins: template_opt.freePlugins,
                 proplugins: template_opt.proPlugins,
                 requiredtheme: template_opt.requiredtheme,
@@ -497,7 +493,6 @@
             url: WLTM.ajaxurl,
             data: {
                 'action'       : 'woolentor_ajax_request',
-                'nonce'        : WLTM.nonce,
                 'httemplateid' : databtnattr.templateid,
                 'htparentid'   : databtnattr.parentid,
                 'templatetype' : templatetype,

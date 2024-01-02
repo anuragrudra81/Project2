@@ -50,7 +50,7 @@ class Wf_Woocommerce_Packing_List_Activator {
         }
         else 
         {
-            self::do_update();
+            self::install_tables();
             self::copy_address_from_woo();
             self::save_plugin_version();
             Wf_Woocommerce_Packing_List_Migrator::migrate();
@@ -65,16 +65,13 @@ class Wf_Woocommerce_Packing_List_Activator {
     */
     public static function install_tables_multi_site($blog_id){
         switch_to_blog( $blog_id );
-        self::do_update();
+        self::install_tables();
         self::copy_address_from_woo();
         self::save_plugin_version();
         Wf_Woocommerce_Packing_List_Migrator::migrate();
         restore_current_blog();
     }
 
-    public static function do_update(){
-        self::install_tables();
-    }
     /**
     *   @since 2.7.0
     *   Update store address from Woo   
@@ -144,7 +141,6 @@ class Wf_Woocommerce_Packing_List_Activator {
 			  `template_name` varchar(200) NOT NULL,
 			  `template_html` text NOT NULL,
 			  `template_from` varchar(200) NOT NULL,
-              `is_dc_compatible` int(11) NOT NULL DEFAULT '0',
 			  `is_active` int(11) NOT NULL DEFAULT '0',
 			  `template_type` varchar(200) NOT NULL,
 			  `created_at` int(11) NOT NULL DEFAULT '0',
@@ -152,28 +148,19 @@ class Wf_Woocommerce_Packing_List_Activator {
 			  PRIMARY KEY(`id_wfpklist_template_data`)
 			) DEFAULT CHARSET=utf8;";
             dbDelta($sql_settings);
-        }else
-        {
-	        $search_query = "SHOW COLUMNS FROM `$table_name` LIKE 'is_dc_compatible'";
-	        if(!$wpdb->get_results($search_query,ARRAY_N)) 
-	        {
-	        	$wpdb->query("ALTER TABLE `$table_name` ADD `is_dc_compatible` int(11) NOT NULL DEFAULT '0' AFTER `template_from`");
-	        }
         }
         //creating table for saving template data================
 	}
 
-    /**
-     * To save the details upon the first installation
-     *
-     * @since 4.2.0 - Added a flag to know if it is a new installation or update
-     * @return void
-     */
-    public static function save_plugin_version(){ 
-        if(false === get_option('wt_pklist_new_install')){
-            update_option('wt_pklist_new_install',1);
+    public static function save_plugin_version(){
+        if(false === get_option('wfpklist_basic_version')){
+            update_option('wfpklist_basic_version_prev','none');
+        }else{
+            $prev_version = get_option('wfpklist_basic_version','none');
+            update_option('wfpklist_basic_version_prev',$prev_version);
         }
-        
+        update_option('wfpklist_basic_version',WF_PKLIST_VERSION);
+
         if(false === get_option('wt_pklist_installation_date')){
             if(get_option('wt_pklist_start_date')){
                 $install_date = get_option('wt_pklist_start_date',time());

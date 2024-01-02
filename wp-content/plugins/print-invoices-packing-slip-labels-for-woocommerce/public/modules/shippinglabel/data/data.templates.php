@@ -6,4 +6,3 @@ $template_arr=array(
 		'preview_img'=>'template1.png',
 	),
 );
-$template_arr = apply_filters("wt_pklist_add_pro_templates",$template_arr,$this->to_customize);

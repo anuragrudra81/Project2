@@ -93,13 +93,6 @@ class Blocks_init {
         // Register block.
         register_block_type( $block['name'], $block );
 
-        // Register action for editor assest load.
-        if( $block['enqueue_assets'] ) {
-            add_action( 'enqueue_block_editor_assets', function() use ( $block ){
-                $this->enqueue_block_assets( $block );
-            } );
-        }
-
 	    return $block;
 
     }
@@ -226,10 +219,6 @@ class Blocks_init {
 
             case 'thankyou':
                 $template_type = 'thankyou';
-                break;
-
-            case 'popup':
-                $template_type = 'popup';
                 break;
 
             default:

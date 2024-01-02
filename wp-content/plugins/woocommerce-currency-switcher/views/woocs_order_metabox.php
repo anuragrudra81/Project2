@@ -2,16 +2,10 @@
 
 <?php
 $currencies = $this->get_currencies();
-//hpos
-//$rate = get_post_meta($post->ID, '_woocs_order_rate', TRUE);
-//$currency = get_post_meta($post->ID, '_order_currency', TRUE);
-//$base_currency = get_post_meta($post->ID, '_woocs_order_base_currency', TRUE);
-//$changed_mannualy = get_post_meta($post->ID, '_woocs_order_currency_changed_mannualy', TRUE);
-
-$rate = $order->get_meta( '_woocs_order_rate',true);
-$currency = $order->get_currency();
-$base_currency = $order->get_meta( '_woocs_order_base_currency',true);
-$changed_mannualy = $order->get_meta( '_woocs_order_currency_changed_mannualy',true);
+$rate = get_post_meta($post->ID, '_woocs_order_rate', TRUE);
+$currency = get_post_meta($post->ID, '_order_currency', TRUE);
+$base_currency = get_post_meta($post->ID, '_woocs_order_base_currency', TRUE);
+$changed_mannualy = get_post_meta($post->ID, '_woocs_order_currency_changed_mannualy', TRUE);
 
 if (empty($base_currency)) {
     $base_currency = $this->default_currency;
@@ -44,7 +38,7 @@ if (empty($base_currency)) {
     <?php endif; ?>
 
     <a href="javascript:woocs_cancel_order_data();void(0);" class="button woocs_cancel_order_curr_button" style="display: none;"><?php esc_html_e('cancel', 'woocommerce-currency-switcher') ?></a>&nbsp;
-    <a data-order_id="<?php /*hpos*/echo $order->get_id() ?>" href="javascript:woocs_recalculate_order_data();void(0);" style="display: none;" class="button woocs_recalculate_order_curr_button"><?php esc_html_e("Recalculate order", 'woocommerce-currency-switcher') ?>&nbsp;<img class="help_tip" data-tip="<?php esc_html_e('Recalculate current order with the selected currency.', 'woocommerce-currency-switcher') ?>" src="<?php echo WOOCS_LINK ?>/img/help.png" height="16" width="16" /></a><br />
+    <a data-order_id="<?php echo $post->ID ?>" href="javascript:woocs_recalculate_order_data();void(0);" style="display: none;" class="button woocs_recalculate_order_curr_button"><?php esc_html_e("Recalculate order", 'woocommerce-currency-switcher') ?>&nbsp;<img class="help_tip" data-tip="<?php esc_html_e('Recalculate current order with the selected currency.', 'woocommerce-currency-switcher') ?>" src="<?php echo WOOCS_LINK ?>/img/help.png" height="16" width="16" /></a><br />
 
 
 </div>

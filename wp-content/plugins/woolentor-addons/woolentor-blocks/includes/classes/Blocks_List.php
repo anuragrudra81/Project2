@@ -14,7 +14,7 @@ class Blocks_List {
     /**
      * Block List
      *
-     * @return array
+     * @return Array
      */
     public static function get_block_list(){
 
@@ -99,23 +99,6 @@ class Blocks_List {
                 'type'   => 'common',
                 'active' => true,
             ],
-            'recently_viewed_products' => [
-                'label'  => __('Recently Viewed Products','woolentor'),
-                'name'   => 'woolentor/recently-viewed-products',
-                'server_side_render' => true,
-                'type'   => 'common',
-                'active' => true,
-            ],
-            'testimonial' => [
-                'label'  => __('Testimonial','woolentor'),
-                'name'   => 'woolentor/testimonial',
-                'server_side_render' => true,
-                'type'   => 'common',
-                'active' => true,
-                'enqueue_assets' => function(){
-                    wp_enqueue_style('woolentor-testimonial');
-                }
-            ],
 
             'product_title' => [
                 'label'  => __('Product Title','woolentor'),
@@ -137,9 +120,6 @@ class Blocks_List {
                 'server_side_render' => true,
                 'type'   => 'single',
                 'active' => true,
-                // 'enqueue_assets' => function(){
-                //     wp_enqueue_style('dashicons');
-                // },
             ],
             'product_short_description' => [
                 'label'  => __('Product Short Description','woolentor'),

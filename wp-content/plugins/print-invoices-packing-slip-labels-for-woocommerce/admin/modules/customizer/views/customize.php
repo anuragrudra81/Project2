@@ -23,7 +23,15 @@ if (!defined('ABSPATH')) {
 .wf_side_panel_frmgrp{ float:left; width:100%; }
 .wf_side_panel_frmgrp label{ float:left; width:100%; margin-bottom:1px; margin-top:8px; }
 .wf_side_panel_frmgrp .wf-checkbox{ margin-top:8px; }
-.wf_side_panel_frmgrp .wf_sidepanel_sele, .wf_side_panel_frmgrp .wf_sidepanel_txt, .wf_side_panel_frmgrp .wf_sidepanel_txtarea, .wf_pklist_text_field{ display: block;width: 100%;font-size:.85rem;line-height:1.2;color: #495057;background-color: #fff;background-clip: padding-box;border:1px solid #ced4da;min-height:32px; border-radius:5px;}
+.wf_side_panel_frmgrp .wf_sidepanel_sele, .wf_side_panel_frmgrp .wf_sidepanel_txt, .wf_side_panel_frmgrp .wf_sidepanel_txtarea, .wf_pklist_text_field{ display: block;
+width: 100%;
+font-size:.85rem;
+line-height:1.2;
+color: #495057;
+background-color: #fff;
+background-clip: padding-box;
+border:1px solid #ced4da;
+min-height:32px; border-radius:5px;}
 .wf_side_panel_frmgrp .wf_sidepanel_sele{ height:32px; } /* google chrome min height issue */
 .wf_inptgrp{ float:left; width:100%; margin-top:0px; }
 .wf_inptgrp input[type="text"]{ float:left; width:75%; border-top-right-radius:0; border-bottom-right-radius:0; }
@@ -48,9 +56,6 @@ if (!defined('ABSPATH')) {
 .wf_customize_vis_container{ float:left; width:100%; box-sizing:border-box; padding:2%; min-height:500px;}
 .wf_customize_code_container{ float:left; width:100%; min-height:500px; display:none; }
 
-.CodeMirror{ box-sizing:content-box; min-height:500px; }
-.CodeMirror *{ box-sizing:content-box; }
-.CodeMirror.cm-s-default{ min-height:500px; height:auto; }
 
 .wf_dropdown{ position:absolute; z-index:100; background:#fff; border:solid 1px #eee; padding:0px; display:none; }
 .wf_dropdown li{ padding:10px 10px; margin-bottom:0px; cursor:pointer; }
@@ -63,7 +68,7 @@ if (!defined('ABSPATH')) {
 .wf_default_template_list_item_hd{ width:100%; display:inline-block; padding:10px 0px; text-align:center; font-weight:bold; }
 .wf_default_template_list_btn_main{ width:100%; display:inline-block; padding:5px 0px; text-align:center; }
 
-.wf_template_name{width:100%; max-width:310px;}
+.wf_template_name{width:100%; max-width:300px;}
 .wf_template_name_box{ float:left; width:90%; padding:5%; }
 .wf_template_name_wrn{display:none; }
 
@@ -81,12 +86,24 @@ if (!defined('ABSPATH')) {
 .wfte_text_left{text-align:left !important; }
 .wfte_text_center{text-align:center !important; }
 
-.wf_customize_sidebar{max-height: 1047px;height: auto;overflow: scroll;margin-bottom: 1em;}
-.template_element_hover{cursor: pointer;background: rgb(245, 245, 245);padding: 0.5em;border: 1px dotted #ccc;}
-.customizer_template_warning_div{float: left; width: 70%;display: none;}
-.customizer_template_warning_div .notice-error{margin: 0;}
-.wt_pklist_dc_save_activate_btn {background: #5abd70;color: #fff;font-size: 13px;line-height: 2.15384615;min-height: 30px;margin: 0;padding: 0 10px;cursor: pointer;border-width: 1px;border-style: solid;border-radius: 3px;border: navajowhite;white-space: nowrap;box-sizing: border-box;}
+.template_element_hover{
+	cursor: pointer;
+	background: rgb(245, 245, 245);
+	padding: 0.5em;
+    border: 1px dotted #ccc;
+}
 </style>
+<?php
+	if($template_type == "invoice"){?>
+		<style type="text/css">
+			.wf_customize_sidebar{
+			    height: 800px;
+				overflow: scroll;
+			}
+		</style>
+<?php
+	}
+?>
 <div class="wf_cst_loader wf_loader_bg"></div>
 
 
@@ -148,28 +165,25 @@ if (!defined('ABSPATH')) {
 		foreach($def_template_arr as $def_template)
 		{
 			?>
-			<div class="wf_default_template_list_item" data-id="<?php echo esc_attr($def_template_id);?>">
-				<span class="wf_default_template_list_item_hd"><?php echo esc_html($def_template['title']);?></span>
+			<div class="wf_default_template_list_item" data-id="<?php echo $def_template_id;?>">
+				<span class="wf_default_template_list_item_hd"><?php echo $def_template['title'];?></span>
 					<?php
-					if(isset($def_template['preview_img']) && "" !== $def_template['preview_img'])
+					if(isset($def_template['preview_img']) && $def_template['preview_img']!="")
 					{
-						if(isset($def_template['pro_template_url']) && "" !== $def_template['pro_template_url']){
-							?>
-							<img src="<?php echo esc_url($def_template['pro_template_url'].$def_template['preview_img']);?>">
-							<?php
-						}else{
-							?>
-							<img src="<?php echo esc_url($def_template_url.$def_template['preview_img']);?>">
-							<?php
-						}
-						?>	
+						?>
+						<img src="<?php echo $def_template_url.$def_template['preview_img'];?>">	
 						<?php
-					}elseif(isset($def_template['preview_html']) && "" !== $def_template['preview_html'])
+					}elseif(isset($def_template['preview_html']) && $def_template['preview_html']!="")
 					{
 						echo $def_template['preview_html'];
 					}
 					?>		
 					<span class="wf_default_template_list_btn_main">
+						<!--
+						<button type="button" name="" class="button-primary">
+							<?php _e('Use','print-invoices-packing-slip-labels-for-woocommerce');?>
+						</button>
+						-->
 					</span>				
 			</div>
 			<?php
@@ -181,18 +195,15 @@ if (!defined('ABSPATH')) {
 
 <div class="wf_cst_headbar">
 	<div style="float:left;">
-		<h3 class="wf_cst_theme_name"><?php echo esc_html($active_template_name);?></h3>
+		<h3 class="wf_cst_theme_name"><?php echo $active_template_name;?></h3>
 		<?php
 		$tooltip_conf=Wf_Woocommerce_Packing_List_Admin::get_tooltip_configs('create_new_template',Wf_Woocommerce_Packing_List_Customizer::$module_id_static);
 		?>
-		<a class="wf_pklist_new_template <?php echo esc_attr($tooltip_conf['class']); ?>" style="float:left; width:100%; padding-left:15px; cursor:pointer;" <?php echo $tooltip_conf['text']; ?>><?php _e('Create new template','print-invoices-packing-slip-labels-for-woocommerce');?></a>
+		<a class="wf_pklist_new_template <?php echo $tooltip_conf['class']; ?>" style="float:left; width:100%; padding-left:15px; cursor:pointer;" <?php echo $tooltip_conf['text']; ?>><?php _e('Create new template','print-invoices-packing-slip-labels-for-woocommerce');?></a>
 	</div> 	
 	<div style="float:right; margin-top:22px; margin-right:-15px;">			
 		<button type="button" name="" class="button-primary wf_pklist_save_theme" style="height: 28px;margin-right: 5px;">
-			<?php _e('Save','print-invoices-packing-slip-labels-for-woocommerce');?>
-		</button>
-		<button type="button" class="wt_pklist_dc_save_activate_btn" style="display:none;">
-			<?php _e('Save and activate', 'print-invoices-packing-slip-labels-for-woocommerce');?>
+				<span class="dashicons dashicons-yes" style="line-height: 28px;"></span><?php _e('Save','print-invoices-packing-slip-labels-for-woocommerce');?>
 		</button>
 		<button type="button" name="" class="button-secondary" style="margin-right: 5px;" onclick="window.location.reload(true);">
 		<span class="dashicons dashicons-no-alt" style="line-height: 28px;"></span> 
@@ -201,18 +212,16 @@ if (!defined('ABSPATH')) {
 		<?php
 		$tooltip_conf=Wf_Woocommerce_Packing_List_Admin::get_tooltip_configs('dropdown_menu',Wf_Woocommerce_Packing_List_Customizer::$module_id_static);
 		?>
-		<button type="button" name="" class="button-secondary wf_customizer_drp_menu <?php echo esc_attr($tooltip_conf['class']); ?>" style="height: 28px;" <?php echo $tooltip_conf['text']; ?>>
-			<span class="dashicons dashicons-menu" style="line-height: 28px;"></span>
+		<button type="button" name="" class="button-secondary wf_customizer_drp_menu <?php echo $tooltip_conf['class']; ?>" style="height: 28px;" <?php echo $tooltip_conf['text']; ?>>
+				<span class="dashicons dashicons-menu" style="line-height: 28px;"></span>
 		</button>
 		<ul class="wf_dropdown" data-target="wf_customizer_drp_menu">
-			<li class="wf_activate_theme wf_activate_theme_current" data-id="<?php echo esc_attr($active_template_id);?>"><?php _e('Activate','print-invoices-packing-slip-labels-for-woocommerce');?></li>
-			<li class="wf_delete_theme wf_delete_theme_current" data-id="<?php echo esc_attr($active_template_id);?>"><?php _e('Delete','print-invoices-packing-slip-labels-for-woocommerce');?></li>
+			<li class="wf_activate_theme wf_activate_theme_current" data-id="<?php echo $active_template_id;?>"><?php _e('Activate','print-invoices-packing-slip-labels-for-woocommerce');?></li>
+			<li class="wf_delete_theme wf_delete_theme_current" data-id="<?php echo $active_template_id;?>"><?php _e('Delete','print-invoices-packing-slip-labels-for-woocommerce');?></li>
 			<li class="wf_pklist_new_template"><?php _e('Create new','print-invoices-packing-slip-labels-for-woocommerce');?></li>
 			<li class="wf_pklist_my_templates"><?php _e('My templates','print-invoices-packing-slip-labels-for-woocommerce');?></li>
 		</ul>
 	</div>
-</div>
-<div class="customizer_template_warning_div">
 </div>
 <div class="wf_customizer_main">
 	<p class="template_qr_compatible_err" style="margin: 0 0 10px 0px;width: 68%;background: #ddd;padding: 10px;border-left: 5px solid red;font-size: 14px;display: none;"><?php echo __("This template is not comaptible with QR Code addon plugin","print-invoices-packing-slip-labels-for-woocommerce"); ?></p>
@@ -223,41 +232,12 @@ if (!defined('ABSPATH')) {
 			$template_qr_compatible_err_val = 2;
 		}
 	?>
-	<input type="hidden" name="" id="template_qr_compatible_err_val" value="<?php echo esc_attr($template_qr_compatible_err_val); ?>">
+	<input type="hidden" name="" id="template_qr_compatible_err_val" value="<?php echo $template_qr_compatible_err_val; ?>">
 	<?php
 	if($enable_code_view)
 	{
-		$show_banner = false;
-		if(!empty($template_type)){
-			$template_addon_key = Wf_Woocommerce_Packing_List_Pro_Addons::wt_get_addon_key_by_template_type($template_type);
-			$dismiss_banner_arr = Wf_Woocommerce_Packing_List_Pro_Addons::wt_pklist_get_cta_banners('adc_cta_banner_in_customizer_tab');
-			if(!empty($template_addon_key)){
-				if(true === Wf_Woocommerce_Packing_List_Admin::wt_plugin_active($template_addon_key) && false === Wf_Woocommerce_Packing_List_Admin::wt_plugin_active('wt_adc_addon')){
-					if(empty($dismiss_banner_arr)){
-						$show_banner = true;
-					}elseif(isset($dismiss_banner_arr['type']) && "full" === $dismiss_banner_arr['type']){
-						$show_banner = true;
-					}elseif(isset($dismiss_banner_arr['type']) && "class" === $dismiss_banner_arr['type'] && isset($dismiss_banner_arr['value'])){
-						$banner_val = $dismiss_banner_arr['value'];
-						if(isset($banner_val['class']) && 'adc_cta_banner_in_customizer_tab' === $banner_val['class'] && isset($banner_val['status']) && 1 === absint($banner_val['status'])){
-							$show_banner = true;
-						}
-					}
-				}
-			}
-		}
 	?>
 	<div class="wf_customizer_tabhead_main">
-		<?php
-			if(true === $show_banner){
-				echo '<div class="adc_cta_banner_in_customizer_tab wt_pklist_dismissible_banner_div">
-					<p>'.__("Unlock limitless possibilities of invoice customization with the addon -",'print-invoices-packing-slip-labels-for-woocommerce').'
-					<a href="https://www.webtoffee.com/product/customizer-for-woocommerce-pdf-invoice/?utm_source=free_plugin_customizer_top&utm_medium=pdf_premium&utm_campaign=PDF_Customizer&utm_content='.WF_PKLIST_VERSION.'" target="_blank">'.__("Customizer for WooCommerce PDF Invoices Plugin","print-invoices-packing-slip-labels-for-woocommerce").'</a>
-					</p>
-					<button class="banner_dismiss notice-dismiss" data-banner-class="adc_cta_banner_in_customizer_tab" data-banner-interval="0" data-banner-action="0"></button>
-				</div>';
-			}
-		?>
 		<div class="wf_customizer_tabhead_inner">
 			<div class="wf_cst_tabhead_vis wf_cst_tabhead" data-target="wf_customize_vis_container"><?php _e('Visual','print-invoices-packing-slip-labels-for-woocommerce');?></div>
 			<div class="wf_cst_tabhead_code wf_cst_tabhead" data-target="wf_customize_code_container"><?php _e('Code','print-invoices-packing-slip-labels-for-woocommerce');?></div>
@@ -271,12 +251,8 @@ if (!defined('ABSPATH')) {
 	<!--dummy code view for basic version -->
 	<div class="wf_customizer_tabhead_main">
 		<div class="wf_customizer_tabhead_inner">
-			<div class="wf_cst_tabhead_vis wf_cst_tabhead <?php echo esc_attr($tooltip_conf['class']); ?>" data-target="wf_customize_vis_container" <?php echo $tooltip_conf['text']; ?>><?php _e('Visual','print-invoices-packing-slip-labels-for-woocommerce');?></div>
-			<?php if(apply_filters('wt_pklist_show_code_view_al',true,$template_type)){
-				?>
-				<div class="wf_cst_tabhead_code wf_cst_tabhead" data-target="wf_customize_vis_container" style="opacity:.5; cursor:not-allowed;"><?php _e('Code','print-invoices-packing-slip-labels-for-woocommerce');?> <span style="color:red;">(<?php _e('Pro version','print-invoices-packing-slip-labels-for-woocommerce');?>)</span></div>
-				<?php
-			}?>
+			<div class="wf_cst_tabhead_vis wf_cst_tabhead <?php echo $tooltip_conf['class']; ?>" data-target="wf_customize_vis_container" <?php echo $tooltip_conf['text']; ?>><?php _e('Visual','print-invoices-packing-slip-labels-for-woocommerce');?></div>
+			<div class="wf_cst_tabhead_code wf_cst_tabhead" data-target="wf_customize_vis_container" style="opacity:.5; cursor:not-allowed;"><?php _e('Code','print-invoices-packing-slip-labels-for-woocommerce');?> <span style="color:red;">(<?php _e('Pro version','print-invoices-packing-slip-labels-for-woocommerce');?>)</span></div>
 		</div>
 	</div>
 	<?php

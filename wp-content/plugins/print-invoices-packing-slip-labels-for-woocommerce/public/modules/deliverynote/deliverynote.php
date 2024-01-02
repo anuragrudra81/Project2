@@ -13,26 +13,24 @@ if (!defined('ABSPATH')) {
 
 class Wf_Woocommerce_Packing_List_Deliverynote
 {
-	public $module_id		= '';
-	public $module_base		= 'deliverynote';
-	public $module_title 	= '';
-    private $customizer		= null;
-
+	public $module_id='';
+	public $module_base='deliverynote';
+    private $customizer=null;
 	public function __construct()
 	{
-		$this->module_id	= Wf_Woocommerce_Packing_List::get_module_id($this->module_base);
-		$this->module_title	= __("Delivery note","print-invoices-packing-slip-labels-for-woocommerce");
-		/* @since 4.0.0 add admin menu */
-		add_filter('wt_admin_menu', array($this,'add_admin_pages'),10,1);
+		$this->module_id=Wf_Woocommerce_Packing_List::get_module_id($this->module_base);
 		add_filter('wf_module_default_settings',array($this,'default_settings'),10,2);
 
 		//hook to generate template html
-		add_filter('wf_module_generate_template_html_for_'.$this->module_base, array($this,'generate_template_html'),10,6);
+		add_filter('wf_module_generate_template_html', array($this,'generate_template_html'),10,6);
 
 		//hide empty fields on template
 		add_filter('wf_pklist_alter_hide_empty', array($this,'hide_empty_elements'),10,6);
 
 		add_action('wt_print_doc', array($this,'print_it'),10,2);
+
+		/* hook to save settings (Via Ajax) */
+		add_action('wt_pklist_document_save_settings', array($this,'save_settings'),10,2);
 
 		//filter to alter settings
 		add_filter('wf_pklist_alter_settings',array($this,'alter_settings'),10,2);		
@@ -44,13 +42,13 @@ class Wf_Woocommerce_Packing_List_Deliverynote
 		//initializing customizer		
 		$this->customizer=Wf_Woocommerce_Packing_List::load_modules('customizer');
 
-		add_filter('wt_print_actions',array($this,'add_print_buttons'),10,4);
+		add_filter('wf_pklist_document_setting_fields',array($this,'admin_settings_page'),10,1);
+		add_filter('wt_print_metabox',array($this,'add_metabox_data'),10,3);
+		add_filter('wt_print_actions',array($this,'add_print_buttons'),10,3);
 		add_filter('wt_print_bulk_actions',array($this,'add_bulk_print_buttons'));
 
 		add_filter('wf_pklist_alter_find_replace',array($this,'alter_find_replace'),10,5);
 		add_filter('wt_pklist_alter_tooltip_data',array($this,'register_tooltips'),1);
-		add_filter('wt_pklist_individual_print_button_for_document_types',array($this,'add_individual_print_button_in_admin_order_listing_page'),10,1);
-		add_filter('woocommerce_admin_order_actions_end',array($this,'document_print_btn_on_wc_order_listing_action_column'),10,1);
 	}
 
 	/**
@@ -59,36 +57,20 @@ class Wf_Woocommerce_Packing_List_Deliverynote
 	*/
 	public function register_tooltips($tooltip_arr)
 	{
-		include(plugin_dir_path( __FILE__ ).'data/data.tooltip.php');
-		$tooltip_arr[$this->module_id]=$arr;
-		return $tooltip_arr;
-	}
-
-	/**
-	* 	Add admin menu
-	*	@since 	2.6.9
-	*/
-	public function add_admin_pages($menus)
-	{
-		$menus[]=array(
-			'submenu',
-			WF_PKLIST_POST_TYPE,
-			__('Delivery note','print-invoices-packing-slip-labels-for-woocommerce'),
-			__('Delivery note','print-invoices-packing-slip-labels-for-woocommerce'),
-			'manage_woocommerce',
-			$this->module_id,
-			array($this,'admin_settings_page')
+		$tooltip_arr[$this->module_id]=array(
+			$this->module_id.'[woocommerce_wf_attach_image_deliverynote]'=>__('Enable to include product image in the document.','print-invoices-packing-slip-labels-for-woocommerce'),
+			$this->module_id.'[woocommerce_wf_add_customer_note_in_deliverynote]'=>__('Enable to display the customer\'s note in the document.','print-invoices-packing-slip-labels-for-woocommerce'),
+			$this->module_id.'[woocommerce_wf_packinglist_footer_dn]'=>__('Enable to display footer content in the document.','print-invoices-packing-slip-labels-for-woocommerce'),
 		);
-		return $menus;
+		return $tooltip_arr;
 	}
 
 	public function alter_find_replace($find_replace,$template_type,$order,$box_packing,$order_package)
 	{
-		$is_pro_customizer = apply_filters('wt_pklist_pro_customizer_'.$this->module_base,false,$this->module_base);
-		if($template_type === $this->module_base && !$is_pro_customizer)
+		if($template_type==$this->module_base)
 		{
 			$is_footer=Wf_Woocommerce_Packing_List::get_option('woocommerce_wf_packinglist_footer_dn',$this->module_id);
-			if("Yes" !== $is_footer)
+			if($is_footer!='Yes')
 			{
 				$find_replace['wfte_footer']='wfte_hidden';
 			}
@@ -96,12 +78,11 @@ class Wf_Woocommerce_Packing_List_Deliverynote
 		return $find_replace;
 	}
 	public function alter_product_table_head($columns_list_arr,$template_type,$order)
-	{	
-		$is_pro_customizer = apply_filters('wt_pklist_pro_customizer_'.$this->module_base,false,$this->module_base);
-		if($template_type === $this->module_base && !$is_pro_customizer)
+	{
+		if($template_type==$this->module_base)
 		{
 			$is_image_enabled=Wf_Woocommerce_Packing_List::get_option('woocommerce_wf_attach_image_'.$this->module_base,$this->module_id);
-			if("No" === $is_image_enabled)
+			if($is_image_enabled=='No')
 			{				
 				if(isset($columns_list_arr['image'])) //image column exists
 				{
@@ -121,20 +102,19 @@ class Wf_Woocommerce_Packing_List_Deliverynote
 	}
 	public function alter_option($vl,$settings,$option_name,$base_id)
 	{
-        $is_pro_customizer = apply_filters('wt_pklist_pro_customizer_'.$this->module_base,false,$this->module_base);
-		if($base_id === $this->module_id && !$is_pro_customizer)
+		if($base_id==$this->module_id)
 		{
-			if('wf_'.$this->module_base.'_contactno_email' === $option_name && is_array($vl))
+			if($option_name=='wf_'.$this->module_base.'_contactno_email')
 			{
-				if("Yes" === $settings['woocommerce_wf_add_customer_note_in_'.$this->module_base])
+				if($settings['woocommerce_wf_add_customer_note_in_'.$this->module_base]=='Yes')
 				{
-					if(false === array_search('cus_note',$vl))
+					if(array_search('cus_note',$vl)===false)
 					{
 						$vl[]='cus_note';
 					}
 				}else
 				{
-					if(false !== ($key=array_search('cus_note',$vl)))
+					if(($key=array_search('cus_note',$vl))!==false)
 					{
 						unset($vl[$key]);
 					}
@@ -145,20 +125,18 @@ class Wf_Woocommerce_Packing_List_Deliverynote
 	}
 	public function alter_settings($settings,$base_id)
 	{
-        $is_pro_customizer = apply_filters('wt_pklist_pro_customizer_'.$this->module_base,false,$this->module_base);
-		if($base_id === $this->module_id && !$is_pro_customizer)
+		if($base_id==$this->module_id)
 		{
 			$vl=$settings['wf_'.$this->module_base.'_contactno_email'];
-			$vl = is_array($vl) ? $vl : array();
-			if("Yes" === $settings['woocommerce_wf_add_customer_note_in_'.$this->module_base])
+			if($settings['woocommerce_wf_add_customer_note_in_'.$this->module_base]=='Yes')
 			{
-				if(false === array_search('cus_note',$vl))
+				if(array_search('cus_note',$vl)===false)
 				{
 					$vl[]='cus_note';
 				}
 			}else
 			{
-				if(false !== ($key=array_search('cus_note',$vl)))
+				if(($key=array_search('cus_note',$vl))!==false)
 				{
 					unset($vl[$key]);
 				}
@@ -170,7 +148,7 @@ class Wf_Woocommerce_Packing_List_Deliverynote
 
 	public function hide_empty_elements($hide_on_empty_fields,$template_type)
 	{
-		if($template_type === $this->module_base)
+		if($template_type==$this->module_base)
 		{
 			$hide_on_empty_fields[]='wfte_qr_code';
 			$hide_on_empty_fields[]='wfte_box_name';
@@ -178,15 +156,48 @@ class Wf_Woocommerce_Packing_List_Deliverynote
 		return $hide_on_empty_fields;
 	}
 
-	public function admin_settings_page()
-	{	
-		wp_enqueue_script('wc-enhanced-select');
-		wp_enqueue_style('woocommerce_admin_styles',WC()->plugin_url().'/assets/css/admin.css');
-		wp_enqueue_media();
-		do_action('wt_pklist_customizer_enable',$this->module_id,$this->module_base);
-		$template_type = $this->module_base;
-		include_once WF_PKLIST_PLUGIN_PATH.'/admin/views/premium_extension_listing.php';
-		include(plugin_dir_path( __FILE__ ).'views/admin-settings.php');
+	public function save_settings()
+	{
+		$the_options=Wf_Woocommerce_Packing_List::get_settings($this->module_id);
+		//save settings
+		foreach($the_options as $key => $value) 
+        {
+            if(isset($_POST[$this->module_id][$key]))
+            {
+            	$the_options[$key]=$this->validate_settings_data($_POST[$this->module_id][$key],$key);
+            }
+        }
+        $the_options['wf_'.$this->module_base.'_contactno_email']=array('contact_number','email');
+        Wf_Woocommerce_Packing_List::update_settings($the_options,$this->module_id);
+	    // save settings
+	}
+
+	public function validate_settings_data($val,$key)
+	{
+		switch ($key) 
+		{
+			case 'woocommerce_wf_attach_image_deliverynote':
+			case 'woocommerce_wf_add_customer_note_in_deliverynote':
+			case 'woocommerce_wf_packinglist_footer_dn':
+			case 'woocommerce_wf_packinglist_variation_data':
+				$val=sanitize_text_field($val);
+			break;
+			case 'wf_'.$this->module_base.'_contactno_email':
+				$val=array_map('sanitize_text_field',$val);
+			break;
+			default:
+				
+			break;
+		}
+		return $val;
+	}
+
+	public function admin_settings_page($html)
+	{
+		ob_start();
+		include(plugin_dir_path( __FILE__ ).'views/general.php');
+		$html.=ob_get_clean();
+		return $html;
 	}
 
 	/**
@@ -194,13 +205,11 @@ class Wf_Woocommerce_Packing_List_Deliverynote
 	 */
 	public function generate_template_html($find_replace,$html,$template_type,$order,$box_packing=null,$order_package=null)
 	{
-
-        $is_pro_customizer = apply_filters('wt_pklist_pro_customizer_'.$this->module_base,false,$this->module_base);
-		if($template_type === $this->module_base && !$is_pro_customizer)
+		if($template_type==$this->module_base)
 		{
 			$find_replace=Wf_Woocommerce_Packing_List_CustomizerLib::set_billing_address($find_replace,$template_type,$order);		
-			$find_replace=Wf_Woocommerce_Packing_List_CustomizerLib::set_shipping_address($find_replace,$template_type,$order);
-			$find_replace=Wf_Woocommerce_Packing_List_CustomizerLib::set_default_order_fields($find_replace,$template_type,$html,$order);
+			$find_replace=Wf_Woocommerce_Packing_List_CustomizerLib::set_shipping_address($find_replace,$template_type,$order);					
+			$find_replace=Wf_Woocommerce_Packing_List_CustomizerLib::package_doc_items($find_replace,$template_type,$order,$box_packing,$order_package);
 			$find_replace=Wf_Woocommerce_Packing_List_CustomizerLib::set_product_table($find_replace,$template_type,$html,$order,$box_packing,$order_package);		
 			$find_replace=Wf_Woocommerce_Packing_List_CustomizerLib::set_other_data($find_replace,$template_type,$html,$order);		
 			$find_replace=Wf_Woocommerce_Packing_List_CustomizerLib::set_order_data($find_replace,$template_type,$html,$order);		
@@ -211,7 +220,7 @@ class Wf_Woocommerce_Packing_List_Deliverynote
 
 	public function default_settings($settings,$base_id)
 	{
-		if($base_id === $this->module_id)
+		if($base_id==$this->module_id)
 		{
 			return array(
 				'woocommerce_wf_attach_image_deliverynote'=>'Yes',
@@ -225,73 +234,48 @@ class Wf_Woocommerce_Packing_List_Deliverynote
 			return $settings;
 		}
 	}
-
 	public function add_bulk_print_buttons($actions)
 	{
 		$actions['print_deliverynote']=__('Print Delivery note','print-invoices-packing-slip-labels-for-woocommerce');
 		return $actions;
 	}
-
-	public function add_print_buttons($item_arr, $order, $order_id, $button_location)
+	public function add_print_buttons($html,$order,$order_id)
 	{
-		if("detail_page" === $button_location)
-		{
-			$item_arr['deliverynote_details_actions']=array(
-				'button_type'=>'aggregate',
-				'button_key'=>'deliverynote_actions', //unique if multiple on same page
-				'button_location'=>$button_location,
-				'action'=>'',
-				'label'=>__('Delivery note','print-invoices-packing-slip-labels-for-woocommerce'),
-				'tooltip'=>__('Print/Download Delivery note','print-invoices-packing-slip-labels-for-woocommerce'),
-				'is_show_prompt'=>0, //always 0
-				'items'=>array(
-					'print_deliverynote' => array(  
-						'action'=>'print_deliverynote',
-						'label'=>__('Print','print-invoices-packing-slip-labels-for-woocommerce'),
-						'tooltip'=>__('Print Delivery note','print-invoices-packing-slip-labels-for-woocommerce'),
-						'is_show_prompt'=>0,
-						'button_location'=>$button_location,						
-					),
-				),
-				'exist' => Wf_Woocommerce_Packing_List_Admin::check_doc_already_created($order,$order_id,'deliverynote'),
-			);
-		}else
-		{
-			$item_arr[]=array(
-				'action'=>'print_deliverynote',
-				'label'=>__('Print Delivery note','print-invoices-packing-slip-labels-for-woocommerce'),
-				'tooltip'=>__('Print Delivery note','print-invoices-packing-slip-labels-for-woocommerce'),
-				'is_show_prompt'=>0,
-				'button_location'=>$button_location,
-			);
-		}
-
-		return $item_arr;
+		$this->generate_print_button_data($order,$order_id,"list_page");
+		return $html;
 	}
+	private function generate_print_button_data($order,$order_id,$button_location="detail_page")
+	{
+		$icon_url=plugin_dir_url(__FILE__).'/assets/images/deliverynote-icon.png';
+		$label_txt=__('Print Delivery note','print-invoices-packing-slip-labels-for-woocommerce');
+		Wf_Woocommerce_Packing_List_Admin::generate_print_button_data($order,$order_id,'print_deliverynote',$label_txt,$icon_url,0,$button_location);
+	}
+	public function add_metabox_data($html,$order,$order_id)
+	{
+		$this->generate_print_button_data($order,$order_id);
+		return $html;
+	}
+	
 	/* 
 	* Print_window for deliverynote
 	* @param $orders : order ids
 	*/    
     public function print_it($order_ids,$action) 
     {
-    	$is_pro_customizer = apply_filters('wt_pklist_pro_customizer_'.$this->module_base,false,$this->module_base);
-        if(!$is_pro_customizer)
-        {
-        	if("print_deliverynote" === $action)
-	    	{   
-	    		if(!is_array($order_ids))
-	    		{
-	    			return;
-	    		}    
-		        if(!is_null($this->customizer))
-		        {
-		        	$pdf_name=$this->customizer->generate_pdf_name($this->module_base,$order_ids);
-		        	$html=$this->generate_order_template($order_ids,$pdf_name);
-		        	echo $html;
-		        }
-		        exit();
-	    	}
-        }
+    	if($action=='print_deliverynote')
+    	{   
+    		if(!is_array($order_ids))
+    		{
+    			return;
+    		}    
+	        if(!is_null($this->customizer))
+	        {
+	        	$pdf_name=$this->customizer->generate_pdf_name($this->module_base,$order_ids);
+	        	$html=$this->generate_order_template($order_ids,$pdf_name);
+	        	echo $html;
+	        }
+	        exit();
+    	}
     }
     public function generate_order_template($orders,$page_title)
     {
@@ -301,18 +285,18 @@ class Wf_Woocommerce_Packing_List_Deliverynote
     	$style_blocks=$this->customizer->get_style_blocks($html);
     	$html=$this->customizer->remove_style_blocks($html,$style_blocks);
     	$out='';
-    	if("" !== $html)
+    	if($html!="")
     	{
-    		if (!class_exists('Wf_Woocommerce_Packing_List_Box_packing_Basic')) {
+    		if (!class_exists('Wf_Woocommerce_Packing_List_Box_packing')) {
 		        include_once WF_PKLIST_PLUGIN_PATH.'includes/class-wf-woocommerce-packing-list-box_packing.php';
 		    }
-	        $box_packing=new Wf_Woocommerce_Packing_List_Box_packing_Basic();
+	        $box_packing=new Wf_Woocommerce_Packing_List_Box_packing();
 	        $out_arr=array();
-	        foreach($orders as $order_id)
+	        foreach ($orders as $order_id)
 	        {
 	        	$order = ( WC()->version < '2.7.0' ) ? new WC_Order($order_id) : new wf_order($order_id);
 				$order_packages=null;
-				$order_packages=$box_packing->wf_pklist_create_order_single_package($order, $template_type);
+				$order_packages=$box_packing->create_order_package($order, $template_type);
 				$number_of_order_package=count($order_packages);
 				if(!empty($order_packages)) 
 				{
@@ -337,53 +321,5 @@ class Wf_Woocommerce_Packing_List_Deliverynote
     	}
     	return $out;
     }
-
-	/**
-	 * Add the document type as one of the options for the individual print button access 
-	 *
-	 * @param array $documents
-	 * @return array
-	 */
-	public function add_individual_print_button_in_admin_order_listing_page($documents) {
-		if( !in_array( $this->module_base, $documents ) ) {
-			$documents[$this->module_base] = __("Delivery note","print-invoices-packing-slip-labels-for-woocommerce");
-		}
-		return $documents;
-	}
-
-	/**
-	 * Add document print button as per the 'wt_pklist_separate_print_button_enable' value
-	 *
-	 * @since 4.2.0
-	 * @param object $order
-	 * @return void
-	 */
-	public function document_print_btn_on_wc_order_listing_action_column( $order ) {
-		$show_print_button	= apply_filters('wt_pklist_show_document_print_button_action_column',true,$this->module_base);
-		
-		if( !empty( $order ) && true === $show_print_button ) {
-			$order_id	= ( WC()->version < '2.7.0' ) ? $order->id : $order->get_id();
-			
-			if( in_array( $this->module_base, Wf_Woocommerce_Packing_List::get_option( 'wt_pklist_separate_print_button_enable' ) ) ) {
-				$btn_action_name 	= 'wt_pklist_print_document_'.$this->module_base.'_not_yet';
-				$img_url 			= WF_PKLIST_PLUGIN_URL . 'admin/images/'.$this->module_base.'.png';
-				$order_docs			= Wt_Pklist_Common::get_order_meta( $order_id, '_created_document', true );
-				$order_docs_old		= Wt_Pklist_Common::get_order_meta( $order_id, '_created_document_old', true );
-				
-				if( ( !empty( $order_docs ) && in_array( $this->module_base, $order_docs ) ) || ( !empty( $order_docs_old ) && in_array( $this->module_base, $order_docs_old ) ) ) {
-					$btn_action_name	= 'wt_pklist_print_document_'.$this->module_base;
-					$img_url 			= WF_PKLIST_PLUGIN_URL . 'admin/images/'.$this->module_base.'_logo.png';
-				}
-
-				$action 		= 'print_'.$this->module_base;
-				$action_title 	= sprintf( '%1$s %2$s',
-					__("Print","print-invoices-packing-slip-labels-for-woocommerce"),
-					$this->module_title
-					);
-				$print_url		= Wf_Woocommerce_Packing_List_Admin::get_print_url($order_id,$action);
-				echo '<a title="'.esc_attr($action_title).'" class="button wc-action-button wc-action-button-'.esc_attr($btn_action_name).' '.esc_attr($btn_action_name).' wt_pklist_action_btn" href="'.esc_url_raw($print_url).'" aria-label="'.esc_attr($action_title).'" target="_blank" style="padding:5px;"><img src="'.esc_url($img_url).'"></a>';
-			}
-		}
-	}
 }
 new Wf_Woocommerce_Packing_List_Deliverynote();

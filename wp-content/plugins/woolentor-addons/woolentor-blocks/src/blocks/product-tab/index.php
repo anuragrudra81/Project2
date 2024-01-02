@@ -7,13 +7,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	$product_style 	= $settings['style'];
 	$columns 		= $settings['columns']['desktop'];
 	$rows 			= $settings['rows'];
-	$customClass 	= !empty( $settings['className'] ) ? esc_attr( $settings['className'] ) : '';
+	$customClass 	= !empty( $settings['className'] ) ? $settings['className'] : '';
 	$proslider 		= $settings['slider'] ? 'yes' : 'no';
 	$producttab 	= $settings['productTab'] ? 'yes' : 'no';
 
 	$product_type 	= $settings['productFilterType'];
 	$per_page 		= $settings['perPage'];
 	$custom_order 	= $settings['customOrder'];
+
 	$query_args = array(
 		'per_page' => $per_page,
 		'product_type' => $product_type

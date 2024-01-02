@@ -48,6 +48,9 @@ mc4wp_register_integration( 'give', 'MC4WP_Give_Integration' );
 
 
 mc4wp_register_integration( 'custom', 'MC4WP_Custom_Integration', true );
-require __DIR__ . '/ninja-forms/bootstrap.php';
-require __DIR__ . '/wpforms/bootstrap.php';
-require __DIR__ . '/gravity-forms/bootstrap.php';
+$dir = __DIR__;
+require $dir . '/ninja-forms/bootstrap.php';
+require $dir . '/wpforms/bootstrap.php';
+require $dir . '/gravity-forms/bootstrap.php';
+
+

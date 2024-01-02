@@ -4,13 +4,10 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 $order_meta_selected_list = Wf_Woocommerce_Packing_List::get_option('wf_additional_data_fields');
-$first_meta_key = "";
-if(is_array($order_meta_selected_list) && !empty($order_meta_selected_list)){
-    $first_meta_key = function_exists('array_key_first') ? array_key_first($order_meta_selected_list): key( array_slice( $order_meta_selected_list, 0, 1, true ) );
-}
-if (null === $first_meta_key || "" === $first_meta_key) {
-     $meta_key_label = "";
-}else {
+$first_meta_key = array_key_first($order_meta_selected_list);
+if (null === $first_meta_key) {
+    $meta_key_label = "";
+} else {
     $meta_key_label = $order_meta_selected_list[$first_meta_key];
 }
 ?>
@@ -44,9 +41,9 @@ if (null === $first_meta_key || "" === $first_meta_key) {
     		?>
     	</div>
     	<div class='wt_pklist_custom_field_tab_form_row'>
-			<div style='width:48%; float:left;'><?php _e('Field Name', 'print-invoices-packing-slip-labels-for-woocommerce'); ?><i style="color:red;">*</i>: <input type='text' name='wt_pklist_new_custom_field_title' value="<?php echo esc_attr($meta_key_label); ?>" data-required="1" style='width:100%'/></div>
+			<div style='width:48%; float:left;'><?php _e('Field Name', 'print-invoices-packing-slip-labels-for-woocommerce'); ?><i style="color:red;">*</i>: <input type='text' name='wt_pklist_new_custom_field_title' value="<?php echo $meta_key_label; ?>" data-required="1" style='width:100%'/></div>
 			<div style='width:48%; float:right;'><?php _e('Meta Key', 'print-invoices-packing-slip-labels-for-woocommerce'); ?><i style="color:red;">*</i>: 
-				<input type="text" value="<?php echo esc_attr($first_meta_key); ?>" name="wt_pklist_new_custom_field_key" class="wt_pklist_new_custom_field_key" oninput="do_auto_complete()">
+				<input type="text" value="<?php echo $first_meta_key; ?>" name="wt_pklist_new_custom_field_key" class="wt_pklist_new_custom_field_key" oninput="do_auto_complete()">
 			</div>
 		</div>
 		<div class='wt_pklist_custom_field_tab_form_row wfte_pro_order_meta_alert_box' style="display:none;">

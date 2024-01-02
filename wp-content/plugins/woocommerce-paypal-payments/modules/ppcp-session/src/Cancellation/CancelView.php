@@ -50,8 +50,7 @@ class CancelView {
 	 * @param string      $url The URL.
 	 * @param string|null $funding_source The ID of the funding source, such as 'venmo'.
 	 */
-	public function render_session_cancellation( string $url, ?string $funding_source ): string {
-		ob_start();
+	public function render_session_cancellation( string $url, ?string $funding_source ) {
 		?>
 		<p id="ppcp-cancel"
 			class="has-text-align-center ppcp-cancel"
@@ -63,17 +62,16 @@ class CancelView {
 			printf(
 					// translators: %3$ is funding source like "PayPal" or "Venmo", other placeholders are html tags for a link.
 				esc_html__(
-					'You are currently paying with %3$s. %4$s%1$sChoose another payment method%2$s.',
+					'You are currently paying with %3$s. If you want to cancel
+                            this process, please click %1$shere%2$s.',
 					'woocommerce-paypal-payments'
 				),
 				'<a href="' . esc_url( $url ) . '">',
 				'</a>',
-				esc_html( $name ),
-				'<br/>'
+				esc_html( $name )
 			);
 			?>
 		</p>
 		<?php
-		return (string) ob_get_clean();
 	}
 }

@@ -62,7 +62,7 @@
         <!-- Subscribe Banner Start -->
         <div class="woolentor-admin-subscribe">
             <div class="woolentor-admin-subscribe-content">
-                <h3 class="woolentor-admin-subscribe-title"><?php echo esc_html__('Subscribe and Get Offers','woolentor'); ?></h3>
+                <h2 class="woolentor-admin-subscribe-title"><?php echo esc_html__('Subscribe and Get Offers','woolentor'); ?></h2>
                 <p class="woolentor-admin-subscribe-text"><?php echo esc_html__('Sign up for our email list to get discounts, exclusive offers, the latest items, and news in your inbox.','woolentor');?></p>
             </div>
             <a href="https://hasthemes.com/subscribe-and-get-offers/" class="woolentor-admin-btn woolentor-admin-btn-primary" target="_blank"><?php echo esc_html__('Subscribe','woolentor'); ?></a>

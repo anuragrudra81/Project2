@@ -98,43 +98,6 @@ class Woolentor_Wl_Product_Filter_Widget extends Widget_Base {
             );
 
             $this->add_control(
-                'sort_by_none_lavel', 
-                [
-                    'label' => esc_html__( 'No Order label', 'woolentor' ),
-                    'type' => Controls_Manager::TEXT,
-                    'label_block' => true,
-                    'default' => esc_html__('None','woolentor'),
-                    'condition'=>[
-                        'wl_filter_type' => 'sort_by'
-                    ]
-                ]
-            );
-            $this->add_control(
-                'sort_by_asc_lavel', 
-                [
-                    'label' => esc_html__( 'Ascending order label', 'woolentor' ),
-                    'type' => Controls_Manager::TEXT,
-                    'label_block' => true,
-                    'default' => esc_html__('ASC','woolentor'),
-                    'condition'=>[
-                        'wl_filter_type' => 'sort_by'
-                    ]
-                ]
-            );
-            $this->add_control(
-                'sort_by_desc_lavel', 
-                [
-                    'label' => esc_html__( 'Descending order label', 'woolentor' ),
-                    'type' => Controls_Manager::TEXT,
-                    'label_block' => true,
-                    'default' => esc_html__('DESC','woolentor'),
-                    'condition'=>[
-                        'wl_filter_type' => 'sort_by'
-                    ]
-                ]
-            );
-
-            $this->add_control(
                 'show_hierarchical',
                 [
                     'label' => esc_html__( 'Hierarchical', 'woolentor' ),
@@ -518,32 +481,6 @@ class Woolentor_Wl_Product_Filter_Widget extends Widget_Base {
                 $this->end_controls_tab();
 
             $this->end_controls_tabs();
-
-        $this->end_controls_section();
-
-        // List Item Cross Icon Style Section
-        $this->start_controls_section(
-            'wlproduct_filter_list_item_cross_style',
-            [
-                'label' => esc_html__( 'Cross Icon', 'woolentor' ),
-                'tab' => Controls_Manager::TAB_STYLE,
-                'condition'=>[
-                    'wl_filter_type!'=>['search_form','price_by','sort_by','order_by']
-                ]
-            ]
-        );
-            
-            $this->add_control(
-                'choosen_icon_color',
-                [
-                    'label' => esc_html__( 'Color', 'woolentor' ),
-                    'type' => Controls_Manager::COLOR,
-                    'selectors' => [
-                        '{{WRAPPER}} .woolentor-filter-wrap ul li.wlchosen > a::before' => 'background-color: {{VALUE}}',
-                        '{{WRAPPER}} .woolentor-filter-wrap ul li.wlchosen > a::after' => 'background-color: {{VALUE}}',
-                    ],
-                ]
-            );
 
         $this->end_controls_section();
 
@@ -969,15 +906,12 @@ class Woolentor_Wl_Product_Filter_Widget extends Widget_Base {
 
                     <?php elseif( 'sort_by' === $filter_type ): 
                         $wlsort = ( isset( $_GET['wlsort'] ) && !empty( $_GET['wlsort'] ) ) ? $_GET['wlsort'] : '';
-                        $sort_by_none_lavel = isset( $settings['sort_by_none_lavel'] ) ? $settings['sort_by_none_lavel'] : 'None';
-                        $sort_by_asc_lavel = isset( $settings['sort_by_asc_lavel'] ) ? $settings['sort_by_asc_lavel'] : 'ASC';
-                        $sort_by_desc_lavel = isset( $settings['sort_by_desc_lavel'] ) ? $settings['sort_by_desc_lavel'] : 'DESC';
                     ?>
                         <div class="wl_sort_by_filter">
                             <select name="wl_sort">
-                                <option value="&wlsort=none"><?php echo esc_html__( $sort_by_none_lavel, 'woolentor' ); ?></option>
-                                <option value="&wlsort=ASC" <?php selected( 'ASC', $wlsort, true ); ?> ><?php echo esc_html__( $sort_by_asc_lavel, 'woolentor' ); ?></option>
-                                <option value="&wlsort=DESC" <?php selected( 'DESC', $wlsort, true ); ?> ><?php echo esc_html__( $sort_by_desc_lavel, 'woolentor' ); ?></option>
+                                <option value="&wlsort=none"><?php echo esc_html__( 'None', 'woolentor' ); ?></option>
+                                <option value="&wlsort=ASC" <?php selected( 'ASC', $wlsort, true ); ?> ><?php echo esc_html__( 'ASC', 'woolentor' ); ?></option>
+                                <option value="&wlsort=DESC" <?php selected( 'DESC', $wlsort, true ); ?> ><?php echo esc_html__( 'DESC', 'woolentor' ); ?></option>
                             </select>
                         </div>
                     <?php elseif( 'order_by' === $filter_type ):

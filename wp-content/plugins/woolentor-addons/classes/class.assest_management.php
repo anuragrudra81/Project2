@@ -43,9 +43,6 @@ class Assets_Management{
         add_action( 'wp_enqueue_scripts', [ $this, 'register_assets' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'register_assets' ] );
 
-        // Elementor Editor Scripts
-        add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'enqueue_elementor_editor' ] );
-
         // Frontend Scripts
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_frontend_scripts' ] );
 
@@ -347,13 +344,12 @@ class Assets_Management{
             $current_user  = wp_get_current_user();
             $localize_data = [
                 'ajaxurl'          => admin_url( 'admin-ajax.php' ),
-                'nonce'            => wp_create_nonce( 'woolentor_template_nonce' ),
                 'adminURL'         => admin_url(),
                 'elementorURL'     => admin_url( 'edit.php?post_type=elementor_library' ),
                 'version'          => WOOLENTOR_VERSION,
                 'pluginURL'        => plugin_dir_url( __FILE__ ),
                 'alldata'          => !empty( base::$template_info['templates'] ) ? base::$template_info['templates'] : array(),
-                'prolink'          => 'https://woolentor.com/pricing/',
+                'prolink'          => 'https://hasthemes.com/plugins/woolentor-pro-woocommerce-page-builder/?fd',
                 'prolabel'         => esc_html__( 'Pro', 'woolentor' ),
                 'loadingimg'       => WOOLENTOR_ADDONS_PL_URL . 'includes/admin/assets/images/loading.gif',
                 'message'          =>[
@@ -411,24 +407,7 @@ class Assets_Management{
 
     }
 
-    /**
-     * Elementor Editor Panenl Script
-     *
-     * @return void
-     */
-    public function enqueue_elementor_editor(){
-        wp_enqueue_script( 'woolentor-elementor-editor', WOOLENTOR_ADDONS_PL_URL . 'assets/js/woolentor-elementor-editor.js', ['jquery'], WOOLENTOR_VERSION, true );
 
-        // Localized data for elementor editor
-        wp_localize_script(
-            'woolentor-elementor-editor',
-            'woolentorSetting',
-            array(
-                'hasPro'     => is_plugin_active('woolentor-addons-pro/woolentor_addons_pro.php') ? true : false,
-                'proWidgets' => Widgets_Control::promotional_widget_list(),
-            )
-        );
-    }
 
 }
 

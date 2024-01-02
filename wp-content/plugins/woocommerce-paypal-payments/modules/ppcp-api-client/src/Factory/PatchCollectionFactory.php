@@ -71,15 +71,7 @@ class PatchCollectionFactory {
 			);
 			$operation          = $purchase_unit_from ? 'replace' : 'add';
 			$value              = $purchase_unit_to->to_array();
-
-			if ( ! isset( $value['shipping'] ) ) {
-				$shipping = $purchase_unit_from && null !== $purchase_unit_from->shipping() ? $purchase_unit_from->shipping() : null;
-				if ( $shipping ) {
-					$value['shipping'] = $shipping->to_array();
-				}
-			}
-
-			$patches[] = new Patch(
+			$patches[]          = new Patch(
 				$operation,
 				$path . "/@reference_id=='" . $purchase_unit_to->reference_id() . "'",
 				$value

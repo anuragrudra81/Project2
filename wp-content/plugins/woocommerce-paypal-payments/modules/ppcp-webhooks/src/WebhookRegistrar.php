@@ -45,11 +45,11 @@ class WebhookRegistrar {
 	private $rest_endpoint;
 
 	/**
-	 * The last webhook event storage.
+	 * The last webhook info storage.
 	 *
-	 * @var WebhookEventStorage
+	 * @var WebhookInfoStorage
 	 */
-	private $last_webhook_event_storage;
+	private $last_webhook_storage;
 
 	/**
 	 * The logger.
@@ -64,22 +64,22 @@ class WebhookRegistrar {
 	 * @param WebhookFactory          $webhook_factory The Webhook factory.
 	 * @param WebhookEndpoint         $endpoint The Webhook endpoint.
 	 * @param IncomingWebhookEndpoint $rest_endpoint The WordPress Rest API endpoint.
-	 * @param WebhookEventStorage     $last_webhook_event_storage The last webhook event storage.
+	 * @param WebhookInfoStorage      $last_webhook_storage The last webhook info storage.
 	 * @param LoggerInterface         $logger The logger.
 	 */
 	public function __construct(
 		WebhookFactory $webhook_factory,
 		WebhookEndpoint $endpoint,
 		IncomingWebhookEndpoint $rest_endpoint,
-		WebhookEventStorage $last_webhook_event_storage,
+		WebhookInfoStorage $last_webhook_storage,
 		LoggerInterface $logger
 	) {
 
-		$this->webhook_factory            = $webhook_factory;
-		$this->endpoint                   = $endpoint;
-		$this->rest_endpoint              = $rest_endpoint;
-		$this->last_webhook_event_storage = $last_webhook_event_storage;
-		$this->logger                     = $logger;
+		$this->webhook_factory      = $webhook_factory;
+		$this->endpoint             = $endpoint;
+		$this->rest_endpoint        = $rest_endpoint;
+		$this->last_webhook_storage = $last_webhook_storage;
+		$this->logger               = $logger;
 	}
 
 	/**
@@ -88,8 +88,6 @@ class WebhookRegistrar {
 	 * @return bool
 	 */
 	public function register(): bool {
-		$this->unregister();
-
 		$webhook = $this->webhook_factory->for_url_and_events(
 			$this->rest_endpoint->url(),
 			$this->rest_endpoint->handled_event_types()
@@ -104,7 +102,7 @@ class WebhookRegistrar {
 				self::KEY,
 				$created->to_array()
 			);
-			$this->last_webhook_event_storage->clear();
+			$this->last_webhook_storage->clear();
 			$this->logger->info( 'Webhooks subscribed.' );
 			return true;
 		} catch ( RuntimeException $error ) {
@@ -115,23 +113,27 @@ class WebhookRegistrar {
 
 	/**
 	 * Unregister webhooks with PayPal.
+	 *
+	 * @return bool
 	 */
-	public function unregister(): void {
+	public function unregister(): bool {
+		$data = (array) get_option( self::KEY, array() );
+		if ( ! $data ) {
+			return false;
+		}
 		try {
-			$webhooks = $this->endpoint->list();
-			foreach ( $webhooks as $webhook ) {
-				try {
-					$this->endpoint->delete( $webhook );
-				} catch ( RuntimeException $deletion_error ) {
-					$this->logger->error( "Failed to delete webhook {$webhook->id()}: {$deletion_error->getMessage()}" );
-				}
-			}
+			$webhook = $this->webhook_factory->from_array( $data );
+			$success = $this->endpoint->delete( $webhook );
 		} catch ( RuntimeException $error ) {
 			$this->logger->error( 'Failed to delete webhooks: ' . $error->getMessage() );
+			return false;
 		}
 
-		delete_option( self::KEY );
-		$this->last_webhook_event_storage->clear();
-		$this->logger->info( 'Webhooks deleted.' );
+		if ( $success ) {
+			delete_option( self::KEY );
+			$this->last_webhook_storage->clear();
+			$this->logger->info( 'Webhooks deleted.' );
+		}
+		return $success;
 	}
 }

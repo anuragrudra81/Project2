@@ -1,9 +1,9 @@
 === ShopLentor – WooCommerce Builder for Elementor & Gutenberg +10 Modules – All in One Solution (formerly WooLentor) ===
 Contributors: hasthemes, htplugins, devitemsllc, zenaulislam, tarekht, aslamhasib
-Tags: Elementor, WooCommerce, WooCommerce Elementor, WooCommerce Builder, WooCommerce Product, Woo Builder, Variation Swatches, woocommerce blocks, Product Slider, Product Compare, Wishlist, Product Filter
+Tags: Elementor, WooCommerce, WooCommerce Elementor, WooCommerce Builder, WooCommerce Product
 Requires at least: 4.7
-Tested up to: 6.4
-Stable tag: 2.7.6
+Tested up to: 6.1
+Stable tag: 2.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,6 +98,7 @@ You can see the plugin demo here 👉 [Live Demo](https://woolentor.com/?utm_sou
 * Vertical WooCommerce Product Filter [Demo](https://woolentor.com/demo/filter-vertical/)
 * WooCommerce Template Library (Basic)
 * Product Reviews widget for WooCommerce
+* Free WooCommerce Themes
 
 
 ==🔥 Premium Features: ==
@@ -760,17 +761,6 @@ Start using WooCommerce product variation swatches or variations swatches module
 
 [More Details](https://woolentor.com/doc/variation-swatches/)
 
-= 🌟 POPUP BUILDER =
-ShopLentor's Popup Builder is a powerful and easy-to-use module that can help boost your store's engagement by up to 500%. Whether you're a fan of Elementor or Gutenberg, our Popup Builder is compatible with both, so you can use either one to create stunning popups to captivate your website visitors. The module even provides some beautifully designed, ready-to-use templates, and you can customize your popups according to your needs.
-
-If you don't have design skills, you can utilize these pre-built popup templates to build an attractive popup in just seconds. Furthermore, you can build an unlimited number of popups and tailor them to align perfectly with your brand's identity and message.
-
-Using the smart display conditions, you can control when and where your popup will appear. The module also provides options to trigger popups based on various events. In addition, there are several other settings available to enhance the user experience.
-
-When it comes to keeping your visitors engaged through implementing eye-catching popups, this module can be really handy. You can use it to highlight special offers, create a sense of urgency, collect leads, or even turn visitors into potential customers.
-
-If you are looking for an effective solution to improve the engagement and conversion rates of your website, you should definitely try this module out.
-
 = 🔔 Sales Notification =
 This feature allows showing the sales notification or sales popup to display real/custom WooCommerce orders. Furthermore, you can customize the design of the WooCommerce sales popup or live notification for WooCommerce from the module settings. Even though this recent sales popup WordPress module’s name suggests that is meant for displaying sales notifications, WooCommerce order notifications, or WooCommerce pop ups, nevertheless, you can also do other things like showing WooCommerce product announcements, WooCommerce announcements, WooCommerce product notices, or WooCommerce notices regarding WooCommerce product price drop or WooCommerce drop price. To achieve this, all you need to do is create a custom notification.
 
@@ -1073,6 +1063,26 @@ Multi-Currency for WooCommerce is a prominent currency switcher plugin for WooCo
 * [How to build a custom product template using ShopLentor Plugin](https://hasthemes.com/how-to-build-a-custom-product-template-using-woolentor-plugin/)
 * [How to use Universal Product Grid Layouts](https://hasthemes.com/how-to-use-universal-product-grid-layouts/)
 
+
+==❤️ Free WooCommerce Themes ==
+* 99fy is a free WooCommerce theme. 99 demos for 24 niche categories are included in this theme.
+[More Details / Preview](https://hasthemes.com/99fy-free-woocommerce-wordpress-theme/)
+
+* Parlo WooCommerce Theme
+[More Details / Preview](http://demo.shrimpthemes.com/1/parlo/)
+
+
+==🔥 Premium WooCommerce Themes Included in The Pro Version ==
+We have included a few premium WooCommerce themes in the ShopLentor Pro Package to save money of our customers.
+[Flone](https://demo.hasthemes.com/flone-woo-preview/index.html)
+Flone is one of our most popular WooComemrce Themes using by 1000+ stores.
+[99Fy Pro](https://demo.hasthemes.com/99fy-preview/index.html)
+Pro version of 99fy is included in ShopLentor pro. 99 demos for 24 niche categories are included in this theme.
+[Holmes](http://demo.hasthemes.com/wp/holmes-preview.html)
+Holmes is a multipurpose premium WooCommerce Theme.
+[Check all of the themes](https://hasthemes.com/plugins/woolentor-pro-woocommerce-page-builder/#themes), included in the ShopLentor Pro version.
+
+
 ==👨‍💻 Need Help? ==
 Is there any feature that you want to get in this plugin?
 Needs assistance to use this plugin?
@@ -1087,187 +1097,6 @@ Feel free to [Contact us](https://hasthemes.com/contact-us/)
 Elementor Pro is not required. But you can use ShopLentor with Elementor free & Pro.
 
 == Changelog ==
-
-= Version: 2.7.6 - Date: 18-12-2023 =
-* Solved : Template content render issue with default template.
-* Solved : The Multi-Select field style in the Option Panel conflicts with a third-party plugin.
-* Compatibility : Latest WordPress and WooCommerce version.
-
-= Version: 2.7.5 - Date: 04-12-2023 =
-* Solved : Template Build issue with default template.
-* Solved : Product title render issue in shopify like checkout page module.
-* Solved : Sales notification showing verification issue.
-* Solved : Minor issues.
-* Compatibility : Latest WordPress and WooCommerce version.
-
-= Version: 2.7.4 - Date: 27-11-2023 =
-* Added : Option for slider infinite loop control in universal product widget.
-* Added : Variation product showing issue in Flash sale countdown widget.
-* Solved : Dynamic variable creation issue.
-* Improve : Template Building functionality.
-* Compatibility : Latest WordPress and WooCommerce version.
-
-= Version: 2.7.3 - Date: 11-11-2023 =
-* Added : Popup Close Gutenberg block for Popup Builder module.
-* Added : Testimonial Gutenberg block.
-* Compatibility : Latest WordPress and WooCommerce version.
-
-= Version: 2.7.2 - Date: 30-10-2023 =
-* Added : Background color option add in all Gutenberg block.
-* Added : Tab Menu style option in Gutenberg Product Tab block.
-* Added: Option to set popup close button position
-* Tweak: Dependency for the redirect url
-* Fixed Popup settings were working for the free version if pro version is deactivated
-* Improved : Admin notice UI.
-* Compatibility : Latest WordPress Version.
-
-= Version: 2.7.1 - Date: 11-10-2023 =
-* Added: Compatibility with HPOS.
-* Added : Align option has been added in shop archive layout default block.
-* Solved : Conditions repeater field generation issue in Popup builder module.
-* Solved : Close button trigger doesn't work issue in Popup builder module.
-* Compatibility : Sale Notification and display first order data in editor mode compatible with high performance order storage.
-
-= Version: 2.7.0 - Date: 25-09-2023 =
-* Added: Popup builder template import option and template display in template library and Gutenberg editor mode.
-* Added: Option to add in category grid widget show category > subcategory for shop page.
-* Added: Min width option for filter item in horizontal Filter addon.
-* Added: Close popup trigger button addon for Elementor in popup builder module.
-* Added : Cookie support with the Close button trigger addon in popup builder module.
-* Added : Option to disable close button in popup builder module.
-* Solved: Border radius issue in WL : Product image addon.
-* Tweak : wlpb_module_popup_open and wlpb_popup_closed JS trigger added in popup builder module.
-* Tweak : reflect the Popup width / height / and positions changes support for elementor editor in popup builder module.
-
-= Version: 2.6.9 - Date: 09-09-2023 =
-* Added: Introduced a link to the Popup Builder module for easy access when creating popups in popup builder Module.
-* Added: Options for Open/Close Animation in popup builder Module.
-* Option to set the frequency of popup display by specifying the number of days and close count in popup builder Module.
-* Added: The Entire Site condition option by default in popup builder Module.
-* Solved : Elementor deprecated warning issue.
-* Solved : Inactivity Time option is now functioning properly in popup builder Module.
-* Solved : Resolved a popup query issue related to the setup_postdata function in popup builder Module.
-* Solved : Demo template data showing issue in elementor mode.
-* Solved: Increment and decrement button showing issue if product quantity is less then 1 or equal.
-
-= Version: 2.6.8 - Date: 27-08-2023 =
-* Added : Popup template import functionality has been added.
-* Solved : Demo template showing issue in template add screen with popup builder module.
-* Solved : Product current query issue for shop page.
-* Solved : Gutenbarge block editor some field style issue.
-
-= Version: 2.6.7 - Date: 21-08-2023 =
-* Added : Product Meta Data show in Shopify like checkout module.
-* Added : Sort By product filter label change option in product Vertical and Horizontal product filter addon.
-* Added : QuickView close if click on outside and cross icon.
-* Added : Popup Builder Module.
-* Solved : Product ordering issue in default archive addon.
-* Compatibility : Compatibility with latest WooCommerce and Elementor Version.
-
-= Version: 2.6.6 - Date: 31-07-2023 =
-* Solved : HTML Tag name spelling issue in shopify like module.
-* Solved : Sample template showing issue has been solved.
-* Solved : External product redirect issue from QuickView popup.
-* Solved : External product add to cart button issue with single product ajax add to cart module.
-* Solved : Dimension field style issue for Gutenberg.
-* Compatibility : With latest WooComemrce and Latest WordPress version.
-
-= Version: 2.6.5 - Date: 08-07-2023 =
-* Compatibility : Wishlist button Compatibility with WC FSE blocks.
-* Compatibility : With latest WooComemrce and Latest Elelementor version.
-
-= Version: 2.6.4 - Date: 25-06-2023 =
-* Solved : Product show issue with product filter addon.
-* Solved: Footer menu doesn’t showing issue with shopify like checkout page.
-* Solved : Variation Swatch render issue with QuickCart.
-* Compatibility : With latest WooComemrce and Latest Elelementor version.
-
-= Version: 2.6.3 - Date: 28-05-2023 =
-* Added : Option to show back order product available date and send it to client email address after order completion.
-* Solved : Backorder field hide and showing issue in product edit screen.
-
-= Version: 2.6.2 - Date: 14-05-2023 =
-* Solved : Post duplicate issue has been solved in post duplicator module.
-* Compatibility : With latest WooComemrce and Latest Elelementor version.
-
-= Version: 2.6.1 - Date: 30-04-2023 =
-* Added : Two filter for third party Wishlist plugin compatibility.
-* Solved : Add to cart button style issue in QuickView template.
-* Compatibility : With latest WooComemrce and Latest Elelementor version.
-
-= Version: 2.6.0 - Date: 18-04-2023 =
-* Added : Gutenberg template list show in template manager popup.
-* Improved : Template sample data store process.
-* Solved : Added to cart button showing issue in cart page.
-* Solved : Gutenbarge block tab menu icon overlapping issue.
-* Solved : Quantity increase / decrease issue with multiple add to cart button.
-
-= Version: 2.5.9 - Date: 12-04-2023 =
-* Added : Option to add existing page selection or custom url for Shopify like checkout page module logo.
-* Solved : PHP warning issue in Wishlist Module.
-* Solved : Prepare query placeholder issue in Wishlist Module.
-
-= Version: 2.5.8 - Date: 28-03-2023 =
-* Added : Gutenberg Template library
-* Added : Pagination option in Wishlist table.
-* Added :  Product Limit Option in Wishlist Module.
-* Solved : Wishlist Product counter item showing issue.
-* Solved : Compare Button Text showing issue in add to cart addon.
-* Solved : Widget Script Dependency issue.
-
-= Version: 2.5.7 - Date: 13-03-2023 =
-* Added : Background color option in promo banner block.
-* Added : Title, Subtitle banner area Dimension control option in promo banner block.
-* Solved : Product adding issue with Compare table listing mode.
-* Compatibility : With latest WooComemrce and Latest Elelementor version.
-
-= Version: 2.5.6 - Date: 26-02-2023 =
-* Added : Content Alignment option in Product rating block.
-* Added : Price Alignment option in Product Price block.
-* Added : Alignment option in Product stock block.
-* Added : Alignment option in Product Meta block.
-* Solved : Border CSS generate issue in product add to cart block.
-* Solved : CSS Generate issue in editor mode for product tabs block.
-* Solved : Toggle control component style issue in Related product addon.
-* Solved : Cart and Shipping step navigation hide issue for mobile device in Shopify like checkout module.
-
-= Version: 2.5.5 - Date: 04-02-2023 =
-* Added : 4 Style has been added in single product add to cart block.
-* Added : WishList and Compare Button control option added in single product add to cart block.
-* Solved : Template Container Width issue in Elementor Editor.
-* Solved : Template Container width Metabox render issue.
-* Solved : Has been solved missed return value from add to cart filter in backorder module.
-* Solved : PHP Undefined Function issue if WooCommerce is Deactivate.
-* Compatibility : Universal Product Layout compatibility with kadence theme.
-
-= Version: 2.5.4 - Date: 23-01-2023 =
-* Added : Category description showing option has been added in WL Category Grid
-* Added : Show city, Show state, Show Country option has been added in sales notification module.
-* Added : Purchased by and price label change option has been added in sales notification module.
-* Added : Cross Icon color option in Product Filter addon.
-* Tweak : HTML tags allow in Archive Title Addon and Block.
-* Tweak : Template builder Custom Meta box move to Gutenberg Meta Box Control.
-* Compatibility : Polylag and WPML Support in wishlist and compare Module.
-* Solved : Class Attribute adding issue form advance settings of the block  "Additional CSS class(es)"
-* Solved : Tab Alignment Issue in WL Product Tab addon.
-* Solved : Wishlist Product Limit issue in wishlist table.
-* Solved : Compare Product Limit issue in compare table.
-
-= Version: 2.5.3 - Date: 08-1-2023 =
-* Added : Hidden item showing option in Universal Product layout.
-* Added : Out Of Stock item hide / show option in Universal Product layout.
-* Added : Recently Viewed Product Gutenberg Block.
-* Solved : Number of item showing issue in category grid block.
-
-= Version: 2.5.2 - Date: 27-12-2022 =
-* Added : Title background Color change option has been added in category grid addon.
-* Added : Aria Label attribute added in all quick-view anchor tag.
-* Solved :  Template data Import issue has been fixed. 
-* Solved : Template Builder Wide fetching issue.
-* Solved : Custom payment Button showing issue in cart page with WooCommerce Stripe Gateway plugin. 
-* Solved : All Category showing issue in category grid block.
-* Compatibility with the latest WooCommerce version.
-* Compatibility With latest Elementor Version.
 
 = Version: 2.5.1 - Date: 06-12-2022 =
 * Added :  WooLentor Builder Template Import option from template library.

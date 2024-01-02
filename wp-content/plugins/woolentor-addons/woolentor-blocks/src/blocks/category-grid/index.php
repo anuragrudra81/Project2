@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     $areaClasses = array( $uniqClass, );
     $rowClasses  = $settings['sliderOn'] === true ? array( 'woolentor-grid-slider' ) : array( 'woolentor-grid' );
 
-    !empty( $settings['className'] ) ? $areaClasses[] = esc_attr( $settings['className'] ) : '';
+    !empty( $settings['className'] ) ? $areaClasses[] = $settings['className'] : '';
     !empty( $settings['columns']['desktop'] ) ? $areaClasses[] = 'woolentor-grid-columns-'.$settings['columns']['desktop'] : 'woolentor-grid-columns-4';
     !empty( $settings['columns']['laptop'] ) ? $areaClasses[] = 'woolentor-grid-columns-laptop-'.$settings['columns']['laptop'] : 'woolentor-grid-columns-laptop-3';
     !empty( $settings['columns']['tablet'] ) ? $areaClasses[] = 'woolentor-grid-columns-tablet-'.$settings['columns']['tablet'] : 'woolentor-grid-columns-tablet-2';
@@ -48,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     if( $display_type == 'allCat' ){
         $catargs['number'] = $settings['displayLimit'];
     }else{
-        $catargs['number'] = false;
+        $catargs['number'] = 20;
     }
 
     $prod_categories = woolentorBlocks_taxnomy_data( $catargs['slug'], $catargs['number'], $catargs['order'] );

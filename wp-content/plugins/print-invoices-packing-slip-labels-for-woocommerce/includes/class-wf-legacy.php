@@ -2,7 +2,6 @@
 if(!class_exists('wf_order') && class_exists('WC_Order')){
 
 	class wf_order extends WC_Order{
-		public $wc_version;
 		public $id;
 		public $shipping_country;
 		public $shipping_first_name;
@@ -24,7 +23,6 @@ if(!class_exists('wf_order') && class_exists('WC_Order')){
 		public $billing_company;
 		public $billing_first_name;
 		public $billing_last_name;
-		public $order_date;
 		public $order;
 		public function __construct( $order ){
 			global $woocommerce;
@@ -54,15 +52,13 @@ if(!class_exists('wf_order') && class_exists('WC_Order')){
 		}
 
 		public function __call($method_name, $args) {
-			if(false === Wt_Pklist_Common::is_wc_hpos_enabled()){
-				if ('get_shipping_number' == $method_name) {
-					return $this->order->get_meta('_shipping_number', true);
-				}
-				if ('get_shipping_neighborhood' == $method_name) {
-					return $this->order->get_meta('_shipping_neighborhood', true);
-				}
-				return $this->order->$method_name();	
-			}
+	    if ('get_shipping_number' == $method_name) {
+	        return $this->order->get_meta('_shipping_number', true);
+	    }
+	    if ('get_shipping_neighborhood' == $method_name) {
+	        return $this->order->get_meta('_shipping_neighborhood', true);
+	    }
+	    return $this->order->$method_name();
 	}
 
 
@@ -101,7 +97,6 @@ if(!class_exists('wf_order') && class_exists('WC_Order')){
 
 if( !class_exists('wf_product') ){
 	class wf_product{
-		public $wc_version;
 		public $id;
 		public $length;
 		public $width;

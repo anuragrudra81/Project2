@@ -217,7 +217,7 @@ msgstr ""
 msgid "Currency aggregator"
 msgstr ""
 
-msgid "Currency aggregators. Note: If you know aggregator which not is represented in FOX write request on support please with suggestion to add it!"
+msgid "Currency aggregators. Note: If you know aggregator which not is represented in WOOCS write request on support please with suggestion to add it!"
 msgstr ""
 
 msgid "Currency in which the customer paid."
@@ -304,7 +304,7 @@ msgstr ""
 msgid "Disable on pages"
 msgstr ""
 
-msgid "Disabling or Enabling FOX on the described pages only. Use comma and pages slugs. Example: blog,account"
+msgid "Disabling or Enabling WOOCS on the described pages only. Use comma and pages slugs. Example: blog,account"
 msgstr ""
 
 msgid "Distance from the top of the screen to the switcher html block. You can set in px or in %. Example 1: 100px. Example 2: 10%."
@@ -538,7 +538,7 @@ msgstr ""
 msgid "If in tab Options activated option I am using cache plugin on my site - to avoid double data for statistical data registration in tab Options activate option No GET data in link!"
 msgstr ""
 
-msgid "If FOX settings panel looks incorrect or you have JavaScript errors (after update) - firstly"
+msgid "If WOOCS settings panel looks incorrect or you have JavaScript errors (after update) - firstly"
 msgstr ""
 
 msgid "If you have an idea about css+js template - send request on support please where describe your vision."
@@ -652,7 +652,7 @@ msgstr ""
 msgid "Missing options? Describe your proposal please on the support forum."
 msgstr ""
 
-msgid "Modern FOX admin theme"
+msgid "Modern WOOCS admin theme"
 msgstr ""
 
 msgid "Money signs"
@@ -715,7 +715,7 @@ msgstr ""
 msgid "Notes*"
 msgstr ""
 
-msgid "Obsolete FOX admin panel"
+msgid "Obsolete WOOCS admin panel"
 msgstr ""
 
 msgid "Okay, you deserve it"
@@ -1042,7 +1042,7 @@ msgstr ""
 msgid "Show title"
 msgstr ""
 
-msgid "Show FOX options button on top admin bar for quick access. Very handy for active work. Visible for site administrators only!"
+msgid "Show WOOCS options button on top admin bar for quick access. Very handy for active work. Visible for site administrators only!"
 msgstr ""
 
 msgid "Show/hide flags on the front drop-down"
@@ -1246,10 +1246,10 @@ msgstr ""
 msgid "Watch video instructions"
 msgstr ""
 
-msgid "Watch video tutorials about FOX features to use its functionality in full force"
+msgid "Watch video tutorials about WOOCS features to use its functionality in full force"
 msgstr ""
 
-msgid "We are sorry to hear you aren't enjoying FOX. We would love a chance to improve it. Could you take a minute and let us know what we can do better?"
+msgid "We are sorry to hear you aren't enjoying WOOCS. We would love a chance to improve it. Could you take a minute and let us know what we can do better?"
 msgstr ""
 
 msgid "We work hard to make this plugin more effective tool for your e-shops, and ready to %s hear your review, suggestions and opinions %s, please share it with us!"
@@ -1324,31 +1324,31 @@ msgstr ""
 msgid "read this please"
 msgstr ""
 
-msgid "FOX - fixed Minimum and Maximum spend"
+msgid "WOOCS - fixed Minimum and Maximum spend"
 msgstr ""
 
-msgid "FOX - the coupon fixed amount"
+msgid "WOOCS - the coupon fixed amount"
 msgstr ""
 
-msgid "FOX - the price based on user role"
+msgid "WOOCS - the price based on user role"
 msgstr ""
 
-msgid "FOX - the product custom GeoIP rules"
+msgid "WOOCS - the product custom GeoIP rules"
 msgstr ""
 
-msgid "FOX - the product fixed prices"
+msgid "WOOCS - the product fixed prices"
 msgstr ""
 
-msgid "FOX - WooCommerce Currency Switcher"
+msgid "WOOCS - WooCommerce Currency Switcher"
 msgstr ""
 
-msgid "FOX Currency Options"
+msgid "WOOCS Currency Options"
 msgstr ""
 
-msgid "FOX has power bunch of functionality"
+msgid "WOOCS has power bunch of functionality"
 msgstr ""
 
-msgid "FOX Order Info"
+msgid "WOOCS Order Info"
 msgstr ""
 
 msgid "WOOF - WooCommerce Products Filter"

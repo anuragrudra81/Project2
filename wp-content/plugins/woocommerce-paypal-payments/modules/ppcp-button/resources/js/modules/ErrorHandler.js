@@ -1,68 +1,74 @@
 class ErrorHandler {
 
-    /**
-     * @param {String} genericErrorText
-     * @param {Element} wrapper
-     */
-    constructor(genericErrorText, wrapper)
+    constructor(genericErrorText)
     {
         this.genericErrorText = genericErrorText;
-        this.wrapper = wrapper;
+        this.wrapper = document.querySelector('.woocommerce-notices-wrapper');
+        this.messagesList = document.querySelector('ul.woocommerce-error');
     }
 
     genericError() {
+        if (this.wrapper.classList.contains('ppcp-persist')) {
+            return;
+        }
         this.clear();
         this.message(this.genericErrorText)
     }
 
     appendPreparedErrorMessageElement(errorMessageElement)
     {
-        this._getMessageContainer().replaceWith(errorMessageElement);
+        if (this.messagesList === null) {
+            this._prepareMessagesList();
+        }
+
+        this.messagesList.replaceWith(errorMessageElement);
     }
 
     /**
      * @param {String} text
+     * @param {Boolean} persist
      */
-    message(text)
+    message(text, persist = false)
     {
-        this._addMessage(text);
+        this._addMessage(text, persist);
 
         this._scrollToMessages();
     }
 
     /**
      * @param {Array} texts
+     * @param {Boolean} persist
      */
-    messages(texts)
+    messages(texts, persist = false)
     {
-        texts.forEach(t => this._addMessage(t));
+        texts.forEach(t => this._addMessage(t, persist));
 
         this._scrollToMessages();
     }
 
     /**
-     * @returns {String}
-     */
-    currentHtml()
-    {
-        const messageContainer = this._getMessageContainer();
-        return messageContainer.outerHTML;
-    }
-
-    /**
      * @private
      * @param {String} text
+     * @param {Boolean} persist
      */
-    _addMessage(text)
+    _addMessage(text, persist = false)
     {
         if(! typeof String || text.length === 0) {
             throw new Error('A new message text must be a non-empty string.');
         }
 
-        const messageContainer = this._getMessageContainer();
+        if (this.messagesList === null){
+            this._prepareMessagesList();
+        }
 
-        let messageNode = this._prepareMessageElement(text);
-        messageContainer.appendChild(messageNode);
+        if (persist) {
+            this.wrapper.classList.add('ppcp-persist');
+        } else {
+            this.wrapper.classList.remove('ppcp-persist');
+        }
+
+        let messageNode = this._prepareMessagesListItem(text);
+        this.messagesList.appendChild(messageNode);
     }
 
     /**
@@ -70,28 +76,26 @@ class ErrorHandler {
      */
     _scrollToMessages()
     {
-        jQuery.scroll_to_notices(jQuery('.woocommerce-error'));
+        jQuery.scroll_to_notices(jQuery('.woocommerce-notices-wrapper'));
     }
 
     /**
      * @private
      */
-    _getMessageContainer()
+    _prepareMessagesList()
     {
-        let messageContainer = document.querySelector('ul.woocommerce-error');
-        if (messageContainer === null) {
-            messageContainer = document.createElement('ul');
-            messageContainer.setAttribute('class', 'woocommerce-error');
-            messageContainer.setAttribute('role', 'alert');
-            jQuery(this.wrapper).prepend(messageContainer);
+        if (this.messagesList === null) {
+            this.messagesList = document.createElement('ul');
+            this.messagesList.setAttribute('class', 'woocommerce-error');
+            this.messagesList.setAttribute('role', 'alert');
+            this.wrapper.appendChild(this.messagesList);
         }
-        return messageContainer;
     }
 
     /**
      * @private
      */
-    _prepareMessageElement(message)
+    _prepareMessagesListItem(message)
     {
         const li = document.createElement('li');
         li.innerHTML = message;
@@ -101,7 +105,11 @@ class ErrorHandler {
 
     clear()
     {
-        jQuery( '.woocommerce-error, .woocommerce-message' ).remove();
+        if (this.messagesList === null) {
+            return;
+        }
+
+        this.messagesList.innerHTML = '';
     }
 }
 

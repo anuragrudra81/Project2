@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace WooCommerce\PayPalCommerce\ApiClient\Endpoint;
 
-use Exception;
 use stdClass;
 use WooCommerce\PayPalCommerce\ApiClient\Authentication\Bearer;
 use WooCommerce\PayPalCommerce\ApiClient\Exception\PayPalApiException;
@@ -121,10 +120,6 @@ class BillingAgreementsEndpoint {
 	 */
 	public function reference_transaction_enabled(): bool {
 		try {
-			if ( wc_string_to_bool( get_transient( 'ppcp_reference_transaction_enabled' ) ) === true ) {
-				return true;
-			}
-
 			$this->is_request_logging_enabled = false;
 
 			try {
@@ -135,12 +130,10 @@ class BillingAgreementsEndpoint {
 				);
 			} finally {
 				$this->is_request_logging_enabled = true;
-				set_transient( 'ppcp_reference_transaction_enabled', true, MONTH_IN_SECONDS );
 			}
 
 			return true;
-		} catch ( Exception $exception ) {
-			delete_transient( 'ppcp_reference_transaction_enabled' );
+		} catch ( PayPalApiException $exception ) {
 			return false;
 		}
 	}

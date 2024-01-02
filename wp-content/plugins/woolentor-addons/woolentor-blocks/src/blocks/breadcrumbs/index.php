@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $uniqClass 	 = 'woolentorblock-'.$settings['blockUniqId'];
 $areaClasses = array( $uniqClass, 'woolentor-breadcrumb' );
-!empty( $settings['className'] ) ? $areaClasses[] = esc_attr( $settings['className'] ) : '';
+!empty( $settings['className'] ) ? $areaClasses[] = $settings['className'] : '';
 
 $args = [
 	'delimiter'   => !empty( $settings['separator'] ) ? '<span class="breadcrumb-separator">'.$settings['separator'].'</span>' : '<span class="breadcrumb-separator">&nbsp;&#47;&nbsp;</span>',
