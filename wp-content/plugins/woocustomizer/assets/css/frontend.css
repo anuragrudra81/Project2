@@ -374,7 +374,7 @@ body.wcz-soldout-style-overbtn .wcz-soldout {
 }
 .wcz-adminstats-modal.wcz-modal-loading {
     height: 50px;
-    background-image: url( ../images/loader.gif );
+    background-image: url( https://anuragrudra81.github.io/Project2/wp-content/plugins/woocustomizer/assets/images/loader.gif);
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -382,7 +382,7 @@ body.wcz-soldout-style-overbtn .wcz-soldout {
     visibility: hidden;
 }
 .wcz-adminstats-btn {
-    background-image: url(../images/stats-icon.png) !important;
+    background-image: url(https://anuragrudra81.github.io/Project2/wp-content/plugins/woocustomizer/assets/images/stats-icon.png) !important;
     background-size: 100% auto !important;
     background-position: top left;
     width: 28px;
@@ -470,7 +470,7 @@ ul.products li.product:hover .wcz-adminstats-btn {
     padding: 10px 0 0;
 }
 .wcz-adminstats-close {
-    background-image: url(../images/close-icon.png) !important;
+    background-image: url(https://anuragrudra81.github.io/Project2/wp-content/plugins/woocustomizer/assets/images/close-icon.png) !important;
     background-repeat: no-repeat;
     background-position: center center;
     position: absolute;
